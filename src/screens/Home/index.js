@@ -101,12 +101,7 @@ class Home extends Component {
     setSliderPage = (event: any) => {
         const { currentPage } = this.state;
         const x = event.nativeEvent.contentOffset;
-        console.log(x)
-        console.log(Math.floor(x.x / width))
-        console.log(width)
-        console.log(x.x / width)
         const indexOfNextScreen = Math.floor(x.x / Math.floor((width)));
-        console.log(indexOfNextScreen)
         if (indexOfNextScreen !== currentPage) {
             this.setState({
                 currentPage: indexOfNextScreen,
@@ -259,7 +254,7 @@ class Home extends Component {
                             </RNBounceable>
                         </View>
                         <TouchableOpacity
-                            onPress={() => this.props.authActions.menuModal(!this.props.user.menuModal)}
+                            onPress={() => { this.props.navigation.navigate('Setting'); }}
                             style={{ marginLeft: "15%", justifyContent: "center", alignItems: "center", height: 30, width: 30, borderRadius: 15, backgroundColor: "#544b4c", alignContent: "flex-end" }}>
                             <Text style={{ color: "white", fontWeight: "bold" }} >T</Text>
                         </TouchableOpacity>

@@ -1,6 +1,6 @@
 
 export default {
-    PRIMARY_COLOR: '#00A9A5',
+    PRIMARY_COLOR: '#000900',
     PRIMARY_BACKGROUND_COLOR: '#e0b92e',
     PRIMARY_FOOTER_COLOR: 'rgba(45, 56, 95, 0.9)',
     PRIMARY_RIPPLE_COLOR: '#1c7ed7',

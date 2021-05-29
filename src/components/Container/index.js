@@ -74,7 +74,6 @@ const Container = ({ children, props }) => {
                 <View style={{ marginTop: 12 }}>
                     <Text style={{ fontSize: 12 }} >{item.name}</Text>
                 </View>
-
             </TouchableOpacity >
 
         )
@@ -115,7 +114,10 @@ const Container = ({ children, props }) => {
                                     <TouchableOpacity onPress={() => props.authActions.menuModal(!props.user.menuModal)} style={{ marginHorizontal: "5%" }}>
                                         <Icon type="Fontisto" name="bell-alt" size={25} color="#544b4c" />
                                     </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => props.authActions.menuModal(!props.user.menuModal)} style={{ marginHorizontal: "5%", justifyContent: "center", alignItems: "center", height: 30, width: 30, borderRadius: 15, backgroundColor: "#544b4c" }}>
+                                    <TouchableOpacity onPress={async () => {
+                                        await props.authActions.menuModal(!props.user.menuModal);
+                                        await props.navigation.navigate("Setting")
+                                    }} style={{ marginHorizontal: "5%", justifyContent: "center", alignItems: "center", height: 30, width: 30, borderRadius: 15, backgroundColor: "#544b4c" }}>
                                         <Text style={{ color: "white", fontWeight: "bold" }} >T</Text>
                                     </TouchableOpacity>
                                 </View>
