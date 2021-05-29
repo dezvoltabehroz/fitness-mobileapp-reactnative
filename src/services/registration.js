@@ -1,0 +1,165 @@
+import axiosInstance from './Interceptor';
+import axios from 'axios';
+import { Platform } from 'react-native';
+import { BASE_URL } from '../enviroments/index'
+let config = { headers: { 'Content-Type': 'application/json' } };
+let configToken = (token) => {
+    return {
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        }
+    }
+}
+const Api = {
+
+    sendCodeToPhoneNumber: function (number) {
+        return axiosInstance.post('registration/regPhoneNumber', {
+            phone: `${number}`,
+            type: "customer"
+        }, config)
+    },
+
+    verifyTheCode: function (userData) {
+        return axiosInstance.post('registration/verifyCode', {
+            phone: `${userData.phone}`
+        }, config)
+    },
+
+    updatePersonalInfo: function (userData, phone) {
+        let formData = new FormData();
+        formData.append('full_name', userData.name);
+        formData.append('gender', userData.gender);
+        formData.append('dob', userData.dob);
+        formData.append('phone', userData.phone ? userData.phone : phone);
+        formData.append('image', userData.image ? {
+            uri: Platform.OS === 'android' ? 'file://' + userData.image.path : userData.image.uri,
+            name: `${new Date().getTime().toString()}.jpg`,
+            filename: new Date().getTime().toString() + '.jpg',
+            type: 'image/jpg'
+        } : '');
+
+        let config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json',
+            }
+        };
+        return axios.post(`${BASE_URL}registration/updatePersonalInfo`, formData, config);
+    },
+    updateProfileInfo: function (userData) {
+        return axiosInstance.post('registration/updateProfileInfo', {
+            user_id: userData.id,
+            full_name: userData.name,
+            gender: userData.gender,
+            dob: userData.dob
+        }, configToken(userData.token))
+    },
+    updateProfilePicture: function (userData) {
+        // console.log("userData:", userData)
+        let formData = new FormData();
+        formData.append('user_id', userData.id);
+        formData.append('image', userData.image ? {
+            uri: Platform.OS === 'android' ? 'file://' + userData.image.path : userData.image.uri,
+            name: `${new Date().getTime().toString()}.jpg`,
+            filename: new Date().getTime().toString() + '.jpg',
+            type: 'image/jpg'
+        } : '');
+
+        let config = {
+            headers: {
+                'Authorization': 'Bearer ' + userData.token,
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json',
+            }
+        };
+        return axios.post(`${BASE_URL}registration/updateProfilePic`, formData, config);
+    },
+
+    updateEmailAndPassword: function (userData) {
+        return axiosInstance.post('registration/updateEmailAndPassword', {
+            email: userData.email,
+            password: userData.password,
+            macAddress: userData.macAddress,
+            phone: userData.phone
+            // phone:'+923123680434'
+        }, config)
+    },
+
+    getUserProfile: function (userData) {
+        // console.log(userData.id)
+        // console.log(userData.token)
+        return axiosInstance.post('registration/profileDetail', {
+            id: userData.id,
+            review_by: userData.type
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + userData.token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+    },
+
+    userLogin: function (userData) {
+        return axiosInstance.post('registration/login', {
+            email: userData.email,
+            password: userData.password,
+            type: userData.type
+        }, config)
+    },
+    userStepCount: function (userData) {
+        return axiosInstance.post('registration/updateStepsCount', {
+            user_id: userData.id,
+            steps_count: userData.steps_count
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + userData.token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+    },
+    updateFCMToken: function (userData) {
+        return axiosInstance.post('registration/updateFcmtoken', {
+            user_id: userData.id,
+            fcmToken: userData.fcmToken
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + userData.token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+    },
+    removeFcmToken: function (userData) {
+        return axiosInstance.post('registration/removeFcmToken', {
+            user_id: userData.id
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + userData.token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+    },
+    getCodeForResetPass: function (email) {
+        return axiosInstance.post('registration/getCodeForResetPass', {
+            email: email
+        }, config)
+    },
+    updatePassword: function (userData) {
+        return axiosInstance.post('registration/updatePassword', {
+            id: userData.id,
+            newPassword: userData.password
+        }, config)
+    },
+    verifyCodeForResetPass: function (code) {
+        return axiosInstance.post('registration/verifyCodeForResetPass', {
+            code: code
+        }, config)
+    },
+};
+
+export default Api;
