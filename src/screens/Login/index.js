@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, Image, TouchableOpacity, ScrollView, LayoutAnimation, Alert, Linking } from 'react-native'
-import { Icon, Button, FloatingInput, RadioButton, Container } from "../../components";
+import { LoginButton } from "../../components";
 import styles from './style';
 import { Input } from '../../components/Input/Input.component';
 import THEME from '../../assets/styles/theme.style';
@@ -54,9 +54,9 @@ class Login extends Component {
                 <View style={styles.upperContainer}>
                     <View style={styles.imageContainer}>
                         {/* <View style={[{ backgroundColor: "white", borderRadius: 2.5, overflow: "hidden" }]}> */}
-                            <Image style={{ height: 150, width: 150, }}
-                                source={require('../../assets/images/logo.png')}
-                                resizeMode='contain' />
+                        <Image style={{ height: 150, width: 150, }}
+                            source={require('../../assets/images/logo.png')}
+                            resizeMode='contain' />
                         {/* </View> */}
                     </View>
                 </View>
@@ -64,14 +64,8 @@ class Login extends Component {
                     <Input placeholder="Email address" label="Email Address" />
                     <Input placeholder="Password" label="Password" />
 
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity onPress={() => this.props.navigation.replace('Home')} style={styles.loginButton}>
-                            <View style={styles.loginButtonText}>
-                                <Text>Login</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <Text onPress={() => this.forgetPassword()} style={styles.forgetPasswordTextStyle}>Forget Password?</Text>
-                    </View>
+                    <LoginButton title="Login" onPress={() => this.props.navigation.replace('Home')} />
+                    <Text onPress={() => this.forgetPassword()} style={styles.forgetPasswordTextStyle}>Forget Password?</Text>
                 </View>
             </View >
 

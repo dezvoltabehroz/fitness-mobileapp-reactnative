@@ -50,8 +50,9 @@ export default StyleSheet.create({
         backgroundColor: "white",
         borderRadius: 5,
         padding: 10,
-        width: screenWidth*.425,
-        marginLeft:"5%",
+        elevation: 2,
+        width: screenWidth * .425,
+        marginLeft: "5%",
         paddingTop: "10%"
     },
     contentContainer: {

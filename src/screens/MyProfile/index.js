@@ -3,7 +3,7 @@ import {
     View, Text, ActivityIndicator, LayoutAnimation,
     UIManager, TouchableOpacity, ScrollView, Animated, RefreshControl, Linking, Easing, Dimensions
 } from 'react-native'
-import { Container, MessageTextInput } from "../../components";
+import { Container, MessageTextInput, SlimButton } from "../../components";
 import { Input } from '../../components/Input/Input.component';
 import styles from './style';
 import RNBounceable from "@freakycoder/react-native-bounceable";
@@ -33,7 +33,7 @@ class MyProfile extends Component {
             <Container props={this.props}>
                 <View style={styles.container}>
                     <ScrollView>
-                        <Input label="First Name" placeholder="First Name"  />
+                        <Input label="First Name" placeholder="First Name" />
                         <Input label="Last Name" placeholder="Last Name" />
                         <Input label="Address 1" placeholder="Address 1" />
                         <Input label="Address 2" placeholder="Address 2" />
@@ -41,6 +41,7 @@ class MyProfile extends Component {
                         <Input label="County/State" placeholder="County/State" />
                         <Input label="Post Code/Zip Code" placeholder="Post Code/Zip Code" />
                         <MessageTextInput label="Goal" placeholder="Goal" />
+                        <SlimButton title=" Update Details" onPress={()=>this.props.navigation.replace('Home')} />
                     </ScrollView>
                 </View>
             </Container >

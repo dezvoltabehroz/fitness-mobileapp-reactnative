@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, ScrollView, Text, Image, Dimensions, FlatList } from 'react-native';
+import { View, TouchableOpacity, ScrollView, UIManager, LayoutAnimation, Text, Image, Dimensions, FlatList, Platform } from 'react-native';
 // import { Icon } from '../index';
 import { Icon } from 'native-base'
 import THEME from '../../assets/styles/theme.style';
@@ -9,7 +9,26 @@ const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 
 const Container = ({ children, props }) => {
+    if (Platform.OS === 'android') {
+        UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
 
+    let screen = "";
+    const { routes, index } = props.navigation.dangerouslyGetState();
+    console.log(routes, index)
+    screen = routes[index].name;
+    const { state: exploreState } = routes[index];
+    // console.log(exploreState)
+    // if (exploreState) {
+    //     const { routes: exploreRoutes, index: exploreIndex } = exploreState;
+    //     const exploreActiveRoute = exploreRoutes[exploreIndex];
+    //     screen =  routes[index];
+    // }
+    console.log(screen)
+    const changeLayout =async () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        await props.authActions.menuModal(!props.user.menuModal);
+    }
     const array = [{
         name: "Hub",
         type: "Entypo", iconName: 'gauge'
@@ -63,7 +82,7 @@ const Container = ({ children, props }) => {
     const _renderItems = ({ index, item }) => {
         return (
             <TouchableOpacity onPress={async () => {
-                await props.authActions.menuModal(!props.user.menuModal);
+                changeLayout()
                 await props.navigation.replace(item.name)
             }}
                 style={{ alignItems: "center" }}>
@@ -94,7 +113,15 @@ const Container = ({ children, props }) => {
                 <View style={{ flex: 0.1, flexDirection: "column", backgroundColor: "white", }}>
                     <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}  >
                         <View>
+                            {
+                                screen == 'Notifications' ?
 
+                                    <TouchableOpacity onPress={() => props.authActions.menuModal(!props.user.menuModal)} style={{ marginHorizontal: "5%", justifyContent: "center", alignItems: "center" }}>
+                                        <Icon type="MaterialCommunityIcons" name="bell-off-outline" style={{ fontSize: 35 }} />
+                                    </TouchableOpacity>
+                                    :
+                                    null
+                            }
                         </View>
                         <TouchableOpacity onPress={() => props.authActions.menuModal(!props.user.menuModal)} style={{ marginHorizontal: "5%", height: 30, width: 40 }}>
                             <Icon type="MaterialCommunityIcons" name="dialpad" style={{ fontSize: 40 }} />
@@ -111,12 +138,15 @@ const Container = ({ children, props }) => {
                         <ScrollView contentContainerStyle={{ flex: 1, }}>
                             <View style={{ flex: 0.5 }}>
                                 <View style={{ marginTop: '5%', flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}  >
-                                    <TouchableOpacity onPress={() => props.authActions.menuModal(!props.user.menuModal)} style={{ marginHorizontal: "5%" }}>
+                                    <TouchableOpacity onPress={async () => {
+                                        await props.authActions.menuModal(!props.user.menuModal)
+                                        await props.navigation.navigate("Notifications")
+                                    }} style={{ marginHorizontal: "5%" }}>
                                         <Icon type="Fontisto" name="bell-alt" size={25} color="#544b4c" />
                                     </TouchableOpacity>
                                     <TouchableOpacity onPress={async () => {
                                         await props.authActions.menuModal(!props.user.menuModal);
-                                        await props.navigation.navigate("Setting")
+                                        await props.navigation.navigate("Settings")
                                     }} style={{ marginHorizontal: "5%", justifyContent: "center", alignItems: "center", height: 30, width: 30, borderRadius: 15, backgroundColor: "#544b4c" }}>
                                         <Text style={{ color: "white", fontWeight: "bold" }} >T</Text>
                                     </TouchableOpacity>
@@ -141,6 +171,7 @@ const Container = ({ children, props }) => {
                     <View style={{ flex: 0.1, flexDirection: "column", backgroundColor: "white", }}>
                         <View style={{ flex: 1, flexDirection: "row", borderWidth: 1, borderColor: "#f2f2f2", justifyContent: "space-between", alignItems: "center" }}  >
                             <View>
+
 
                             </View>
                             <TouchableOpacity onPress={() => props.authActions.menuModal(!props.user.menuModal)} style={{ marginHorizontal: "5%", height: 30, width: 40, overflow: "hidden" }}>

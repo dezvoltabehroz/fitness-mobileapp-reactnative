@@ -22,18 +22,22 @@ class Home extends Component {
             currentPage: 0,
             buttonArr: [{
                 text: "Start a workout",
+                title:"StartWorkout",
                 iconName: <Icon.FontAwesome5 name={'fire-alt'} size={20} color='white' />,
             },
             {
                 text: "Log Nutrition",
+                title:"LogNutrition",
                 iconName: <Icon.MaterialIcons name={'dinner-dining'} size={20} color='white' />,
             },
             {
                 text: "Add Progress Photo",
+                title:"ProgressPhoto",
                 iconName: <Icon.FontAwesome name={'user'} size={20} color='white' />,
             },
             {
                 text: "Update Metrics",
+                title:"UpdateMetrics",
                 iconName: <Icon.Entypo name={'gauge'} size={20} color='white' />,
             }],
             activityArr: [
@@ -111,7 +115,7 @@ class Home extends Component {
 
     _renderItems = ({ index, item }) => {
         return (
-            <RNBounceable style={styles.flatListcontentContainer} onPress={() => { }}>
+            <RNBounceable style={styles.flatListcontentContainer} onPress={() => {this.props.navigation.navigate(item.title) }}>
                 <View style={[styles.rowContainerSpaceBetween, { flex: 1 }]}>
                     <View style={{ flex: 1, flexDirection: "column" }}>
                         <Text numberOfLines={3} style={{ fontSize: 16, fontWeight: "bold", width: "70%" }}>{item.text}</Text>
@@ -147,13 +151,11 @@ class Home extends Component {
         return str.slice(0, num)
     }
     renderDetail = (rowData, sectionID, rowID) => {
-        console.log(rowData)
         let title = <View style={{ backgroundColor: "#544b4c", marginTop: 30, right: 45, bottom: 1, borderRadius: 50, height: 50, width: 50, justifyContent: 'center', }}>
             <Text style={{ textTransform: "capitalize", textAlign: "center", fontSize: 16, fontWeight: "bold", color: "white" }}>{this.truncateString(`${rowData.user_name}`, 1)}</Text>
         </View>
         var desc = (
             <View style={{ top: -40 }}>
-
                 <View >
                     <View style={{ paddingRight: 20, flexDirection: "row", justifyContent: "space-between", alignItems: "center" }} >
                         <View>
@@ -161,7 +163,7 @@ class Home extends Component {
                             <View style={{ flexDirection: "row", alignItems: "center" }}>
                                 <Text style={{ color: "gray", fontWeight: "bold", fontSize: 12 }} >{moment(rowData.time).format("HH:MM, DD MMM YYYY")} </Text>
                                 <TouchableOpacity style={{ marginHorizontal: "5%" }}>
-                                    <Icon.FontAwesome5 name={'fire-alt'} size={20} color='black' />
+                                    <Icon.AntDesign name={'like1'} size={15} color='black' />
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -174,7 +176,7 @@ class Home extends Component {
         )
         return (
             <RNBounceable onPress={() => { }}>
-                <View style={{ flex: 1, marginTop: -45 }}>
+                <View style={{ flex: 1, marginTop: -45,height:90 ,}}>
                     {title}
                     <View style={{ paddingLeft: 20 }}>
                         {desc}
@@ -238,7 +240,7 @@ class Home extends Component {
     render() {
         const { currentPage, } = this.state;
         return (
-            <Container props={this.props}>
+            <Container props={this.props} >
                 <View style={styles.container}>
                     <View style={styles.upperContainer}>
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly", width: width * 0.7 }}>
@@ -254,7 +256,7 @@ class Home extends Component {
                             </RNBounceable>
                         </View>
                         <TouchableOpacity
-                            onPress={() => { this.props.navigation.navigate('Setting'); }}
+                            onPress={() => { this.props.navigation.navigate('Settings'); }}
                             style={{ marginLeft: "15%", justifyContent: "center", alignItems: "center", height: 30, width: 30, borderRadius: 15, backgroundColor: "#544b4c", alignContent: "flex-end" }}>
                             <Text style={{ color: "white", fontWeight: "bold" }} >T</Text>
                         </TouchableOpacity>
@@ -328,7 +330,7 @@ class Home extends Component {
                                 }}
                                 timeContainerStyle={{ minWidth: 0, marginTop: -15 }}
                                 options={{
-                                    style: { paddingTop: 15, paddingLeft: 20, width: screenWidth },
+                                    style: { paddingTop: 15, paddingLeft: 0, width: screenWidth },
                                     refreshControl:
                                         <RefreshControl
                                             refreshing={this.state.isRefreshing}

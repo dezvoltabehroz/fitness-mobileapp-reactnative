@@ -12,7 +12,7 @@ export default StyleSheet.create({
         flexDirection: "row",
         paddingVertical: "10%",
         alignItems: "center",
-        marginHorizontal: "5%",
+        paddingHorizontal: "5%",
         justifyContent: "space-between",
     },
     columnStyle: {
@@ -44,7 +44,11 @@ export default StyleSheet.create({
         backgroundColor: "#e2e2e2"
     },
     lowerContentContainer: {
-        backgroundColor: "white"
+        backgroundColor: "white",
+        borderBottomWidth: 1,
+        borderColor: "lightgray",
+        borderBottomLeftRadius: 5,
+        borderBottomRightRadius: 5
     },
     activities_container: {
         margin: 15,
@@ -52,7 +56,7 @@ export default StyleSheet.create({
     text_panel_heading: {
         fontSize: 18,
         paddingLeft: "5%",
-        width: screenWidth * 0.75,
+        width: screenWidth * 0.8,
         fontWeight: "bold"
     },
     textStyle: {
@@ -80,8 +84,8 @@ export default StyleSheet.create({
     },
     text_panel_heading_1: {
         fontSize: 18,
-        paddingLeft: "10%",
-        width: screenWidth * 0.8,
+        paddingLeft: "8%",
+        width: screenWidth * 0.825,
         fontWeight: "bold"
     },
     plus_sign_panel_heading: {

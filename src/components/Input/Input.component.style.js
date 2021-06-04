@@ -12,7 +12,7 @@ export default StyleSheet.create({
         // marginHorizontal: 15
     },
     labelStyle: {
-        fontSize: 14,
+        fontSize: 12,
         color: "#e0b92e",
         fontFamily:'notoserif',
         height: 25

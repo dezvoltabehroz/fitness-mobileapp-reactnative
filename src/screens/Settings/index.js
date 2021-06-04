@@ -3,7 +3,7 @@ import {
     View, Text, ActivityIndicator, LayoutAnimation,
     UIManager, TouchableOpacity, ScrollView, Animated, RefreshControl, Linking, Easing, Dimensions
 } from 'react-native'
-import { Icon, Button, FloatingInput, MessageTextInput, Container } from "../../components";
+import { Icon, Button, FloatingInput, MessageTextInput, Container, OutlineButton } from "../../components";
 import styles from './style';
 import RNBounceable from "@freakycoder/react-native-bounceable";
 import AsyncStorage from '@react-native-community/async-storage';
@@ -55,7 +55,7 @@ class Setting extends Component {
                     <View style={styles.upperContainer}>
                         <Text style={styles.headingStyle}>{"Settings"}</Text>
                     </View>
-                    <ScrollView>
+                    <ScrollView >
                         <View style={styles.upperContentContainer}>
                             <RNBounceable
                                 onPress={() => this.props.authActions.menuModal(!this.props.user.menuModal)}
@@ -75,22 +75,22 @@ class Setting extends Component {
                                 <RNBounceable activeOpacity={0.8} onPress={this.changeGeneralLayout}>
                                     <View style={styles.country_container}>
                                         <View style={styles.rowContainer}>
-                                            <Icon.Octicons name="gear" size={35} />
+                                            <Icon.Octicons name="gear" size={25} />
                                             <Text style={styles.text_panel_heading}>General</Text>
                                         </View>
 
                                         {this.state.expandedGeneral &&
-                                            <Icon.AntDesign name="up" size={25} />
+                                            <Icon.AntDesign name="up" size={15} />
                                         }
                                         {!this.state.expandedGeneral &&
-                                            <Icon.AntDesign name="down" size={25} color={"lightgray"} />
+                                            <Icon.AntDesign name="down" size={15} color={"lightgray"} />
                                         }
                                     </View>
                                 </RNBounceable>
                                 <View style={[{ height: this.state.expandedGeneral ? null : 0 }, styles.columnStyle]}>
                                     <RNBounceable onPress={() => this.props.navigation.navigate('MyDetails')} style={styles.country_container_1}>
                                         <Text style={styles.text_panel_heading_1}>My Detail</Text>
-                                        <Icon.AntDesign name="right" size={25} color={"lightgray"} />
+                                        <Icon.AntDesign name="right" size={15} color={"lightgray"} />
                                     </RNBounceable>
                                 </View>
                             </View>
@@ -98,22 +98,22 @@ class Setting extends Component {
                                 <RNBounceable activeOpacity={0.8} onPress={this.changeCustomisationLayout}>
                                     <View style={styles.country_container}>
                                         <View style={styles.rowContainer}>
-                                            <Icon.FontAwesome name="star" size={35} />
+                                            <Icon.FontAwesome name="star" size={25} />
                                             <Text style={styles.text_panel_heading}>Customisation</Text>
                                         </View>
 
                                         {this.state.expandedCustomisation &&
-                                            <Icon.AntDesign name="up" size={25} />
+                                            <Icon.AntDesign name="up" size={15} />
                                         }
                                         {!this.state.expandedCustomisation &&
-                                            <Icon.AntDesign name="down" size={25} color={"lightgray"} />
+                                            <Icon.AntDesign name="down" size={15} color={"lightgray"} />
                                         }
                                     </View>
                                 </RNBounceable>
                                 <View style={[{ height: this.state.expandedCustomisation ? null : 0 }, styles.columnStyle]}>
                                     <View style={styles.country_container_1}>
                                         <Text style={styles.text_panel_heading_1}>Sync Brading</Text>
-                                        <Icon.AntDesign name="right" size={25} color={"lightgray"} />
+                                        <Icon.AntDesign name="right" size={15} color={"lightgray"} />
                                     </View>
                                 </View>
                             </View>
@@ -121,50 +121,58 @@ class Setting extends Component {
                                 <RNBounceable activeOpacity={0.8} onPress={this.changeFeatureSettingLayout}>
                                     <View style={styles.country_container}>
                                         <View style={styles.rowContainer}>
-                                            <Icon.FontAwesome5 name="bell" size={35} />
+                                            <Icon.FontAwesome5 name="bell" size={25} />
                                             <Text style={styles.text_panel_heading}>Feature Settings</Text>
                                         </View>
 
                                         {this.state.expandedFeature &&
-                                            <Icon.AntDesign name="up" size={25} />
+                                            <Icon.AntDesign name="up" size={15} />
                                         }
                                         {!this.state.expandedFeature &&
-                                            <Icon.AntDesign name="down" size={25} color={"lightgray"} />
+                                            <Icon.AntDesign name="down" size={15} color={"lightgray"} />
                                         }
                                     </View>
                                 </RNBounceable>
                                 <View style={[{ height: this.state.expandedFeature ? null : 0 }, styles.columnStyle]}>
-                                    <View style={styles.country_container_1}>
+                                    <RNBounceable onPress={() => this.props.navigation.navigate('UpdateNotificationSettings')} style={styles.country_container_1}>
                                         <Text style={styles.text_panel_heading_1}>Notifications</Text>
-                                        <Icon.AntDesign name="right" size={25} color={"lightgray"} />
-                                    </View>
+                                        <Icon.AntDesign name="right" size={15} color={"lightgray"} />
+                                    </RNBounceable>
                                 </View>
                                 <View style={[{ height: this.state.expandedFeature ? null : 0 }, styles.columnStyle]}>
-                                    <View style={styles.country_container_1}>
+                                    <RNBounceable onPress={() => this.props.navigation.navigate('Integrations')} style={styles.country_container_1}>
                                         <Text style={styles.text_panel_heading_1}>Integrations</Text>
-                                        <Icon.AntDesign name="right" size={25} color={"lightgray"} />
-                                    </View>
+                                        <Icon.AntDesign name="right" size={15} color={"lightgray"} />
+                                    </RNBounceable>
                                 </View>
                                 <View style={[{ height: this.state.expandedFeature ? null : 0 }, this.state.expandedFeature ? styles.columnStyle : {}]}>
-                                    <View style={styles.country_container_1}>
+                                    <RNBounceable onPress={() => this.props.navigation.navigate('UnitMeasurement')} style={styles.country_container_1}>
                                         <Text style={styles.text_panel_heading_1}>Unit of Measurement</Text>
-                                        <Icon.AntDesign name="right" size={25} color={"lightgray"} />
-                                    </View>
+                                        <Icon.AntDesign name="right" size={15} color={"lightgray"} />
+                                    </RNBounceable>
                                 </View>
                             </View>
                             <View style={styles.activities_container}>
                                 <RNBounceable activeOpacity={0.8} onPress={() => this.setState({ reportModal: !reportModal })} >
                                     <View style={styles.country_container}>
                                         <View style={styles.rowContainer}>
-                                            <Icon.MaterialIcons name="email" size={35} />
+                                            <Icon.MaterialIcons name="email" size={25} />
                                             <Text style={styles.text_panel_heading}>Report an Issue</Text>
                                         </View>
-                                        <Icon.AntDesign name="right" size={25} color={"lightgray"} />
+                                        <Icon.AntDesign name="right" size={15} color={"lightgray"} />
                                     </View>
                                 </RNBounceable>
                             </View>
-                        </View>
 
+                        </View>
+                        <View style={{ backgroundColor: "white", paddingTop: "10%" }}>
+
+
+                            <OutlineButton title="Log Out" onPress={() => this.props.navigation.replace('Login')} />
+                            <View style={{}}>
+                                <Text style={{ marginVertical: "5%", textAlign: "center", color: "lightgray" }} >v1.11.5(v43)</Text>
+                            </View>
+                        </View>
                     </ScrollView>
                 </View>
                 <Modal isVisible={reportModal}>
