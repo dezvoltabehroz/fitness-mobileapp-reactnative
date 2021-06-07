@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Home, Login, Settings, MyProfile, UpdateNotificationSettings, ProgressPhoto, LogNutrition, StartWorkout, Integrations, Notifications, UnitMeasurement, UploadPhoto } from '../screens';
+import { Home, Login, Settings, MyProfile, UpdateNotificationSettings, Workouts, WorkoutLibrary, ProgressPhoto, LogNutrition, StartWorkout, Integrations, Notifications, UnitMeasurement, UploadPhoto } from '../screens';
 import { Icon } from "../components";
 import moment from 'moment';
 
@@ -55,7 +55,7 @@ function AppRoutes() {
                 headerTitleAlign: "center",
                 headerTitle: "Start Session"
             })} />
-             <Stack.Screen name="UploadPhoto" component={UploadPhoto} options={({ navigation, route }) => ({
+            <Stack.Screen name="UploadPhoto" component={UploadPhoto} options={({ navigation, route }) => ({
                 // headerShown: false,
                 headerLeft: () => (<TouchableOpacity style={{ marginLeft: 10 }} onPress={() => navigation.goBack()}><Icon.AntDesign name="left" size={25} color="lightgray" /></TouchableOpacity>),
                 headerTitleAlign: "center",
@@ -67,6 +67,17 @@ function AppRoutes() {
                 headerTitleAlign: "center",
                 headerTitle: `${moment().format('Do MMMM YYYY')}`
             })} />
+            <Stack.Screen name="WorkoutLibrary" component={WorkoutLibrary} options={({ navigation, route }) => ({
+                // headerShown: false,
+                headerLeft: () => (<TouchableOpacity style={{ marginLeft: 10 }} onPress={() => navigation.goBack()}><Icon.AntDesign name="left" size={25} color="lightgray" /></TouchableOpacity>),
+                headerTitleAlign: "center",
+                headerTitle: "Workout Library"
+            })} />
+            <Stack.Screen name="Workouts" component={Workouts} options={({ navigation, route }) => ({
+                headerShown: false,
+            })} />
+
+
 
             <Stack.Screen name="ProgressPhoto" component={ProgressPhoto} options={({ navigation, route }) => ({
                 // headerShown: false,
@@ -81,9 +92,7 @@ function AppRoutes() {
             <Stack.Screen name="Settings" component={Settings} options={{
                 headerShown: false
             }} />
-            <Stack.Screen name="Workouts" component={Home} options={{
-                headerShown: false
-            }} />
+            
         </Stack.Navigator>
     );
 }

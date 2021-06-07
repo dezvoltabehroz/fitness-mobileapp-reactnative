@@ -19,6 +19,12 @@ export const Notifications = _Notifications;
 import _ProgressPhoto from './ProgressPhoto';
 export const ProgressPhoto = _ProgressPhoto;
 
+import _WorkoutLibrary from './WorkoutLibrary';
+export const WorkoutLibrary = _WorkoutLibrary;
+
+import _Workouts from './Workouts';
+export const Workouts = _Workouts;
+
 import _UploadPhoto from './UploadPhoto';
 export const UploadPhoto = _UploadPhoto;
 

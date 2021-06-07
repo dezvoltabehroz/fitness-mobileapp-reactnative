@@ -78,14 +78,12 @@ class ProgressPhoto extends Component {
                     <View style={{ flex: 0.3, justifyContent: "flex-end", }}>
                         <BrownButton title={"Save"} onPress={() => this.props.navigation.replace('Home')} />
                     </View>
-
                 </View>
             </Container >
         )
     }
 }
 const mapStateToProps = (state) => {
-
     return {
         user: state.authReducer || {}
     };
