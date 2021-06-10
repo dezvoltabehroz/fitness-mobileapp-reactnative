@@ -1,14 +1,30 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Home, Login, Settings, MyProfile, Files, WorkoutTemplate, Forms, UpdateNotificationSettings, Workouts, WorkoutLibrary, ProgressPhoto, LogNutrition, StartWorkout, Integrations, Notifications, UnitMeasurement, UploadPhoto, Programs, ProgramLibrary, MarketPlace, CreditPackages, Packages } from '../screens';
+import { Home, Login, Settings, MyProfile, Files, WorkoutTemplate, Forms, UpdateNotificationSettings, Workouts, WorkoutLibrary, ProgressPhoto, LogNutrition, StartWorkout, Integrations, Notifications, UnitMeasurement, UploadPhoto, Programs, ProgramLibrary, MarketPlace, CreditPackages, Packages, WorkoutDetails, CurrentWorkout } from '../screens';
 import { Icon } from "../components";
 import moment from 'moment';
 
 
 let data;
 const Stack = createStackNavigator();
+
+const handleAlert = () => {
+    Alert.alert(
+        `Are you sure?`,
+        'Please confirm that you want to quit this session - Any data logged during the session will be cleared ',
+        [
+            {
+                text: 'CANCEL'
+            },
+            {
+                text: 'QUIT SESSion',
+                onPress: () => { }
+            }
+        ]
+    )
+}
 
 function AppRoutes() {
     return (
@@ -85,6 +101,13 @@ function AppRoutes() {
                 headerTitleAlign: "center",
                 headerTitle: "Program Library"
             })} />
+
+            <Stack.Screen name="WorkoutDetails" component={WorkoutDetails} options={({ navigation, route }) => ({
+                // headerShown: false,
+                headerLeft: () => (<TouchableOpacity style={{ marginLeft: 10 }} onPress={() => navigation.goBack()}><Icon.AntDesign name="left" size={25} color="lightgray" /></TouchableOpacity>),
+                headerTitleAlign: "center",
+                headerTitle: `${route.params.heading}`
+            })} />
             <Stack.Screen name="Files" component={Files} options={({ navigation, route }) => ({
                 headerShown: false,
             })} />
@@ -128,6 +151,15 @@ function AppRoutes() {
                 headerLeft: () => (<TouchableOpacity style={{ marginLeft: 10 }} onPress={() => navigation.goBack()}><Icon.AntDesign name="left" size={25} color="lightgray" /></TouchableOpacity>),
                 headerTitleAlign: "center",
                 headerTitle: "Progress Photo"
+            })} />
+
+            <Stack.Screen name="CurrentWorkout" component={CurrentWorkout} options={({ navigation, route }) => ({
+                // headerShown: false,
+                headerLeft: false,
+                headerStyle: { elevation: 0 },
+                headerRight: () => (<TouchableOpacity style={{ marginRight: 10 }} onPress={() => handleAlert()}><Icon.MaterialCommunityIcons name="dots-horizontal" size={25} color="lightgray" /></TouchableOpacity>),
+                headerTitleAlign: "center",
+                headerTitle: "Current Workout"
             })} />
 
             <Stack.Screen name="Hub" component={Home} options={{

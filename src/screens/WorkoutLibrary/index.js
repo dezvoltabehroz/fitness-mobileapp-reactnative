@@ -67,7 +67,7 @@ class WorkoutLibrary extends Component {
 
     _renderItems = ({ index, item }) => {
         return (
-            <RNBounceable style={{ flex: 1, flexDirection: "row", alignItems: "center", marginHorizontal: "5%", elevation: 2, padding: "5%", borderRadius: 10,marginBottom:10 }} onPress={() => { }}>
+            <RNBounceable onPressIn={() => { this.props.navigation.navigate('WorkoutDetails', { heading: item.type }) }} style={{ flex: 1, flexDirection: "row", alignItems: "center", marginHorizontal: "5%", elevation: 2, padding: "5%", borderRadius: 10, marginBottom: 10 }} onPress={() => { }}>
                 <View style={{
                     borderRadius: 10, height: 70, width: 70,
                     justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
@@ -95,7 +95,7 @@ class WorkoutLibrary extends Component {
                 <View style={styles.container}>
                     <View style={{ marginTop: "10%" }}>
                         <Input placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
-                        <ScrollView style={{paddingBottom:100}}>
+                        <ScrollView style={{ paddingBottom: 100 }}>
                             <View style={styles.rowContainer} >
                                 <Text style={styles.textStyle}>A to Z</Text>
                                 <RNBounceable onPress={() => this.props.navigation.navigate('WorkoutLibrary')} style={styles.row}>
@@ -106,7 +106,7 @@ class WorkoutLibrary extends Component {
                             <FlatList
                                 data={notification}
                                 keyExtractor={item => item}
-                                style={{ marginBottom: 100,paddingBottom:20 }}
+                                style={{ marginBottom: 100, paddingBottom: 20 }}
                                 ItemSeparatorComponent={this.renderSeparator}
                                 showsVerticalScrollIndicator={false}
                                 renderItem={({ index, item }) => this._renderItems({ index, item })}

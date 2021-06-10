@@ -7,7 +7,7 @@ class Button extends Component {
     render() {
         return (
             <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={()=>this.props.onPress()} style={styles.buttonStyle}>
+                <TouchableOpacity onPress={() => this.props.onPress()} style={styles.buttonStyle}>
                     <View >
                         <Text style={styles.buttonText}>{this.props.title}</Text>
                     </View>
@@ -19,6 +19,7 @@ class Button extends Component {
 const styles = StyleSheet.create({
     buttonContainer: {
         marginHorizontal: '10%',
+
         justifyContent: "center",
         alignItems: "center"
     },
@@ -28,6 +29,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         backgroundColor: '#544b4c',
         // padding: "5%",
+        width: 80,
         paddingHorizontal: "10%",
         borderRadius: 30
     },

@@ -25,12 +25,17 @@ export const WorkoutLibrary = _WorkoutLibrary;
 import _WorkoutTemplate from './WorkoutTemplate';
 export const WorkoutTemplate = _WorkoutTemplate;
 
+import _WorkoutDetails from './WorkoutDetails';
+export const WorkoutDetails = _WorkoutDetails;
+
+import _CurrentWorkout from './CurrentWorkout';
+export const CurrentWorkout = _CurrentWorkout;
+
 import _Programs from './Programs';
 export const Programs = _Programs;
 
 import _ProgramLibrary from './ProgramLibrary';
 export const ProgramLibrary = _ProgramLibrary;
-
 
 import _Files from './Files';
 export const Files = _Files;

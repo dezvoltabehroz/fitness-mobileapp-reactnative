@@ -3,14 +3,14 @@ import THEME from '../../assets/styles/theme.style';
 const screenWidth = Dimensions.get('window').width;
 export default StyleSheet.create({
     containerStyle: {
-        height: 60,
+        height: 50,
     },
     inputContainerStyle: {
         height: 54,
         width: '100%',
         borderBottomWidth: 0,
-        backgroundColor: '#171717',
-        // borderRadius: 5,
+        // backgroundColor: '#171717',
+        borderRadius: 5,
     },
     inputStyle: {
         flex: 1,

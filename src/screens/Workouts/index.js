@@ -75,7 +75,7 @@ class Workouts extends Component {
 
     _renderItems = ({ index, item }) => {
         return (
-            <RNBounceable style={{ flex: 1, flexDirection: "row", marginHorizontal: "5%" }} onPress={() => { }}>
+            <RNBounceable onPressIn={() => { this.props.navigation.navigate('WorkoutDetails', { heading: item.type }) }} style={{ flex: 1, flexDirection: "row", marginHorizontal: "5%" }} onPress={() => { }}>
                 <View style={{
                     borderRadius: 30, height: 40, width: 40,
                     justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
@@ -124,7 +124,7 @@ class Workouts extends Component {
                             keyExtractor={item => item}
                             renderItem={({ index, item }) => {
                                 return (
-                                    <RNBounceable style={{ flexDirection: "row", alignItems: "center", marginHorizontal: "5%", elevation: 2, padding: "5%", borderRadius: 10, marginBottom: 10 }} onPress={() => { }}>
+                                    <RNBounceable onPressIn={() => { this.props.navigation.navigate('WorkoutDetails', { heading: item.type }) }} style={{ flexDirection: "row", alignItems: "center", marginHorizontal: "5%", elevation: 2, padding: "5%", borderRadius: 10, marginBottom: 10 }} onPress={() => { }}>
                                         <View style={{
                                             borderRadius: 10, height: 50, width: 50,
                                             justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
