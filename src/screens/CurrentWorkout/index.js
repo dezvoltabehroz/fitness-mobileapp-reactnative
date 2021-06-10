@@ -75,8 +75,7 @@ class CurrentWorkout extends Component {
                     </View>
                 </Container>
                 <Modal style={{
-                    // shadowOpacity: 1,
-                    backgroundColor: 'rgba(0,0,0,0.6)',
+                    backgroundColor: 'rgba(0,0,0,0.7)',
                     justifyContent: 'flex-end',
                     margin: 0,
                 }} isVisible={searchModal} onBackdropPress={() => this.setState({ searchModal: false })} >
