@@ -22,6 +22,16 @@ export const ProgressPhoto = _ProgressPhoto;
 import _WorkoutLibrary from './WorkoutLibrary';
 export const WorkoutLibrary = _WorkoutLibrary;
 
+import _WorkoutTemplate from './WorkoutTemplate';
+export const WorkoutTemplate = _WorkoutTemplate;
+
+import _Programs from './Programs';
+export const Programs = _Programs;
+
+import _ProgramLibrary from './ProgramLibrary';
+export const ProgramLibrary = _ProgramLibrary;
+
+
 import _Files from './Files';
 export const Files = _Files;
 

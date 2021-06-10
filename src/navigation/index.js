@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Home, Login, Settings, MyProfile, Files, Forms, UpdateNotificationSettings, Workouts, WorkoutLibrary, ProgressPhoto, LogNutrition, StartWorkout, Integrations, Notifications, UnitMeasurement, UploadPhoto } from '../screens';
+import { Home, Login, Settings, MyProfile, Files, WorkoutTemplate, Forms, UpdateNotificationSettings, Workouts, WorkoutLibrary, ProgressPhoto, LogNutrition, StartWorkout, Integrations, Notifications, UnitMeasurement, UploadPhoto, Programs, ProgramLibrary } from '../screens';
 import { Icon } from "../components";
 import moment from 'moment';
 
@@ -24,6 +24,12 @@ function AppRoutes() {
                 headerLeft: () => (<TouchableOpacity style={{ marginLeft: 10 }} onPress={() => navigation.goBack()}><Icon.AntDesign name="left" size={25} color="lightgray" /></TouchableOpacity>),
                 headerTitleAlign: "center",
                 headerTitle: "Account Details"
+            })} />
+            <Stack.Screen name="WorkoutTemplate" component={WorkoutTemplate} options={({ navigation, route }) => ({
+                // headerShown: false,
+                headerLeft: () => (<TouchableOpacity style={{ marginLeft: 10 }} onPress={() => navigation.goBack()}><Icon.AntDesign name="left" size={25} color="lightgray" /></TouchableOpacity>),
+                headerTitleAlign: "center",
+                headerTitle: "Workout Template"
             })} />
             <Stack.Screen name="UpdateNotificationSettings" component={UpdateNotificationSettings} options={({ navigation, route }) => ({
                 // headerShown: false,
@@ -73,6 +79,12 @@ function AppRoutes() {
                 headerTitleAlign: "center",
                 headerTitle: "Workout Library"
             })} />
+                <Stack.Screen name="ProgramLibrary" component={ProgramLibrary} options={({ navigation, route }) => ({
+                // headerShown: false,
+                headerLeft: () => (<TouchableOpacity style={{ marginLeft: 10 }} onPress={() => navigation.goBack()}><Icon.AntDesign name="left" size={25} color="lightgray" /></TouchableOpacity>),
+                headerTitleAlign: "center",
+                headerTitle: "Program Library"
+            })} />
             <Stack.Screen name="Files" component={Files} options={({ navigation, route }) => ({
                 headerShown: false,
             })} />
@@ -80,6 +92,9 @@ function AppRoutes() {
                 headerShown: false,
             })} />
             <Stack.Screen name="Workouts" component={Workouts} options={({ navigation, route }) => ({
+                headerShown: false,
+            })} />
+            <Stack.Screen name="Programs" component={Programs} options={({ navigation, route }) => ({
                 headerShown: false,
             })} />
 

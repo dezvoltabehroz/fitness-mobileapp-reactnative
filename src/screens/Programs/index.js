@@ -16,7 +16,7 @@ import moment from "moment"
 const { width, height } = Dimensions.get('window');
 const screenWidth = Dimensions.get('window').width;
 
-class Workouts extends Component {
+class Programs extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -108,12 +108,12 @@ class Workouts extends Component {
             <Container props={this.props}>
                 <View style={styles.container}>
                     <View style={styles.upperContainer}>
-                        <Text style={styles.headingStyle}>{"Workouts"}</Text>
+                        <Text style={styles.headingStyle}>{"Programs"}</Text>
                     </View>
                     <View style={styles.lowerContentContainer}>
                         <View style={styles.rowContainer} >
                             <Text style={styles.recentStyle}>Recent</Text>
-                            <RNBounceable onPress={() => this.props.navigation.navigate('WorkoutLibrary')} style={styles.row}>
+                            <RNBounceable onPress={() => this.props.navigation.navigate('ProgramLibrary')} style={styles.row}>
                                 <Text style={styles.viewStyle} >View all</Text>
                                 <Icon.Entypo name="chevron-small-right" size={20} />
                             </RNBounceable>
@@ -139,12 +139,6 @@ class Workouts extends Component {
                             }}
 
                         />
-                        <View style={{ alignItems: "center", justifyContent: "center" }}>
-                            <View style={{ position: "absolute", bottom: 40, }}>
-                                <SlimButton title={"Start Workout"} onPress={() => {this.props.navigation.navigate('StartWorkout') }} />
-                            </View>
-                        </View>
-
                     </View>
                 </View>
             </Container >
@@ -164,4 +158,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Workouts);
+export default connect(mapStateToProps, mapDispatchToProps)(Programs);
