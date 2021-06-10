@@ -42,16 +42,11 @@ class Files extends Component {
                             <View style={styles.rowContainer} >
                                 <Text style={styles.texStyle}>A to Z</Text>
                                 <RNBounceable onPress={() => { }} style={styles.row}>
-                                    {/* <Text style={styles.viewStyle} >View all</Text> */}
                                     <Icon.Feather name="filter" size={20} />
                                 </RNBounceable>
                             </View>
                             <View style={{ alignItems: "center", flex: 0.7 }}>
-                                <View style={{
-                                    marginTop: "15%",
-                                    borderRadius: 35, height: 70, width: 70,
-                                    justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
-                                }}>
+                                <View style={styles.iconContainer}>
                                     <Icon.FontAwesome name="wpforms" size={30} color={"white"} />
                                 </View>
                                 <View style={{ marginTop: "5%" }}>

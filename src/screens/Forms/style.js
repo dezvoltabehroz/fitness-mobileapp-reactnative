@@ -7,8 +7,6 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        // justifyContent: "center",
-        // alignItems: "center"
     },
     upperContainer: {
         flexDirection: "row",
@@ -51,30 +49,29 @@ export default StyleSheet.create({
         fontWeight: "bold",
     },
     texStyle: {
-        // color: "#C0C0C0",
         textAlign: "center",
         fontSize: 16,
         fontWeight: "bold",
-        // width: screenWidth * 0.65
     },
     textStyle: {
         color: "#C0C0C0",
         textAlign: "center",
         fontSize: 20,
         fontWeight: "bold",
-        // width: screenWidth * 0.65
+    },
+    iconContainer: {
+        marginTop: "15%",
+        borderRadius: 35, height: 70, width: 70,
+        justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
     },
     textStyle1: {
         color: "lightgrey",
         textAlign: "center",
         fontSize: 16,
-        // width: screenWidth * 0.65
     },
     generalMargin: {
         marginTop: "5%",
         marginHorizontal: "5%",
-        // margin: "5%",
-        // marginVertical: "5%"
     },
     row: {
         flexDirection: "row",

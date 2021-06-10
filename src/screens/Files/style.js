@@ -7,8 +7,6 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
-        // justifyContent: "center",
-        // alignItems: "center"
     },
     upperContainer: {
         flexDirection: "row",
@@ -16,6 +14,11 @@ export default StyleSheet.create({
         alignItems: "center",
         paddingHorizontal: "5%",
         justifyContent: "space-between",
+    },
+    iconContainer: {
+        marginTop: "15%",
+        borderRadius: 35, height: 70, width: 70,
+        justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
     },
     headingStyle: {
         paddingHorizontal: 5,
@@ -51,30 +54,24 @@ export default StyleSheet.create({
         fontWeight: "bold",
     },
     texStyle: {
-        // color: "#C0C0C0",
         textAlign: "center",
         fontSize: 16,
-        fontWeight: "bold",
-        // width: screenWidth * 0.65
+        fontWeight: "bold"
     },
     textStyle: {
         color: "#C0C0C0",
         textAlign: "center",
         fontSize: 20,
         fontWeight: "bold",
-        // width: screenWidth * 0.65
     },
     textStyle1: {
         color: "lightgrey",
         textAlign: "center",
         fontSize: 16,
-        // width: screenWidth * 0.65
     },
     generalMargin: {
         marginTop: "5%",
         marginHorizontal: "5%",
-        // margin: "5%",
-        // marginVertical: "5%"
     },
     row: {
         flexDirection: "row",
