@@ -110,12 +110,7 @@ class Notifications extends Component {
                     <View style={styles.upperContainer}>
                         <Text style={styles.headingStyle}>{"Workouts"}</Text>
                     </View>
-
                     <View style={styles.lowerContentContainer}>
-
-
-
-
                         <View style={styles.rowContainer} >
                             <Text style={styles.recentStyle}>Recent</Text>
                             <RNBounceable onPress={() => this.props.navigation.navigate('WorkoutLibrary')} style={styles.row}>
@@ -123,11 +118,9 @@ class Notifications extends Component {
                                 <Icon.Entypo name="chevron-small-right" size={20} />
                             </RNBounceable>
                         </View>
-
-
-
                         <FlatList
                             data={workout}
+                            contentContainerStyle={{ paddingBottom: 180 }}
                             keyExtractor={item => item}
                             renderItem={({ index, item }) => {
                                 return (
@@ -148,7 +141,7 @@ class Notifications extends Component {
                         />
                         <View style={{ alignItems: "center", justifyContent: "center" }}>
                             <View style={{ position: "absolute", bottom: 40, }}>
-                                <SlimButton title={"Start Workout"} onPress={() => { }} />
+                                <SlimButton title={"Start Workout"} onPress={() => {this.props.navigation.navigate('StartWorkout') }} />
                             </View>
                         </View>
 

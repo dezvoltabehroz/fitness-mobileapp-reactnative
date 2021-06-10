@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Home, Login, Settings, MyProfile, UpdateNotificationSettings, Workouts, WorkoutLibrary, ProgressPhoto, LogNutrition, StartWorkout, Integrations, Notifications, UnitMeasurement, UploadPhoto } from '../screens';
+import { Home, Login, Settings, MyProfile, Files, Forms, UpdateNotificationSettings, Workouts, WorkoutLibrary, ProgressPhoto, LogNutrition, StartWorkout, Integrations, Notifications, UnitMeasurement, UploadPhoto } from '../screens';
 import { Icon } from "../components";
 import moment from 'moment';
 
@@ -73,6 +73,12 @@ function AppRoutes() {
                 headerTitleAlign: "center",
                 headerTitle: "Workout Library"
             })} />
+            <Stack.Screen name="Files" component={Files} options={({ navigation, route }) => ({
+                headerShown: false,
+            })} />
+            <Stack.Screen name="Forms" component={Forms} options={({ navigation, route }) => ({
+                headerShown: false,
+            })} />
             <Stack.Screen name="Workouts" component={Workouts} options={({ navigation, route }) => ({
                 headerShown: false,
             })} />
@@ -92,7 +98,7 @@ function AppRoutes() {
             <Stack.Screen name="Settings" component={Settings} options={{
                 headerShown: false
             }} />
-            
+
         </Stack.Navigator>
     );
 }

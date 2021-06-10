@@ -3,7 +3,7 @@ import THEME from '../../assets/styles/theme.style';
 
 export default StyleSheet.create({
     inputContainerStyle: {
-        height: 45,
+        height: 40,
         borderBottomWidth: 0,
         marginVertical: 3,
         backgroundColor: '#FFFFFF',

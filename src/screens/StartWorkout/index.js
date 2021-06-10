@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {
     View, Text, ActivityIndicator, Dimensions, ScrollView
 } from 'react-native'
-import { BrownButton, Container, Icon,SlimButton } from "../../components";
+import { BrownButton, Container, Icon, SlimButton } from "../../components";
 import styles from './style';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
@@ -66,7 +66,7 @@ class StartWorkout extends Component {
                         </RNBounceable>
                     </View>
                     <View>
-                        <SlimButton title="Start" />
+                        <SlimButton title="Start" onPress={() => { }} />
                     </View>
                 </View>
             </Container >
