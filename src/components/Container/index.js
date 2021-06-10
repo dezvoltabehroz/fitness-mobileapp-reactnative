@@ -25,7 +25,7 @@ const Container = ({ children, props }) => {
     //     screen =  routes[index];
     // }
     console.log(screen)
-    const changeLayout =async () => {
+    const changeLayout = async () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         await props.authActions.menuModal(!props.user.menuModal);
     }
@@ -91,7 +91,7 @@ const Container = ({ children, props }) => {
                     <Icon type={item.type} name={item.iconName} style={{ fontSize: 20, color: 'white' }} />
                 </View>
                 <View style={{ marginTop: 12 }}>
-                    <Text style={{ fontSize: 12 }} >{item.name}</Text>
+                    <Text style={{ fontSize: 12,color:screen == 'Marketplace'||screen == 'Packages'||screen == 'CreditPackages' ? 'white' :'black' }} >{item.name}</Text>
                 </View>
             </TouchableOpacity >
 
@@ -106,11 +106,11 @@ const Container = ({ children, props }) => {
     return (
         <>
             <View style={{ flex: 1 }}>
-                <View style={{ flex: 0.9 }}>
+                <View style={{ flex: 0.9, backgroundColor: screen == 'Marketplace'||screen == 'Packages'||screen == 'CreditPackages' ? '#181818' : 'transparent' }}>
                     {children}
 
                 </View>
-                <View style={{ flex: 0.1, flexDirection: "column", backgroundColor: "white", }}>
+                <View style={{ flex: 0.1, flexDirection: "column", backgroundColor: screen == 'Marketplace'||screen == 'Packages'||screen == 'CreditPackages' ? '#181818' : "white", }}>
                     <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}  >
                         <View>
                             {
@@ -124,7 +124,7 @@ const Container = ({ children, props }) => {
                             }
                         </View>
                         <TouchableOpacity onPress={() => props.authActions.menuModal(!props.user.menuModal)} style={{ marginHorizontal: "5%", height: 30, width: 40 }}>
-                            <Icon type="MaterialCommunityIcons" name="dialpad" style={{ fontSize: 40 }} />
+                            <Icon type="MaterialCommunityIcons" name="dialpad" style={{ fontSize: 40, color: screen == 'Marketplace'||screen == 'Packages'||screen == 'CreditPackages' ? 'white' : 'black' }} />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -157,7 +157,7 @@ const Container = ({ children, props }) => {
                                         resizeMode='contain' />
                                 </View>
                             </View>
-                            <View style={styles.lowerContainer}>
+                            <View style={[styles.lowerContainer,{backgroundColor:screen == 'Marketplace'||screen == 'Packages'||screen == 'CreditPackages' ? '#181818' : '#fefefe'}]}>
                                 <FlatList data={array}
                                     keyExtractor={item => item}
                                     ItemSeparatorComponent={renderSeparator}
@@ -168,14 +168,14 @@ const Container = ({ children, props }) => {
                             </View>
                         </ScrollView>
                     </View>
-                    <View style={{ flex: 0.1, flexDirection: "column", backgroundColor: "white", }}>
-                        <View style={{ flex: 1, flexDirection: "row", borderWidth: 1, borderColor: "#f2f2f2", justifyContent: "space-between", alignItems: "center" }}  >
+                    <View style={{ flex: 0.1, flexDirection: "column", backgroundColor:screen == 'Marketplace'||screen == 'Packages'||screen == 'CreditPackages' ? '#181818' : "white", }}>
+                        <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}  >
                             <View>
 
 
                             </View>
                             <TouchableOpacity onPress={() => props.authActions.menuModal(!props.user.menuModal)} style={{ marginHorizontal: "5%", height: 30, width: 40, overflow: "hidden" }}>
-                                <Icon type="MaterialCommunityIcons" name="dialpad" style={{ fontSize: 40 }} />
+                                <Icon type="MaterialCommunityIcons" name="dialpad" style={{ fontSize: 40, color: screen == 'Marketplace'||screen == 'Packages'||screen == 'CreditPackages' ? 'white' : 'black' }} />
                             </TouchableOpacity>
                         </View>
                     </View>

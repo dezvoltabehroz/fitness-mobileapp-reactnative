@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Home, Login, Settings, MyProfile, Files, WorkoutTemplate, Forms, UpdateNotificationSettings, Workouts, WorkoutLibrary, ProgressPhoto, LogNutrition, StartWorkout, Integrations, Notifications, UnitMeasurement, UploadPhoto, Programs, ProgramLibrary } from '../screens';
+import { Home, Login, Settings, MyProfile, Files, WorkoutTemplate, Forms, UpdateNotificationSettings, Workouts, WorkoutLibrary, ProgressPhoto, LogNutrition, StartWorkout, Integrations, Notifications, UnitMeasurement, UploadPhoto, Programs, ProgramLibrary, MarketPlace, CreditPackages, Packages } from '../screens';
 import { Icon } from "../components";
 import moment from 'moment';
 
@@ -79,7 +79,7 @@ function AppRoutes() {
                 headerTitleAlign: "center",
                 headerTitle: "Workout Library"
             })} />
-                <Stack.Screen name="ProgramLibrary" component={ProgramLibrary} options={({ navigation, route }) => ({
+            <Stack.Screen name="ProgramLibrary" component={ProgramLibrary} options={({ navigation, route }) => ({
                 // headerShown: false,
                 headerLeft: () => (<TouchableOpacity style={{ marginLeft: 10 }} onPress={() => navigation.goBack()}><Icon.AntDesign name="left" size={25} color="lightgray" /></TouchableOpacity>),
                 headerTitleAlign: "center",
@@ -98,7 +98,30 @@ function AppRoutes() {
                 headerShown: false,
             })} />
 
+            <Stack.Screen name="Marketplace" component={MarketPlace} options={({ navigation, route }) => ({
+                headerShown: false,
+            })} />
 
+            <Stack.Screen name="Packages" component={Packages} options={({ navigation, route }) => ({
+                // headerShown: false,
+                headerTitleStyle: { color: "white" },
+                headerStyle: {
+                    backgroundColor: "#181818"
+                },
+                headerLeft: () => (<TouchableOpacity style={{ marginLeft: 10 }} onPress={() => navigation.goBack()}><Icon.AntDesign name="left" size={25} color="lightgray" /></TouchableOpacity>),
+                headerTitleAlign: "center",
+                headerTitle: "Packages"
+            })} />
+            <Stack.Screen name="CreditPackages" component={CreditPackages} options={({ navigation, route }) => ({
+                // headerShown: false,
+                headerTitleStyle: { color: "white" },
+                headerStyle: {
+                    backgroundColor: "#181818"
+                },
+                headerLeft: () => (<TouchableOpacity style={{ marginLeft: 10 }} onPress={() => navigation.goBack()}><Icon.AntDesign name="left" size={25} color="lightgray" /></TouchableOpacity>),
+                headerTitleAlign: "center",
+                headerTitle: "Credit Packages"
+            })} />
 
             <Stack.Screen name="ProgressPhoto" component={ProgressPhoto} options={({ navigation, route }) => ({
                 // headerShown: false,

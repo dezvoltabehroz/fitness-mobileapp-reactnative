@@ -38,6 +38,15 @@ export const Files = _Files;
 import _Forms from './Forms';
 export const Forms = _Forms;
 
+import _MarketPlace from './MarketPlace';
+export const MarketPlace = _MarketPlace;
+
+import _Packages from './Packages';
+export const Packages = _Packages;
+
+import _CreditPackages from './CreditPackages';
+export const CreditPackages = _CreditPackages;
+
 import _Workouts from './Workouts';
 export const Workouts = _Workouts;
 
