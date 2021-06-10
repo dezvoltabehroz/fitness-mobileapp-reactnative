@@ -55,5 +55,11 @@ export default StyleSheet.create({
     row: {
         flexDirection: "row",
         alignItems: "center"
-    }
+    },
+    boxView: {
+        borderRadius: 10, height: 50, width: 50,
+        justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
+    },
+    contentContainer: { flexDirection: "row", alignItems: "center", marginHorizontal: "5%", elevation: 2, padding: "5%", borderRadius: 10, marginBottom: 10 },
+    itemContainer: { flex: 1, flexDirection: "row", marginHorizontal: "5%" }
 })

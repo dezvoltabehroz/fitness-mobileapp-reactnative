@@ -73,32 +73,6 @@ class Programs extends Component {
         }
     }
 
-    _renderItems = ({ index, item }) => {
-        return (
-            <RNBounceable style={{ flex: 1, flexDirection: "row", marginHorizontal: "5%" }} onPress={() => { }}>
-                <View style={{
-                    borderRadius: 30, height: 40, width: 40,
-                    justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
-                }}>
-                    <Text style={{ fontSize: 16, color: "white", fontWeight: "bold" }}>{item.user_name}</Text>
-                </View>
-                <View style={{ flex: 0.8, marginHorizontal: "5%" }}>
-
-                    <Text numberOfLines={3} style={{ fontWeight: "bold", }}>{item.type}</Text>
-                    <Text style={{ color: "gray", fontWeight: "bold", fontSize: 12 }} >{moment(item.time).fromNow()} </Text>
-
-
-                </View>
-                <View style={{ flex: 0.2, justifyContent: "flex-start", alignItems: "flex-end" }} >
-                    <Icon.Octicons name="primitive-dot" color="green" size={20} />
-                </View>
-            </RNBounceable>
-        )
-    }
-
-    renderSeparator = () => {
-        return (<View style={styles.gapHeight}></View>)
-    }
 
 
     render() {
@@ -124,12 +98,9 @@ class Programs extends Component {
                             keyExtractor={item => item}
                             renderItem={({ index, item }) => {
                                 return (
-                                    <RNBounceable style={{ flexDirection: "row", alignItems: "center", marginHorizontal: "5%", elevation: 2, padding: "5%", borderRadius: 10, marginBottom: 10 }} onPress={() => { }}>
-                                        <View style={{
-                                            borderRadius: 10, height: 50, width: 50,
-                                            justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
-                                        }}>
-                                            <Text style={{ fontSize: 16, color: "white", fontWeight: "bold" }}></Text>
+                                    <RNBounceable style={styles.contentContainer} onPress={() => { }}>
+                                        <View style={styles.boxView}>
+                                            <Text></Text>
                                         </View>
                                         <View style={{ flex: 0.8, marginHorizontal: "5%" }}>
                                             <Text numberOfLines={3} style={{ fontWeight: "bold", }}>{item.type}</Text>

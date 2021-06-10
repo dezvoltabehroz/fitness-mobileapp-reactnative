@@ -49,4 +49,11 @@ export default StyleSheet.create({
         width: screenWidth,
         backgroundColor: THEME.COLOR_WHITE,
     },
+    boxView:{
+        borderRadius: 10, height: 70, width: 70,
+        justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
+    },
+    row:{ flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginHorizontal: "2.5%" },
+    itemTextStyle:{ flex: 0.8, fontWeight: "bold", paddingRight: 5 },
+    upperContentContainer:{ flexDirection: "row", margin: "5%", justifyContent: "flex-start", width: screenWidth * 0.7 }
 })

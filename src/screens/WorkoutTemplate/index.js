@@ -109,14 +109,11 @@ class WorkoutTemplate extends Component {
     _renderItems = ({ index, item }) => {
         return (
             <RNBounceable onPressIn={() => this.handlePress(index)} style={{ flex: 1, flexDirection: "row", alignItems: "center", marginHorizontal: "5%", elevation: 2, padding: "5%", borderRadius: 10, marginBottom: 10 }} onPress={() => { }}>
-                <View style={{
-                    borderRadius: 10, height: 70, width: 70,
-                    justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
-                }}>
-                    <Text style={{ fontSize: 16, color: "white", fontWeight: "bold" }}></Text>
+                <View style={styles.boxView}>
+                    <Text></Text>
                 </View>
-                <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginHorizontal: "2.5%" }}>
-                    <Text numberOfLines={3} style={{ flex: 0.8, fontWeight: "bold", paddingRight: 5 }}>{item.type}</Text>
+                <View style={styles.row}>
+                    <Text numberOfLines={3} style={styles.itemTextStyle}>{item.type}</Text>
                     <View style={{ flex: 0.1 }} >
                         <Icon.MaterialIcons name={item.selected ? 'check-box' : 'check-box-outline-blank'} size={20} color='black' />
                     </View>
@@ -134,7 +131,7 @@ class WorkoutTemplate extends Component {
         return (
             <Container props={this.props} >
                 <View style={styles.container}>
-                    <View style={{ flexDirection: "row", margin: "5%", justifyContent: "flex-start", width: width * 0.7 }}>
+                    <View style={styles.upperContentContainer}>
                         <RNBounceable onPress={() => { this.setState({ currentPage: 0 }); this.scroll.scrollTo({ x: 0 }); }}>
                             <View >
                                 <Text style={[styles.headingStyle, { color: currentPage == 0 ? "black" : "#544b4c" }]}>{"Assigned"}</Text>
