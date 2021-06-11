@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Home, Login, Settings, MyProfile, Files, WorkoutTemplate, Forms, UpdateNotificationSettings, Workouts, WorkoutLibrary, ProgressPhoto, LogNutrition, StartWorkout, Integrations, Notifications, UnitMeasurement, UploadPhoto, Programs, ProgramLibrary, MarketPlace, CreditPackages, Packages, WorkoutDetails, CurrentWorkout, Financials } from '../screens';
+import { Home, Login, Settings, MyProfile, Files, WorkoutTemplate, Forms, UpdateNotificationSettings, Workouts, WorkoutLibrary, ProgressPhoto, LogNutrition, StartWorkout, Integrations, Notifications, UnitMeasurement, UploadPhoto, Programs, ProgramLibrary, MarketPlace, CreditPackages, Packages, WorkoutDetails, CurrentWorkout, Financials, Nutrition, AddItem } from '../screens';
 import { Icon } from "../components";
 import moment from 'moment';
 
@@ -40,6 +40,12 @@ function AppRoutes() {
                 headerLeft: () => (<TouchableOpacity style={{ marginLeft: 10 }} onPress={() => navigation.goBack()}><Icon.AntDesign name="left" size={25} color="lightgray" /></TouchableOpacity>),
                 headerTitleAlign: "center",
                 headerTitle: "Account Details"
+            })} />
+              <Stack.Screen name="AddItem" component={AddItem} options={({ navigation, route }) => ({
+                // headerShown: false,
+                headerLeft: () => (<TouchableOpacity style={{ marginLeft: 10 }} onPress={() => navigation.goBack()}><Icon.AntDesign name="left" size={25} color="lightgray" /></TouchableOpacity>),
+                headerTitleAlign: "center",
+                headerTitle: "Add Item"
             })} />
             <Stack.Screen name="WorkoutTemplate" component={WorkoutTemplate} options={({ navigation, route }) => ({
                 // headerShown: false,
@@ -126,6 +132,10 @@ function AppRoutes() {
             })} />
 
             <Stack.Screen name="Financials" component={Financials} options={({ navigation, route }) => ({
+                headerShown: false,
+            })} />
+
+            <Stack.Screen name="Nutrition" component={Nutrition} options={({ navigation, route }) => ({
                 headerShown: false,
             })} />
 

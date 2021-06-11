@@ -5,7 +5,8 @@ export default StyleSheet.create({
     inputContainerStyle: {
         height: 40,
         borderBottomWidth: 0,
-        marginVertical: 3,
+        // marginVertical: 3,
+        marginBottom:0,
         backgroundColor: '#FFFFFF',
         borderRadius: 5,
         elevation: 2,
@@ -14,7 +15,6 @@ export default StyleSheet.create({
     labelStyle: {
         fontSize: 12,
         color: "#e0b92e",
-        fontFamily:'notoserif',
         height: 25
     },
     inputStyle: {

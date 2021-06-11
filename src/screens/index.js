@@ -43,6 +43,12 @@ export const ProgramLibrary = _ProgramLibrary;
 import _Files from './Files';
 export const Files = _Files;
 
+import _AddItem from './AddItem';
+export const AddItem = _AddItem;
+
+import _Nutrition from './Nutrition';
+export const Nutrition = _Nutrition;
+
 import _Forms from './Forms';
 export const Forms = _Forms;
 
