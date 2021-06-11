@@ -97,13 +97,7 @@ class CurrentWorkout extends Component {
                         </View>
                     </View>
 
-                    <View style={{
-                        flex: 0.8,
-                        flexDirection: "column",
-                        backgroundColor: "white",
-                        borderTopLeftRadius: 25,
-                        borderTopRightRadius: 25,
-                    }}>
+                    <View style={styles.modalLowerContainer}>
                         {
                             currentPage == 0 ?
                                 <View style={{ flex: 1 }}>
@@ -118,11 +112,11 @@ class CurrentWorkout extends Component {
                                             <Text style={styles.textStyle1}>We can't find any exercise with these parameters</Text>
                                         </View>
                                     </View>
-                                    <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "flex-end" }}>
-                                        <View style={{ flex: 0.7, paddingLeft: "5%", paddingTop: "7.5%", justifyContent: "flex-end" }}>
+                                    <View style={styles.lowerViewContainer}>
+                                        <View style={styles.inputContainer}>
                                             <Input placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
                                         </View>
-                                        <View style={{ flex: 0.2, justifyContent: "center", alignItems: "flex-end" }}>
+                                        <View style={styles.buttonContainer}>
                                             <BrownButton title="Save" onPress={() => { }} />
                                         </View>
                                     </View>
@@ -133,53 +127,26 @@ class CurrentWorkout extends Component {
                         {
                             currentPage == 1 ?
                                 <View style={{ flex: 1 }}>
-                                    {/* <View style={{ alignItems: "center", flex: 0.9 }}>
-                                        <View style={styles.iconContainer}>
-                                            <Icon.MaterialCommunityIcons name="file" size={30} color={"white"} />
-                                        </View>
-                                        <View style={{ marginTop: "5%" }}>
-                                            <Text style={styles.textStyle3}>Nothing to see here?</Text>
-                                        </View>
-                                        <View style={{ marginTop: "5%" }}>
-                                            <Text style={styles.textStyle1}>No files assigned yet</Text>
-                                        </View>
-                                    </View> */}
-                                    <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "flex-end" }}>
-                                        <View style={{ flex: 0.7, paddingLeft: "5%", paddingTop: "7.5%", justifyContent: "flex-end" }}>
+                                    <View style={styles.lowerViewContainer}>
+                                        <View style={styles.inputContainer}>
                                             <DropDownPicker
                                                 items={distance}
                                                 arrowColor="#000000"
                                                 placeholder="Select Value"
-                                                activeLabelStyle={{
-                                                    color: "white",
-                                                    fontWeight: "bold"
-                                                }}
-                                                activeItemStyle={{
-                                                    backgroundColor: '#544b4c',
-                                                }}
-                                                dropDownStyle={{
-                                                    paddingHorizontal: 0
-                                                }}
-                                                itemStyle={{
-                                                    justifyContent: 'flex-start',
-                                                    paddingHorizontal: "5%",
-                                                }}
+                                                activeLabelStyle={{ color: "white", fontWeight: "bold" }}
+                                                activeItemStyle={{ backgroundColor: '#544b4c' }}
+                                                dropDownStyle={{ paddingHorizontal: 0 }}
+                                                itemStyle={{ justifyContent: 'flex-start', paddingHorizontal: "5%" }}
                                                 onClose={() => this.setState({ dropdownOpen5: false })}
                                                 onOpen={() => this.setState({ dropdownOpen5: true })}
                                                 containerStyle={{ height: 40, marginBottom: this.state.dropdownOpen5 ? 100 : 10 }}
                                                 defaultValue={this.state.selectedDistance ? this.state.selectedDistance.label : ""}
-                                                onChangeItem={(item) => {
-                                                    this.setState({
-                                                        selectedDistance: item, item: item.value, index: item.value,
-                                                    })
-                                                }}
-                                            />
+                                                onChangeItem={(item) => { this.setState({ selectedDistance: item, item: item.value, index: item.value }) }} />
                                         </View>
-                                        <View style={{ flex: 0.2, justifyContent: "center", alignItems: "flex-end" }}>
+                                        <View style={styles.buttonContainer}>
                                             <BrownButton title="Save" onPress={() => { }} />
                                         </View>
                                     </View>
-
                                 </View>
                                 :
                                 null
@@ -198,11 +165,11 @@ class CurrentWorkout extends Component {
                                             <Text style={styles.textStyle1}>Looks like you haven't used any exercises yet!</Text>
                                         </View>
                                     </View>
-                                    <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "flex-end" }}>
-                                        <View style={{ flex: 0.7, paddingLeft: "5%", paddingTop: "7.5%", justifyContent: "flex-end" }}>
-                                            {/* <Input placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} /> */}
+                                    <View style={styles.lowerViewContainer}>
+                                        <View style={styles.inputContainer}>
+
                                         </View>
-                                        <View style={{ flex: 0.2, justifyContent: "center", alignItems: "flex-end" }}>
+                                        <View style={styles.buttonContainer}>
                                             <BrownButton title="Save" onPress={() => { }} />
                                         </View>
                                     </View>

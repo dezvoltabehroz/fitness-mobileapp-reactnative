@@ -11,8 +11,32 @@ export default StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         padding: "5%",
-        justifyContent:"center",
+        justifyContent: "center",
         borderRadius: 30,
+    },
+    modalLowerContainer: {
+        flex: 0.8,
+        flexDirection: "column",
+        backgroundColor: "white",
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25,
+    },
+    lowerViewContainer: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "flex-end"
+    },
+    inputContainer: {
+        flex: 0.7,
+        paddingLeft: "5%",
+        paddingTop: "7.5%",
+        justifyContent: "flex-end"
+    },
+    buttonContainer: {
+        flex: 0.2,
+        justifyContent: "center",
+        alignItems: "flex-end"
     },
     headingTextStyle: {
         fontSize: 25,
