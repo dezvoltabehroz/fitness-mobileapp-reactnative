@@ -31,6 +31,9 @@ export const WorkoutDetails = _WorkoutDetails;
 import _CurrentWorkout from './CurrentWorkout';
 export const CurrentWorkout = _CurrentWorkout;
 
+import _Financials from './Financials';
+export const Financials = _Financials;
+
 import _Programs from './Programs';
 export const Programs = _Programs;
 

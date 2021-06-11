@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Home, Login, Settings, MyProfile, Files, WorkoutTemplate, Forms, UpdateNotificationSettings, Workouts, WorkoutLibrary, ProgressPhoto, LogNutrition, StartWorkout, Integrations, Notifications, UnitMeasurement, UploadPhoto, Programs, ProgramLibrary, MarketPlace, CreditPackages, Packages, WorkoutDetails, CurrentWorkout } from '../screens';
+import { Home, Login, Settings, MyProfile, Files, WorkoutTemplate, Forms, UpdateNotificationSettings, Workouts, WorkoutLibrary, ProgressPhoto, LogNutrition, StartWorkout, Integrations, Notifications, UnitMeasurement, UploadPhoto, Programs, ProgramLibrary, MarketPlace, CreditPackages, Packages, WorkoutDetails, CurrentWorkout, Financials } from '../screens';
 import { Icon } from "../components";
 import moment from 'moment';
 
@@ -122,6 +122,10 @@ function AppRoutes() {
             })} />
 
             <Stack.Screen name="Marketplace" component={MarketPlace} options={({ navigation, route }) => ({
+                headerShown: false,
+            })} />
+
+            <Stack.Screen name="Financials" component={Financials} options={({ navigation, route }) => ({
                 headerShown: false,
             })} />
 

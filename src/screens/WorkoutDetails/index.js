@@ -160,41 +160,44 @@ class WorkoutDetail extends Component {
                         </View>
 
                         <View style={styles.secondContainer}>
-                            <View style={{ flex: 1, }}>
-                                {/* <View style={{ marginHorizontal: "5%", height: 40 }}>
+                            <ScrollView contentContainerStyle={{ paddingBottom: '30%' }}>
+                                <View style={{ flex: 1, }}>
+                                    {/* <View style={{ marginHorizontal: "5%", height: 40 }}>
                                     <Input inputStyle={{ height: 40 }} placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
                                 </View> */}
 
-                                <View style={{ marginHorizontal: "5%", flex: 0.7 }}>
-                                    <View style={styles.iconContainer}>
-                                        {/* <Icon.FontAwesome5 name="fire-alt" size={30} color={"white"} /> */}
-                                    </View>
-                                    <View style={{ marginTop: "5%" }}>
-                                        <Text style={styles.textStyle}>Description</Text>
-                                    </View>
-                                    <View style={{ marginTop: "5%" }}>
-                                        <Text style={styles.textStyle1}>Nothing added just yet!</Text>
-                                    </View>
-                                    <View style={{ marginTop: "5%" }}>
-                                        <Text style={styles.textStyle}>Note</Text>
-                                    </View>
-                                    <View style={{ marginTop: "5%" }}>
-                                        <Text style={styles.textStyle1}>Nothing added just yet!</Text>
-                                    </View>
-                                    <View style={{ marginTop: "5%" }}>
-                                        <Text style={styles.textStyle}>Files</Text>
-                                    </View>
-                                    <View style={{ marginTop: "5%" }}>
-                                        <Text style={styles.textStyle1}>Nothing added just yet!</Text>
-                                    </View>
-                                    {/* <View style={{ marginTop: "5%" }}>
+                                    <View style={{ marginHorizontal: "5%", flex: 0.7 }}>
+                                        <View style={styles.iconContainer}>
+                                            {/* <Icon.FontAwesome5 name="fire-alt" size={30} color={"white"} /> */}
+                                        </View>
+                                        <View style={{ marginTop: "5%" }}>
+                                            <Text style={styles.textStyle}>Description</Text>
+                                        </View>
+                                        <View style={{ marginTop: "5%" }}>
+                                            <Text style={styles.textStyle1}>Nothing added just yet!</Text>
+                                        </View>
+                                        <View style={{ marginTop: "5%" }}>
+                                            <Text style={styles.textStyle}>Note</Text>
+                                        </View>
+                                        <View style={{ marginTop: "5%" }}>
+                                            <Text style={styles.textStyle1}>Nothing added just yet!</Text>
+                                        </View>
+                                        <View style={{ marginTop: "5%" }}>
+                                            <Text style={styles.textStyle}>Files</Text>
+                                        </View>
+                                        <View style={{ marginTop: "5%" }}>
+                                            <Text style={styles.textStyle1}>Nothing added just yet!</Text>
+                                        </View>
+                                        {/* <View style={{ marginTop: "5%" }}>
                                         <Text style={styles.textStyle}>Nothing to see here?</Text>
                                     </View>
                                     <View style={{ marginTop: "5%" }}>
                                         <Text style={styles.textStyle1}>Nothing added just yet!</Text>
                                     </View> */}
+                                    </View>
                                 </View>
-                            </View>
+                            </ScrollView>
+
 
 
 
