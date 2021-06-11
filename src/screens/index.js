@@ -46,6 +46,9 @@ export const Files = _Files;
 import _AddItem from './AddItem';
 export const AddItem = _AddItem;
 
+import _Measurement from './Measurement';
+export const Measurement = _Measurement;
+
 import _Nutrition from './Nutrition';
 export const Nutrition = _Nutrition;
 

@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         backgroundColor: '#544b4c',
         // padding: "5%",
-        width: 80,
+        // width: 80,
         paddingHorizontal: "10%",
         borderRadius: 30
     },

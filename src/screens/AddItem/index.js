@@ -83,7 +83,7 @@ class AddItem extends Component {
                                 onClose={() => this.setState({ dropdownOpen2: false })}
                                 onOpen={() => this.setState({ dropdownOpen2: true })}
                                 containerStyle={{ height: 40, marginBottom: this.state.dropdownOpen2 ? '31%' : 0 }}
-                                defaultValue={this.state.selectedBodyWeight ? this.state.selectedBodyWeight.label : ""}
+                                defaultValue={this.state.selectedUnitMeasurement ? this.state.selectedUnitMeasurement.label : ""}
                                 onChangeItem={(item) => {
                                     this.setState({
                                         selectedUnitMeasurement: item, item: item.value, index: item.value,

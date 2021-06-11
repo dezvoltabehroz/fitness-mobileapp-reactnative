@@ -37,7 +37,7 @@ class Home extends Component {
             },
             {
                 text: "Update Metrics",
-                title:"UpdateMetrics",
+                title:"Measurement",
                 iconName: <Icon.Entypo name={'gauge'} size={20} color='white' />,
             }],
             activityArr: [
