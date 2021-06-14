@@ -200,7 +200,6 @@ class Measurement extends Component {
                         {
                             this.state.selectedMeasurementType.label == 'Vital Stats' ?
                                 <>
-
                                     <View style={styles.generalMargin1}>
                                         <Input label="Muscle Mass (kg)" placeholder="Muscle Mass (kg)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>kg</Text></View>} />
                                     </View>

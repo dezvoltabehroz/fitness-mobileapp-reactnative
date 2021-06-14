@@ -109,7 +109,6 @@ class Notifications extends Component {
                     <View style={styles.upperContainer}>
                         <Text style={styles.headingStyle}>{"Notifications"}</Text>
                     </View>
-
                     <View style={styles.lowerContentContainer}>
                         <ScrollView style={{ paddingTop:40,paddingBottom:120 }}>
                             <FlatList
@@ -119,7 +118,6 @@ class Notifications extends Component {
                                 ItemSeparatorComponent={this.renderSeparator}
                                 showsVerticalScrollIndicator={false}
                                 renderItem={({ index, item }) => this._renderItems({ index, item })}
-
                             />
                         </ScrollView>
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, ScrollView } from 'react-native';
-import { Container, Icon } from '../../components';
+import { Container, FilterModal, Icon } from '../../components';
 import styles from './style';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
@@ -12,6 +12,7 @@ class ProgramLibrary extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            filterModal: false,
             program: [
                 {
                     user_name: 'T',
@@ -83,7 +84,7 @@ class ProgramLibrary extends Component {
     }
 
     render() {
-        const { program, reportModal, issue } = this.state;
+        const { program, reportModal, issue,filterModal } = this.state;
         return (
             <Container props={this.props}>
                 <View style={styles.container}>
@@ -92,7 +93,7 @@ class ProgramLibrary extends Component {
                         <ScrollView style={{ paddingBottom: 100 }}>
                             <View style={styles.rowContainer} >
                                 <Text style={styles.textStyle}>A to Z</Text>
-                                <RNBounceable onPress={() => this.props.navigation.navigate('WorkoutLibrary')} style={styles.row}>
+                                <RNBounceable onPress={() => this.setState({ filterModal: true })} style={styles.row}>
                                     <Icon.FontAwesome name="filter" size={20} />
                                 </RNBounceable>
                             </View>
@@ -107,6 +108,7 @@ class ProgramLibrary extends Component {
                         </ScrollView>
                     </View>
                 </View>
+                <FilterModal isVisible={filterModal} hide={() => this.setState({ filterModal: false })} />
             </Container>
         )
     }

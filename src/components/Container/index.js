@@ -6,6 +6,7 @@ import { Icon as IconS } from '..';
 import THEME from '../../assets/styles/theme.style';
 import Modal from 'react-native-modal';
 import styles from './style';
+import RNBounceable from '@freakycoder/react-native-bounceable';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 
@@ -117,13 +118,13 @@ const Container = ({ children, props }) => {
                             {
                                 screen == 'Notifications' ?
 
-                                    <TouchableOpacity onPress={() => props.authActions.menuModal(!props.user.menuModal)} style={{ marginHorizontal: "5%", justifyContent: "center", alignItems: "center" }}>
+                                    <TouchableOpacity onPress={() => props.authActions.notificationModal(true)} style={{ marginHorizontal: "5%", justifyContent: "center", alignItems: "center" }}>
                                         <Icon type="MaterialCommunityIcons" name="bell-off-outline" style={{ fontSize: 35 }} />
                                     </TouchableOpacity>
                                     :
                                     screen == 'CurrentWorkout' ?
 
-                                        <TouchableOpacity onPress={() => { }} style={{ marginHorizontal: "5%", justifyContent: "center", alignItems: "center" }}>
+                                        <TouchableOpacity onPress={() => props.authActions.notificationModal(true)} style={{ marginHorizontal: "5%", justifyContent: "center", alignItems: "center" }}>
                                             <IconS.Fontisto name="stopwatch" size={25} />
                                         </TouchableOpacity>
                                         :
@@ -188,6 +189,45 @@ const Container = ({ children, props }) => {
                     </View>
                 </View>
             </Modal>
+            <Modal isVisible={props.user.notificationModal}
+                onBackdropPress={() => props.authActions.notificationModal(!props.user.notificationModal)}
+                animationInTiming={1000}
+                animationOutTiming={1000}
+                style={{ justifyContent: 'flex-end', margin: 0 }} >
+                <View style={styles.modalLowerContainer}>
+                    <View>
+                        <Text style={styles.headingTextStyle}>Notifications</Text>
+                    </View>
+                    <RNBounceable onPress={() => this.props.navigation.navigate('WorkoutTemplate')} style={{ flexDirection: "row", justifyContent: "space-between", marginTop: "5%", borderRadius: 10, elevation: 1, paddingVertical: "10%", paddingHorizontal: "5%" }}>
+                        <Text style={styles.headingStyle}>Mark all as read</Text>
+                        <IconS.AntDesign name="right" size={25} color={"lightgray"} />
+                    </RNBounceable>
+                    <RNBounceable onPress={() => this.props.navigation.navigate('WorkoutTemplate')} style={{ flexDirection: "row", justifyContent: "space-between", marginTop: "5%", borderRadius: 10, elevation: 1, paddingVertical: "10%", paddingHorizontal: "5%" }}>
+                        <Text style={styles.headingStyle}>Clear All</Text>
+                        <IconS.AntDesign name="right" size={25} color={"lightgray"} />
+                    </RNBounceable>
+                </View>
+            </Modal>
+            <Modal isVisible={props.user.calenderModal}
+                onBackdropPress={() => props.authActions.notificationModal(!props.user.notificationModal)}
+                animationInTiming={1000}
+                animationOutTiming={1000}
+                style={{ justifyContent: 'flex-end', margin: 0 }} >
+                <View style={styles.modalLowerContainer}>
+                    <View>
+                        <Text style={styles.headingTextStyle}>Notifications</Text>
+                    </View>
+                    <RNBounceable onPress={() => this.props.navigation.navigate('WorkoutTemplate')} style={{ flexDirection: "row", justifyContent: "space-between", marginTop: "5%", borderRadius: 10, elevation: 1, paddingVertical: "10%", paddingHorizontal: "5%" }}>
+                        <Text style={styles.headingStyle}>Mark all as read</Text>
+                        <IconS.AntDesign name="right" size={25} color={"lightgray"} />
+                    </RNBounceable>
+                    <RNBounceable onPress={() => this.props.navigation.navigate('WorkoutTemplate')} style={{ flexDirection: "row", justifyContent: "space-between", marginTop: "5%", borderRadius: 10, elevation: 1, paddingVertical: "10%", paddingHorizontal: "5%" }}>
+                        <Text style={styles.headingStyle}>Clear All</Text>
+                        <IconS.AntDesign name="right" size={25} color={"lightgray"} />
+                    </RNBounceable>
+                </View>
+            </Modal>
+            
         </>
     )
 };

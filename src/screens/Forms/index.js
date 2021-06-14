@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, ScrollView, Dimensions } from 'react-native';
-import { Container, Icon } from '../../components';
+import { Container, FilterModal, Icon } from '../../components';
 import styles from './style';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
@@ -14,12 +14,13 @@ class Files extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            progress: 100
+            progress: 100,
+            filterModal:false
         }
     }
 
     render() {
-        const { progress, reportModal, issue } = this.state;
+        const { progress, reportModal, issue,filterModal } = this.state;
         const barWidth = Dimensions.get('screen').width * 0.9;
         const progressCustomStyles = {
             backgroundColor: '#E8E8E8',
@@ -41,7 +42,7 @@ class Files extends Component {
 
                             <View style={styles.rowContainer} >
                                 <Text style={styles.texStyle}>A to Z</Text>
-                                <RNBounceable onPress={() => { }} style={styles.row}>
+                                <RNBounceable onPress={() => { this.setState({filterModal:true})}} style={styles.row}>
                                     <Icon.Feather name="filter" size={20} />
                                 </RNBounceable>
                             </View>
@@ -62,6 +63,7 @@ class Files extends Component {
                     </View>
 
                 </View>
+                <FilterModal isVisible={filterModal} hide={() => this.setState({ filterModal: false })} />
             </Container>
         )
     }

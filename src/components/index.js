@@ -20,6 +20,9 @@ export const SlimButton = _SlimButton;
 import _Icon from './Icon';
 export const Icon = _Icon;
 
+import _FilterModal from './FilterModal';
+export const FilterModal = _FilterModal;
+
 // Input Text Field Component
 import _Input from './Input';
 export const Input = _Input;

@@ -37,9 +37,8 @@ export default StyleSheet.create({
         // marginTop: '5%'
     },
     headingTextStyle: {
-        fontSize: THEME.FONT_SIZE_LARGE,
-        fontFamily: 'notoserif', // 'Poppins-Regular',
-        color: THEME.PRIMARY_TEXT_COLOR
+        fontSize: THEME.FONT_SIZE_XLARGE,
+        fontWeight: "bold"
     },
     babeoTextStyle: {
         fontFamily: 'notoserif', // 'Poppins-Bold',
@@ -208,9 +207,30 @@ export default StyleSheet.create({
         justifyContent: "center",
         alignItems: 'center',
         borderRadius: 25,
-        marginHorizontal:screenHeight*0.025,
+        marginHorizontal: screenHeight * 0.025,
     },
     gapHeight: {
         height: 20
+    },
+    modalLowerContainer: {
+        // flex: 0.8,
+        flexDirection: "column",
+        backgroundColor: "white",
+        padding: "5%",
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25,
+    },
+    modalLowerFilterContainer: {
+        // flex: 0.8,
+        flexDirection: "column",
+        justifyContent: "space-around",
+        // backgroundColor: "white",
+        padding: "5%",
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25,
+    },
+    headingStyle: {
+        fontSize: THEME.FONT_SIZE_LARGE,
+        fontWeight: "bold"
     },
 })

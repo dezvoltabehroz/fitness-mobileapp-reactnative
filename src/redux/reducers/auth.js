@@ -9,13 +9,19 @@ import {
     USER_EMAIL_AND_PASSWORD_SUCCESS,
     MENU_MODAL_SUCCESS,
     WRONG_CODE_ERROR,
-    EXPIRE_CODE_ERROR
+    EXPIRE_CODE_ERROR,
+    NOTIFICATION_MODAL_SUCCESS,
+    FILTER_MODAL_SUCCESS,
+    CALENDER_MODAL_SUCCESS
 } from '../types';
 
 const initialState = {
     userData: {},
     menuModal: false,
+    notificationModal: false,
     isUserLogedIn: false,
+    filterModal: false,
+    calenderModal: false,
     name: '',
     dob: '',
     gender: '',
@@ -97,6 +103,21 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 menuModal: action.modal
+            }
+        case CALENDER_MODAL_SUCCESS:
+            return {
+                ...state,
+                calenderModal: action.modal
+            }
+        case FILTER_MODAL_SUCCESS:
+            return {
+                ...state,
+                filterModal: action.modal
+            }
+        case NOTIFICATION_MODAL_SUCCESS:
+            return {
+                ...state,
+                notificationModal: action.modal
             }
         default:
             return state;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, ActivityIndicator, TouchableOpacity, ScrollView, Animated, RefreshControl, Linking, Easing, Dimensions } from 'react-native'
-import { Icon, Button, FloatingInput, RadioButton, Container, SlimButton } from "../../components";
+import { Icon, Button, FloatingInput, RadioButton, Container, SlimButton, FilterModal } from "../../components";
 import styles from './style';
 import RNBounceable from "@freakycoder/react-native-bounceable";
 import AsyncStorage from '@react-native-community/async-storage';
@@ -19,6 +19,7 @@ class Nutrition extends Component {
         super(props);
 
         this.state = {
+            filterModal: false,
             visible: true,
             currentPage: 0,
             buttonArr: [{
@@ -143,7 +144,7 @@ class Nutrition extends Component {
 
 
     render() {
-        const { currentPage, } = this.state;
+        const { currentPage,filterModal } = this.state;
         return (
             <Container props={this.props} >
                 <View style={styles.container}>
@@ -209,7 +210,7 @@ class Nutrition extends Component {
                                 <Input placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
                                 <View style={styles.rowContainer} >
                                     <Text style={styles.textStyle}>A to Z</Text>
-                                    <RNBounceable onPress={() => this.props.navigation.navigate('WorkoutLibrary')} style={styles.row}>
+                                    <RNBounceable onPress={() => this.setState({ filterModal: true })} style={styles.row}>
                                         <Icon.FontAwesome name="filter" size={20} />
                                     </RNBounceable>
                                 </View>
@@ -228,7 +229,7 @@ class Nutrition extends Component {
                             </ScrollView>
                             <View style={{ alignItems: "center", justifyContent: "center" }}>
                                 <View style={{ position: "absolute", bottom: 40, }}>
-                                    <SlimButton title={"Create Custom Food"} onPress={() => {this.props.navigation.navigate('AddItem') }} />
+                                    <SlimButton title={"Create Custom Food"} onPress={() => { this.props.navigation.navigate('AddItem') }} />
                                 </View>
                             </View>
                         </View>
@@ -252,6 +253,7 @@ class Nutrition extends Component {
                         </View>
                     </ScrollView>
                 </View>
+                <FilterModal isVisible={filterModal} hide={() => this.setState({ filterModal: false })} />
             </Container>
         )
     }

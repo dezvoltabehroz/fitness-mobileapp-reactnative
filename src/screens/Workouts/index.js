@@ -75,7 +75,7 @@ class Workouts extends Component {
 
     _renderItems = ({ index, item }) => {
         return (
-            <RNBounceable onPressIn={() => { this.props.navigation.navigate('WorkoutDetails', { heading: item.type }) }} style={{ flex: 1, flexDirection: "row", marginHorizontal: "5%" }} onPress={() => { }}>
+            <RNBounceable onPress={() => this.props.navigation.navigate('WorkoutDetails', { heading: item.type })} style={{ flex: 1, flexDirection: "row", marginHorizontal: "5%" }} onPress={() => { }}>
                 <View style={{
                     borderRadius: 30, height: 40, width: 40,
                     justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
@@ -141,7 +141,7 @@ class Workouts extends Component {
                         />
                         <View style={{ alignItems: "center", justifyContent: "center" }}>
                             <View style={{ position: "absolute", bottom: 40, }}>
-                                <SlimButton title={"Start Workout"} onPress={() => {this.props.navigation.navigate('StartWorkout') }} />
+                                <SlimButton title={"Start Workout"} onPress={() => { this.props.navigation.navigate('StartWorkout') }} />
                             </View>
                         </View>
 

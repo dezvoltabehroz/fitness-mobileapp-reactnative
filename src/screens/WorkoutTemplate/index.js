@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, ActivityIndicator, TouchableOpacity, ScrollView, Animated, RefreshControl, Linking, Easing, Dimensions } from 'react-native'
-import { Icon, Button, FloatingInput, RadioButton, Container, SlimButton } from "../../components";
+import { Icon, Button, FloatingInput, RadioButton, Container, SlimButton, BrownButton } from "../../components";
 import styles from './style';
 import RNBounceable from "@freakycoder/react-native-bounceable";
 import AsyncStorage from '@react-native-community/async-storage';
@@ -192,8 +192,8 @@ class WorkoutTemplate extends Component {
                             </View>
 
 
-                            <View style={{ alignItems: "center", justifyContent: "center" }}>
-                                <View style={{ position: "absolute", bottom: 40, }}>
+                            <View style={{ bottom: 40,height:54,width:80 }}>
+                                <View style={{ position: "absolute", }}>
                                     <SlimButton title={"Done"} onPress={() => { this.props.navigation.navigate('StartWorkout') }} />
                                 </View>
                             </View>

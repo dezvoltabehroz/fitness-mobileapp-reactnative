@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, ScrollView } from 'react-native';
-import { Container, Icon } from '../../components';
+import { Container, FilterModal, Icon } from '../../components';
 import styles from './style';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
@@ -12,6 +12,8 @@ class WorkoutLibrary extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            filterModal: false,
+
             notification: [
                 {
                     user_name: 'T',
@@ -89,7 +91,7 @@ class WorkoutLibrary extends Component {
     }
 
     render() {
-        const { notification, reportModal, issue } = this.state;
+        const { notification, reportModal, issue, filterModal } = this.state;
         return (
             <Container props={this.props}>
                 <View style={styles.container}>
@@ -98,7 +100,7 @@ class WorkoutLibrary extends Component {
                         <ScrollView style={{ paddingBottom: 100 }}>
                             <View style={styles.rowContainer} >
                                 <Text style={styles.textStyle}>A to Z</Text>
-                                <RNBounceable onPress={() => this.props.navigation.navigate('WorkoutLibrary')} style={styles.row}>
+                                <RNBounceable onPress={() => this.setState({ filterModal: true })} style={styles.row}>
                                     {/* <Text style={styles.viewStyle} >View all</Text> */}
                                     <Icon.FontAwesome name="filter" size={20} />
                                 </RNBounceable>
@@ -117,6 +119,7 @@ class WorkoutLibrary extends Component {
                     </View>
 
                 </View>
+                <FilterModal isVisible={filterModal} hide={() => this.setState({ filterModal: false })} />
             </Container>
         )
     }
