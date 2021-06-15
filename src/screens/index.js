@@ -58,6 +58,18 @@ export const Forms = _Forms;
 import _Calendar from './Calendar';
 export const Calendar = _Calendar;
 
+import _ChatList from './ChatList';
+export const ChatList = _ChatList;
+
+import _ChatSetting from './ChatSetting';
+export const ChatSetting = _ChatSetting;
+
+import _Chat from './Chat';
+export const Chat = _Chat;
+
+import _Media from './Media';
+export const Media = _Media;
+
 import _MarketPlace from './MarketPlace';
 export const MarketPlace = _MarketPlace;
 
