@@ -7,10 +7,11 @@ import THEME from '../../assets/styles/theme.style';
 import Modal from 'react-native-modal';
 import styles from './style';
 import RNBounceable from '@freakycoder/react-native-bounceable';
+import DropDownPicker from 'react-native-dropdown-picker';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 
-const Container = ({ children, props }) => {
+const Container = ({ children, props, component,selectedMinF, selectedSecF }) => {
     if (Platform.OS === 'android') {
         UIManager.setLayoutAnimationEnabledExperimental(true);
     }
@@ -124,11 +125,17 @@ const Container = ({ children, props }) => {
                                     :
                                     screen == 'CurrentWorkout' ?
 
-                                        <TouchableOpacity onPress={() => props.authActions.notificationModal(true)} style={{ marginHorizontal: "5%", justifyContent: "center", alignItems: "center" }}>
+                                        <TouchableOpacity onPress={() => props.authActions.stopwatchModal(true)} style={{ marginHorizontal: "5%", justifyContent: "center", alignItems: "center" }}>
                                             <IconS.Fontisto name="stopwatch" size={25} />
                                         </TouchableOpacity>
                                         :
-                                        null
+                                        screen == 'Calendar' ?
+
+                                            <TouchableOpacity onPress={() => props.authActions.calenderModal(true)} style={{ marginHorizontal: "5%", justifyContent: "center", alignItems: "center" }}>
+                                                <IconS.FontAwesome5 name="user-cog" size={25} />
+                                            </TouchableOpacity>
+                                            :
+                                            null
                             }
                         </View>
                         <TouchableOpacity onPress={() => props.authActions.menuModal(!props.user.menuModal)} style={{ marginHorizontal: "5%", height: 30, width: 40 }}>
@@ -198,36 +205,54 @@ const Container = ({ children, props }) => {
                     <View>
                         <Text style={styles.headingTextStyle}>Notifications</Text>
                     </View>
-                    <RNBounceable onPress={() => this.props.navigation.navigate('WorkoutTemplate')} style={{ flexDirection: "row", justifyContent: "space-between", marginTop: "5%", borderRadius: 10, elevation: 1, paddingVertical: "10%", paddingHorizontal: "5%" }}>
+                    <RNBounceable onPress={() => props.navigation.navigate('WorkoutTemplate')} style={{ flexDirection: "row", justifyContent: "space-between", marginTop: "5%", borderRadius: 10, elevation: 1, paddingVertical: "10%", paddingHorizontal: "5%" }}>
                         <Text style={styles.headingStyle}>Mark all as read</Text>
                         <IconS.AntDesign name="right" size={25} color={"lightgray"} />
                     </RNBounceable>
-                    <RNBounceable onPress={() => this.props.navigation.navigate('WorkoutTemplate')} style={{ flexDirection: "row", justifyContent: "space-between", marginTop: "5%", borderRadius: 10, elevation: 1, paddingVertical: "10%", paddingHorizontal: "5%" }}>
+                    <RNBounceable onPress={() => props.navigation.navigate('WorkoutTemplate')} style={{ flexDirection: "row", justifyContent: "space-between", marginTop: "5%", borderRadius: 10, elevation: 1, paddingVertical: "10%", paddingHorizontal: "5%" }}>
                         <Text style={styles.headingStyle}>Clear All</Text>
                         <IconS.AntDesign name="right" size={25} color={"lightgray"} />
                     </RNBounceable>
                 </View>
             </Modal>
-            <Modal isVisible={props.user.calenderModal}
-                onBackdropPress={() => props.authActions.notificationModal(!props.user.notificationModal)}
+            <Modal isVisible={props.user.stopwatchModal}
+                onBackdropPress={() => props.authActions.stopwatchModal(!props.user.stopwatchModal)}
                 animationInTiming={1000}
                 animationOutTiming={1000}
                 style={{ justifyContent: 'flex-end', margin: 0 }} >
                 <View style={styles.modalLowerContainer}>
-                    <View>
-                        <Text style={styles.headingTextStyle}>Notifications</Text>
+                    <View style={{ flexDirection: "row", justifyContent: "space-evenly", alignItems: "center", paddingBottom: "15%" }}>
+                        <DropDownPicker
+                            items={component?.minutes}
+                            arrowColor="#000000"
+                            placeholder="00 min"
+                            activeLabelStyle={{ color: "white", fontWeight: "bold" }}
+                            activeItemStyle={{ backgroundColor: '#544b4c' }}
+                            dropDownStyle={{ paddingHorizontal: 0 }}
+                            itemStyle={{ justifyContent: 'flex-start', paddingHorizontal: "5%" }}
+                            containerStyle={{ height: 40, width: "45%", }}
+                            defaultValue={component?.selectedMin ? component?.selectedMin?.label : ""}
+                            onChangeItem={(item) => { selectedMinF(item) }} />
+                        <DropDownPicker
+                            items={component?.second}
+                            arrowColor="#000000"
+                            placeholder="00 sec"
+                            activeLabelStyle={{ color: "white", fontWeight: "bold" }}
+                            activeItemStyle={{ backgroundColor: '#544b4c' }}
+                            dropDownStyle={{ paddingHorizontal: 0 }}
+                            itemStyle={{ justifyContent: 'flex-start', paddingHorizontal: "5%" }}
+                            containerStyle={{ height: 40, width: "45%", }}
+                            defaultValue={component?.selectedSec ? component?.selectedSec?.label : ""}
+                            onChangeItem={(item) => { selectedSecF(item) }} />
                     </View>
-                    <RNBounceable onPress={() => this.props.navigation.navigate('WorkoutTemplate')} style={{ flexDirection: "row", justifyContent: "space-between", marginTop: "5%", borderRadius: 10, elevation: 1, paddingVertical: "10%", paddingHorizontal: "5%" }}>
-                        <Text style={styles.headingStyle}>Mark all as read</Text>
-                        <IconS.AntDesign name="right" size={25} color={"lightgray"} />
-                    </RNBounceable>
-                    <RNBounceable onPress={() => this.props.navigation.navigate('WorkoutTemplate')} style={{ flexDirection: "row", justifyContent: "space-between", marginTop: "5%", borderRadius: 10, elevation: 1, paddingVertical: "10%", paddingHorizontal: "5%" }}>
-                        <Text style={styles.headingStyle}>Clear All</Text>
-                        <IconS.AntDesign name="right" size={25} color={"lightgray"} />
+                    <RNBounceable onPress={() => props.authActions.stopwatchModal(!props.user.stopwatchModal)} style={{ justifyContent: "center", alignItems: "center" }}>
+                        <View style={{ height: 100, width: 100, borderRadius: 50, backgroundColor: "lightgray", justifyContent: "center", alignItems: "center" }}>
+                            <Text>Start</Text>
+                        </View>
                     </RNBounceable>
                 </View>
             </Modal>
-            
+
         </>
     )
 };

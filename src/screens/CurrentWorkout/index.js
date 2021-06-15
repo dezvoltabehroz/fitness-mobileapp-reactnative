@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-    View, Text, ActivityIndicator, Dimensions, ScrollView, TouchableOpacity, Alert
+    View, Text, ActivityIndicator, Image, Dimensions, ScrollView, TouchableOpacity, Alert
 } from 'react-native'
 import { Container, Icon, BrownButton, Input } from "../../components";
 import styles from './style';
@@ -23,6 +23,8 @@ class CurrentWorkout extends Component {
             currentPage: 0,
             side: "",
             back: "",
+            selectedSec: [{}],
+            selectedMin: [{}],
             searchModal: false,
             distance: [{
                 id: 1,
@@ -34,6 +36,147 @@ class CurrentWorkout extends Component {
                 label: "Miles",
                 value: "Miles"
             }],
+            second: [{
+                id: 1,
+                label: "00 sec",
+                value: "00 sec"
+            },
+            {
+                id: 2,
+                label: "05 sec",
+                value: "05 sec"
+            },
+            {
+                id: 3,
+                label: "10 sec",
+                value: "10 sec"
+            },
+            {
+                id: 4,
+                label: "15 sec",
+                value: "15 sec"
+            },
+            {
+                id: 5,
+                label: "20 sec",
+                value: "20 sec"
+            },
+            {
+                id: 6,
+                label: "25 sec",
+                value: "25 sec"
+            },
+            {
+                id: 7,
+                label: "30 sec",
+                value: "30 sec"
+            },
+            {
+                id: 8,
+                label: "35 sec",
+                value: "35 sec"
+            },
+            {
+                id: 9,
+                label: "40 sec",
+                value: "40 sec"
+            },
+            {
+                id: 10,
+                label: "45 sec",
+                value: "45 sec"
+            },
+            {
+                id: 11,
+                label: "50 sec",
+                value: "50 sec"
+            },
+            {
+                id: 12,
+                label: "55 sec",
+                value: "55 sec"
+            }],
+            minutes: [{
+                id: 1,
+                label: "00 min",
+                value: "00 min"
+            },
+            {
+                id: 2,
+                label: "01 min",
+                value: "01 min"
+            },
+            {
+                id: 3,
+                label: "02 min",
+                value: "02 min"
+            },
+            {
+                id: 4,
+                label: "03 min",
+                value: "03 min"
+            },
+            {
+                id: 5,
+                label: "04 min",
+                value: "04 min"
+            },
+            {
+                id: 6,
+                label: "05 min",
+                value: "05 min"
+            },
+            {
+                id: 7,
+                label: "10 min",
+                value: "10 min"
+            },
+            {
+                id: 8,
+                label: "15 min",
+                value: "15 min"
+            },
+            {
+                id: 9,
+                label: "20 min",
+                value: "20 min"
+            },
+            {
+                id: 10,
+                label: "25 min",
+                value: "25 min"
+            },
+            {
+                id: 11,
+                label: "30 min",
+                value: "30 min"
+            },
+            {
+                id: 12,
+                label: "35 min",
+                value: "35 min"
+            }
+                ,
+            {
+                id: 13,
+                label: "40 min",
+                value: "40 min"
+            },
+            {
+                id: 14,
+                label: "45 min",
+                value: "45 min"
+            },
+            {
+                id: 15,
+                label: "50 min",
+                value: "50 min"
+            },
+            {
+                id: 16,
+                label: "55 min",
+                value: "55 min"
+            }]
         }
     }
 
@@ -58,10 +201,10 @@ class CurrentWorkout extends Component {
     }
 
     render() {
-        const { currentPage, searchModal, distance } = this.state;
+        const { currentPage, searchModal, distance, second, minutes } = this.state;
         return (
             <>
-                <Container props={this.props}>
+                <Container props={this.props} component={this.state} selectedMinF={(value)=>this.setState({selectedMin:value})} selectedSecF={(value)=>this.setState({selectedSec:value})}>
                     <StatusBar backgroundColor={this.props.user.menuModal ? THEME.PRIMARY_BACKGROUND_COLOR : "#181818"} barStyle={"light-content"} />
                     <View style={styles.container}>
                         <View style={{ flex: 0.7, marginTop: "12.5%" }}>
@@ -73,6 +216,7 @@ class CurrentWorkout extends Component {
                             </TouchableOpacity>
                         </View>
                     </View>
+
                 </Container>
                 <Modal style={{
                     backgroundColor: 'rgba(0,0,0,0.7)',
@@ -180,6 +324,7 @@ class CurrentWorkout extends Component {
 
                     </View>
                 </Modal>
+
             </>
         )
     }

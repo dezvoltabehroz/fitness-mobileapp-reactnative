@@ -82,4 +82,12 @@ export default StyleSheet.create({
         textAlign: "center",
         fontSize: 16,
     },
+    modalLowerContainer1: {
+        // flex: 0.8,
+        flexDirection: "column",
+        backgroundColor: "white",
+        padding: "5%",
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25,
+    },
 })

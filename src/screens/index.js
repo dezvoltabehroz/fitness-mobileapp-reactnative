@@ -55,6 +55,9 @@ export const Nutrition = _Nutrition;
 import _Forms from './Forms';
 export const Forms = _Forms;
 
+import _Calendar from './Calendar';
+export const Calendar = _Calendar;
+
 import _MarketPlace from './MarketPlace';
 export const MarketPlace = _MarketPlace;
 

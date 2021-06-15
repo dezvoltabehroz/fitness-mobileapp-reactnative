@@ -10,7 +10,7 @@ import RNBounceable from '@freakycoder/react-native-bounceable';
 import moment from 'moment';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 
-class Files extends Component {
+class Forms extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -80,4 +80,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Files)
+export default connect(mapStateToProps, mapDispatchToProps)(Forms)

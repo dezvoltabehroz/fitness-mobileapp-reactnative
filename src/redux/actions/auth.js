@@ -2,7 +2,8 @@ import {
     MENU_MODAL_SUCCESS,
     NOTIFICATION_MODAL_SUCCESS,
     CALENDER_MODAL_SUCCESS,
-    FILTER_MODAL_SUCCESS
+    FILTER_MODAL_SUCCESS,
+    STOPWATCH_MODAL_SUCCESS
 } from '../types';
 import { Alert, Linking, Platform } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -31,11 +32,18 @@ const filterModal = (modal) => {
     }
 }
 
+const stopwatchModal = (modal) => {
+    return (dispatch) => {
+        dispatch({ type: STOPWATCH_MODAL_SUCCESS, modal: modal })
+    }
+}
+
 
 
 export const authActions = {
     menuModal,
     notificationModal,
     filterModal,
-    calenderModal
+    calenderModal,
+    stopwatchModal
 };

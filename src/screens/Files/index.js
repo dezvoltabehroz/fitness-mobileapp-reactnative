@@ -74,7 +74,7 @@ class Files extends Component {
                     </View>
 
                 </View>
-                <FilterModal isVisible={filterModal} hide={() => this.setState({ filterModal: false })} />
+                <FilterModal isVisible={filterModal} file={true} hide={() => this.setState({ filterModal: false })} />
             </Container>
         )
     }

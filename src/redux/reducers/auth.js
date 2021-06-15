@@ -12,7 +12,8 @@ import {
     EXPIRE_CODE_ERROR,
     NOTIFICATION_MODAL_SUCCESS,
     FILTER_MODAL_SUCCESS,
-    CALENDER_MODAL_SUCCESS
+    CALENDER_MODAL_SUCCESS,
+    STOPWATCH_MODAL_SUCCESS
 } from '../types';
 
 const initialState = {
@@ -21,6 +22,7 @@ const initialState = {
     notificationModal: false,
     isUserLogedIn: false,
     filterModal: false,
+    stopwatchModal: false,
     calenderModal: false,
     name: '',
     dob: '',
@@ -118,6 +120,11 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 notificationModal: action.modal
+            }
+        case STOPWATCH_MODAL_SUCCESS:
+            return {
+                ...state,
+                stopwatchModal: action.modal
             }
         default:
             return state;

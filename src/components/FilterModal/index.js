@@ -35,20 +35,33 @@ class FilterModal extends Component {
                     title: "Oldest Fisrt",
                     selected: false
                 },
-
+            ],
+            fileFilter: [
+                {
+                    title: "All Files",
+                    selected: true
+                },
+                {
+                    title: "Favourite Files Only",
+                    selected: false
+                },
+                {
+                    title: "Assigned Files Only",
+                    selected: false
+                }
             ]
         }
     }
 
     _renderItem = (index, item) => {
         return (
-            <RNBounceable onPress={()=>{
-                let array=[...this.state.filter];
-                array.map((element,i) => {
-                    array[i].selected=false;
+            <RNBounceable onPress={() => {
+                let array = [...this.state.filter];
+                array.map((element, i) => {
+                    array[i].selected = false;
                 });
-                array[index].selected=true;
-                this.setState({filter:array},()=>this.props.hide())
+                array[index].selected = true;
+                this.setState({ filter: array }, () => this.props.hide())
             }} style={{ flexDirection: "row", justifyContent: "space-between", paddingVertical: "5%", paddingHorizontal: "5%" }}>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <IconS type={item.type} name={item.name} style={{ color: "white", fontSize: 20 }} />
@@ -66,30 +79,72 @@ class FilterModal extends Component {
 
     }
 
+    _renderFileItem = (index, item) => {
+        return (
+            <RNBounceable onPress={() => {
+                let array = [...this.state.fileFilter];
+                array.map((element, i) => {
+                    array[i].selected = false;
+                });
+                array[index].selected = true;
+                this.setState({ fileFilter: array }, () => this.props.hide())
+            }} style={{ flexDirection: "row", justifyContent: "space-between", paddingVertical: "5%", paddingHorizontal: "5%" }}>
+                <Text style={[styles.headingTextStyle]}>{item.title}</Text>
+                {
+                    item.selected ?
+
+                        <Icon.Ionicons name="ios-checkmark-circle-outline" color={"#96CC39"} size={25} />
+
+                        : null
+                }
+            </RNBounceable>
+        )
+
+    }
+
     render() {
-        const { isVisible, hide } = this.props;
-        const { filter } = this.state;
+        const { isVisible, hide, file } = this.props;
+        const { filter, fileFilter } = this.state;
         return (
             <Modal isVisible={isVisible}
                 animationInTiming={1000}
                 animationOutTiming={1000}
                 style={{ justifyContent: 'flex-end', margin: 0 }} >
                 <View style={styles.modalLowerFilterContainer}>
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: "5%", borderRadius: 10, paddingVertical: "10%", paddingHorizontal: "5%" }}>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", borderRadius: 10, paddingVertical: "5%", paddingHorizontal: "5%" }}>
                         <Text style={styles.headingStyle}>Sort</Text>
-                        <RNBounceable onPress={()=>{
-                             let array=[...this.state.filter];
-                             array.map((element,i) => {
-                                 array[i].selected=false;
-                             });
-                             array[0].selected=true;
-                             this.setState({filter:array},()=>hide())
+                        <RNBounceable onPress={() => {
+                            let array = [...this.state.filter];
+                            array.map((element, i) => {
+                                array[i].selected = false;
+                            });
+                            array[0].selected = true;
+                            this.setState({ filter: array }, () => hide())
                         }}>
                             <Text style={styles.textStyle}>Clear all</Text>
                         </RNBounceable>
                     </View>
                     <FlatList data={filter} keyExtractor={(item) => item.title} renderItem={({ index, item }) => this._renderItem(index, item)} />
-                    <RNBounceable onPress={() => hide()} style={{ justifyContent: "center", marginBottom: "5%", alignItems: "center" }}>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between",  borderRadius: 10, paddingVertical: "5%", paddingHorizontal: "5%" }}>
+                        <Text style={styles.headingStyle}>Files</Text>
+                        <RNBounceable onPress={() => {
+                            let array = [...this.state.fileFilter];
+                            array.map((element, i) => {
+                                array[i].selected = false;
+                            });
+                            array[0].selected = true;
+                            this.setState({ fileFilter: array }, () => hide())
+                        }}>
+                            <Text style={styles.textStyle}>Clear all</Text>
+                        </RNBounceable>
+                    </View>
+                    {
+                        file ?
+                            <FlatList data={fileFilter} keyExtractor={(item) => item.title} renderItem={({ index, item }) => this._renderFileItem(index, item)} />
+                            :
+                            null
+                    }
+                    <RNBounceable onPress={() => hide()} style={{ justifyContent: "center", paddingVertical: "5%",backgroundColor:"#181818", alignItems: "center" }}>
                         <Icon.Entypo name="cross" color="white" size={40} />
                     </RNBounceable>
                 </View>
