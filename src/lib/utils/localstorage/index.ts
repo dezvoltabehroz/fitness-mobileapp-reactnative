@@ -1,3 +1,5 @@
+import AsyncStorage from "@react-native-community/async-storage";
+
 const LOCAL_STORAGE_KEYS = {
   personalDetails: 'personalDetails',
   userToken: 'userToken'
@@ -9,20 +11,20 @@ const LOCAL_STORAGE_KEYS = {
  * @param value value to be stored
  */
 const storeLocalData = (key: string, value: any) => {
-  localStorage.setItem(key, value);
+  AsyncStorage.setItem(key, value);
 };
 
 /**
  * Get local data based on key
  * @param key
  */
-const getLocalData = (key: string) => localStorage.getItem(key);
+const getLocalData = (key: string) => AsyncStorage.getItem(key);
 
 /**
  * Clear all local data
  */
 const clearAllLocalData = () => {
-  localStorage.clear();
+  AsyncStorage.clear();
 };
 
 /**
@@ -30,7 +32,7 @@ const clearAllLocalData = () => {
  * @param key
  */
 const clearLocalData = (key: string) => {
-  localStorage.removeItem(key);
+  AsyncStorage.removeItem(key);
 };
 
 export {

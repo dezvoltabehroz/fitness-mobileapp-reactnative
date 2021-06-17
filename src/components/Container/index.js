@@ -8,10 +8,11 @@ import Modal from 'react-native-modal';
 import styles from './style';
 import RNBounceable from '@freakycoder/react-native-bounceable';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { LOGO } from '../../lib/utils/constants';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 
-const Container = ({ children, props, component,selectedMinF, selectedSecF }) => {
+const Container = ({ children, props, component, selectedMinF, selectedSecF }) => {
     if (Platform.OS === 'android') {
         UIManager.setLayoutAnimationEnabledExperimental(true);
     }
@@ -20,14 +21,6 @@ const Container = ({ children, props, component,selectedMinF, selectedSecF }) =>
     const { routes, index } = props.navigation.dangerouslyGetState();
     console.log(routes, index)
     screen = routes[index].name;
-    const { state: exploreState } = routes[index];
-    // console.log(exploreState)
-    // if (exploreState) {
-    //     const { routes: exploreRoutes, index: exploreIndex } = exploreState;
-    //     const exploreActiveRoute = exploreRoutes[exploreIndex];
-    //     screen =  routes[index];
-    // }
-    console.log(screen)
     const changeLayout = async () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         await props.authActions.menuModal(!props.user.menuModal);
@@ -84,23 +77,18 @@ const Container = ({ children, props, component,selectedMinF, selectedSecF }) =>
 
     const _renderItems = ({ index, item }) => {
         return (
-            <TouchableOpacity onPress={async () => {
-                changeLayout()
-                await props.navigation.replace(item.name)
-            }}
+            <TouchableOpacity onPress={async () => { changeLayout(); await props.navigation.replace(item.name) }}
                 style={{ alignItems: "center" }}>
-                <View onPress={() => {
-                }} style={[styles.flatlistContainer, { backgroundColor: "#544b4c" }]}>
+                <View style={[styles.flatlistContainer, { backgroundColor: "#544b4c" }]}>
                     <Icon type={item.type} name={item.iconName} style={{ fontSize: 20, color: 'white' }} />
                 </View>
                 <View style={{ marginTop: 12 }}>
                     <Text style={{ fontSize: 12, color: screen == 'Marketplace' || screen == 'Packages' || screen == 'CreditPackages' ? 'white' : 'black' }} >{item.name}</Text>
                 </View>
-            </TouchableOpacity >
+            </TouchableOpacity>
 
         )
     }
-
 
     const renderSeparator = () => {
         return (<View style={styles.gapHeight}></View>)
@@ -111,10 +99,9 @@ const Container = ({ children, props, component,selectedMinF, selectedSecF }) =>
             <View style={{ flex: 1 }}>
                 <View style={{ flex: 0.9, backgroundColor: screen == 'Marketplace' || screen == 'Packages' || screen == 'CreditPackages' ? '#181818' : 'transparent' }}>
                     {children}
-
                 </View>
                 <View style={{ flex: 0.1, flexDirection: "column", backgroundColor: screen == 'Marketplace' || screen == 'Packages' || screen == 'CreditPackages' ? '#181818' : "white", }}>
-                    <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}  >
+                    <View style={styles.rowContainer}  >
                         <View>
                             {
                                 screen == 'Notifications' ?
@@ -168,7 +155,7 @@ const Container = ({ children, props, component,selectedMinF, selectedSecF }) =>
                                 </View>
                                 <View style={[styles.imageContainer, { marginTop: 20 }]}>
                                     <Image style={{ height: 150, width: 150, }}
-                                        source={require('../../assets/images/logo.png')}
+                                        source={LOGO}
                                         resizeMode='contain' />
                                 </View>
                             </View>
@@ -184,7 +171,7 @@ const Container = ({ children, props, component,selectedMinF, selectedSecF }) =>
                         </ScrollView>
                     </View>
                     <View style={{ flex: 0.1, flexDirection: "column", backgroundColor: screen == 'Marketplace' || screen == 'Packages' || screen == 'CreditPackages' ? '#181818' : "white", }}>
-                        <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}  >
+                        <View style={styles.rowContainer}  >
                             <View>
 
 

@@ -1,5 +1,5 @@
 
-const LOGO = require('../../assets/images/logo.png');
+const LOGO = require('../../../assets/images/logo.png');
 
 const SCREEN_TITLE_ALIGN_CENTER = 'center';
 const SCREEN_TITLE_MEASUREMENT = "Measurement";

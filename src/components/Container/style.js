@@ -233,4 +233,5 @@ export default StyleSheet.create({
         fontSize: THEME.FONT_SIZE_LARGE,
         fontWeight: "bold"
     },
+    rowContainer:{ flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center" }
 })

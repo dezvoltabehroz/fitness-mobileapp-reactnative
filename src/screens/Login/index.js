@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 
-import { LoginButton } from "../../components";
+import { Button } from "../../components";
 import { Input } from '../../components/Input/Input.component';
 import { authActions } from '../../redux/actions/auth';
 import { LOGO } from '../../lib/utils/constants'
@@ -49,7 +49,7 @@ class Login extends Component {
             <View style={styles.container}>
                 <View style={styles.upperContainer}>
                     <View style={styles.imageContainer}>
-                        <Image style={{ height: 150, width: 150, }}
+                        <Image style={styles.imageStyle}
                             source={LOGO}
                             resizeMode='contain' />
                     </View>
@@ -58,7 +58,10 @@ class Login extends Component {
                     <Input placeholder={EMAIL_ADDRESS} label={EMAIL_ADDRESS} />
                     <Input placeholder={PASSWROD} label={PASSWROD} />
 
-                    <LoginButton title="Login" onPress={() => navigate('Home')} />
+                    <View style={styles.buttonContainer}>
+                        <Button.LoginButton title="Login" onPress={() => navigate('Home')} />
+                    </View>
+
                     <Text onPress={() => this.forgetPassword()} style={styles.forgetPasswordTextStyle}>Forget Password?</Text>
                 </View>
             </View>
