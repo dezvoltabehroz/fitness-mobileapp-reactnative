@@ -25,7 +25,7 @@ export default StyleSheet.create({
         marginBottom: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: THEME.BUTTON_COLOR
+        backgroundColor: '#544b4c',
     },
     btnBrownPText: {
         fontSize: THEME.FONT_SIZE_MEDIUM,
