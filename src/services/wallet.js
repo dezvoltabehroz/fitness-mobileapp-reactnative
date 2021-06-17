@@ -1,19 +1,12 @@
 import axiosInstance from './Interceptor';
-let configToken = (token) => {
-    return {
-        headers: {
-            'Authorization': 'Bearer ' + token,
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        }
-    }
-}
+import {apiHeaderConfiguration} from '../lib/utils/global'
+import {TOKEN} from '../lib/utils/constants'
 
 const Api = {
     viewWalletDetails: function (userData) {
         return axiosInstance.post('wallet/viewBankDetail', {
             id: userData.id
-        }, configToken(userData.token))
+        }, apiHeaderConfiguration(userData.token, TOKEN))
     },
     addBankDetail: function (userData) {
         return axiosInstance.post('wallet/addBankDetail', {
@@ -24,7 +17,7 @@ const Api = {
             swift_code: userData.swift_code,
             bank_address: userData.bank_address,
             local_address: userData.local_address,
-        }, configToken(userData.token))
+        }, apiHeaderConfiguration(userData.token, TOKEN))
     },
     addPaymentDetail: function (userData) {
         return axiosInstance.post('wallet/addPaymentDetail', {
@@ -35,19 +28,19 @@ const Api = {
             postal_code: userData.postal_code,
             city: userData.city,
             state: userData.state,
-        }, configToken(userData.token))
+        }, apiHeaderConfiguration(userData.token, TOKEN))
     },
     getBalance: function (userData) {
         return axiosInstance.post('wallet/barberBalance', {
             id: userData.id
-        }, configToken(userData.token))
+        }, apiHeaderConfiguration(userData.token, TOKEN))
     },
     barberWithDrawRequest: function (userData) {
         return axiosInstance.post('wallet/barberWithDrawRequest', {
             id: userData.id,
             amount: userData.amount,
             type: userData.type
-        }, configToken(userData.token))
+        }, apiHeaderConfiguration(userData.token, TOKEN))
     }
 
 };

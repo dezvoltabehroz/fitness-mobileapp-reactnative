@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
-import { View, Text, Image, TouchableOpacity, ScrollView, LayoutAnimation, Alert, Linking } from 'react-native'
-import { LoginButton } from "../../components";
-import styles from './style';
-import { Input } from '../../components/Input/Input.component';
-import THEME from '../../assets/styles/theme.style';
-import COMMON_STYLE from '../../assets/styles/common.style';
+import { View, Text, Image } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
-import { ActivityIndicator } from 'react-native';
-import Modal from 'react-native-modal';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
+
+import { LoginButton } from "../../components";
+import { Input } from '../../components/Input/Input.component';
 import { authActions } from '../../redux/actions/auth';
+import { LOGO } from '../../lib/utils/constants'
+
+import styles from './style';
+
+const EMAIL_ADDRESS = "Email address"
+const PASSWROD = "Password"
+
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -37,52 +40,38 @@ class Login extends Component {
     }
 
 
-    forgetPassword = () => {
-
-    }
-
-
-
-    isEmailValid(email) {
-        return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)
-    }
+    forgetPassword = () => { }
 
     render() {
+        const navigate = this.props.navigation.replace;
         return (
 
             <View style={styles.container}>
                 <View style={styles.upperContainer}>
                     <View style={styles.imageContainer}>
-                        {/* <View style={[{ backgroundColor: "white", borderRadius: 2.5, overflow: "hidden" }]}> */}
                         <Image style={{ height: 150, width: 150, }}
-                            source={require('../../assets/images/logo.png')}
+                            source={LOGO}
                             resizeMode='contain' />
-                        {/* </View> */}
                     </View>
                 </View>
                 <View style={styles.lowerContainer}>
-                    <Input placeholder="Email address" label="Email Address" />
-                    <Input placeholder="Password" label="Password" />
+                    <Input placeholder={EMAIL_ADDRESS} label={EMAIL_ADDRESS} />
+                    <Input placeholder={PASSWROD} label={PASSWROD} />
 
-                    <LoginButton title="Login" onPress={() => this.props.navigation.replace('Home')} />
+                    <LoginButton title="Login" onPress={() => navigate('Home')} />
                     <Text onPress={() => this.forgetPassword()} style={styles.forgetPasswordTextStyle}>Forget Password?</Text>
                 </View>
-            </View >
+            </View>
 
         )
     }
 }
 const mapStateToProps = (state) => {
-
-    return {
-        user: state.authReducer || {}
-    };
+    return { user: state.authReducer || {} };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        authActions: bindActionCreators(authActions, dispatch)
-    };
+    return { authActions: bindActionCreators(authActions, dispatch) };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

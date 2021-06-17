@@ -2,29 +2,24 @@ import axiosInstance from './Interceptor';
 import axios from 'axios';
 import { Platform } from 'react-native';
 import { BASE_URL } from '../enviroments/index'
-let config = { headers: { 'Content-Type': 'application/json' } };
-let configToken = (token) => {
-    return {
-        headers: {
-            'Authorization': 'Bearer ' + token,
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        }
-    }
-}
+
+import { apiHeaderConfiguration } from '../lib/utils/global'
+import { EMPTY, MULTIPART, TOKEN } from '../lib/utils/constants'
+
+
 const Api = {
 
     sendCodeToPhoneNumber: function (number) {
         return axiosInstance.post('registration/regPhoneNumber', {
             phone: `${number}`,
             type: "customer"
-        }, config)
+        }, apiHeaderConfiguration(EMPTY, EMPTY))
     },
 
     verifyTheCode: function (userData) {
         return axiosInstance.post('registration/verifyCode', {
             phone: `${userData.phone}`
-        }, config)
+        }, apiHeaderConfiguration(EMPTY, EMPTY))
     },
 
     updatePersonalInfo: function (userData, phone) {
@@ -40,13 +35,7 @@ const Api = {
             type: 'image/jpg'
         } : '');
 
-        let config = {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'Accept': 'application/json',
-            }
-        };
-        return axios.post(`${BASE_URL}registration/updatePersonalInfo`, formData, config);
+        return axios.post(`${BASE_URL}registration/updatePersonalInfo`, formData, apiHeaderConfiguration(EMPTY, MULTIPART));
     },
     updateProfileInfo: function (userData) {
         return axiosInstance.post('registration/updateProfileInfo', {
@@ -54,7 +43,7 @@ const Api = {
             full_name: userData.name,
             gender: userData.gender,
             dob: userData.dob
-        }, configToken(userData.token))
+        }, apiHeaderConfiguration(userData.token, TOKEN))
     },
     updateProfilePicture: function (userData) {
         // console.log("userData:", userData)
@@ -67,14 +56,7 @@ const Api = {
             type: 'image/jpg'
         } : '');
 
-        let config = {
-            headers: {
-                'Authorization': 'Bearer ' + userData.token,
-                'Content-Type': 'multipart/form-data',
-                'Accept': 'application/json',
-            }
-        };
-        return axios.post(`${BASE_URL}registration/updateProfilePic`, formData, config);
+        return axios.post(`${BASE_URL}registration/updateProfilePic`, formData, apiHeaderConfiguration(userData.token, TOKEN));
     },
 
     updateEmailAndPassword: function (userData) {
@@ -84,7 +66,7 @@ const Api = {
             macAddress: userData.macAddress,
             phone: userData.phone
             // phone:'+923123680434'
-        }, config)
+        }, apiHeaderConfiguration(EMPTY, EMPTY))
     },
 
     getUserProfile: function (userData) {
@@ -93,13 +75,7 @@ const Api = {
         return axiosInstance.post('registration/profileDetail', {
             id: userData.id,
             review_by: userData.type
-        }, {
-            headers: {
-                'Authorization': 'Bearer ' + userData.token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-        })
+        }, apiHeaderConfiguration(userData.token, TOKEN))
     },
 
     userLogin: function (userData) {
@@ -107,58 +83,38 @@ const Api = {
             email: userData.email,
             password: userData.password,
             type: userData.type
-        }, config)
+        }, apiHeaderConfiguration(EMPTY, EMPTY))
     },
     userStepCount: function (userData) {
         return axiosInstance.post('registration/updateStepsCount', {
             user_id: userData.id,
             steps_count: userData.steps_count
-        }, {
-            headers: {
-                'Authorization': 'Bearer ' + userData.token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-        })
+        },apiHeaderConfiguration(userData.token, TOKEN))
     },
     updateFCMToken: function (userData) {
         return axiosInstance.post('registration/updateFcmtoken', {
             user_id: userData.id,
             fcmToken: userData.fcmToken
-        }, {
-            headers: {
-                'Authorization': 'Bearer ' + userData.token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-        })
+        }, apiHeaderConfiguration(userData.token, TOKEN))
     },
     removeFcmToken: function (userData) {
         return axiosInstance.post('registration/removeFcmToken', {
             user_id: userData.id
-        }, {
-            headers: {
-                'Authorization': 'Bearer ' + userData.token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-        })
+        }, apiHeaderConfiguration(userData.token, TOKEN))
     },
     getCodeForResetPass: function (email) {
         return axiosInstance.post('registration/getCodeForResetPass', {
             email: email
-        }, config)
+        }, apiHeaderConfiguration(userData.token, TOKEN))
     },
     updatePassword: function (userData) {
         return axiosInstance.post('registration/updatePassword', {
             id: userData.id,
             newPassword: userData.password
-        }, config)
+        }, apiHeaderConfiguration(EMPTY, EMPTY))
     },
     verifyCodeForResetPass: function (code) {
-        return axiosInstance.post('registration/verifyCodeForResetPass', {
-            code: code
-        }, config)
+        return axiosInstance.post('registration/verifyCodeForResetPass', { code: code }, apiHeaderConfiguration(EMPTY, EMPTY))
     },
 };
 

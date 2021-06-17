@@ -1,27 +1,22 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import axiosInstance from './Interceptor';
-let configToken = (token) => {
-    return {
-        headers: {
-            'Authorization': 'Bearer ' + token,
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        }
-    }
-}
+import {apiHeaderConfiguration} from '../lib/utils/global'
+import {TOKEN} from '../lib/utils/constants'
+import {getLocalData,LOCAL_STORAGE_KEYS} from '../lib/utils/localstorage'
+
 
 const Api = {
     getAllListScheduler: function (userData) {
         return axiosInstance.post('scheduler/listScheduler', {
             id: userData.id
-        }, configToken(userData.token))
+        }, apiHeaderConfiguration(userData.token, TOKEN))
     },
 
     deleteScheduler: function (userData) {
         return axiosInstance.post('scheduler/deleteScheduler', {
             id: userData.id,
             scheduler_id: userData.scheduler_id
-        }, configToken(userData.token))
+        }, apiHeaderConfiguration(getLocalData(LOCAL_STORAGE_KEYS.userToken), TOKEN))
     },
     createScheduler: function (userData) {
         // console.log("userData:", userData)
@@ -29,13 +24,13 @@ const Api = {
             id: userData.id,
             scheduler_name: userData.scheduler_name,
             working_days: userData.working_days
-        }, configToken(userData.token))
+        }, apiHeaderConfiguration(userData.token, TOKEN))
     },
     schedulerDetail: function (userData) {
         return axiosInstance.post('scheduler/schedulerDetail', {
             id: userData.id,
             scheduler_id: userData.scheduler_id
-        }, configToken(userData.token))
+        }, apiHeaderConfiguration(userData.token, TOKEN))
     },
 
 };
