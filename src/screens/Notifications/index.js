@@ -1,20 +1,17 @@
 import React, { Component } from 'react'
 import {
-    View, Text, ActivityIndicator, LayoutAnimation,
-    UIManager, TouchableOpacity, ScrollView, Animated, RefreshControl, Linking, Easing, Dimensions
+    View, Text, FlatList, ScrollView
 } from 'react-native'
-import { Icon, Button, FloatingInput, MessageTextInput, Container, OutlineButton } from "../../components";
-import styles from './style';
+
 import RNBounceable from "@freakycoder/react-native-bounceable";
-import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
-import { authActions } from '../../redux/actions/auth';
-import { FlatList } from 'react-native';
-import Modal from 'react-native-modal';
 import moment from "moment"
-const { width, height } = Dimensions.get('window');
-const screenWidth = Dimensions.get('window').width;
+
+import { authActions } from '../../redux/actions/auth';
+import { Icon, Container } from "../../components";
+
+import styles from './style';
 
 class Notifications extends Component {
     constructor(props) {
@@ -110,7 +107,7 @@ class Notifications extends Component {
                         <Text style={styles.headingStyle}>{"Notifications"}</Text>
                     </View>
                     <View style={styles.lowerContentContainer}>
-                        <ScrollView style={{ paddingTop:40,paddingBottom:120 }}>
+                        <ScrollView style={{ paddingTop: 40, paddingBottom: 120 }}>
                             <FlatList
                                 data={notification}
                                 keyExtractor={item => item}

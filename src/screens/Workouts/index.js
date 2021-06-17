@@ -1,20 +1,17 @@
 import React, { Component } from 'react'
 import {
-    View, Text, ActivityIndicator, LayoutAnimation,
-    UIManager, TouchableOpacity, ScrollView, Animated, RefreshControl, Linking, Easing, Dimensions
-} from 'react-native'
-import { Icon, Button, FloatingInput, MessageTextInput, Container, OutlineButton, SlimButton } from "../../components";
-import styles from './style';
+    View, Text, Dimensions
+} from 'react-native';
 import RNBounceable from "@freakycoder/react-native-bounceable";
-import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
-import { authActions } from '../../redux/actions/auth';
 import { FlatList } from 'react-native';
-import Modal from 'react-native-modal';
 import moment from "moment"
-const { width, height } = Dimensions.get('window');
-const screenWidth = Dimensions.get('window').width;
+
+import { authActions } from '../../redux/actions/auth';
+import { Icon, Button, Container, } from "../../components";
+
+import styles from './style';
 
 class Workouts extends Component {
     constructor(props) {
@@ -141,7 +138,7 @@ class Workouts extends Component {
                         />
                         <View style={{ alignItems: "center", justifyContent: "center" }}>
                             <View style={{ position: "absolute", bottom: 40, }}>
-                                <SlimButton title={"Start Workout"} onPress={() => { this.props.navigation.navigate('StartWorkout') }} />
+                                <Button.SlimButton title={"Start Workout"} onPress={() => { this.props.navigation.navigate('StartWorkout') }} />
                             </View>
                         </View>
 

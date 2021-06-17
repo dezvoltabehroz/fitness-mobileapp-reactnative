@@ -109,5 +109,9 @@ export default StyleSheet.create({
         backgroundColor: "white",
         borderRadius: 25,
         padding: "5%"
+    },
+    buttonContainer: {
+        justifyContent: "center",
+        alignItems: "center"
     }
 })

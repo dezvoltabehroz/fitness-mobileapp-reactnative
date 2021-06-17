@@ -1,31 +1,25 @@
 import React, { Component } from 'react'
 import {
-    View, Text, ActivityIndicator, Dimensions, ScrollView
+    View, Text
 } from 'react-native'
-import { Container, Icon } from "../../components";
-import styles from './style';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
-import { authActions } from '../../redux/actions/auth';
 import ToggleSwitch from 'toggle-switch-react-native'
 import { StatusBar } from 'react-native';
-const { width, height } = Dimensions.get('window');
-const screenWidth = Dimensions.get('window').width;
+import { authActions } from '../../redux/actions/auth';
+import { Container, Icon } from "../../components";
+
+import styles from './style';
 import THEME from '../../assets/styles/theme.style'
+
 class Integrations extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          
         }
-
     }
 
-
-
-
     render() {
-        const { data, selectedValue, dropdown } = this.state;
         return (
             <Container props={this.props}>
                 <StatusBar backgroundColor="white" barStyle={"dark-content"} />
@@ -86,17 +80,8 @@ class Integrations extends Component {
         )
     }
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
 
-    return {
-        user: state.authReducer || {}
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        authActions: bindActionCreators(authActions, dispatch)
-    };
-};
+const mapDispatchToProps = dispatch => { return { authActions: bindActionCreators(authActions, dispatch) }; };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Integrations);

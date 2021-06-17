@@ -1,66 +1,31 @@
 import React, { Component } from 'react'
 import {
-    View, Text, ActivityIndicator, Dimensions, ScrollView
+    View, Text, StatusBar
 } from 'react-native'
-import { Container, Icon, BrownButton } from "../../components";
-import styles from './style';
-import { Input } from '../../components/Input/Input.component';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
+
+import { Container, } from "../../components";
 import { authActions } from '../../redux/actions/auth';
-import ToggleSwitch from 'toggle-switch-react-native'
-import { StatusBar } from 'react-native';
-const { width, height } = Dimensions.get('window');
-const screenWidth = Dimensions.get('window').width;
+
+import styles from './style';
 import THEME from '../../assets/styles/theme.style'
-import moment from 'moment';
-import RNBounceable from '@freakycoder/react-native-bounceable';
+
 class MarketPlace extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            front: "",
-            side: "",
-            back: ""
+            data: "",
         }
-
     }
 
-    l
-
-
-
     render() {
-        const { data, selectedValue, dropdown } = this.state;
+        const { data, } = this.state;
         return (
             <Container props={this.props}>
                 <StatusBar backgroundColor={this.props.user.menuModal ? THEME.PRIMARY_BACKGROUND_COLOR : "#181818"} barStyle={"light-content"} />
                 <View style={styles.container}>
                     <View style={{ flex: 0.7, marginTop: "12.5%" }}>
-                        {/* <View style={{ marginHorizontal: "7.5%", marginVertical: "5%" }}>
-                            <Text style={styles.headingTextStyle}>MarketPlace</Text>
-                        </View>
-                        <View style={styles.rowContainer} >
-                            <View>
-                                <Text style={styles.textStyle}>Packages</Text>
-                            </View>
-                            <RNBounceable onPress={() => this.props.navigation.navigate('Packages')} style={styles.row}>
-                                <Text style={styles.textStyle1} >View all</Text>
-                                <Icon.Entypo name="chevron-small-right" size={20} color={'white'} />
-                            </RNBounceable>
-                        </View>
-                        <View style={{ marginHorizontal: "15%" }}>
-                            <Text style={styles.textStyle2}>Nothing added just yet!</Text>
-                        </View>
-                        <View style={styles.rowContainer} >
-                            <View>
-                                <Text style={styles.textStyle}>Credit Packages</Text>
-                            </View>
-                            <RNBounceable onPress={() => this.props.navigation.navigate('CreditPackages')} style={styles.row}>
-                                <Text style={styles.textStyle1} >View all</Text>
-                                <Icon.Entypo name="chevron-small-right" size={20} color={'white'} />
-                            </RNBounceable>
-                        </View> */}
                         <View style={{ marginHorizontal: "15%", alignItems: "center" }}>
                             <Text style={styles.textStyle2}>Nothing added just yet!</Text>
                         </View>
@@ -70,16 +35,8 @@ class MarketPlace extends Component {
         )
     }
 }
-const mapStateToProps = (state) => {
-    return {
-        user: state.authReducer || {}
-    };
-};
+const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        authActions: bindActionCreators(authActions, dispatch)
-    };
-};
+const mapDispatchToProps = dispatch => { return { authActions: bindActionCreators(authActions, dispatch) }; };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MarketPlace);

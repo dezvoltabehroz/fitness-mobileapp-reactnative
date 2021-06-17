@@ -1,20 +1,16 @@
 import React, { Component } from 'react'
 import {
-    View, Text, ActivityIndicator, Dimensions, ScrollView
+    View, Text, StatusBar
 } from 'react-native'
-import { Container, Icon, BrownButton } from "../../components";
-import styles from './style';
-import { Input } from '../../components/Input/Input.component';
+import RNBounceable from '@freakycoder/react-native-bounceable';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
+
 import { authActions } from '../../redux/actions/auth';
-import ToggleSwitch from 'toggle-switch-react-native'
-import { StatusBar } from 'react-native';
-const { width, height } = Dimensions.get('window');
-const screenWidth = Dimensions.get('window').width;
+import { Container, Icon, BrownButton } from "../../components";
+
+import styles from './style';
 import THEME from '../../assets/styles/theme.style'
-import moment from 'moment';
-import RNBounceable from '@freakycoder/react-native-bounceable';
 class MarketPlace extends Component {
     constructor(props) {
         super(props);
@@ -23,12 +19,7 @@ class MarketPlace extends Component {
             side: "",
             back: ""
         }
-
     }
-
-    l
-
-
 
     render() {
         const { data, selectedValue, dropdown } = this.state;

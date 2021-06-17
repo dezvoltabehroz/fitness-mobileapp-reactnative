@@ -97,7 +97,7 @@ const _OutlineButton = (props) => {
     } = props;
     return (
         <BT
-            buttonStyle={{ ...buttonStyle && styles.btnPrimary }}
+            buttonStyle={{ ...buttonStyle && styles.btnOutlinePrimary }}
             containerStyle={containerStyle}
             disabled={disabled}
             disabledStyle={disabledStyle}
@@ -110,7 +110,7 @@ const _OutlineButton = (props) => {
             type={type}
             icon={icon}
             iconRight={iconRight}
-            titleStyle={{ ...titleStyle && styles.btnPrimaryText }}
+            titleStyle={{ ...titleStyle && styles.btnOutlineText }}
         />
     )
 };
@@ -134,7 +134,7 @@ const _SlimButton = (props) => {
     } = props;
     return (
         <BT
-            buttonStyle={{ ...buttonStyle && styles.btnPrimary }}
+            buttonStyle={{ ...buttonStyle && styles.btnSlimPrimary }}
             containerStyle={containerStyle}
             disabled={disabled}
             disabledStyle={disabledStyle}
@@ -147,7 +147,7 @@ const _SlimButton = (props) => {
             type={type}
             icon={icon}
             iconRight={iconRight}
-            titleStyle={{ ...titleStyle && styles.btnPrimaryText }}
+            titleStyle={{ ...titleStyle && styles.btnSlimText }}
         />
     )
 };

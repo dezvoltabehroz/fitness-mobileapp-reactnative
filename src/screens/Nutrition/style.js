@@ -117,4 +117,8 @@ export default StyleSheet.create({
         fontSize: 16,
         fontWeight: "bold",
     },
+    buttonContainer: {
+        justifyContent: "center",
+        alignItems: "center"
+    }
 })

@@ -1,16 +1,19 @@
 import React, { Component } from "react";
 import { ScrollView, Text, View } from 'react-native';
-import { BrownButton, Container } from '../../components';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
-import { authActions } from '../../redux/actions/auth';
-import styles from './style';
-import DropDownPicker from "react-native-dropdown-picker";
-import { Input } from "../../components/Input/Input.component";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 import RNBounceable from "@freakycoder/react-native-bounceable";
-import { Icon } from "../../components";
+import DropDownPicker from "react-native-dropdown-picker";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
+
+import { Button, Container } from '../../components';
+import { Input } from "../../components/Input/Input.component";
+import { Icon } from "../../components";
+import { authActions } from '../../redux/actions/auth';
+
+import styles from './style';
+
 class Measurement extends Component {
     constructor(props) {
         super(props);
@@ -135,8 +138,8 @@ class Measurement extends Component {
                                         <Input label="Calf Left (cm)" placeholder="Calf Left (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
                                         <Input label="Calf Right (cm)" placeholder="Calf Right (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
-                                    <View>
-                                        <BrownButton title="Save" onPress={() => { }} />
+                                    <View style={styles.buttonContainer}>
+                                        <Button.BrownButton title="Save" onPress={() => { }} />
                                     </View>
                                     <View style={styles.generalMargin3} >
                                         <Text style={styles.headingTextStyle}>Previous Measurement</Text>
@@ -187,8 +190,8 @@ class Measurement extends Component {
                                     <View style={styles.generalMargin1}>
                                         <Input label="Body Fat % Total" placeholder="Body Fat % Total" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>%</Text></View>} />
                                     </View>
-                                    <View>
-                                        <BrownButton title="Save" onPress={() => { }} />
+                                    <View style={styles.buttonContainer}>
+                                        <Button.BrownButton title="Save" onPress={() => { }} />
                                     </View>
                                     <View style={styles.generalMargin3} >
                                         <Text style={styles.headingTextStyle}>Previous Measurement</Text>
@@ -219,11 +222,11 @@ class Measurement extends Component {
                                     <View style={styles.generalMargin1}>
                                         <Input label="Body Fat % Total" placeholder="Body Fat % Total" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>%</Text></View>} />
                                     </View>
-                                   
 
 
-                                    <View>
-                                        <BrownButton title="Save" onPress={() => { }} />
+
+                                    <View style={styles.buttonContainer}>
+                                        <Button.BrownButton title="Save" onPress={() => { }} />
                                     </View>
                                     <View style={styles.generalMargin3} >
                                         <Text style={styles.headingTextStyle}>Previous Measurement</Text>

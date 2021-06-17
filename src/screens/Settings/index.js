@@ -1,20 +1,18 @@
 import React, { Component } from 'react'
 import {
-    View, Text, ActivityIndicator, LayoutAnimation,
-    UIManager, TouchableOpacity, ScrollView, Animated, RefreshControl, Linking, Easing, Dimensions
+    View, Text, LayoutAnimation,
+    UIManager, TouchableOpacity, ScrollView
 } from 'react-native'
-import { Icon, Button, FloatingInput, MessageTextInput, Container, OutlineButton } from "../../components";
-import styles from './style';
 import RNBounceable from "@freakycoder/react-native-bounceable";
-import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
-import { authActions } from '../../redux/actions/auth';
-import { FlatList } from 'react-native';
 import Modal from 'react-native-modal';
-import moment from "moment"
-const { width, height } = Dimensions.get('window');
-const screenWidth = Dimensions.get('window').width;
+
+import { Icon, Button, MessageTextInput, Container, } from "../../components";
+import { authActions } from '../../redux/actions/auth';
+import { screen } from '../../lib/utils/constants';
+
+import styles from './style';
 
 class Setting extends Component {
     constructor(props) {
@@ -45,15 +43,13 @@ class Setting extends Component {
         this.setState({ expandedFeature: !this.state.expandedFeature });
     }
 
-
-
     render() {
         const { currentPage, reportModal, issue } = this.state;
         return (
             <Container props={this.props}>
                 <View style={styles.container}>
                     <View style={styles.upperContainer}>
-                        <Text style={styles.headingStyle}>{"Settings"}</Text>
+                        <Text style={styles.headingStyle}>{screen.SCREEN_TITLE_SETTING}</Text>
                     </View>
                     <ScrollView >
                         <View style={styles.upperContentContainer}>
@@ -167,8 +163,10 @@ class Setting extends Component {
                         </View>
                         <View style={{ backgroundColor: "white", paddingTop: "10%" }}>
 
+                            <View style={styles.buttonContainer}>
+                                <Button.OutlineButton title="Log Out" onPress={() => this.props.navigation.replace('Login')} />
+                            </View>
 
-                            <OutlineButton title="Log Out" onPress={() => this.props.navigation.replace('Login')} />
                             <View style={{}}>
                                 <Text style={{ marginVertical: "5%", textAlign: "center", color: "lightgray" }} >v1.11.5(v43)</Text>
                             </View>
@@ -186,14 +184,9 @@ class Setting extends Component {
                         <View style={{ marginTop: "5%" }}>
                             <MessageTextInput value={issue} onChangeText={(val) => this.setState({ issue: val })} label="Please describe the issue you are having" />
                         </View>
-                        <TouchableOpacity
-                            onPress={() => this.setState({ reportModal: !reportModal, issue: "" })}
-                            style={[styles.loginButton, issue ? {} : { backgroundColor: "lightgray" }]}>
-                            <View>
-                                <Text style={[styles.loginButtonText, issue ? { color: "black" } : { color: "white" }]}>Send</Text>
-                            </View>
-                        </TouchableOpacity>
-
+                        <View style={styles.buttonContainer}>
+                            <Button.LoginButton disabled={issue ? false : true} title="Send" onPress={() => this.setState({ reportModal: !reportModal, issue: "" })} />
+                        </View>
                     </View>
                 </Modal>
             </Container >

@@ -1,22 +1,16 @@
 import React, { Component } from 'react'
 import {
-    View, Text, ActivityIndicator, LayoutAnimation,
-    UIManager, TouchableOpacity, ScrollView, Animated, RefreshControl, Linking, Easing, Dimensions
-} from 'react-native'
-import { Container, MessageTextInput, SlimButton } from "../../components";
-import { Input } from '../../components/Input/Input.component';
-import styles from './style';
-import RNBounceable from "@freakycoder/react-native-bounceable";
-import AsyncStorage from '@react-native-community/async-storage';
-import { connect } from 'react-redux'
+    View, Text, ScrollView,
+} from 'react-native';
 import { bindActionCreators } from "redux";
-import { authActions } from '../../redux/actions/auth';
-import { FlatList } from 'react-native';
-import Modal from 'react-native-modal';
-import moment from "moment"
+import { connect } from 'react-redux'
 import DropDownPicker from 'react-native-dropdown-picker';
-const { width, height } = Dimensions.get('window');
-const screenWidth = Dimensions.get('window').width;
+
+import { Container, Button } from "../../components";
+import { Input } from '../../components/Input/Input.component';
+import { authActions } from '../../redux/actions/auth';
+
+import styles from './style';
 
 class AddItem extends Component {
     constructor(props) {
@@ -54,10 +48,10 @@ class AddItem extends Component {
         return (
             <Container props={this.props}>
                 <View style={styles.container}>
-                    <ScrollView contentContainerStyle={{ paddingTop: "5%",marginHorizontal: "2.5%",paddingBottom:120 }} >
-                    <View style={styles.generalMargin}>
-                        <Text style={styles.headingTextStyle}>General</Text>
-                    </View>
+                    <ScrollView contentContainerStyle={{ paddingTop: "5%", marginHorizontal: "2.5%", paddingBottom: 120 }} >
+                        <View style={styles.generalMargin}>
+                            <Text style={styles.headingTextStyle}>General</Text>
+                        </View>
                         <Input label="Name" placeholder="Name of your food / drink item" />
                         <Input label="Serving Size" placeholder="Serving Size" />
                         <View style={styles.generalMargin}>
@@ -92,8 +86,8 @@ class AddItem extends Component {
                             />
                         </View>
                         <View style={styles.generalMargin}>
-                        <Text style={styles.headingTextStyle}>Nutrients</Text>
-                    </View>
+                            <Text style={styles.headingTextStyle}>Nutrients</Text>
+                        </View>
                         <Input label="Colories" placeholder="Colories" />
                         <Input label="Protein (g)" placeholder="Protein (g)" />
                         <Input label="Total Carbohydrates (g)" placeholder="Total Carbohydrates (g)" />
@@ -111,7 +105,7 @@ class AddItem extends Component {
                         <Input label="Calcium (%)" placeholder="Calcium (%)" />
                         <Input label="Iron (%)" placeholder="Iron (%)" />
                         {/* <MessageTextInput label="Goal" placeholder="Goal" /> */}
-                        <SlimButton title="Save" onPress={() => this.props.navigation.replace('Home')} />
+                        <Button.SlimButton title="Save" onPress={() => this.props.navigation.replace('Home')} />
                     </ScrollView>
                 </View>
             </Container >

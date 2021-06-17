@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, ScrollView } from 'react-native';
-import { Container, FilterModal, Icon } from '../../components';
-import styles from './style';
 import { connect } from 'react-redux'
-import { bindActionCreators } from "redux";
+import { bindActionCreators } from "redux";import RNBounceable from '@freakycoder/react-native-bounceable';
+import { Container, FilterModal, Icon } from '../../components';
+
 import { authActions } from '../../redux/actions/auth';
 import { Input } from '../../components/Input/Input.component';
-import RNBounceable from '@freakycoder/react-native-bounceable';
-import moment from 'moment';
+
+import styles from './style';
+
 class ProgramLibrary extends Component {
     constructor(props) {
         super(props);

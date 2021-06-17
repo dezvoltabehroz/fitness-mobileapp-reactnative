@@ -1,33 +1,20 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, ScrollView, Dimensions } from 'react-native';
-import { Container, FilterModal, Icon } from '../../components';
-import styles from './style';
+import { View, Text, ScrollView } from 'react-native';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
+
+import { Container,Icon } from '../../components';
 import { authActions } from '../../redux/actions/auth';
-import { Input } from '../../components/Input/Input.component';
-import RNBounceable from '@freakycoder/react-native-bounceable';
-import moment from 'moment';
-import ProgressBarAnimated from 'react-native-progress-bar-animated';
+
+import styles from './style';
 
 class Media extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            progress: 100,
-            filterModal: false
-        }
+        this.state = {}
     }
 
     render() {
-        const { progress, reportModal, issue, filterModal } = this.state;
-        const barWidth = Dimensions.get('screen').width * 0.9;
-        const progressCustomStyles = {
-            backgroundColor: '#E8E8E8',
-            borderRadius: 0,
-            borderColor: '#E8E8E8',
-            height: 30
-        };
         return (
             <Container props={this.props}>
                 <View style={styles.container}>
@@ -43,9 +30,7 @@ class Media extends Component {
                                 <Text style={styles.textStyle1}>No media has been added to this conversation yet</Text>
                             </View>
                         </View>
-
                     </ScrollView>
-
                 </View>
             </Container>
         )

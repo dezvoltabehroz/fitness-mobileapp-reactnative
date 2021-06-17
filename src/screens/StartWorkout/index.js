@@ -1,30 +1,23 @@
 import React, { Component } from 'react'
 import {
-    View, Text, ActivityIndicator, Dimensions, ScrollView
-} from 'react-native'
-import { BrownButton, Container, Icon, SlimButton } from "../../components";
-import styles from './style';
+    View, Text, StatusBar
+} from 'react-native';
+import RNBounceable from '@freakycoder/react-native-bounceable';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
-import { authActions } from '../../redux/actions/auth';
 import ToggleSwitch from 'toggle-switch-react-native'
-import { StatusBar } from 'react-native';
-const { width, height } = Dimensions.get('window');
-const screenWidth = Dimensions.get('window').width;
+
+import { authActions } from '../../redux/actions/auth';
+import { Container, Icon, Button } from "../../components";
+
 import THEME from '../../assets/styles/theme.style'
-import RNBounceable from '@freakycoder/react-native-bounceable';
+import styles from './style';
 
 class StartWorkout extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-
-        }
-
+        this.state = {}
     }
-
-
-
 
     render() {
         const { data, selectedValue, dropdown } = this.state;
@@ -45,7 +38,6 @@ class StartWorkout extends Component {
                             onToggle={isOn => console.log("changed to : ", isOn)}
                         />
                     </View>
-
                     <View style={styles.rowContainer}>
                         <Text style={styles.textStyle}>Folow Workout Template?</Text>
                         <ToggleSwitch
@@ -65,8 +57,8 @@ class StartWorkout extends Component {
                             <Icon.AntDesign name="right" size={25} color={"gray"} />
                         </RNBounceable>
                     </View>
-                    <View>
-                        <SlimButton title="Start" onPress={() => { }} />
+                    <View style={styles.buttonContainer}>
+                        <Button.SlimButton title="Start" onPress={() => { }} />
                     </View>
                 </View>
             </Container >

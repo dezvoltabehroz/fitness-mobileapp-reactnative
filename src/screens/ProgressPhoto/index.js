@@ -1,28 +1,22 @@
 import React, { Component } from 'react'
 import {
-    View, Text, ActivityIndicator, Dimensions, ScrollView
+    View, Text, StatusBar
 } from 'react-native'
-import { Container, Icon, SlimButton } from "../../components";
-import styles from './style';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
+import { Button, Container, Icon, } from "../../components";
+
 import { authActions } from '../../redux/actions/auth';
-import ToggleSwitch from 'toggle-switch-react-native'
-import { StatusBar } from 'react-native';
-const { width, height } = Dimensions.get('window');
-const screenWidth = Dimensions.get('window').width;
-import THEME from '../../assets/styles/theme.style'
+
+import styles from './style';
+
 class ProgressPhoto extends Component {
     constructor(props) {
         super(props);
         this.state = {
 
         }
-
     }
-
-
-
 
     render() {
         const { data, selectedValue, dropdown } = this.state;
@@ -47,9 +41,8 @@ class ProgressPhoto extends Component {
                     </View>
 
                     <View style={{ flex: 0.3, justifyContent: "flex-end", }}>
-                        <SlimButton title={"Upload"} onPress={() => this.props.navigation.navigate('UploadPhoto')} />
+                        <Button.SlimButton  title={"Upload"} onPress={() => this.props.navigation.navigate('UploadPhoto')} />
                     </View>
-
                 </View>
             </Container >
         )

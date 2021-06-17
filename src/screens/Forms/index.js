@@ -1,33 +1,28 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, ScrollView, Dimensions } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { Container, FilterModal, Icon } from '../../components';
-import styles from './style';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
+import RNBounceable from '@freakycoder/react-native-bounceable';
+
 import { authActions } from '../../redux/actions/auth';
 import { Input } from '../../components/Input/Input.component';
-import RNBounceable from '@freakycoder/react-native-bounceable';
-import moment from 'moment';
-import ProgressBarAnimated from 'react-native-progress-bar-animated';
+
+import styles from './style';
+
 
 class Forms extends Component {
     constructor(props) {
         super(props);
         this.state = {
             progress: 100,
-            filterModal:false
+            filterModal: false
         }
     }
 
     render() {
-        const { progress, reportModal, issue,filterModal } = this.state;
-        const barWidth = Dimensions.get('screen').width * 0.9;
-        const progressCustomStyles = {
-            backgroundColor: '#E8E8E8',
-            borderRadius: 0,
-            borderColor: '#E8E8E8',
-            height: 30
-        };
+        const { progress, reportModal, issue, filterModal } = this.state;
+
         return (
             <Container props={this.props}>
                 <View style={styles.container}>
@@ -39,10 +34,9 @@ class Forms extends Component {
                             <View style={{ marginHorizontal: "5%" }}>
                                 <Input inputStyle={{ height: 40 }} placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
                             </View>
-
                             <View style={styles.rowContainer} >
                                 <Text style={styles.texStyle}>A to Z</Text>
-                                <RNBounceable onPress={() => { this.setState({filterModal:true})}} style={styles.row}>
+                                <RNBounceable onPress={() => { this.setState({ filterModal: true }) }} style={styles.row}>
                                     <Icon.Feather name="filter" size={20} />
                                 </RNBounceable>
                             </View>
@@ -57,11 +51,8 @@ class Forms extends Component {
                                     <Text style={styles.textStyle1}>No forms assigned yet</Text>
                                 </View>
                             </View>
-
                         </ScrollView>
-
                     </View>
-
                 </View>
                 <FilterModal isVisible={filterModal} hide={() => this.setState({ filterModal: false })} />
             </Container>

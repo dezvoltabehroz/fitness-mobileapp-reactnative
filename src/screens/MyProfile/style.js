@@ -6,7 +6,11 @@ const plusWidth = screenWidth * .3;
 export default StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop:"5%"
+        paddingTop: "5%"
     },
-   
+    buttonContainer: {
+        justifyContent: "center",
+        alignItems: "center"
+    }
+
 })

@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import {
-    View, Text, ActivityIndicator, Dimensions, ScrollView, TouchableOpacity
+    View, Text, ScrollView
 } from 'react-native'
-import { Container, BrownButton } from "../../components";
-import styles from './style';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
-import { authActions } from '../../redux/actions/auth';
 import { StatusBar } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-const { width, height } = Dimensions.get('window');
-const screenWidth = Dimensions.get('window').width;
-import THEME from '../../assets/styles/theme.style'
+import { authActions } from '../../redux/actions/auth';
+
+import { Container, Button } from "../../components";
+
+import styles from './style';
+
 class UnitOfMeasurement extends Component {
     constructor(props) {
         super(props);
@@ -253,9 +253,10 @@ class UnitOfMeasurement extends Component {
                                 }}
                             />
                         </View>
-                        <BrownButton title="Save" onPress={() => this.props.navigation.replace('Home')} />
+                        <View style={styles.buttonContainer}>
+                            <Button.BrownButton title="Save" onPress={() => this.props.navigation.replace('Home')} />
+                        </View>
                     </ScrollView>
-
                 </View>
             </Container >
         )

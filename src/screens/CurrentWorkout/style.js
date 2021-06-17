@@ -34,9 +34,10 @@ export default StyleSheet.create({
         justifyContent: "flex-end"
     },
     buttonContainer: {
-        flex: 0.2,
-        justifyContent: "center",
-        alignItems: "flex-end"
+        width:120,
+        flex: 0.25,
+        // justifyContent: "center",
+        // alignItems: 'center'
     },
     headingTextStyle: {
         fontSize: 25,

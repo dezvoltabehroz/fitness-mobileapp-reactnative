@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, ScrollView, Dimensions } from 'react-native';
-import { Container, FilterModal, Icon } from '../../components';
-import styles from './style';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
-import { authActions } from '../../redux/actions/auth';
-import { Input } from '../../components/Input/Input.component';
 import RNBounceable from '@freakycoder/react-native-bounceable';
-import moment from 'moment';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
+
+import { Container, FilterModal, Icon } from '../../components';
+import { Input } from '../../components/Input/Input.component';
+import { authActions } from '../../redux/actions/auth';
+
+import styles from './style';
 
 class Files extends Component {
     constructor(props) {

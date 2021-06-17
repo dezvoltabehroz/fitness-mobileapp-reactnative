@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, ScrollView, Dimensions, TextInput, TouchableOpacity, Image } from 'react-native';
-import { Container, FilterModal, Icon } from '../../components';
-import styles from './style';
+import { View, Text, FlatList, StatusBar, TextInput, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
-import { authActions } from '../../redux/actions/auth';
-import { Input } from '../../components/Input/Input.component';
-import RNBounceable from '@freakycoder/react-native-bounceable';
-import moment from 'moment';
-import ProgressBarAnimated from 'react-native-progress-bar-animated';
 
-class Media extends Component {
+import { Icon } from '../../components';
+import { authActions } from '../../redux/actions/auth';
+
+import styles from './style';
+
+class Chat extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -96,7 +94,7 @@ class Media extends Component {
     render() {
         return (
             <>
-
+                <StatusBar backgroundColor="white" barStyle={"dark-content"} />
                 <View style={{ flex: 1, paddingTop: '2.5%', marginBottom: 10 }}>
                     <FlatList
                         data={this.state.messages}
@@ -128,12 +126,7 @@ class Media extends Component {
                         <Icon.Ionicons name='mic' size={30} style={{ color: 'lightgray' }} />
                         <TextInput style={styles.commentInput}
                             placeholder="  Type here..."
-                            // multiline={true}
-                            // placeholderTextColor=""
-                            // value={this.state.txtMessage}
-                            onChangeText={text => {
-                                this.setState({ txtMessage: text })
-                            }}
+                            onChangeText={text => { this.setState({ txtMessage: text }) }}
                             selectionColor="#FFF"
                         />
                         <Icon.Ionicons name='md-paper-plane' size={30} style={{ color: 'gray' }} />
@@ -159,4 +152,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Media)
+export default connect(mapStateToProps, mapDispatchToProps)(Chat)

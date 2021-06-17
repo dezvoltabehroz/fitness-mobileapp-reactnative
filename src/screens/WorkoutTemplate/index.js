@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
-import { View, Text, ActivityIndicator, TouchableOpacity, ScrollView, Animated, RefreshControl, Linking, Easing, Dimensions } from 'react-native'
-import { Icon, Button, FloatingInput, RadioButton, Container, SlimButton, BrownButton } from "../../components";
-import styles from './style';
+import { View, Text, FlatList, ScrollView, Dimensions } from 'react-native';
 import RNBounceable from "@freakycoder/react-native-bounceable";
 import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
+
 import { authActions } from '../../redux/actions/auth';
-import { FlatList } from 'react-native';
-import Timeline from 'react-native-timeline-flatlist';
-import moment from "moment"
 import { Input } from '../../components/Input/Input.component';
+import { Icon, Container, Button } from "../../components";
+
+import styles from './style';
+
+
 const { width, height } = Dimensions.get('window');
-const screenWidth = Dimensions.get('window').width;
 
 class WorkoutTemplate extends Component {
     constructor(props) {
@@ -167,7 +167,7 @@ class WorkoutTemplate extends Component {
                             />
                             <View style={{ alignItems: "center", justifyContent: "center" }}>
                                 <View style={{ position: "absolute", bottom: 40, }}>
-                                    <SlimButton title={"Done"} onPress={() => { this.props.navigation.navigate('StartWorkout') }} />
+                                    <Button.SlimButton title={"Done"} onPress={() => { this.props.navigation.navigate('StartWorkout') }} />
                                 </View>
                             </View>
                         </View>
@@ -192,9 +192,9 @@ class WorkoutTemplate extends Component {
                             </View>
 
 
-                            <View style={{ bottom: 40,height:54,width:80 }}>
-                                <View style={{ position: "absolute", }}>
-                                    <SlimButton title={"Done"} onPress={() => { this.props.navigation.navigate('StartWorkout') }} />
+                            <View style={{ alignItems: "center", justifyContent: "center", }}>
+                                <View style={{ position: "absolute", bottom: 40, }}>
+                                    <Button.SlimButton title={"Done"} onPress={() => { this.props.navigation.navigate('StartWorkout') }} />
                                 </View>
                             </View>
 

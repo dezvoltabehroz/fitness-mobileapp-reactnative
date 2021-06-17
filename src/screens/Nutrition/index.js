@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
-import { View, Text, ActivityIndicator, TouchableOpacity, ScrollView, Animated, RefreshControl, Linking, Easing, Dimensions } from 'react-native'
-import { Icon, Button, FloatingInput, RadioButton, Container, SlimButton, FilterModal } from "../../components";
-import styles from './style';
+import { View, Text, ScrollView, Dimensions } from 'react-native'
 import RNBounceable from "@freakycoder/react-native-bounceable";
 import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
+
+import { Icon, Button, Container, FilterModal } from "../../components";
 import { authActions } from '../../redux/actions/auth';
-import { FlatList } from 'react-native';
-import Timeline from 'react-native-timeline-flatlist';
-import moment from "moment"
 import { Input } from '../../components/Input/Input.component';
+
+import styles from './style';
+
 const { width, height } = Dimensions.get('window');
-const screenWidth = Dimensions.get('window').width;
 
 class Nutrition extends Component {
     constructor(props) {
@@ -144,7 +143,7 @@ class Nutrition extends Component {
 
 
     render() {
-        const { currentPage,filterModal } = this.state;
+        const { currentPage, filterModal } = this.state;
         return (
             <Container props={this.props} >
                 <View style={styles.container}>
@@ -198,9 +197,9 @@ class Nutrition extends Component {
                                 </View>
                                 <View style={{ height: 50 }}></View>
                             </ScrollView>
-                            <View style={{ alignItems: "center", justifyContent: "center" }}>
+                            <View style={styles.buttonContainer}>
                                 <View style={{ position: "absolute", bottom: 40, }}>
-                                    <SlimButton title={"Log Nutrition"} onPress={() => { this.props.navigation.navigate('StartWorkout') }} />
+                                    <Button.SlimButton title={"Log Nutrition"} onPress={() => { this.props.navigation.navigate('StartWorkout') }} />
                                 </View>
                             </View>
                         </View>
@@ -227,9 +226,9 @@ class Nutrition extends Component {
                                 </View>
                                 <View style={{ height: 50 }}></View>
                             </ScrollView>
-                            <View style={{ alignItems: "center", justifyContent: "center" }}>
+                            <View style={styles.buttonContainer}>
                                 <View style={{ position: "absolute", bottom: 40, }}>
-                                    <SlimButton title={"Create Custom Food"} onPress={() => { this.props.navigation.navigate('AddItem') }} />
+                                    <Button.SlimButton title={"Create Custom Food"} onPress={() => { this.props.navigation.navigate('AddItem') }} />
                                 </View>
                             </View>
                         </View>

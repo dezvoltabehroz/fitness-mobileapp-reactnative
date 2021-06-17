@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
 import {
-    View, Text, ActivityIndicator, Dimensions, ScrollView, TouchableOpacity
+    View, Text, ScrollView
 } from 'react-native'
-import { Container, BrownButton } from "../../components";
-import styles from './style';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
-import { authActions } from '../../redux/actions/auth';
 import ToggleSwitch from 'toggle-switch-react-native'
 import { StatusBar } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-const { width, height } = Dimensions.get('window');
-const screenWidth = Dimensions.get('window').width;
+
+import { Container, Button } from "../../components";
+import { authActions } from '../../redux/actions/auth';
+
 import THEME from '../../assets/styles/theme.style'
+import styles from './style';
+
 class Notifications extends Component {
     constructor(props) {
         super(props);
@@ -357,7 +358,9 @@ class Notifications extends Component {
                                 }}
                             />
                         </View>
-                        <BrownButton title="Update Notification" onPress={() => this.props.navigation.replace('Home')} />
+                        <View style={styles.buttonContainer}>
+                            <Button.BrownButton title="Update Notification" onPress={() => this.props.navigation.replace('Home')} />
+                        </View>
                     </View>
                 </ScrollView>
             </Container >

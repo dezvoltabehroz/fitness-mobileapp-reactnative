@@ -19,22 +19,21 @@ export default StyleSheet.create({
     },
     btnBrownPrimary: {
         height: 54,
-        width: 120,
-        elevation: 2,
-        borderRadius: 0.0000000000001,
-        marginBottom: 10,
+        paddingHorizontal: "5%",
+        borderRadius: 30,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#544b4c',
     },
-    btnBrownPText: {
+    btnBrownText: {
+        textAlign: "center",
+        paddingHorizontal: "5%",
         fontSize: THEME.FONT_SIZE_MEDIUM,
         color: THEME.COLOR_WHITE,
     },
     btnLoginPrimary: {
         height: 54,
         width: 120,
-        // elevation: 1,
         borderRadius: 30,
         justifyContent: 'center',
         alignItems: 'center',
@@ -44,5 +43,33 @@ export default StyleSheet.create({
         marginRight: 5,
         fontSize: THEME.FONT_SIZE_MEDIUM,
         color: THEME.COLOR_BLACK,
+    },
+    btnSlimPrimary: {
+        height: 45,
+        paddingHorizontal: "10%",
+        borderRadius: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#544b4c',
+    },
+    btnSlimText: {
+        marginRight: 5,
+        fontSize: THEME.FONT_SIZE_MEDIUM,
+        color: THEME.COLOR_WHITE,
+    },
+    btnOutlinePrimary: {
+        height: 54,
+        width: 120,
+        borderColor: THEME.PRIMARY_BACKGROUND_COLOR,
+        borderWidth: 2,
+        borderRadius: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: "transparent"
+    },
+    btnOutlineText: {
+        marginRight: 5,
+        fontSize: THEME.FONT_SIZE_MEDIUM,
+        color: THEME.PRIMARY_BACKGROUND_COLOR,
     },
 });

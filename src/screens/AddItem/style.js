@@ -11,7 +11,6 @@ export default StyleSheet.create({
     rowContainer: {
         flexDirection: "row",
         alignItems: "center",
-        // marginTop: "5%",
         margin: "5%",
         justifyContent: "space-between"
     },
@@ -45,7 +44,6 @@ export default StyleSheet.create({
         marginTop: '5%',
         justifyContent: "center",
         backgroundColor: '#544b4c',
-        // padding: "5%",
         paddingHorizontal: "10%",
         borderRadius: 30
     },
@@ -54,6 +52,5 @@ export default StyleSheet.create({
         fontSize: 16,
         fontWeight: "bold",
         textAlign: "center",
-        fontFamily: 'notoserif', // "Poppins-Medium"
     }
 })

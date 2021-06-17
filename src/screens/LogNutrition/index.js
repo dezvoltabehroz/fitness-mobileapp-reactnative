@@ -1,18 +1,16 @@
 import React, { Component } from 'react'
 import {
-    View, Text, ActivityIndicator, Dimensions, ScrollView
-} from 'react-native'
-import { BrownButton, Container, Icon, SlimButton } from "../../components";
-import styles from './style';
+    View, Text, StatusBar
+} from 'react-native';
+import RNBounceable from '@freakycoder/react-native-bounceable';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
+
+import { Container, Icon, Button } from "../../components";
 import { authActions } from '../../redux/actions/auth';
-import ToggleSwitch from 'toggle-switch-react-native'
-import { StatusBar } from 'react-native';
-const { width, height } = Dimensions.get('window');
-const screenWidth = Dimensions.get('window').width;
-import THEME from '../../assets/styles/theme.style'
-import RNBounceable from '@freakycoder/react-native-bounceable';
+
+import styles from './style';
+
 
 class StartWorkout extends Component {
     constructor(props) {
@@ -22,9 +20,6 @@ class StartWorkout extends Component {
         }
 
     }
-
-
-
 
     render() {
         const { data, selectedValue, dropdown, checked } = this.state;
@@ -61,7 +56,7 @@ class StartWorkout extends Component {
                     </View>
                     <View style={styles.noNutritionContainer}>
 
-                        <RNBounceable onPress={()=>this.props.navigation.navigate('Integrations')} style={styles.steupFitnessInnerContainer}>
+                        <RNBounceable onPress={() => this.props.navigation.navigate('Integrations')} style={styles.steupFitnessInnerContainer}>
                             <View style={styles.rowContainer}>
                                 <Icon.Entypo name="emoji-flirt" size={50} />
                                 <View style={{ marginHorizontal: "5%" }}>
@@ -71,8 +66,8 @@ class StartWorkout extends Component {
                             <Icon.AntDesign name="right" size={20} color={"gray"} />
                         </RNBounceable>
                     </View>
-                    <View style={{ marginTop: "10%" }}>
-                        <SlimButton title="Next" />
+                    <View style={{ marginTop: "10%", justifyContent: "center", alignItems: "center" }}>
+                        <Button.SlimButton title="Next" />
                     </View>
                 </View>
             </Container >

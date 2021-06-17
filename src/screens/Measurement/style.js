@@ -7,6 +7,10 @@ export default StyleSheet.create({
         flex: 1,
         backgroundColor: '#f0f0f0'
     },
+    buttonContainer: {
+        justifyContent: "center",
+        alignItems: "center"
+    },
     generalMargin: {
         marginHorizontal: "5%",
         marginVertical: '2.5%'
@@ -19,7 +23,7 @@ export default StyleSheet.create({
         marginHorizontal: "2.5%",
         marginTop: '2.5%'
     },
-    generalMargin3:{
+    generalMargin3: {
         marginTop: '10%'
     },
     notiText: {

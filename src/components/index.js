@@ -4,18 +4,6 @@
 import _Button from './Button';
 export const Button = _Button;
 
-import _BrownButton from './BrownButton';
-export const BrownButton = _BrownButton;
-
-import _LoginButton from './LoginButton';
-export const LoginButton = _LoginButton;
-
-import _OutlineButton from './OutlineButton';
-export const OutlineButton = _OutlineButton;
-
-import _SlimButton from './SlimButton';
-export const SlimButton = _SlimButton;
-
 // Icon Component with all Vector Icon Liabrary
 import _Icon from './Icon';
 export const Icon = _Icon;

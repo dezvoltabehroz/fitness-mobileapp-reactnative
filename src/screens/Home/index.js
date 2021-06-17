@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
-import { View, Text, ActivityIndicator, TouchableOpacity, ScrollView, Animated, RefreshControl, Linking, Easing, Dimensions } from 'react-native'
-import { Icon, Button, FloatingInput, RadioButton, Container } from "../../components";
-import styles from './style';
+import { View, Text, ActivityIndicator, FlatList, TouchableOpacity, ScrollView, RefreshControl, Dimensions } from 'react-native'
 import RNBounceable from "@freakycoder/react-native-bounceable";
 import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
-import { authActions } from '../../redux/actions/auth';
-import { FlatList } from 'react-native';
 import Timeline from 'react-native-timeline-flatlist';
 import moment from "moment"
+
+import { authActions } from '../../redux/actions/auth';
+import { Icon, Container } from "../../components";
+
+import styles from './style';
+
 const { width, height } = Dimensions.get('window');
 const screenWidth = Dimensions.get('window').width;
 
@@ -22,22 +24,22 @@ class Home extends Component {
             currentPage: 0,
             buttonArr: [{
                 text: "Start a workout",
-                title:"StartWorkout",
+                title: "StartWorkout",
                 iconName: <Icon.FontAwesome5 name={'fire-alt'} size={20} color='white' />,
             },
             {
                 text: "Log Nutrition",
-                title:"LogNutrition",
+                title: "LogNutrition",
                 iconName: <Icon.MaterialIcons name={'dinner-dining'} size={20} color='white' />,
             },
             {
                 text: "Add Progress Photo",
-                title:"ProgressPhoto",
+                title: "ProgressPhoto",
                 iconName: <Icon.FontAwesome name={'user'} size={20} color='white' />,
             },
             {
                 text: "Update Metrics",
-                title:"Measurement",
+                title: "Measurement",
                 iconName: <Icon.Entypo name={'gauge'} size={20} color='white' />,
             }],
             activityArr: [
@@ -115,7 +117,7 @@ class Home extends Component {
 
     _renderItems = ({ index, item }) => {
         return (
-            <RNBounceable style={styles.flatListcontentContainer} onPress={() => {this.props.navigation.navigate(item.title) }}>
+            <RNBounceable style={styles.flatListcontentContainer} onPress={() => { this.props.navigation.navigate(item.title) }}>
                 <View style={[styles.rowContainerSpaceBetween, { flex: 1 }]}>
                     <View style={{ flex: 1, flexDirection: "column" }}>
                         <Text numberOfLines={3} style={{ fontSize: 16, fontWeight: "bold", width: "70%" }}>{item.text}</Text>
@@ -176,7 +178,7 @@ class Home extends Component {
         )
         return (
             <RNBounceable onPress={() => { }}>
-                <View style={{ flex: 1, marginTop: -45,height:90 ,}}>
+                <View style={{ flex: 1, marginTop: -45, height: 90, }}>
                     {title}
                     <View style={{ paddingLeft: 20 }}>
                         {desc}

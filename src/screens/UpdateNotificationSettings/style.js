@@ -32,8 +32,11 @@ export default StyleSheet.create({
     notiText: {
         fontSize: 12,
         color: THEME.PRIMARY_BACKGROUND_COLOR,
-        fontWeight: "bold", 
+        fontWeight: "bold",
         marginBottom: 5
     },
-   
+    buttonContainer: {
+        justifyContent: "center",
+        alignItems: "center"
+    }
 })

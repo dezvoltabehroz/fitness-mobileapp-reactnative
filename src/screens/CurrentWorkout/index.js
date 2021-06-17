@@ -1,21 +1,19 @@
 import React, { Component } from 'react'
 import {
-    View, Text, ActivityIndicator, Image, Dimensions, ScrollView, TouchableOpacity, Alert
-} from 'react-native'
-import { Container, Icon, BrownButton, Input } from "../../components";
-import styles from './style';
+    View, Text, TouchableOpacity, Alert, StatusBar
+} from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
+import RNBounceable from '@freakycoder/react-native-bounceable';
 import Modal from 'react-native-modal';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
+
 import { authActions } from '../../redux/actions/auth';
-import { StatusBar } from 'react-native';
-const { width, height } = Dimensions.get('window');
-const screenWidth = Dimensions.get('window').width;
+import { Container, Icon, Button, Input } from "../../components";
+
 import THEME from '../../assets/styles/theme.style'
-import moment from 'moment';
-import DropDownPicker from 'react-native-dropdown-picker';
-import RNBounceable from '@freakycoder/react-native-bounceable';
-// import { Input } from '../../components/Input/Input.component';
+import styles from './style';
+
 class CurrentWorkout extends Component {
     constructor(props) {
         super(props);
@@ -193,7 +191,7 @@ class CurrentWorkout extends Component {
                     text: 'CANCEL'
                 },
                 {
-                    text: 'QUIT SESSion',
+                    text: 'QUIT SESSION',
                     onPress: () => { }
                 }
             ]
@@ -204,7 +202,7 @@ class CurrentWorkout extends Component {
         const { currentPage, searchModal, distance, second, minutes } = this.state;
         return (
             <>
-                <Container props={this.props} component={this.state} selectedMinF={(value)=>this.setState({selectedMin:value})} selectedSecF={(value)=>this.setState({selectedSec:value})}>
+                <Container props={this.props} component={this.state} selectedMinF={(value) => this.setState({ selectedMin: value })} selectedSecF={(value) => this.setState({ selectedSec: value })}>
                     <StatusBar backgroundColor={this.props.user.menuModal ? THEME.PRIMARY_BACKGROUND_COLOR : "#181818"} barStyle={"light-content"} />
                     <View style={styles.container}>
                         <View style={{ flex: 0.7, marginTop: "12.5%" }}>
@@ -240,7 +238,6 @@ class CurrentWorkout extends Component {
                             </RNBounceable>
                         </View>
                     </View>
-
                     <View style={styles.modalLowerContainer}>
                         {
                             currentPage == 0 ?
@@ -261,7 +258,7 @@ class CurrentWorkout extends Component {
                                             <Input placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
                                         </View>
                                         <View style={styles.buttonContainer}>
-                                            <BrownButton title="Save" onPress={() => { }} />
+                                            <Button.BrownButton title="Save" onPress={() => { }} />
                                         </View>
                                     </View>
                                 </View>
@@ -288,7 +285,7 @@ class CurrentWorkout extends Component {
                                                 onChangeItem={(item) => { this.setState({ selectedDistance: item, item: item.value, index: item.value }) }} />
                                         </View>
                                         <View style={styles.buttonContainer}>
-                                            <BrownButton title="Save" onPress={() => { }} />
+                                            <Button.BrownButton title="Save" onPress={() => { }} />
                                         </View>
                                     </View>
                                 </View>
@@ -314,14 +311,13 @@ class CurrentWorkout extends Component {
 
                                         </View>
                                         <View style={styles.buttonContainer}>
-                                            <BrownButton title="Save" onPress={() => { }} />
+                                            <Button.BrownButton title="Save" onPress={() => { }} />
                                         </View>
                                     </View>
                                 </View>
                                 :
                                 null
                         }
-
                     </View>
                 </Modal>
 
