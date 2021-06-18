@@ -10,6 +10,7 @@ import { Container, Button } from "../../components";
 import { Input } from '../../components/Input/Input.component';
 import { authActions } from '../../redux/actions/auth';
 
+import THEME from '../../assets/styles/theme.style';
 import styles from './style';
 
 class AddItem extends Component {
@@ -48,7 +49,7 @@ class AddItem extends Component {
         return (
             <Container props={this.props}>
                 <View style={styles.container}>
-                    <ScrollView contentContainerStyle={{ paddingTop: "5%", marginHorizontal: "2.5%", paddingBottom: 120 }} >
+                    <ScrollView contentContainerStyle={styles.scrollContentContainer} >
                         <View style={styles.generalMargin}>
                             <Text style={styles.headingTextStyle}>General</Text>
                         </View>
@@ -58,31 +59,17 @@ class AddItem extends Component {
                             <Text style={styles.notiText}>Body weights</Text>
                             <DropDownPicker
                                 items={unitMeasurement}
-                                arrowColor="#000000"
-                                activeLabelStyle={{
-                                    color: "white",
-                                    fontWeight: "bold"
-                                }}
-                                activeItemStyle={{
-                                    backgroundColor: '#544b4c',
-                                }}
-                                dropDownStyle={{
-                                    paddingHorizontal: 0
-                                }}
-                                itemStyle={{
-                                    justifyContent: 'flex-start',
-                                    paddingHorizontal: "5%",
-                                }}
+                                arrowColor={THEME.COLOR_BLACK}
+                                activeLabelStyle={styles.activeLabelStyle}
+                                activeItemStyle={styles.activeItemStyle}
+                                itemStyle={styles.itemStyle}
+                                labelStyle={styles.labelStyle}
                                 placeholder="Select Value"
                                 onClose={() => this.setState({ dropdownOpen2: false })}
                                 onOpen={() => this.setState({ dropdownOpen2: true })}
                                 containerStyle={{ height: 40, marginBottom: this.state.dropdownOpen2 ? '31%' : 0 }}
                                 defaultValue={this.state.selectedUnitMeasurement ? this.state.selectedUnitMeasurement.label : ""}
-                                onChangeItem={(item) => {
-                                    this.setState({
-                                        selectedUnitMeasurement: item, item: item.value, index: item.value,
-                                    })
-                                }}
+                                onChangeItem={(item) => { this.setState({ selectedUnitMeasurement: item, item: item.value, index: item.value, }) }}
                             />
                         </View>
                         <View style={styles.generalMargin}>
@@ -104,8 +91,9 @@ class AddItem extends Component {
                         <Input label="Vitamin C (%)" placeholder="Vitamin C (%)" />
                         <Input label="Calcium (%)" placeholder="Calcium (%)" />
                         <Input label="Iron (%)" placeholder="Iron (%)" />
-                        {/* <MessageTextInput label="Goal" placeholder="Goal" /> */}
-                        <Button.SlimButton title="Save" onPress={() => this.props.navigation.replace('Home')} />
+                        <View style={styles.buttonContainer}>
+                            <Button.SlimButton title="Save" onPress={() => this.props.navigation.replace('Home')} />
+                        </View>
                     </ScrollView>
                 </View>
             </Container >

@@ -4,7 +4,7 @@ export default {
     PRIMARY_BACKGROUND_COLOR: '#e0b92e',
     PRIMARY_FOOTER_COLOR: 'rgba(45, 56, 95, 0.9)',
     PRIMARY_RIPPLE_COLOR: '#1c7ed7',
-    BUTTON_COLOR: '#e0b92e',
+    BUTTON_COLOR: '#544b4c',
     PRIMARY_TINT_COLOR: '#f1692d',
     PRIMARY_TINT_COLOR_INACTIVE: '#000000',
     PRIMARY_TEXT_COLOR: '#bfbfbf',
@@ -25,5 +25,5 @@ export default {
     FONT_SIZE_LARGE: 18,
     FONT_SIZE_XLARGE: 22,
     COLOR_GREY: '#9FACBD',
-    
+
 };

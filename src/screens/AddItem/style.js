@@ -6,7 +6,6 @@ const plusWidth = screenWidth * .3;
 export default StyleSheet.create({
     container: {
         flex: 1,
-        // backgroundColor: THEME.COLOR_WHITE,
     },
     rowContainer: {
         flexDirection: "row",
@@ -17,7 +16,6 @@ export default StyleSheet.create({
     headingTextStyle: {
         fontSize: 18,
         fontWeight: "bold",
-
     },
     textStyle: {
         fontSize: 16,
@@ -39,18 +37,23 @@ export default StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
-    saveButton: {
-        height: 54,
-        marginTop: '5%',
-        justifyContent: "center",
-        backgroundColor: '#544b4c',
-        paddingHorizontal: "10%",
-        borderRadius: 30
+    scrollContentContainer: {
+        paddingTop: "5%",
+        marginHorizontal: "2.5%",
+        paddingBottom: 120
     },
-    saveButtonText: {
-        color: "#fff",
-        fontSize: 16,
-        fontWeight: "bold",
-        textAlign: "center",
+    activeLabelStyle: {
+        color: "white",
+        fontWeight: "bold"
+    },
+    itemStyle: {
+        justifyContent: 'flex-start',
+        paddingHorizontal: "5%"
+    },
+    activeItemStyle: {
+        backgroundColor: THEME.BUTTON_COLOR
+    },
+    labelStyle: {
+        color: "black",
     }
 })

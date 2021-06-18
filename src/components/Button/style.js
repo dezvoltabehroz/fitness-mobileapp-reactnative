@@ -37,7 +37,7 @@ export default StyleSheet.create({
         borderRadius: 30,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: THEME.BUTTON_COLOR
+        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR
     },
     btnLoginText: {
         marginRight: 5,
