@@ -72,21 +72,18 @@ class Notifications extends Component {
 
     _renderItems = ({ index, item }) => {
         return (
-            <RNBounceable style={{ flex: 1, flexDirection: "row", marginHorizontal: "5%" }} onPress={() => { }}>
-                <View style={{
-                    borderRadius: 30, height: 40, width: 40,
-                    justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
-                }}>
-                    <Text style={{ fontSize: 16, color: "white", fontWeight: "bold" }}>{item.user_name}</Text>
+            <RNBounceable style={styles.itemContainer} onPress={() => { }}>
+                <View style={styles.user_nameContainer}>
+                    <Text style={styles.user_nameText}>{item.user_name}</Text>
                 </View>
-                <View style={{ flex: 0.8, marginHorizontal: "5%" }}>
+                <View style={styles.itemTypeContainer}>
 
                     <Text numberOfLines={3} style={{ fontWeight: "bold", }}>{item.type}</Text>
-                    <Text style={{ color: "gray", fontWeight: "bold", fontSize: 12 }} >{moment(item.time).fromNow()} </Text>
+                    <Text style={styles.fromNowText} >{moment(item.time).fromNow()} </Text>
 
 
                 </View>
-                <View style={{ flex: 0.2, justifyContent: "flex-start", alignItems: "flex-end" }} >
+                <View style={styles.iconContainer} >
                     <Icon.Octicons name="primitive-dot" color="green" size={20} />
                 </View>
             </RNBounceable>

@@ -15,6 +15,7 @@ export default StyleSheet.create({
         marginHorizontal: "5%",
         justifyContent: "space-between"
     },
+    labelStyle: { color: "black", fontWeight: "900" },
     headingTextStyle: {
         fontSize: 18,
         fontWeight: "bold",
@@ -35,4 +36,4 @@ export default StyleSheet.create({
         flexDirection: "row",
         alignItems: "center"
     }
-}) 
+})

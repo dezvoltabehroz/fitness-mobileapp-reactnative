@@ -39,7 +39,7 @@ class StartWorkout extends Component {
                         <RNBounceable style={styles.noNutritionInnerContainer}>
                             <View>
                                 <Text style={styles.textStyle}>No Nutrition Plan</Text>
-                                <Text style={{ fontSize: 12, color: "lightgray", marginTop: 5, fontWeight: "bold" }}>Log your own nutrition.</Text>
+                                <Text style={styles.logText}>Log your own nutrition.</Text>
                             </View>
                             {
                                 checked ?
@@ -66,8 +66,8 @@ class StartWorkout extends Component {
                             <Icon.AntDesign name="right" size={20} color={"gray"} />
                         </RNBounceable>
                     </View>
-                    <View style={{ marginTop: "10%", justifyContent: "center", alignItems: "center" }}>
-                        <Button.SlimButton title="Next" />
+                    <View style={styles.buttonContainer}>
+                        <Button.SlimButton title="Next" onPress={() => { }} />
                     </View>
                 </View>
             </Container >

@@ -9,49 +9,12 @@ export default StyleSheet.create({
         backgroundColor: THEME.COLOR_WHITE,
     },
     upperContainer: {
-        flexDirection: "row",
-        paddingVertical: "10%",
-        alignItems: "center",
-        paddingHorizontal: "5%",
-        justifyContent: "space-between",
+        alignItems: "center", flex: 0.7
     },
     headingStyle: {
         paddingHorizontal: 5,
         fontSize: 35,
         fontWeight: "bold"
-    },
-    upperContentContainer: {
-        paddingVertical: "10%",
-        borderTopLeftRadius: 25,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#e2e2e2"
-    },
-    lowerContentContainer: {
-        flex: 1,
-        paddingTop: "10%",
-        borderTopLeftRadius: 25,
-        backgroundColor: "white",
-        borderBottomWidth: 1,
-        borderColor: "lightgray",
-        borderBottomLeftRadius: 5,
-        borderBottomRightRadius: 5
-    },
-    rowContainer: {
-        marginVertical: "2.5%",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        marginHorizontal: "5%"
-    },
-    headingTextStyle: {
-        fontSize: 18,
-        fontWeight: "bold",
-    },
-    texStyle: {
-        textAlign: "center",
-        fontSize: 16,
-        fontWeight: "bold",
     },
     textStyle: {
         color: "#C0C0C0",
@@ -61,8 +24,11 @@ export default StyleSheet.create({
     },
     iconContainer: {
         marginTop: "15%",
-        borderRadius: 35, height: 70, width: 70,
-        justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
+        borderRadius: 35, height: 70,
+        width: 70,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: '#544b4c'
     },
     textStyle1: {
         color: "lightgrey",
@@ -73,11 +39,5 @@ export default StyleSheet.create({
         marginTop: "5%",
         marginHorizontal: "5%",
     },
-    row: {
-        flexDirection: "row",
-        alignItems: "center"
-    },
-    gapHeight: {
-        height: 10
-    }
+
 })

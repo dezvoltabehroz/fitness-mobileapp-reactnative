@@ -120,5 +120,19 @@ export default StyleSheet.create({
     buttonContainer: {
         justifyContent: "center",
         alignItems: "center"
+    },
+    paddingRight: {
+        paddingRight: "3.5%"
+    },
+    marginTop: {
+        marginTop: "5%"
+    },
+    generalMargin: {
+        marginTop: "5%",
+        marginHorizontal: "10%"
+    },
+    buttonStyle: { position: "absolute", bottom: 40, },
+    alignItems: {
+        alignItems: "center"
     }
 })

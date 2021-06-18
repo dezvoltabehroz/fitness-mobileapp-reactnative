@@ -34,23 +34,24 @@ export default StyleSheet.create({
         textAlign: "center",
         // fontSize: 16,
         color: "#FFFFFF",
-        
+
         // width: screenWidth * 0.65
     },
-    textStyle2:{
+    textStyle2: {
         // textAlign: "center",
         fontSize: 16,
         fontWeight: "bold",
         color: "#C0C0C0",
     },
     generalMargin: {
-        marginTop: "5%",
-        marginHorizontal: "5%",
-        // margin: "5%",
-        // marginVertical: "5%"
+        marginHorizontal: "7.5%",
+        marginVertical: "5%"
     },
     row: {
         flexDirection: "row",
         alignItems: "center"
+    },
+    marginHorizontal: {
+        marginHorizontal: "15%"
     }
 })

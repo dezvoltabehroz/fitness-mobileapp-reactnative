@@ -32,6 +32,9 @@ export default StyleSheet.create({
         fontWeight: "bold",
         marginBottom: 5
     },
+    marginRight: {
+        marginRight: "5%"
+    },
     dateContainer: {
         flexDirection: "row",
         alignItems: "center",

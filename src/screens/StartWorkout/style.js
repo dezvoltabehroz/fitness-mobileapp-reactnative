@@ -36,5 +36,8 @@ export default StyleSheet.create({
     buttonContainer: {
         justifyContent: "center",
         alignItems: "center"
+    },
+    selectWorkoutContainer: {
+        flexDirection: "row", justifyContent: "space-between", marginTop: "5%", borderRadius: 10, elevation: 2, paddingVertical: "10%", paddingHorizontal: "5%"
     }
 })

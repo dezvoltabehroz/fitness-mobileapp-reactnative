@@ -108,35 +108,35 @@ class Measurement extends Component {
                             this.state.selectedMeasurementType.label == 'Weight & Circumferences' ?
                                 <>
                                     <View style={styles.generalMargin1}>
-                                        <Input label="New Weight (kg)" placeholder="New Weight (kg)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>kg</Text></View>} />
+                                        <Input label="New Weight (kg)" placeholder="New Weight (kg)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>kg</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Neck Left (cm)" placeholder="Neck Left (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Neck Right (cm)" placeholder="Neck Right (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Neck Left (cm)" placeholder="Neck Left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Neck Right (cm)" placeholder="Neck Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Chest Left (cm)" placeholder="Chest Left (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Chest Right (cm)" placeholder="Chest Right (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Chest Left (cm)" placeholder="Chest Left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Chest Right (cm)" placeholder="Chest Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Arms Left (cm)" placeholder="Arms Left (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Arms Right (cm)" placeholder="Arms Right (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Arms Left (cm)" placeholder="Arms Left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Arms Right (cm)" placeholder="Arms Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Waist Left (cm)" placeholder="Waist Left (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Waist Right (cm)" placeholder="Waist Right (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Waist Left (cm)" placeholder="Waist Left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Waist Right (cm)" placeholder="Waist Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Hips Left (cm)" placeholder="Hips Left (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Hips Right (cm)" placeholder="Hips Right (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Hips Left (cm)" placeholder="Hips Left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Hips Right (cm)" placeholder="Hips Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Thigh left (cm)" placeholder="Thigh left (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Thigh Right (cm)" placeholder="Thigh Right (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Thigh left (cm)" placeholder="Thigh left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Thigh Right (cm)" placeholder="Thigh Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Calf Left (cm)" placeholder="Calf Left (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Calf Right (cm)" placeholder="Calf Right (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Calf Left (cm)" placeholder="Calf Left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Calf Right (cm)" placeholder="Calf Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={styles.buttonContainer}>
                                         <Button.BrownButton title="Save" onPress={() => { }} />
@@ -152,43 +152,43 @@ class Measurement extends Component {
                             this.state.selectedMeasurementType.label == 'Body Fat Measurement' ?
                                 <>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Chest Left (cm)" placeholder="Chest Left (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Chest Right (cm)" placeholder="Chest Right (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Chest Left (cm)" placeholder="Chest Left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Chest Right (cm)" placeholder="Chest Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Tricep Left (cm)" placeholder="Tricep Left (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Tricep Right (cm)" placeholder="Tricep Right (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Tricep Left (cm)" placeholder="Tricep Left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Tricep Right (cm)" placeholder="Tricep Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Bicep Left (cm)" placeholder="Bicep Left (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Bicep Right (cm)" placeholder="Bicep Right (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Bicep Left (cm)" placeholder="Bicep Left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Bicep Right (cm)" placeholder="Bicep Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Subscapular Left (cm)" placeholder="Subscapular Left (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Subscapular Right (cm)" placeholder="Subscapular Right (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Subscapular Left (cm)" placeholder="Subscapular Left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Subscapular Right (cm)" placeholder="Subscapular Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Midaxillary Left (cm)" placeholder="Midaxillary Left (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Midaxillary Right (cm)" placeholder="Midaxillary Right (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Midaxillary Left (cm)" placeholder="Midaxillary Left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Midaxillary Right (cm)" placeholder="Midaxillary Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Abdominal Left (cm)" placeholder="Abdominal Left (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Abdominal Right (cm)" placeholder="Abdominal Right (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Abdominal Left (cm)" placeholder="Abdominal Left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Abdominal Right (cm)" placeholder="Abdominal Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Suprailiac Left (cm)" placeholder="Suprailiac Left (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Suprailiac Right (cm)" placeholder="Suprailiac Right (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Suprailiac Left (cm)" placeholder="Suprailiac Left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Suprailiac Right (cm)" placeholder="Suprailiac Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Thigh left (cm)" placeholder="Thigh left (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Thigh Right (cm)" placeholder="Thigh Right (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Thigh left (cm)" placeholder="Thigh left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Thigh Right (cm)" placeholder="Thigh Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Body Fat % Left" placeholder="Body Fat % Left" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>%</Text></View>} />
-                                        <Input label="Body Fat % Right" placeholder="Body Fat % Right" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>%</Text></View>} />
+                                        <Input label="Body Fat % Left" placeholder="Body Fat % Left" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>%</Text></View>} />
+                                        <Input label="Body Fat % Right" placeholder="Body Fat % Right" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>%</Text></View>} />
                                     </View>
                                     <View style={styles.generalMargin1}>
-                                        <Input label="Body Fat % Total" placeholder="Body Fat % Total" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>%</Text></View>} />
+                                        <Input label="Body Fat % Total" placeholder="Body Fat % Total" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>%</Text></View>} />
                                     </View>
                                     <View style={styles.buttonContainer}>
                                         <Button.BrownButton title="Save" onPress={() => { }} />
@@ -204,27 +204,24 @@ class Measurement extends Component {
                             this.state.selectedMeasurementType.label == 'Vital Stats' ?
                                 <>
                                     <View style={styles.generalMargin1}>
-                                        <Input label="Muscle Mass (kg)" placeholder="Muscle Mass (kg)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>kg</Text></View>} />
+                                        <Input label="Muscle Mass (kg)" placeholder="Muscle Mass (kg)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>kg</Text></View>} />
                                     </View>
                                     <View style={styles.generalMargin1}>
-                                        <Input label="Water (%)" placeholder="Water (%)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>%</Text></View>} />
+                                        <Input label="Water (%)" placeholder="Water (%)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>%</Text></View>} />
                                     </View>
                                     <View style={styles.generalMargin1}>
-                                        <Input label="Height (cm)" placeholder="Height (cm)" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Height (cm)" placeholder="Height (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={styles.generalMargin1}>
-                                        <Input label="Resting HR" placeholder="Resting HR" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>BPM</Text></View>} />
+                                        <Input label="Resting HR" placeholder="Resting HR" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>BPM</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="BP Systolic" placeholder="BP Systolic" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>mmHg</Text></View>} />
-                                        <Input label="BP Diatolic" placeholder="BP Diatolic" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>mmHg</Text></View>} />
+                                        <Input label="BP Systolic" placeholder="BP Systolic" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>mmHg</Text></View>} />
+                                        <Input label="BP Diatolic" placeholder="BP Diatolic" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>mmHg</Text></View>} />
                                     </View>
                                     <View style={styles.generalMargin1}>
-                                        <Input label="Body Fat % Total" placeholder="Body Fat % Total" rightIcon={<View style={{ marginRight: "5%" }}><Text style={styles.notiText}>%</Text></View>} />
+                                        <Input label="Body Fat % Total" placeholder="Body Fat % Total" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>%</Text></View>} />
                                     </View>
-
-
-
                                     <View style={styles.buttonContainer}>
                                         <Button.BrownButton title="Save" onPress={() => { }} />
                                     </View>

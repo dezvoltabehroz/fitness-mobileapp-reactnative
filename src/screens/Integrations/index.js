@@ -37,7 +37,7 @@ class Integrations extends Component {
                             onColor={THEME.PRIMARY_BACKGROUND_COLOR}
                             offColor="#e2e2e2"
                             label=""
-                            labelStyle={{ color: "black", fontWeight: "900" }}
+                            labelStyle={styles.labelStyle}
                             size="medium"
                             onToggle={isOn => console.log("changed to : ", isOn)}
                         />
@@ -55,7 +55,7 @@ class Integrations extends Component {
                             onColor={THEME.PRIMARY_BACKGROUND_COLOR}
                             offColor="#e2e2e2"
                             label=""
-                            labelStyle={{ color: "black", fontWeight: "900" }}
+                            labelStyle={styles.labelStyle}
                             size="medium"
                             onToggle={isOn => console.log("changed to : ", isOn)}
                         />
@@ -70,7 +70,7 @@ class Integrations extends Component {
                             onColor={THEME.PRIMARY_BACKGROUND_COLOR}
                             offColor="#e2e2e2"
                             label=""
-                            labelStyle={{ color: "black", fontWeight: "900" }}
+                            labelStyle={styles.labelStyle}
                             size="medium"
                             onToggle={isOn => console.log("changed to : ", isOn)}
                         />

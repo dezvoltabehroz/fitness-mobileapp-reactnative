@@ -157,12 +157,12 @@ class Nutrition extends Component {
                             ref={(node) => (this.scroll1 = node)}
                             // onScroll={(event) => this.setHeadingSliderPage(event)}
                             style={{ flex: 0.7 }} >
-                            <RNBounceable style={{ paddingRight: "3.5%" }} onPress={() => { this.setState({ currentPage: 0 }); this.scroll.scrollTo({ x: 0 }); this.scroll1.scrollTo({ x: width * 0 }); }}>
+                            <RNBounceable style={styles.paddingRight} onPress={() => { this.setState({ currentPage: 0 }); this.scroll.scrollTo({ x: 0 }); this.scroll1.scrollTo({ x: width * 0 }); }}>
                                 <View >
                                     <Text style={[styles.headingStyle, { color: currentPage == 0 ? "black" : "#544b4c" }]}>{"Nutrition"}</Text>
                                 </View>
                             </RNBounceable>
-                            <RNBounceable style={{ paddingRight: "3.5%" }} onPress={() => { this.setState({ currentPage: 1 }); this.scroll.scrollTo({ x: width }); this.scroll1.scrollTo({ x: width * 0.35 }); }}>
+                            <RNBounceable style={styles.paddingRight} onPress={() => { this.setState({ currentPage: 1 }); this.scroll.scrollTo({ x: width }); this.scroll1.scrollTo({ x: width * 0.35 }); }}>
                                 <View >
                                     <Text style={[styles.headingStyle, { color: currentPage == 1 ? "black" : "#544b4c" }]}>{"Custom"}</Text>
                                 </View>
@@ -184,21 +184,21 @@ class Nutrition extends Component {
                         style={{ flex: 0.7 }} >
                         <View style={styles.firstContainer}>
                             <ScrollView style={{ flex: 1 }}>
-                                <View style={{ alignItems: "center" }}>
+                                <View style={styles.alignItems}>
                                     <View style={styles.iconContainer}>
                                         <Icon.MaterialIcons name="dinner-dining" size={30} color={"white"} />
                                     </View>
-                                    <View style={{ marginTop: "5%" }}>
+                                    <View style={styles.marginTop}>
                                         <Text style={styles.textStyle3}>Nothing to see here?</Text>
                                     </View>
-                                    <View style={{ marginTop: "5%", marginHorizontal: "10%" }}>
+                                    <View style={styles.generalMargin}>
                                         <Text style={styles.textStyle1}>No nutrition plans assigned yet!</Text>
                                     </View>
                                 </View>
                                 <View style={{ height: 50 }}></View>
                             </ScrollView>
                             <View style={styles.buttonContainer}>
-                                <View style={{ position: "absolute", bottom: 40, }}>
+                                <View style={styles.buttonStyle}>
                                     <Button.SlimButton title={"Log Nutrition"} onPress={() => { this.props.navigation.navigate('StartWorkout') }} />
                                 </View>
                             </View>
@@ -217,17 +217,17 @@ class Nutrition extends Component {
                                     <View style={styles.iconContainer}>
                                         <Icon.MaterialIcons name="dinner-dining" size={30} color={"white"} />
                                     </View>
-                                    <View style={{ marginTop: "5%" }}>
+                                    <View style={styles.marginTop}>
                                         <Text style={styles.textStyle3}>Nothing to see here?</Text>
                                     </View>
-                                    <View style={{ marginTop: "5%", marginHorizontal: "10%" }}>
+                                    <View style={styles.generalMargin}>
                                         <Text style={styles.textStyle1}>Nothing added just yet!</Text>
                                     </View>
                                 </View>
                                 <View style={{ height: 50 }}></View>
                             </ScrollView>
                             <View style={styles.buttonContainer}>
-                                <View style={{ position: "absolute", bottom: 40, }}>
+                                <View style={buttonCon}>
                                     <Button.SlimButton title={"Create Custom Food"} onPress={() => { this.props.navigation.navigate('AddItem') }} />
                                 </View>
                             </View>
@@ -239,10 +239,10 @@ class Nutrition extends Component {
                                     <View style={styles.iconContainer}>
                                         <Icon.MaterialIcons name="dinner-dining" size={30} color={"white"} />
                                     </View>
-                                    <View style={{ marginTop: "5%" }}>
+                                    <View style={styles.marginTop}>
                                         <Text style={styles.textStyle3}>No Shopping Items</Text>
                                     </View>
-                                    <View style={{ marginTop: "5%", marginHorizontal: "10%" }}>
+                                    <View style={styles.generalMargin}>
                                         <Text style={styles.textStyle1}>Your Trainer hasn't assigned any food items to you just yet.</Text>
                                     </View>
                                 </View>

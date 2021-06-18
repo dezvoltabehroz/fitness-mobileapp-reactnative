@@ -120,10 +120,10 @@ class Home extends Component {
             <RNBounceable style={styles.flatListcontentContainer} onPress={() => { this.props.navigation.navigate(item.title) }}>
                 <View style={[styles.rowContainerSpaceBetween, { flex: 1 }]}>
                     <View style={{ flex: 1, flexDirection: "column" }}>
-                        <Text numberOfLines={3} style={{ fontSize: 16, fontWeight: "bold", width: "70%" }}>{item.text}</Text>
+                        <Text numberOfLines={3} style={styles.renderItemText}>{item.text}</Text>
                     </View>
                     <View onPress={() => {
-                    }} style={[styles.flatlistContainer, { flexDirection: "column", backgroundColor: "#544b4c" }]}>
+                    }} style={[styles.flatlistContainer]}>
                         {item.iconName}
                     </View>
                 </View>
@@ -146,24 +146,26 @@ class Home extends Component {
             });
         }, 2000);
     }
+
     truncateString = (str, num) => {
         if (str.length <= num) {
             return str
         }
         return str.slice(0, num)
     }
+
     renderDetail = (rowData, sectionID, rowID) => {
-        let title = <View style={{ backgroundColor: "#544b4c", marginTop: 30, right: 45, bottom: 1, borderRadius: 50, height: 50, width: 50, justifyContent: 'center', }}>
-            <Text style={{ textTransform: "capitalize", textAlign: "center", fontSize: 16, fontWeight: "bold", color: "white" }}>{this.truncateString(`${rowData.user_name}`, 1)}</Text>
+        let title = <View style={styles.titleContainer}>
+            <Text style={styles.titleTextStyle}>{this.truncateString(`${rowData.user_name}`, 1)}</Text>
         </View>
         var desc = (
             <View style={{ top: -40 }}>
                 <View >
-                    <View style={{ paddingRight: 20, flexDirection: "row", justifyContent: "space-between", alignItems: "center" }} >
+                    <View style={styles.listContentContainer} >
                         <View>
-                            <Text style={{ fontWeight: "bold", fontSize: 16 }} >{rowData.type}: {rowData.activity}</Text>
-                            <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                <Text style={{ color: "gray", fontWeight: "bold", fontSize: 12 }} >{moment(rowData.time).format("HH:MM, DD MMM YYYY")} </Text>
+                            <Text style={styles.activityText} >{rowData.type}: {rowData.activity}</Text>
+                            <View style={styles.activityContainer}>
+                                <Text style={styles.activityDateText} >{moment(rowData.time).format("HH:MM, DD MMM YYYY")} </Text>
                                 <TouchableOpacity style={{ marginHorizontal: "5%" }}>
                                     <Icon.AntDesign name={'like1'} size={15} color='black' />
                                 </TouchableOpacity>
@@ -245,7 +247,7 @@ class Home extends Component {
             <Container props={this.props} >
                 <View style={styles.container}>
                     <View style={styles.upperContainer}>
-                        <View style={{ flexDirection: "row", justifyContent: "space-evenly", width: width * 0.7 }}>
+                        <View style={styles.headingContainer}>
                             <RNBounceable onPress={() => { this.setState({ currentPage: 0 }); this.scroll.scrollTo({ x: 0 }); }}>
                                 <View >
                                     <Text style={[styles.headingStyle, { color: currentPage == 0 ? "black" : "#544b4c" }]}>{"Today"}</Text>
@@ -259,8 +261,8 @@ class Home extends Component {
                         </View>
                         <TouchableOpacity
                             onPress={() => { this.props.navigation.navigate('Settings'); }}
-                            style={{ marginLeft: "15%", justifyContent: "center", alignItems: "center", height: 30, width: 30, borderRadius: 15, backgroundColor: "#544b4c", alignContent: "flex-end" }}>
-                            <Text style={{ color: "white", fontWeight: "bold" }} >T</Text>
+                            style={styles.userNameContainer}>
+                            <Text style={styles.userNameText} >T</Text>
                         </TouchableOpacity>
                     </View>
                     <ScrollView
@@ -300,7 +302,6 @@ class Home extends Component {
                                     null
                             }
                             <ScrollView style={{ flex: 1 }}>
-
                                 <FlatList
                                     data={this.state.buttonArr}
                                     keyExtractor={item => item}
@@ -309,11 +310,10 @@ class Home extends Component {
                                     showsVerticalScrollIndicator={false}
                                     contentContainerStyle={styles.contentContainer}
                                     renderItem={({ index, item }) => this._renderItems({ index, item })}
-
                                 />
-                                <View style={{ marginHorizontal: "5%", marginTop: "5%" }}>
-                                    <Text numberOfLines={3} style={{ fontSize: 20, fontWeight: "bold", width: "70%" }}>Today's Schedule</Text>
-                                    <Text numberOfLines={3} style={{ fontSize: 16, fontWeight: "bold", width: "70%" }}>{moment().format("HH:MM, DD MMM YYYY")}</Text>
+                                <View style={styles.generalMargin}>
+                                    <Text numberOfLines={3} style={styles.todayText}>Today's Schedule</Text>
+                                    <Text numberOfLines={3} style={styles.dateText}>{moment().format("HH:MM, DD MMM YYYY")}</Text>
                                 </View>
                                 <View style={{ height: 50 }}></View>
                             </ScrollView>

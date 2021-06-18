@@ -11,7 +11,7 @@ import { authActions } from '../../redux/actions/auth';
 import { Container, Button } from "../../components";
 
 import styles from './style';
-
+import THEME from '../../assets/styles/theme.style'
 class UnitOfMeasurement extends Component {
     constructor(props) {
         super(props);
@@ -96,22 +96,12 @@ class UnitOfMeasurement extends Component {
                             <Text style={styles.notiText}>Weights</Text>
                             <DropDownPicker
                                 items={weights}
-                                arrowColor="#000000"
+                                arrowColor={THEME.COLOR_BLACK}
+                                activeLabelStyle={styles.activeLabelStyle}
+                                activeItemStyle={styles.activeItemStyle}
+                                itemStyle={styles.itemStyle}
+                                labelStyle={styles.labelStyle}
                                 placeholder="Select Value"
-                                activeLabelStyle={{
-                                    color: "white",
-                                    fontWeight: "bold"
-                                }}
-                                activeItemStyle={{
-                                    backgroundColor: '#544b4c',
-                                }}
-                                dropDownStyle={{
-                                    paddingHorizontal: 0
-                                }}
-                                itemStyle={{
-                                    justifyContent: 'flex-start',
-                                    paddingHorizontal: "5%",
-                                }}
                                 onClose={() => this.setState({ dropdownOpen1: false })}
                                 onOpen={() => this.setState({ dropdownOpen1: true })}
                                 globalTextStyle={{ color: "#000000", textAlign: "left", }}
@@ -130,21 +120,12 @@ class UnitOfMeasurement extends Component {
                             <Text style={styles.notiText}>Body weights</Text>
                             <DropDownPicker
                                 items={bodyweight}
-                                arrowColor="#000000"
-                                activeLabelStyle={{
-                                    color: "white",
-                                    fontWeight: "bold"
-                                }}
-                                activeItemStyle={{
-                                    backgroundColor: '#544b4c',
-                                }}
-                                dropDownStyle={{
-                                    paddingHorizontal: 0
-                                }}
-                                itemStyle={{
-                                    justifyContent: 'flex-start',
-                                    paddingHorizontal: "5%",
-                                }}
+                                arrowColor={THEME.COLOR_BLACK}
+                                activeLabelStyle={styles.activeLabelStyle}
+                                activeItemStyle={styles.activeItemStyle}
+                                itemStyle={styles.itemStyle}
+                                labelStyle={styles.labelStyle}
+                                placeholder="Select Value"
                                 placeholder="Select Value"
                                 onClose={() => this.setState({ dropdownOpen2: false })}
                                 onOpen={() => this.setState({ dropdownOpen2: true })}
@@ -162,22 +143,12 @@ class UnitOfMeasurement extends Component {
                             <Text style={styles.notiText}>Length</Text>
                             <DropDownPicker
                                 items={length}
-                                arrowColor="#000000"
+                                arrowColor={THEME.COLOR_BLACK}
+                                activeLabelStyle={styles.activeLabelStyle}
+                                activeItemStyle={styles.activeItemStyle}
+                                itemStyle={styles.itemStyle}
+                                labelStyle={styles.labelStyle}
                                 placeholder="Select Value"
-                                activeLabelStyle={{
-                                    color: "white",
-                                    fontWeight: "bold"
-                                }}
-                                activeItemStyle={{
-                                    backgroundColor: '#544b4c',
-                                }}
-                                dropDownStyle={{
-                                    paddingHorizontal: 0
-                                }}
-                                itemStyle={{
-                                    justifyContent: 'flex-start',
-                                    paddingHorizontal: "5%",
-                                }}
                                 onClose={() => this.setState({ dropdownOpen3: false })}
                                 onOpen={() => this.setState({ dropdownOpen3: true })}
                                 containerStyle={{ height: 40, marginBottom: this.state.dropdownOpen3 ? '21%' : 0 }}
@@ -194,22 +165,12 @@ class UnitOfMeasurement extends Component {
                             <Text style={styles.notiText}>Height</Text>
                             <DropDownPicker
                                 items={height}
-                                arrowColor="#000000"
+                                arrowColor={THEME.COLOR_BLACK}
+                                activeLabelStyle={styles.activeLabelStyle}
+                                activeItemStyle={styles.activeItemStyle}
+                                itemStyle={styles.itemStyle}
+                                labelStyle={styles.labelStyle}
                                 placeholder="Select Value"
-                                activeLabelStyle={{
-                                    color: "white",
-                                    fontWeight: "bold"
-                                }}
-                                activeItemStyle={{
-                                    backgroundColor: '#544b4c',
-                                }}
-                                dropDownStyle={{
-                                    paddingHorizontal: 0
-                                }}
-                                itemStyle={{
-                                    justifyContent: 'flex-start',
-                                    paddingHorizontal: "5%",
-                                }}
                                 onClose={() => this.setState({ dropdownOpen4: false })}
                                 onOpen={() => this.setState({ dropdownOpen4: true })}
                                 containerStyle={{ height: 40, marginBottom: this.state.dropdownOpen4 ? '21%' : 0 }}
@@ -226,22 +187,12 @@ class UnitOfMeasurement extends Component {
                             <Text style={styles.notiText}>Distance</Text>
                             <DropDownPicker
                                 items={distance}
-                                arrowColor="#000000"
+                                arrowColor={THEME.COLOR_BLACK}
+                                activeLabelStyle={styles.activeLabelStyle}
+                                activeItemStyle={styles.activeItemStyle}
+                                itemStyle={styles.itemStyle}
+                                labelStyle={styles.labelStyle}
                                 placeholder="Select Value"
-                                activeLabelStyle={{
-                                    color: "white",
-                                    fontWeight: "bold"
-                                }}
-                                activeItemStyle={{
-                                    backgroundColor: '#544b4c',
-                                }}
-                                dropDownStyle={{
-                                    paddingHorizontal: 0
-                                }}
-                                itemStyle={{
-                                    justifyContent: 'flex-start',
-                                    paddingHorizontal: "5%",
-                                }}
                                 onClose={() => this.setState({ dropdownOpen5: false })}
                                 onOpen={() => this.setState({ dropdownOpen5: true })}
                                 containerStyle={{ height: 40, marginBottom: this.state.dropdownOpen5 ? '21%' : 0 }}

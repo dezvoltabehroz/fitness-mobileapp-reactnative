@@ -12,30 +12,26 @@ export default StyleSheet.create({
     selectPlanInnerContainer: { flexDirection: "row", justifyContent: "space-between", marginTop: "5%", borderRadius: 10, elevation: 2, paddingVertical: "8.5%", paddingHorizontal: "5%" },
     noNutritionContainer: { marginHorizontal: "5%", marginTop: 10, flexDirection: "column" },
     noNutritionInnerContainer: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", borderRadius: 10, elevation: 2, paddingVertical: "6.5%", paddingHorizontal: "5%" },
-    steupFitnessInnerContainer:{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", borderRadius: 10, elevation: 2, paddingVertical: "5%", paddingHorizontal: "5%" },
+    steupFitnessInnerContainer: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", borderRadius: 10, elevation: 2, paddingVertical: "5%", paddingHorizontal: "5%" },
     rowContainer: {
         flexDirection: "row",
         alignItems: "center",
-        // marginTop: "5%",
-        // margin: "5%",
-        // justifyContent: "space-between"
     },
     headingTextStyle: {
         fontSize: 18,
         fontWeight: "bold",
     },
     textStyle: {
-        // marginLeft: "5%",
         fontSize: 16,
         fontWeight: "600",
-        // width: screenWidth * 0.65
     },
     generalMargin: {
         margin: "5%",
-        // marginVertical: "5%"
     },
     row: {
         flexDirection: "row",
         alignItems: "center"
-    }
+    },
+    buttonContainer: { marginTop: "10%", justifyContent: "center", alignItems: "center" },
+    logText:{ fontSize: 12, color: "lightgray", marginTop: 5, fontWeight: "bold" }
 })

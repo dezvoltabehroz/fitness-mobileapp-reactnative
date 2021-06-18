@@ -41,11 +41,24 @@ export default StyleSheet.create({
         alignItems: 'center',
         borderRadius: 25,
         marginHorizontal: screenHeight * 0.0005,
+        flexDirection: "column", backgroundColor: "#544b4c"
     },
     gapWidth: {
         height: 20,
         width: 20
     },
+    activityContainer: { flexDirection: "row", alignItems: "center" },
+    activityDateText: { color: "gray", fontWeight: "bold", fontSize: 12 },
+    activityText: { fontWeight: "bold", fontSize: 16 },
+    listContentContainer: { paddingRight: 20, flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
+    titleContainer: { backgroundColor: "#544b4c", marginTop: 30, right: 45, bottom: 1, borderRadius: 50, height: 50, width: 50, justifyContent: 'center', },
+    titleTextStyle: { textTransform: "capitalize", textAlign: "center", fontSize: 16, fontWeight: "bold", color: "white" },
+    userNameContainer: { marginLeft: "15%", justifyContent: "center", alignItems: "center", height: 30, width: 30, borderRadius: 15, backgroundColor: "#544b4c", alignContent: "flex-end" },
+    headingContainer: { flexDirection: "row", justifyContent: "space-evenly", width: screenWidth * 0.7 },
+    userNameText: { color: "white", fontWeight: "bold" },
+    todayText: { fontSize: 20, fontWeight: "bold", width: "70%" },
+    dateText: { fontSize: 16, fontWeight: "bold", width: "70%" },
+    generalMargin: { marginHorizontal: "5%", marginTop: "5%" },
     flatListcontentContainer: {
         backgroundColor: "white",
         borderRadius: 5,
@@ -91,4 +104,6 @@ export default StyleSheet.create({
         borderRadius: 4,
         backgroundColor: "#61dafb"
     },
+    renderItemText: { fontSize: 16, fontWeight: "bold", width: "70%" },
+
 })

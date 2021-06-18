@@ -6,9 +6,7 @@ const plusWidth = screenWidth * .3;
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: THEME.COLOR_WHITE,
-        // justifyContent: "center",
-        // alignItems: "center"
+        backgroundColor: THEME.COLOR_WHITE
     },
     rowContainer: {
         marginVertical: "5%",
@@ -16,10 +14,7 @@ export default StyleSheet.create({
         justifyContent: "space-between",
         marginHorizontal: "5%"
     },
-    headingTextStyle: {
-        fontSize: 18,
-        fontWeight: "bold",
-    },
+    
     textStyle: {
         fontSize: 16,
         fontWeight: "bold",
@@ -28,13 +23,10 @@ export default StyleSheet.create({
         color: "lightgrey",
         textAlign: "center",
         fontSize: 16,
-        // width: screenWidth * 0.65
     },
     generalMargin: {
         marginTop: "5%",
         marginHorizontal: "5%",
-        // margin: "5%",
-        // marginVertical: "5%"
     },
     row: {
         flexDirection: "row",

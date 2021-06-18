@@ -54,5 +54,19 @@ export default StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
         fontFamily: 'notoserif', // "Poppins-Medium"
+    },
+    activeLabelStyle: {
+        color: "white",
+        fontWeight: "bold"
+    },
+    itemStyle: {
+        justifyContent: 'flex-start',
+        paddingHorizontal: "5%"
+    },
+    activeItemStyle: {
+        backgroundColor: THEME.BUTTON_COLOR
+    },
+    labelStyle: {
+        color: "black",
     }
 })

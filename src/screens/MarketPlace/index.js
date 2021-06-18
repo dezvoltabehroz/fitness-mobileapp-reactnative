@@ -28,7 +28,7 @@ class MarketPlace extends Component {
                 <StatusBar backgroundColor={this.props.user.menuModal ? THEME.PRIMARY_BACKGROUND_COLOR : "#181818"} barStyle={"light-content"} />
                 <View style={styles.container}>
                     <View style={{ flex: 0.7, marginTop: "12.5%" }}>
-                        <View style={{ marginHorizontal: "7.5%", marginVertical: "5%" }}>
+                        <View style={styles.generalMargin}>
                             <Text style={styles.headingTextStyle}>MarketPlace</Text>
                         </View>
                         <View style={styles.rowContainer} >
@@ -40,7 +40,7 @@ class MarketPlace extends Component {
                                 <Icon.Entypo name="chevron-small-right" size={20} color={'white'} />
                             </RNBounceable>
                         </View>
-                        <View style={{ marginHorizontal: "15%" }}>
+                        <View style={styles.marginHorizontal}>
                             <Text style={styles.textStyle2}>Nothing added just yet!</Text>
                         </View>
                         <View style={styles.rowContainer} >
@@ -52,7 +52,7 @@ class MarketPlace extends Component {
                                 <Icon.Entypo name="chevron-small-right" size={20} color={'white'} />
                             </RNBounceable>
                         </View>
-                        <View style={{ marginHorizontal: "15%" }}>
+                        <View style={styles.marginHorizontal}>
                             <Text style={styles.textStyle2}>Nothing added just yet!</Text>
                         </View>
                     </View>

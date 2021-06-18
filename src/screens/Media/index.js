@@ -19,14 +19,14 @@ class Media extends Component {
             <Container props={this.props}>
                 <View style={styles.container}>
                     <ScrollView contentContainerStyle={{ paddingBottom: 120 }}>
-                        <View style={{ alignItems: "center", flex: 0.7 }}>
+                        <View style={styles.upperContainer}>
                             <View style={styles.iconContainer}>
                                 <Icon.MaterialIcons name="photo-library" size={30} color={"white"} />
                             </View>
-                            <View style={{ marginTop: "5%" }}>
+                            <View style={styles.generalMargin}>
                                 <Text style={styles.textStyle}>Nothing to see here?</Text>
                             </View>
-                            <View style={{ marginTop: "5%" }}>
+                            <View style={styles.generalMargin}>
                                 <Text style={styles.textStyle1}>No media has been added to this conversation yet</Text>
                             </View>
                         </View>

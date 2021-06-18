@@ -71,7 +71,7 @@ class ProgramLibrary extends Component {
         return (
             <RNBounceable style={styles.itemContainer} onPress={() => { }}>
                 <View style={styles.boxView}>
-                    <Text style={{ fontSize: 16, color: "white", fontWeight: "bold" }}></Text>
+                    <Text></Text>
                 </View>
                 <View style={{ flex: 0.8, marginHorizontal: "5%" }}>
                     <Text numberOfLines={3} style={{ fontWeight: "bold", }}>{item.type}</Text>

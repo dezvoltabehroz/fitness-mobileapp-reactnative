@@ -20,6 +20,14 @@ export default StyleSheet.create({
         fontSize: 35,
         fontWeight: "bold"
     },
+    iconContainer: { flex: 0.2, justifyContent: "flex-start", alignItems: "flex-end" },
+    user_nameContainer: {
+        borderRadius: 30, height: 40, width: 40,
+        justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
+    },
+    user_nameText: { fontSize: 16, color: "white", fontWeight: "bold" },
+    fromNowText: { color: "gray", fontWeight: "bold", fontSize: 12 },
+    itemTypeContainer: { flex: 0.8, marginHorizontal: "5%" },
     upperContentContainer: {
         paddingVertical: "10%",
         borderTopLeftRadius: 25,
@@ -37,6 +45,7 @@ export default StyleSheet.create({
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 5
     },
+    itemContainer: { flex: 1, flexDirection: "row", marginHorizontal: "5%" },
     gapHeight: {
         height: 20
     }

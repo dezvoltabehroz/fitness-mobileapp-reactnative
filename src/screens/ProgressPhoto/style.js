@@ -36,12 +36,14 @@ export default StyleSheet.create({
     },
     generalMargin: {
         marginTop: "5%",
-        marginHorizontal: "5%",
-        // margin: "5%",
-        // marginVertical: "5%"
     },
     row: {
         flexDirection: "row",
         alignItems: "center"
+    },
+    boxView:{
+        marginTop: "25%",
+        borderRadius: 35, height: 70, width: 70,
+        justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
     }
 })
