@@ -336,14 +336,11 @@ class Home extends Component {
                                     refreshControl:
                                         <RefreshControl
                                             refreshing={this.state.isRefreshing}
-                                            onRefresh={() => this.onRefresh()} />,
-                                    // renderFooter: this.renderFooter,
-                                    // onEndReached: this.onEndReached
+                                            onRefresh={() => this.onRefresh()} />
                                 }}
                                 listViewContainerStyle={{
                                     paddingTop: 10,
                                     paddingLeft: 10,
-                                    // marginTop: -60
                                 }}
                                 renderCircle={() => { }}
                                 innerCircle={'dot'}

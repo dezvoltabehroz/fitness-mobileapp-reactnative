@@ -20,6 +20,12 @@ export default StyleSheet.create({
         borderRadius: 35, height: 70, width: 70,
         justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
     },
+    marginTop: {
+        marginTop: "5%",
+    },
+    marginHorizontal: {
+        marginHorizontal: "5%"
+    },
     headingStyle: {
         paddingHorizontal: 5,
         fontSize: 35,
@@ -31,6 +37,12 @@ export default StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#e2e2e2"
+    },
+    lowerContainer: {
+        alignItems: "center", flex: 0.7
+    },
+    marginLeft: {
+        marginLeft: "5%"
     },
     lowerContentContainer: {
         flex: 1,

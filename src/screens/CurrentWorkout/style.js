@@ -14,6 +14,9 @@ export default StyleSheet.create({
         justifyContent: "center",
         borderRadius: 30,
     },
+    searchText: { fontSize: 35, marginHorizontal: "5%", color: "white", fontWeight: "bold" },
+    contentContainer: { flex: 0.7, marginTop: "12.5%" },
+    headingContainer:{ flexDirection: "row", marginTop: "10%", marginHorizontal: "5%", justifyContent: "space-between", alignItems: "center" },
     modalLowerContainer: {
         flex: 0.8,
         flexDirection: "column",
@@ -34,7 +37,7 @@ export default StyleSheet.create({
         justifyContent: "flex-end"
     },
     buttonContainer: {
-        width:120,
+        width: 120,
         flex: 0.25,
     },
     headingTextStyle: {
@@ -59,7 +62,7 @@ export default StyleSheet.create({
     },
     generalMargin: {
         marginTop: "5%",
-        marginHorizontal: "5%",
+        marginHorizontal: "10%",
     },
     row: {
         flexDirection: "row",
@@ -89,4 +92,26 @@ export default StyleSheet.create({
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
     },
+    marginTop: { marginTop: "5%" },
+    generalMarginLeft: { marginLeft: "5%" },
+    modalContainer: {
+        backgroundColor: 'rgba(0,0,0,0.7)',
+        justifyContent: 'flex-end',
+        margin: 0,
+    },
+    activeLabelStyle: {
+        color: "white",
+        fontWeight: "bold"
+    },
+    itemStyle: {
+        justifyContent: 'flex-start',
+        paddingHorizontal: "5%"
+    },
+    activeItemStyle: {
+        backgroundColor: THEME.BUTTON_COLOR
+    },
+    labelStyle: {
+        color: "black",
+    },
+    addExerciseContainer: { borderWidth: 1, marginHorizontal: "20%", borderColor: "#544b4c", alignItems: "center", justifyContent: "center", borderRadius: 35, height: 54 }
 })

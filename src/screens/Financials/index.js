@@ -144,27 +144,27 @@ class Financials extends Component {
                                     onScroll={(event) => this.setSliderPage1(event)}
                                     style={{ flex: 0.8 }} >
                                     <View style={styles.firstContainer}>
-                                        <View style={{ alignItems: "center", flex: 0.7 }}>
+                                        <View style={styles.contentContainer}>
                                             <View style={styles.iconContainer}>
                                                 <Icon.FontAwesome5 name="box" size={30} color={"white"} />
                                             </View>
-                                            <View style={{ marginTop: "5%" }}>
+                                            <View style={styles.marginTop}>
                                                 <Text style={styles.grayTextStyle}>Nothing to see here?</Text>
                                             </View>
-                                            <View style={{ marginTop: "5%" }}>
+                                            <View style={styles.marginTop}>
                                                 <Text style={styles.grayText}>No active packages</Text>
                                             </View>
                                         </View>
                                     </View>
                                     <View style={styles.firstContainer}>
-                                        <View style={{ alignItems: "center", flex: 0.7 }}>
+                                        <View style={styles.contentContainer}>
                                             <View style={styles.iconContainer}>
                                                 <Icon.FontAwesome5 name="box" size={30} color={"white"} />
                                             </View>
-                                            <View style={{ marginTop: "5%" }}>
+                                            <View style={styles.marginTop}>
                                                 <Text style={styles.grayTextStyle}>Nothing to see here?</Text>
                                             </View>
-                                            <View style={{ marginTop: "5%" }}>
+                                            <View style={styles.marginTop}>
                                                 <Text style={styles.grayText}>No inactive packages</Text>
                                             </View>
                                         </View>
@@ -200,7 +200,7 @@ class Financials extends Component {
                                                     <View style={styles.boxContainer}>
                                                         <Text>0 Sessions Remaining</Text>
                                                     </View>
-                                                    <View style={{ marginTop: "5%" }}>
+                                                    <View style={styles.marginTop}>
                                                         <Text style={styles.textStyle}>Active Sessions</Text>
                                                     </View>
                                                     <View style={styles.row}>
@@ -211,7 +211,7 @@ class Financials extends Component {
                                                         <Text style={styles.textStyle1}>Session Gifted</Text>
                                                         <Text style={styles.textStyle1}>0</Text>
                                                     </View>
-                                                    <View style={{ marginTop: "5%" }}>
+                                                    <View style={styles.marginTop}>
                                                         <Text style={styles.textStyle}>Lifetime</Text>
                                                     </View>
                                                     <View style={styles.row}>
@@ -228,14 +228,14 @@ class Financials extends Component {
                                         </ScrollView>
                                     </View>
                                     <View style={styles.firstContainer}>
-                                        <View style={{ alignItems: "center", flex: 0.7 }}>
+                                        <View style={styles.contentContainer}>
                                             <View style={styles.iconContainer}>
                                                 <Icon.FontAwesome5 name="box" size={30} color={"white"} />
                                             </View>
-                                            <View style={{ marginTop: "5%" }}>
+                                            <View style={styles.marginTop}>
                                                 <Text style={styles.grayTextStyle}>Nothing to see here?</Text>
                                             </View>
-                                            <View style={{ marginTop: "5%" }}>
+                                            <View style={styles.marginTop}>
                                                 <Text style={styles.grayText}>No history</Text>
                                             </View>
                                         </View>
@@ -276,7 +276,7 @@ class Financials extends Component {
                                                     <View style={styles.boxContainer1}>
                                                         <Text style={[styles.textStyle, { color: "white" }]} >0 credit remaining</Text>
                                                     </View>
-                                                    <View style={{ marginTop: "5%" }}>
+                                                    <View style={styles.marginTop}>
                                                         <Text style={styles.textStyle}>Lifetime Credits</Text>
                                                     </View>
                                                     <View style={styles.row}>
@@ -297,27 +297,27 @@ class Financials extends Component {
                                         </ScrollView>
                                     </View>
                                     <View style={styles.firstContainer}>
-                                        <View style={{ alignItems: "center", flex: 0.7 }}>
+                                        <View style={styles.contentContainer}>
                                             <View style={styles.iconContainer}>
                                                 <Icon.FontAwesome5 name="box" size={30} color={"white"} />
                                             </View>
-                                            <View style={{ marginTop: "5%" }}>
+                                            <View style={styles.marginTop}>
                                                 <Text style={styles.grayTextStyle}>Nothing to see here?</Text>
                                             </View>
-                                            <View style={{ marginTop: "5%" }}>
+                                            <View style={styles.marginTop}>
                                                 <Text style={styles.grayText}>No credits</Text>
                                             </View>
                                         </View>
                                     </View>
                                     <View style={styles.firstContainer}>
-                                        <View style={{ alignItems: "center", flex: 0.7 }}>
+                                        <View style={styles.contentContainer}>
                                             <View style={styles.iconContainer}>
                                                 <Icon.FontAwesome5 name="box" size={30} color={"white"} />
                                             </View>
-                                            <View style={{ marginTop: "5%" }}>
+                                            <View style={styles.marginTop}>
                                                 <Text style={styles.grayTextStyle}>Nothing to see here?</Text>
                                             </View>
-                                            <View style={{ marginTop: "5%" }}>
+                                            <View style={styles.marginTop}>
                                                 <Text style={styles.grayText}>No credits</Text>
                                             </View>
                                         </View>

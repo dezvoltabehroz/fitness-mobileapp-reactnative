@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, ScrollView, Dimensions } from 'react-native';
+import { View, Text, FlatList, ScrollView, StatusBar, Dimensions } from 'react-native';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 import RNBounceable from '@freakycoder/react-native-bounceable';
@@ -10,6 +10,7 @@ import { Input } from '../../components/Input/Input.component';
 import { authActions } from '../../redux/actions/auth';
 
 import styles from './style';
+import themeStyle from '../../assets/styles/theme.style';
 
 class Files extends Component {
     constructor(props) {
@@ -31,14 +32,17 @@ class Files extends Component {
         };
         return (
             <Container props={this.props}>
+                <StatusBar backgroundColor={themeStyle.PRIMARY_BACKGROUND_COLOR} barStyle={"dark-content"} />
                 <View style={styles.container}>
                     <View style={styles.upperContainer}>
                         <Text style={styles.headingStyle}>{"Files"}</Text>
                     </View>
                     <View style={styles.lowerContentContainer}>
                         <ScrollView contentContainerStyle={{ paddingBottom: 120 }}>
-                            <View style={{ marginHorizontal: "5%" }}>
-                                <Input inputStyle={{ height: 40 }} placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
+                            <View style={styles.marginHorizontal}>
+                                <Input inputStyle={{ height: 40 }}
+                                    placeholder="Search"
+                                    leftIcon={<View style={styles.marginLeft}><Icon.EvilIcons name="search" size={20} /></View>} />
                             </View>
                             <View style={styles.rowContainer} >
                                 <Text style={styles.texStyle}>Usage</Text>
@@ -58,14 +62,14 @@ class Files extends Component {
                                     <Icon.Feather name="filter" size={20} />
                                 </RNBounceable>
                             </View>
-                            <View style={{ alignItems: "center", flex: 0.7 }}>
+                            <View style={styles.lowerContainer}>
                                 <View style={styles.iconContainer}>
                                     <Icon.MaterialCommunityIcons name="file" size={30} color={"white"} />
                                 </View>
-                                <View style={{ marginTop: "5%" }}>
+                                <View style={styles.marginTop}>
                                     <Text style={styles.textStyle}>Nothing to see here?</Text>
                                 </View>
-                                <View style={{ marginTop: "5%" }}>
+                                <View style={styles.marginTop}>
                                     <Text style={styles.textStyle1}>No files assigned yet</Text>
                                 </View>
                             </View>

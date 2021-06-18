@@ -69,9 +69,8 @@ export default StyleSheet.create({
         textAlign: "center",
         fontSize: 16,
     },
-    generalMargin: {
-        marginTop: "5%",
-        marginHorizontal: "5%",
+    lowerContainer: {
+        alignItems: "center", flex: 0.7
     },
     row: {
         flexDirection: "row",
@@ -79,5 +78,14 @@ export default StyleSheet.create({
     },
     gapHeight: {
         height: 10
-    }
+    },
+    marginTop: {
+        marginTop: "5%",
+    },
+    marginHorizontal: {
+        marginHorizontal: "5%"
+    },
+    marginLeft: {
+        marginLeft: "5%"
+    },
 })

@@ -31,8 +31,8 @@ class Forms extends Component {
                     </View>
                     <View style={styles.lowerContentContainer}>
                         <ScrollView contentContainerStyle={{ paddingBottom: 120 }}>
-                            <View style={{ marginHorizontal: "5%" }}>
-                                <Input inputStyle={{ height: 40 }} placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
+                            <View style={styles.marginHorizontal}>
+                                <Input inputStyle={{ height: 40 }} placeholder="Search" leftIcon={<View style={styles.marginLeft}><Icon.EvilIcons name="search" size={20} /></View>} />
                             </View>
                             <View style={styles.rowContainer} >
                                 <Text style={styles.texStyle}>A to Z</Text>
@@ -40,14 +40,14 @@ class Forms extends Component {
                                     <Icon.Feather name="filter" size={20} />
                                 </RNBounceable>
                             </View>
-                            <View style={{ alignItems: "center", flex: 0.7 }}>
+                            <View style={styles.lowerContainer}>
                                 <View style={styles.iconContainer}>
                                     <Icon.FontAwesome name="wpforms" size={30} color={"white"} />
                                 </View>
-                                <View style={{ marginTop: "5%" }}>
+                                <View style={styles.marginTop}>
                                     <Text style={styles.textStyle}>Nothing to see here?</Text>
                                 </View>
-                                <View style={{ marginTop: "5%" }}>
+                                <View style={styles.marginTop}>
                                     <Text style={styles.textStyle1}>No forms assigned yet</Text>
                                 </View>
                             </View>

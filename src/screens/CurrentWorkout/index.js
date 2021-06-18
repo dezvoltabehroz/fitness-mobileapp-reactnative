@@ -202,37 +202,47 @@ class CurrentWorkout extends Component {
         const { currentPage, searchModal, distance, second, minutes } = this.state;
         return (
             <>
-                <Container props={this.props} component={this.state} selectedMinF={(value) => this.setState({ selectedMin: value })} selectedSecF={(value) => this.setState({ selectedSec: value })}>
+                <Container
+                    props={this.props}
+                    component={this.state}
+                    selectedMinF={(value) => this.setState({ selectedMin: value })}
+                    selectedSecF={(value) => this.setState({ selectedSec: value })}>
                     <StatusBar backgroundColor={this.props.user.menuModal ? THEME.PRIMARY_BACKGROUND_COLOR : "#181818"} barStyle={"light-content"} />
                     <View style={styles.container}>
-                        <View style={{ flex: 0.7, marginTop: "12.5%" }}>
-                            <TouchableOpacity onPress={() => this.setState({ searchModal: true })} style={{ borderWidth: 1, marginHorizontal: "20%", borderColor: "#544b4c", alignItems: "center", justifyContent: "center", borderRadius: 35, height: 54 }}>
+                        <View style={styles.contentContainer}>
+                            <TouchableOpacity
+                                onPress={() => this.setState({ searchModal: true })}
+                                style={styles.addExerciseContainer}>
                                 <Text style={styles.textStyle}>Add Exercise</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.handleAlert()} style={{ margin: "10%", }}>
+                            <TouchableOpacity
+                                onPress={() => this.handleAlert()}
+                                style={{ margin: "10%", }}>
                                 <Text style={styles.textStyle2}>Cancel</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
 
                 </Container>
-                <Modal style={{
-                    backgroundColor: 'rgba(0,0,0,0.7)',
-                    justifyContent: 'flex-end',
-                    margin: 0,
-                }} isVisible={searchModal} onBackdropPress={() => this.setState({ searchModal: false })} >
+                <Modal style={styles.modalContainer} isVisible={searchModal} onBackdropPress={() => this.setState({ searchModal: false })} >
                     <View style={{ bottom: "5%" }}>
-                        <Text style={{ fontSize: 35, marginHorizontal: "5%", color: "white", fontWeight: "bold" }}>Search Exercise</Text>
-                        <View style={{ flexDirection: "row", marginTop: "10%", marginHorizontal: "5%", justifyContent: "space-between", alignItems: "center" }}>
-                            <RNBounceable onPressIn={() => this.setState({ currentPage: 0 })} style={[styles.rowContainer, { backgroundColor: currentPage == 0 ? "white" : "transparent" }]}>
+                        <Text style={styles.searchText}>Search Exercise</Text>
+                        <View style={styles.headingContainer}>
+                            <RNBounceable
+                                onPress={() => this.setState({ currentPage: 0 })}
+                                style={[styles.rowContainer, { backgroundColor: currentPage == 0 ? "white" : "transparent" }]}>
                                 <Icon.Feather name="search" size={20} color={currentPage == 0 ? 'black' : 'white'} />
                                 <Text style={[styles.tabStyle, { color: currentPage == 0 ? 'black' : 'white' }]}>Search</Text>
                             </RNBounceable>
-                            <RNBounceable onPressIn={() => this.setState({ currentPage: 1 })} style={[styles.rowContainer, { backgroundColor: currentPage == 1 ? "white" : "transparent" }]}>
+                            <RNBounceable
+                                onPress={() => this.setState({ currentPage: 1 })}
+                                style={[styles.rowContainer, { backgroundColor: currentPage == 1 ? "white" : "transparent" }]}>
                                 <Icon.MaterialCommunityIcons name="weight-lifter" size={20} color={currentPage == 1 ? 'black' : 'white'} />
                                 <Text style={[styles.tabStyle, { color: currentPage == 1 ? 'black' : 'white' }]}>Body Part</Text>
                             </RNBounceable>
-                            <RNBounceable onPressIn={() => this.setState({ currentPage: 2 })} style={[styles.rowContainer, { backgroundColor: currentPage == 2 ? "white" : "transparent" }]}>
+                            <RNBounceable
+                                onPress={() => this.setState({ currentPage: 2 })}
+                                style={[styles.rowContainer, { backgroundColor: currentPage == 2 ? "white" : "transparent" }]}>
                                 <Icon.Entypo name="back-in-time" size={20} color={currentPage == 2 ? 'black' : 'white'} />
                                 <Text style={[styles.tabStyle, { color: currentPage == 2 ? 'black' : 'white' }]}>Recent</Text>
                             </RNBounceable>
@@ -246,16 +256,16 @@ class CurrentWorkout extends Component {
                                         <View style={styles.iconContainer}>
                                             <Icon.FontAwesome5 name="running" size={30} color={"white"} />
                                         </View>
-                                        <View style={{ marginTop: "5%" }}>
+                                        <View style={styles.marginTop}>
                                             <Text style={styles.textStyle3}>No Results</Text>
                                         </View>
-                                        <View style={{ marginTop: "5%", marginHorizontal: "10%" }}>
+                                        <View style={styles.generalMargin}>
                                             <Text style={styles.textStyle1}>We can't find any exercise with these parameters</Text>
                                         </View>
                                     </View>
                                     <View style={styles.lowerViewContainer}>
                                         <View style={styles.inputContainer}>
-                                            <Input placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
+                                            <Input placeholder="Search" leftIcon={<View style={styles.generalMarginLeft}><Icon.EvilIcons name="search" size={20} /></View>} />
                                         </View>
                                         <View style={styles.buttonContainer}>
                                             <Button.BrownButton title="Save" onPress={() => { }} />
@@ -272,12 +282,12 @@ class CurrentWorkout extends Component {
                                         <View style={styles.inputContainer}>
                                             <DropDownPicker
                                                 items={distance}
-                                                arrowColor="#000000"
+                                                arrowColor={THEME.COLOR_BLACK}
+                                                activeLabelStyle={styles.activeLabelStyle}
+                                                activeItemStyle={styles.activeItemStyle}
+                                                itemStyle={styles.itemStyle}
+                                                labelStyle={styles.labelStyle}
                                                 placeholder="Select Value"
-                                                activeLabelStyle={{ color: "white", fontWeight: "bold" }}
-                                                activeItemStyle={{ backgroundColor: '#544b4c' }}
-                                                dropDownStyle={{ paddingHorizontal: 0 }}
-                                                itemStyle={{ justifyContent: 'flex-start', paddingHorizontal: "5%" }}
                                                 onClose={() => this.setState({ dropdownOpen5: false })}
                                                 onOpen={() => this.setState({ dropdownOpen5: true })}
                                                 containerStyle={{ height: 40, marginBottom: this.state.dropdownOpen5 ? 100 : 10 }}
@@ -299,10 +309,10 @@ class CurrentWorkout extends Component {
                                         <View style={styles.iconContainer}>
                                             <Icon.FontAwesome5 name="running" size={30} color={"white"} />
                                         </View>
-                                        <View style={{ marginTop: "5%" }}>
+                                        <View style={styles.marginTop}>
                                             <Text style={styles.textStyle3}>No Recent Exercises</Text>
                                         </View>
-                                        <View style={{ marginTop: "5%", marginHorizontal: "10%" }}>
+                                        <View style={styles.generalMargin}>
                                             <Text style={styles.textStyle1}>Looks like you haven't used any exercises yet!</Text>
                                         </View>
                                     </View>

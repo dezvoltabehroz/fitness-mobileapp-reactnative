@@ -48,7 +48,7 @@ export default StyleSheet.create({
         paddingLeft: "5%",
         width: screenWidth * 0.9,
         justifyContent: "center",
-        backgroundColor:'#544b4c'
+        backgroundColor: '#544b4c'
     },
     iconContainer: {
         marginTop: "15%",
@@ -93,6 +93,7 @@ export default StyleSheet.create({
         justifyContent: "flex-start",
         width: screenWidth * 0.7
     },
+    contentContainer:{ alignItems: "center", flex: 0.7 },
     firstUpperContainer: {
         flexDirection: "row",
         margin: "5%",
@@ -126,4 +127,7 @@ export default StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: "lightgray",
     },
+    marginTop: {
+        marginTop: "5%"
+    }
 })
