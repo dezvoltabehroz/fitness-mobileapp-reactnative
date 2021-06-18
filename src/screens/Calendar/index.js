@@ -54,8 +54,7 @@ class Calendar extends Component {
             <TouchableOpacity
                 testID={testIDs.agenda.ITEM}
                 style={[styles.item, { height: item.height }]}
-                onPress={() => Alert.alert(item.name)}
-            >
+                onPress={() => Alert.alert(item.name)}>
                 <Text>{item.name}</Text>
             </TouchableOpacity>
         );
@@ -104,41 +103,55 @@ class Calendar extends Component {
                     onBackdropPress={() => this.props.authActions.calenderModal(!this.props.user.calenderModal)}
                     animationInTiming={1000}
                     animationOutTiming={1000}
-                    style={{ justifyContent: 'flex-end', margin: 0 }} >
+                    style={styles.modalContainerStyle} >
                     <View style={styles.modalLowerContainer}>
-                        <View style={{ marginTop: "5%" }}>
+                        <View style={styles.generalMargin}>
                             <Text style={styles.headingTextStyle}>Company Calendar</Text>
                         </View>
                         <RNBounceable onPress={() => this.props.authActions.calenderModal(!this.props.user.calenderModal)} style={styles.itemContainer}>
-                            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                            <View style={styles.rowContainer}>
                                 <View style={styles.backContainer}>
-                                    <Icon.MaterialCommunityIcons name="checkbox-blank-outline" size={20} color={"white"} />
+                                    <Icon.MaterialCommunityIcons
+                                        name="checkbox-blank-outline"
+                                        size={20}
+                                        color={"white"} />
                                 </View>
                                 <Text style={[styles.headingTextStyle, { marginLeft: 10 }]}>Clear All</Text>
                             </View>
-                            <Icon.MaterialCommunityIcons name="checkbox-blank-outline" size={25} color={"lightgray"} />
+                            <Icon.MaterialCommunityIcons
+                                name="checkbox-blank-outline"
+                                size={25}
+                                color={"lightgray"} />
                         </RNBounceable>
-                        <View style={{ marginTop: "5%" }}>
+                        <View style={styles.generalMargin}>
                             <Text style={styles.headingTextStyle}>My Calendar</Text>
                         </View>
                         <RNBounceable onPress={() => this.props.authActions.calenderModal(!this.props.user.calenderModal)} style={styles.itemContainer}>
-                            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                            <View style={styles.rowContainer}>
                                 <View style={styles.backContainer}>
-                                    <Text style={{ fontSize: 16, color: "white", fontWeight: "bold" }} >T</Text>
+                                    <Text style={styles.nameStyle} >T</Text>
                                 </View>
                                 <Text style={[styles.headingTextStyle, { marginLeft: 10 }]}>Clear All</Text>
                             </View>
-                            <Icon.MaterialCommunityIcons name="checkbox-blank-outline" size={25} color={"lightgray"} />
+                            <Icon.MaterialCommunityIcons
+                                name="checkbox-blank-outline"
+                                size={25}
+                                color={"lightgray"} />
                         </RNBounceable>
-                        <View style={{ marginTop: "5%" }}>
+                        <View style={styles.generalMargin}>
                             <Text style={styles.headingTextStyle}>Trainer Calendar</Text>
                         </View>
                         <RNBounceable onPress={() => this.props.authActions.calenderModal(!this.props.user.calenderModal)} style={styles.itemContainer}>
-                            <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                <Image source={require('../../assets/images/logo.png')} style={{ height: 45, width: 40 }} />
+                            <View style={styles.rowContainer}>
+                                <Image
+                                    source={require('../../assets/images/logo.png')}
+                                    style={styles.imageStyle} />
                                 <Text style={[styles.headingTextStyle, { marginLeft: 10 }]}>Clear All</Text>
                             </View>
-                            <Icon.MaterialCommunityIcons name="checkbox-blank-outline" size={25} color={"lightgray"} />
+                            <Icon.MaterialCommunityIcons
+                                name="checkbox-blank-outline"
+                                size={25}
+                                color={"lightgray"} />
                         </RNBounceable>
                     </View>
                 </Modal>

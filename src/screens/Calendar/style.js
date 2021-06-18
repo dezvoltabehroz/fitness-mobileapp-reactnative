@@ -38,11 +38,8 @@ export default StyleSheet.create({
         borderBottomRightRadius: 5
     },
     rowContainer: {
-        marginVertical: "2.5%",
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "space-between",
-        marginHorizontal: "5%"
     },
     headingTextStyle: {
         fontSize: 18,
@@ -71,7 +68,6 @@ export default StyleSheet.create({
     },
     generalMargin: {
         marginTop: "5%",
-        marginHorizontal: "5%",
     },
     row: {
         flexDirection: "row",
@@ -88,6 +84,9 @@ export default StyleSheet.create({
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
     },
-    itemContainer:{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: "2.5%", padding: "2.5%" },
-    backContainer:{ marginHorizontal: "5%", justifyContent: "center", alignItems: "center", height: 45, width: 45, borderRadius: 25, backgroundColor: "#544b4c" }
+    nameStyle: { fontSize: 16, color: "white", fontWeight: "bold" },
+    imageStyle: { height: 45, width: 40 },
+    modalContainerStyle: { justifyContent: 'flex-end', margin: 0 },
+    itemContainer: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: "2.5%", padding: "2.5%" },
+    backContainer: { marginHorizontal: "5%", justifyContent: "center", alignItems: "center", height: 45, width: 45, borderRadius: 25, backgroundColor: "#544b4c" }
 })
