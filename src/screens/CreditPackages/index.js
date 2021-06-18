@@ -25,8 +25,8 @@ class MarketPlace extends Component {
             <Container props={this.props}>
                 <StatusBar backgroundColor={this.props.user.menuModal ? THEME.PRIMARY_BACKGROUND_COLOR : "#181818"} barStyle={"light-content"} />
                 <View style={styles.container}>
-                    <View style={{ flex: 0.7, marginTop: "12.5%" }}>
-                        <View style={{ marginHorizontal: "15%", alignItems: "center" }}>
+                    <View style={styles.contentContainer}>
+                        <View style={styles.textContainer}>
                             <Text style={styles.textStyle2}>Nothing added just yet!</Text>
                         </View>
                     </View>

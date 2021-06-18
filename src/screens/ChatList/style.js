@@ -48,7 +48,7 @@ export default StyleSheet.create({
         paddingLeft: "5%",
         width: screenWidth * 0.9,
         justifyContent: "center",
-        backgroundColor:'#544b4c'
+        backgroundColor: '#544b4c'
     },
     iconContainer: {
         marginTop: "15%",
@@ -126,5 +126,8 @@ export default StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: "lightgray",
     },
-    contentContainer: { flexDirection: "row", alignItems: "center", marginHorizontal: "5%", elevation: 2, padding: "5%", borderRadius: 10, marginBottom: 10 },
+    contentContainer: { flexDirection: "row", alignItems: "center", marginHorizontal: "7.5%", elevation: 2, padding: "5%", borderRadius: 10, marginBottom: 10 },
+    generalMargin: { marginTop: "5%", marginHorizontal: "5%", },
+    generalMarginLeft: { marginLeft: "5%" },
+
 })

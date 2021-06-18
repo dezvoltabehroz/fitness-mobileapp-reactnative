@@ -28,7 +28,8 @@ const screen = {
     SCREEN_TITLE_SETTING: "Settings",
     SCREEN_TITLE_UPLOAD_PHOTO: "Upload Photo",
     SCREEN_TITLE_PROGRESS_PHOTO: "Progress Photo",
-    SCREEN_TITLE_CURRENT_WORKOUT: "Current Workout"
+    SCREEN_TITLE_CURRENT_WORKOUT: "Current Workout",
+    SCREEN_TITLE_CHAT:"Chats"
 
 };
 

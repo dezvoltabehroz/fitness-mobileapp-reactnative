@@ -37,18 +37,19 @@ class StartWorkout extends Component {
                             onColor={THEME.PRIMARY_BACKGROUND_COLOR}
                             offColor="#e2e2e2"
                             label=""
-                            labelStyle={{ color: "black", fontWeight: "900" }}
+                            labelStyle={styles.labelStyle}
                             size="medium"
                             onToggle={isOn => this.setState({ val: isOn })}
                         />
                     </View>
-
-                    <View style={{ padding: "5%", flexDirection: "column", borderBottomWidth: 0.5, borderColor: "#c0c0c0" }}>
+                    <View style={styles.contentContainer}>
                         <Text>You can mute this conversation if you no longer wish to recieve notifications when there are new messages.</Text>
-                        <RNBounceable onPress={() => this.props.navigation.navigate('Media')} style={{ flexDirection: "row", justifyContent: "space-between", marginTop: "5%", paddingTop: "5%" }}>
-                            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                        <RNBounceable
+                            onPress={() => this.props.navigation.navigate('Media')}
+                            style={styles.itemContainer}>
+                            <View style={styles.row}>
                                 <Icon.MaterialIcons name="photo-library" size={25} color={"gray"} />
-                                <Text style={{ marginLeft: 10, fontSize: 16, }}>Media</Text>
+                                <Text style={styles.titleStyle}>Media</Text>
                             </View>
                             <Icon.AntDesign name="right" size={25} color={"gray"} />
                         </RNBounceable>

@@ -9,9 +9,9 @@ export default StyleSheet.create({
         backgroundColor: THEME.COLOR_WHITE,
     },
     rowContainer: {
+        marginTop: "10%",
         flexDirection: "row",
         alignItems: "center",
-        // marginTop: "5%",
         margin: "5%",
         justifyContent: "space-between"
     },
@@ -20,17 +20,18 @@ export default StyleSheet.create({
         fontWeight: "bold",
     },
     textStyle: {
-        // marginLeft: "5%",
         fontSize: 16,
         fontWeight: "bold",
-        // width: screenWidth * 0.65
     },
     generalMargin: {
         margin: "5%",
-        // marginVertical: "5%"
     },
     row: {
         flexDirection: "row",
         alignItems: "center"
-    }
-}) 
+    },
+    labelStyle: { color: "black", fontWeight: "900" },
+    contentContainer: { padding: "5%", flexDirection: "column", borderBottomWidth: 0.5, borderColor: "#c0c0c0" },
+    titleStyle: { marginLeft: 10, fontSize: 16, },
+    itemContainer: { flexDirection: "row", justifyContent: "space-between", marginTop: "5%", paddingTop: "5%" }
+})

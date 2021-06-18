@@ -16,4 +16,6 @@ export default StyleSheet.create({
         fontWeight: "bold",
         color: "#C0C0C0",
     },
+    contentContainer:{ flex: 0.7, marginTop: "12.5%" },
+    textContainer:{ marginHorizontal: "15%", alignItems: "center" }
 })

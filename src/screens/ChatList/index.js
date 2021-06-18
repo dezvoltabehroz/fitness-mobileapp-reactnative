@@ -8,6 +8,7 @@ import { bindActionCreators } from "redux";
 import { Icon, Container } from "../../components";
 import { authActions } from '../../redux/actions/auth';
 import { Input } from '../../components/Input/Input.component';
+import { screen } from '../../lib/utils/constants';
 
 import styles from './style';
 import themeStyle from '../../assets/styles/theme.style';
@@ -51,13 +52,18 @@ class ChatList extends Component {
                 <StatusBar backgroundColor={themeStyle.PRIMARY_BACKGROUND_COLOR} barStyle={"dark-content"} />
                 <View style={styles.container}>
                     <View style={styles.upperContainer}>
-                        <Text style={styles.headingTextStyle}>{"Chats"}</Text>
+                        <Text style={styles.headingTextStyle}>{screen.SCREEN_TITLE_CHAT}</Text>
                     </View>
                     <View style={styles.lowerContentContainer}>
                         <View style={styles.upperContentContainer}>
                             <RNBounceable onPress={() => { this.setState({ currentPage: 0 }); this.scroll.scrollTo({ x: 0 }); }}>
                                 <View >
-                                    <Text style={[styles.headingStyle, { color: currentPage == 0 ? "black" : "#C0C0C0", textDecorationLine: currentPage == 0 ? "underline" : "none" }]}>{"Inbox"}</Text>
+                                    <Text style={[styles.headingStyle, {
+                                        color: currentPage == 0 ?
+                                            "black" : "#C0C0C0",
+                                        textDecorationLine: currentPage == 0 ?
+                                            "underline" : "none"
+                                    }]}>{"Inbox"}</Text>
                                 </View>
                             </RNBounceable>
                             <RNBounceable onPress={() => { this.setState({ currentPage: 1 }); this.scroll.scrollTo({ x: width }); }}>
@@ -74,8 +80,9 @@ class ChatList extends Component {
                             ref={(node) => (this.scroll = node)}
                             style={{ flex: 0.8 }} >
                             <View style={styles.firstContainer}>
-                                <View style={{ marginHorizontal: "5%", marginTop: "5%" }}>
-                                    <Input inputStyle={{ height: 40 }} placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
+                                <View style={styles.generalMargin}>
+                                    <Input inputStyle={{ height: 40 }} placeholder="Search"
+                                        leftIcon={<View style={styles.generalMarginLeft}><Icon.EvilIcons name="search" size={20} /></View>} />
                                 </View>
                                 <RNBounceable style={styles.contentContainer} onPress={() => this.props.navigation.navigate('ChatScreen')}>
                                     <View style={styles.boxView}>
@@ -85,20 +92,19 @@ class ChatList extends Component {
                                         <Text numberOfLines={3} style={{ fontWeight: "bold", }}>{"Trainer"}</Text>
                                     </View>
                                 </RNBounceable>
-
                             </View>
                             <View style={styles.secondContainer}>
-                                <View style={{ marginHorizontal: "5%", marginTop: "5%" }}>
+                                <View style={styles.generalMargin}>
                                     <Input inputStyle={{ height: 40 }} placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
                                 </View>
                                 <View style={{ alignItems: "center", flex: 0.7 }}>
                                     <View style={styles.iconContainer}>
                                         <Icon.Ionicons name="chatbox-ellipses" size={30} color={"white"} />
                                     </View>
-                                    <View style={{ marginTop: "5%" }}>
+                                    <View style={styles.generalMargin}>
                                         <Text style={styles.grayTextStyle}>No Archives</Text>
                                     </View>
-                                    <View style={{ marginTop: "5%" }}>
+                                    <View style={styles.generalMargin}>
                                         <Text style={styles.grayText}>No archived messages were found</Text>
                                     </View>
                                 </View>
