@@ -42,5 +42,11 @@ export default StyleSheet.create({
     },
     gapHeight:{
         height:10
-    }
+    },
+    itemContainer:{ flex: 1, flexDirection: "row", alignItems: "center", marginHorizontal: "5%", elevation: 2, padding: "5%", borderRadius: 10, marginBottom: 10 },
+    boxView:{
+        borderRadius: 10, height: 70, width: 70,
+        justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
+    },
+    itemTypeContainer:{ flex: 0.8, marginHorizontal: "5%" }
 })

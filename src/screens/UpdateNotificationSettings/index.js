@@ -66,9 +66,9 @@ class Notifications extends Component {
                             <ToggleSwitch
                                 isOn={false}
                                 onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor="#e2e2e2"
+                                offColor={THEME.COLOR_LIGHT_GRAY}
                                 label=""
-                                labelStyle={{ color: "black", fontWeight: "900" }}
+                                labelStyle={styles.labelStyle}
                                 size="medium"
                                 onToggle={isOn => console.log("changed to : ", isOn)}
                             />
@@ -78,9 +78,9 @@ class Notifications extends Component {
                             <ToggleSwitch
                                 isOn={false}
                                 onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor="#e2e2e2"
+                                offColor={THEME.COLOR_LIGHT_GRAY}
                                 label=""
-                                labelStyle={{ color: "black", fontWeight: "900" }}
+                                labelStyle={styles.labelStyle}
                                 size="medium"
                                 onToggle={isOn => console.log("changed to : ", isOn)}
                             />
@@ -90,9 +90,9 @@ class Notifications extends Component {
                             <ToggleSwitch
                                 isOn={false}
                                 onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor="#e2e2e2"
+                                offColor={THEME.COLOR_LIGHT_GRAY}
                                 label=""
-                                labelStyle={{ color: "black", fontWeight: "900" }}
+                                labelStyle={styles.labelStyle}
                                 size="medium"
                                 onToggle={isOn => console.log("changed to : ", isOn)}
                             />
@@ -102,9 +102,9 @@ class Notifications extends Component {
                             <ToggleSwitch
                                 isOn={false}
                                 onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor="#e2e2e2"
+                                offColor={THEME.COLOR_LIGHT_GRAY}
                                 label=""
-                                labelStyle={{ color: "black", fontWeight: "900" }}
+                                labelStyle={styles.labelStyle}
                                 size="medium"
                                 onToggle={isOn => console.log("changed to : ", isOn)}
                             />
@@ -114,9 +114,9 @@ class Notifications extends Component {
                             <ToggleSwitch
                                 isOn={false}
                                 onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor="#e2e2e2"
+                                offColor={THEME.COLOR_LIGHT_GRAY}
                                 label=""
-                                labelStyle={{ color: "black", fontWeight: "900" }}
+                                labelStyle={styles.labelStyle}
                                 size="medium"
                                 onToggle={isOn => console.log("changed to : ", isOn)}
                             />
@@ -126,9 +126,9 @@ class Notifications extends Component {
                             <ToggleSwitch
                                 isOn={true}
                                 onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor="#e2e2e2"
+                                offColor={THEME.COLOR_LIGHT_GRAY}
                                 label=""
-                                labelStyle={{ color: "black", fontWeight: "900" }}
+                                labelStyle={styles.labelStyle}
                                 size="medium"
                                 onToggle={isOn => console.log("changed to : ", isOn)}
                             />
@@ -138,7 +138,7 @@ class Notifications extends Component {
                             <ToggleSwitch
                                 isOn={false}
                                 onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor="#e2e2e2"
+                                offColor={THEME.COLOR_LIGHT_GRAY}
                                 label=""
                                 size="medium"
                                 onToggle={isOn => console.log("changed to : ", isOn)}
@@ -149,9 +149,9 @@ class Notifications extends Component {
                             <ToggleSwitch
                                 isOn={false}
                                 onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor="#e2e2e2"
+                                offColor={THEME.COLOR_LIGHT_GRAY}
                                 label=""
-                                labelStyle={{ color: "black", fontWeight: "900" }}
+                                labelStyle={styles.labelStyle}
                                 size="medium"
                                 onToggle={isOn => console.log("changed to : ", isOn)}
                             />
@@ -161,9 +161,9 @@ class Notifications extends Component {
                             <ToggleSwitch
                                 isOn={false}
                                 onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor="#e2e2e2"
+                                offColor={THEME.COLOR_LIGHT_GRAY}
                                 label=""
-                                labelStyle={{ color: "black", fontWeight: "900" }}
+                                labelStyle={styles.labelStyle}
                                 size="medium"
                                 onToggle={isOn => console.log("changed to : ", isOn)}
                             />
@@ -173,9 +173,9 @@ class Notifications extends Component {
                             <ToggleSwitch
                                 isOn={false}
                                 onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor="#e2e2e2"
+                                offColor={THEME.COLOR_LIGHT_GRAY}
                                 label=""
-                                labelStyle={{ color: "black", fontWeight: "900" }}
+                                labelStyle={styles.labelStyle}
                                 size="medium"
                                 onToggle={isOn => console.log("changed to : ", isOn)}
                             />
@@ -188,9 +188,9 @@ class Notifications extends Component {
                             <ToggleSwitch
                                 isOn={false}
                                 onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor="#e2e2e2"
+                                offColor={THEME.COLOR_LIGHT_GRAY}
                                 label=""
-                                labelStyle={{ color: "black", fontWeight: "900" }}
+                                labelStyle={styles.labelStyle}
                                 size="medium"
                                 onToggle={isOn => console.log("changed to : ", isOn)}
                             />
@@ -217,9 +217,9 @@ class Notifications extends Component {
                             <ToggleSwitch
                                 isOn={false}
                                 onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor="#e2e2e2"
+                                offColor={THEME.COLOR_LIGHT_GRAY}
                                 label=""
-                                labelStyle={{ color: "black", fontWeight: "900" }}
+                                labelStyle={styles.labelStyle}
                                 size="medium"
                                 onToggle={isOn => console.log("changed to : ", isOn)}
                             />
@@ -246,9 +246,9 @@ class Notifications extends Component {
                             <ToggleSwitch
                                 isOn={false}
                                 onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor="#e2e2e2"
+                                offColor={THEME.COLOR_LIGHT_GRAY}
                                 label=""
-                                labelStyle={{ color: "black", fontWeight: "900" }}
+                                labelStyle={styles.labelStyle}
                                 size="medium"
                                 onToggle={isOn => console.log("changed to : ", isOn)}
                             />
@@ -275,10 +275,10 @@ class Notifications extends Component {
                             <ToggleSwitch
                                 isOn={false}
                                 onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor="#e2e2e2"
+                                offColor={THEME.COLOR_LIGHT_GRAY}
 
                                 label=""
-                                labelStyle={{ color: "black", fontWeight: "900" }}
+                                labelStyle={styles.labelStyle}
                                 size="medium"
                                 onToggle={isOn => console.log("changed to : ", isOn)}
                             />
@@ -305,9 +305,9 @@ class Notifications extends Component {
                             <ToggleSwitch
                                 isOn={false}
                                 onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor="#e2e2e2"
+                                offColor={THEME.COLOR_LIGHT_GRAY}
                                 label=""
-                                labelStyle={{ color: "black", fontWeight: "900" }}
+                                labelStyle={styles.labelStyle}
                                 size="medium"
                                 onToggle={isOn => console.log("changed to : ", isOn)}
                             />
@@ -334,9 +334,9 @@ class Notifications extends Component {
                             <ToggleSwitch
                                 isOn={false}
                                 onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor="#e2e2e2"
+                                offColor={THEME.COLOR_LIGHT_GRAY}
                                 label=""
-                                labelStyle={{ color: "black", fontWeight: "900" }}
+                                labelStyle={styles.labelStyle}
                                 size="medium"
                                 onToggle={isOn => console.log("changed to : ", isOn)}
                             />

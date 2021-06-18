@@ -25,5 +25,6 @@ export default {
     FONT_SIZE_LARGE: 18,
     FONT_SIZE_XLARGE: 22,
     COLOR_GREY: '#9FACBD',
+    COLOR_LIGHT_GRAY:"#e2e2e2"
 
 };

@@ -71,18 +71,12 @@ class WorkoutLibrary extends Component {
 
     _renderItems = ({ index, item }) => {
         return (
-            <RNBounceable onPressIn={() => { this.props.navigation.navigate('WorkoutDetails', { heading: item.type }) }} style={{ flex: 1, flexDirection: "row", alignItems: "center", marginHorizontal: "5%", elevation: 2, padding: "5%", borderRadius: 10, marginBottom: 10 }} onPress={() => { }}>
-                <View style={{
-                    borderRadius: 10, height: 70, width: 70,
-                    justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
-                }}>
-                    <Text style={{ fontSize: 16, color: "white", fontWeight: "bold" }}></Text>
+            <RNBounceable onPressIn={() => { this.props.navigation.navigate('WorkoutDetails', { heading: item.type }) }} style={styles.itemContainer} onPress={() => { }}>
+                <View style={styles.boxView}>
+                    <Text></Text>
                 </View>
-                <View style={{ flex: 0.8, marginHorizontal: "5%" }}>
-
+                <View style={styles.itemTypeContainer}>
                     <Text numberOfLines={3} style={{ fontWeight: "bold", }}>{item.type}</Text>
-
-
                 </View>
             </RNBounceable>
         )

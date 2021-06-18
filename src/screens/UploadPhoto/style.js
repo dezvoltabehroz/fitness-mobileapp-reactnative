@@ -10,6 +10,7 @@ export default StyleSheet.create({
         // justifyContent: "center",
         // alignItems: "center"
     },
+    contentContainer: { flex: 0.7, marginTop: "12.5%", marginHorizontal: "5%" },
     rowContainer: {
         flexDirection: "row",
         alignItems: "center",
@@ -45,8 +46,10 @@ export default StyleSheet.create({
         flexDirection: "row",
         alignItems: "center"
     },
-    buttonContainer:{
-        justifyContent:"center",
-        alignItems:"center"
-    }
+    buttonContainer: {
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    iconContainer:{ flex: 0.7, marginTop: "12.5%", marginHorizontal: "5%" },
+    lowerContainer:{ flex: 0.3, justifyContent: "flex-end", }
 })

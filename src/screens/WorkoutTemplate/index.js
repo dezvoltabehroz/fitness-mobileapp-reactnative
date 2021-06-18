@@ -108,7 +108,7 @@ class WorkoutTemplate extends Component {
 
     _renderItems = ({ index, item }) => {
         return (
-            <RNBounceable onPressIn={() => this.handlePress(index)} style={{ flex: 1, flexDirection: "row", alignItems: "center", marginHorizontal: "5%", elevation: 2, padding: "5%", borderRadius: 10, marginBottom: 10 }} onPress={() => { }}>
+            <RNBounceable onPressIn={() => this.handlePress(index)} style={styles.itemContainer} onPress={() => { }}>
                 <View style={styles.boxView}>
                     <Text></Text>
                 </View>
@@ -153,7 +153,7 @@ class WorkoutTemplate extends Component {
                         onScroll={(event) => this.setSliderPage(event)}
                         style={{ flex: 0.8 }} >
                         <View style={styles.firstContainer}>
-                            <View style={{ marginHorizontal: "5%", height: 40 }}>
+                            <View style={styles.marginHorizontal}>
                                 <Input inputStyle={{ height: 40 }} placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
                             </View>
                             <FlatList
@@ -165,8 +165,8 @@ class WorkoutTemplate extends Component {
                                 renderItem={({ index, item }) => this._renderItems({ index, item })}
 
                             />
-                            <View style={{ alignItems: "center", justifyContent: "center" }}>
-                                <View style={{ position: "absolute", bottom: 40, }}>
+                            <View style={styles.buttonContainer}>
+                                <View style={styles.buttonStyle}>
                                     <Button.SlimButton title={"Done"} onPress={() => { this.props.navigation.navigate('StartWorkout') }} />
                                 </View>
                             </View>
@@ -174,7 +174,7 @@ class WorkoutTemplate extends Component {
 
                         <View style={styles.secondContainer}>
                             <View style={{ flex: 1, }}>
-                                <View style={{ marginHorizontal: "5%", height: 40 }}>
+                                <View style={styles.marginHorizontal}>
                                     <Input inputStyle={{ height: 40 }} placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
                                 </View>
 
@@ -182,18 +182,18 @@ class WorkoutTemplate extends Component {
                                     <View style={styles.iconContainer}>
                                         <Icon.FontAwesome5 name="fire-alt" size={30} color={"white"} />
                                     </View>
-                                    <View style={{ marginTop: "5%" }}>
+                                    <View style={styles.marginTop}>
                                         <Text style={styles.textStyle}>Nothing to see here?</Text>
                                     </View>
-                                    <View style={{ marginTop: "5%" }}>
+                                    <View style={styles.marginTop}>
                                         <Text style={styles.textStyle1}>Nothing added just yet!</Text>
                                     </View>
                                 </View>
                             </View>
 
 
-                            <View style={{ alignItems: "center", justifyContent: "center", }}>
-                                <View style={{ position: "absolute", bottom: 40, }}>
+                            <View style={styles.buttonContainer}>
+                                <View style={styles.buttonStyle}>
                                     <Button.SlimButton title={"Done"} onPress={() => { this.props.navigation.navigate('StartWorkout') }} />
                                 </View>
                             </View>

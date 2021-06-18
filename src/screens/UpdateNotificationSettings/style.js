@@ -38,5 +38,6 @@ export default StyleSheet.create({
     buttonContainer: {
         justifyContent: "center",
         alignItems: "center"
-    }
+    },
+    labelStyle:{ color: "black", fontWeight: "900" }
 })

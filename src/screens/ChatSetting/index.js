@@ -35,7 +35,7 @@ class StartWorkout extends Component {
                         <ToggleSwitch
                             isOn={val}
                             onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                            offColor="#e2e2e2"
+                            offColor={THEME.COLOR_LIGHT_GRAY}
                             label=""
                             labelStyle={styles.labelStyle}
                             size="medium"

@@ -30,11 +30,11 @@ class ProgressPhoto extends Component {
             <Container props={this.props}>
                 <StatusBar backgroundColor="white" barStyle={"dark-content"} />
                 <View style={styles.container}>
-                    <View style={{ flex: 0.7, marginTop: "12.5%", marginHorizontal: "5%" }}>
+                    <View style={styles.contentContainer}>
                         <Input label="Date" editable={false} value={moment().format('Do MMM YYYY')} />
                         <View style={styles.rowContainer}>
                             <View style={styles.row}>
-                                <View style={{ borderRadius: 5, elevation: 1, padding: "12.5%" }}>
+                                <View style={styles.iconContainer}>
                                     <Icon.Feather name="upload" size={20} color={'gray'} />
                                 </View>
                                 <Text style={styles.textStyle}>Front</Text>
@@ -43,7 +43,7 @@ class ProgressPhoto extends Component {
                         </View>
                         <View style={styles.rowContainer}>
                             <View style={styles.row}>
-                                <View style={{ borderRadius: 5, elevation: 1, padding: "12.5%" }}>
+                                <View style={styles.iconContainer}>
                                     <Icon.Feather name="upload" size={20} color={'gray'} />
                                 </View>
 
@@ -53,7 +53,7 @@ class ProgressPhoto extends Component {
                         </View>
                         <View style={styles.rowContainer}>
                             <View style={styles.row}>
-                                <View style={{ borderRadius: 5, elevation: 1, padding: "12.5%" }}>
+                                <View style={styles.iconContainer}>
                                     <Icon.Feather name="upload" size={20} color={'gray'} />
                                 </View>
                                 <Text style={styles.textStyle}>Back</Text>
@@ -61,7 +61,7 @@ class ProgressPhoto extends Component {
                             <Icon.Entypo name="dots-three-horizontal" size={15} color={'gray'} />
                         </View>
                     </View>
-                    <View style={{ flex: 0.3, justifyContent: "flex-end", }}>
+                    <View style={styles.lowerContainer}>
                         <View style={styles.buttonContainer}>
                             <Button.BrownButton title={"Save"} onPress={() => this.props.navigation.replace('Home')} />
                         </View>

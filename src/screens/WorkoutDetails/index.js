@@ -105,7 +105,7 @@ class WorkoutDetail extends Component {
 
     _renderItems = ({ index, item }) => {
         return (
-            <RNBounceable onPressIn={() => this.handlePress(index)} style={{ flex: 1, flexDirection: "row", alignItems: "center", marginHorizontal: "5%", elevation: 2, padding: "5%", borderRadius: 10, marginBottom: 10 }} onPress={() => { }}>
+            <RNBounceable onPressIn={() => this.handlePress(index)} style={styles.itemContainer} onPress={() => { }}>
                 <View style={styles.boxView}>
                     <Text></Text>
                 </View>
@@ -150,7 +150,7 @@ class WorkoutDetail extends Component {
                         onScroll={(event) => this.setSliderPage(event)}
                         style={{ flex: 0.8 }} >
                         <View style={styles.firstContainer}>
-                            <View style={{ marginTop: "5%", marginHorizontal: "5%" }}>
+                            <View style={styles.generalMargin}>
                                 <Text style={styles.textStyle1}>Nothing added just yet!</Text>
                             </View>
                         </View>
@@ -160,22 +160,22 @@ class WorkoutDetail extends Component {
                                     <View style={{ marginHorizontal: "5%", flex: 0.7 }}>
                                         <View style={styles.iconContainer}>
                                         </View>
-                                        <View style={{ marginTop: "5%" }}>
+                                        <View style={styles.marginTop}>
                                             <Text style={styles.textStyle}>Description</Text>
                                         </View>
-                                        <View style={{ marginTop: "5%" }}>
+                                        <View style={styles.marginTop}>
                                             <Text style={styles.textStyle1}>Nothing added just yet!</Text>
                                         </View>
-                                        <View style={{ marginTop: "5%" }}>
+                                        <View style={styles.marginTop}>
                                             <Text style={styles.textStyle}>Note</Text>
                                         </View>
-                                        <View style={{ marginTop: "5%" }}>
+                                        <View style={styles.marginTop}>
                                             <Text style={styles.textStyle1}>Nothing added just yet!</Text>
                                         </View>
-                                        <View style={{ marginTop: "5%" }}>
+                                        <View style={styles.marginTop}>
                                             <Text style={styles.textStyle}>Files</Text>
                                         </View>
-                                        <View style={{ marginTop: "5%" }}>
+                                        <View style={styles.marginTop}>
                                             <Text style={styles.textStyle1}>Nothing added just yet!</Text>
                                         </View>
                                     </View>
@@ -183,8 +183,8 @@ class WorkoutDetail extends Component {
                             </ScrollView>
                         </View>
                     </ScrollView>
-                    <View style={{ alignItems: "center", justifyContent: "center" }}>
-                        <View style={{ position: "absolute", bottom: 40, }}>
+                    <View style={styles.buttonContainer}>
+                        <View style={styles.buttonStyle}>
                             <Button.SlimButton title={"Start Workout"} onPress={() => { this.props.navigation.navigate('CurrentWorkout') }} />
                         </View>
                     </View>

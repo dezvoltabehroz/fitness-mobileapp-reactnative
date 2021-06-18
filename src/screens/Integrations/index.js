@@ -35,7 +35,7 @@ class Integrations extends Component {
                         <ToggleSwitch
                             isOn={false}
                             onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                            offColor="#e2e2e2"
+                            offColor={THEME.COLOR_LIGHT_GRAY}
                             label=""
                             labelStyle={styles.labelStyle}
                             size="medium"
@@ -53,7 +53,7 @@ class Integrations extends Component {
                         <ToggleSwitch
                             isOn={false}
                             onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                            offColor="#e2e2e2"
+                            offColor={THEME.COLOR_LIGHT_GRAY}
                             label=""
                             labelStyle={styles.labelStyle}
                             size="medium"
@@ -68,7 +68,7 @@ class Integrations extends Component {
                         <ToggleSwitch
                             isOn={false}
                             onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                            offColor="#e2e2e2"
+                            offColor={THEME.COLOR_LIGHT_GRAY}
                             label=""
                             labelStyle={styles.labelStyle}
                             size="medium"
