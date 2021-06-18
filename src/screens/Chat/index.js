@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 
 import { Icon } from '../../components';
+import { ICON_COLOR } from '../../lib/utils/constants';
 import { authActions } from '../../redux/actions/auth';
 
 import styles from './style';
@@ -57,35 +58,34 @@ class Chat extends Component {
     }
 
     _renderItems = (item) => {
+        const checkBubbleStyle = {
+            borderBottomLeftRadius: item.align == 'left' ? 0 : 20,
+            borderBottomRightRadius: item.align == 'right' ? 0 : 20,
+            marginLeft: item.align == 'left' ? 5 : 0,
+            marginRight: item.align == 'right' ? 6 : 0,
+            backgroundColor: item.align == 'left' ? 'gray' : 'lightgray',
+            alignSelf: item.align == 'right' ? 'flex-end' : 'flex-start',
+            flexDirection: 'row'
+        }
+        const itemContainerCheckStyle = {
+            alignSelf: item.align == 'right' ? 'flex-end' : 'flex-start',
+            marginLeft: item.align == 'right' ? 0 : 10
+        }
+
         return (
             <>
-                <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', alignSelf: item.align == 'right' ? 'flex-end' : 'flex-start', marginLeft: item.align == 'right' ? 0 : 10 }}>
+                <View style={[styles.itemContainer, itemContainerCheckStyle]}>
                     {
                         item.align == 'left' ?
-                            <Image source={require('../../assets/images/logo.png')} resizeMode="cover" style={{ height: 50, width: 40 }} />
+                            <Image source={require('../../assets/images/logo.png')} resizeMode="cover" style={styles.imageStyle} />
                             :
                             null
                     }
-                    <View
-                        style={[styles.balloon, {
-                            borderBottomLeftRadius: item.align == 'left' ? 0 : 20,
-                            borderBottomRightRadius: item.align == 'right' ? 0 : 20,
-                            marginLeft: item.align == 'left' ? 5 : 0,
-                            marginRight: item.align == 'right' ? 6 : 0,
-                            backgroundColor: item.align == 'left' ? 'gray' : 'lightgray',
-                            alignSelf: item.align == 'right' ? 'flex-end' : 'flex-start',
-                            flexDirection: 'row'
-                        }]}
-                    >
-
+                    <View style={[styles.balloon, checkBubbleStyle]}                    >
                         <View>
                             <Text style={[styles.item, { paddingBottom: 10 }]}>{item.text}</Text>
                         </View>
-
-
                     </View>
-
-
                 </View>
             </>
         )
@@ -95,7 +95,7 @@ class Chat extends Component {
         return (
             <>
                 <StatusBar backgroundColor="white" barStyle={"dark-content"} />
-                <View style={{ flex: 1, paddingTop: '2.5%', marginBottom: 10 }}>
+                <View style={styles.container}>
                     <FlatList
                         data={this.state.messages}
                         showsVerticalScrollIndicator={false}
@@ -109,11 +109,20 @@ class Chat extends Component {
                 <View style={styles.attachment}>
                     {
                         this.state.attachment ?
-                            <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-                                <Icon.Ionicons name='happy' size={30} style={{ color: 'lightgray' }} />
-                                <Icon.Entypo name='attachment' size={30} style={{ color: 'lightgray' }} />
-                                <View style={{ backgroundColor: "rgb(30,199,178)", borderRadius: 30, padding: 2.5 }}>
-                                    <Icon.Ionicons name='md-paper-plane' size={30} style={{ color: 'white' }} />
+                            <View style={styles.attachmentContainer}>
+                                <Icon.Ionicons
+                                    name='happy'
+                                    size={30}
+                                    color={ICON_COLOR} />
+                                <Icon.Entypo
+                                    name='attachment'
+                                    size={30}
+                                    color={ICON_COLOR} />
+                                <View style={styles.iconContainer}>
+                                    <Icon.Ionicons
+                                        name='md-paper-plane'
+                                        size={30}
+                                        color={ICON_COLOR} />
                                 </View>
                             </View>
                             :
@@ -129,7 +138,7 @@ class Chat extends Component {
                             onChangeText={text => { this.setState({ txtMessage: text }) }}
                             selectionColor="#FFF"
                         />
-                        <Icon.Ionicons name='md-paper-plane' size={30} style={{ color: 'gray' }} />
+                        <Icon.Ionicons name='md-paper-plane' size={30} color={ICON_COLOR} />
                     </View>
                 </View>
 

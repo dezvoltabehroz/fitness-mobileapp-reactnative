@@ -4,14 +4,10 @@ const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 const plusWidth = screenWidth * .3;
 export default StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: THEME.COLOR_WHITE,
-    },
+    container: { flex: 1, paddingTop: '2.5%', marginBottom: 10 },
     inputBoxView: {
         flexDirection: 'row',
         alignItems: 'center',
-        // backgroundColor: 'white',
         borderRadius: 25,
         paddingTop: Platform.OS === "android" ? 0 : 3,
         paddingBottom: Platform.OS === "android" ? 0 : 3,
@@ -20,8 +16,6 @@ export default StyleSheet.create({
         marginLeft: 5,
         paddingRight: 10,
         paddingLeft: 10
-        // paddingVertical: '5%',
-        // minHeight: 47,
     },
     commentInput: {
         color: 'black',
@@ -30,8 +24,6 @@ export default StyleSheet.create({
         flex: 1,
         paddingTop: 12,
         paddingBottom: 10,
-
-        // maxHeight: 150,
     },
     balloon: {
         alignSelf: 'baseline',
@@ -48,21 +40,19 @@ export default StyleSheet.create({
         lineHeight: 20,
         padding: 10,
         fontSize: 14,
-        // color: ,
         flex: 1
     },
     seperatorStyle: {
         height: 15
     },
     attachment: {
-        // flexDirection: 'row',
-        // alignItems: 'center',
         justifyContent: 'center',
-        // backgroundColor: 'white',
         borderRadius: 30,
-        // marginRight: 10,
-        // marginLeft: 10,
-        // paddingTop: 10,
-        // marginBottom: 15,
-    }
+    },
+    imageStyle: { height: 50, width: 40 },
+    itemContainer: {
+        flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center',
+    },
+    attachmentContainer: { flexDirection: 'row', justifyContent: 'flex-end' },
+    iconContainer:{ backgroundColor: "rgb(30,199,178)", borderRadius: 30, padding: 2.5 }
 })

@@ -27,8 +27,8 @@ const screen = {
     SCREEN_TITLE_MEDIA: "Media",
     SCREEN_TITLE_SETTING: "Settings",
     SCREEN_TITLE_UPLOAD_PHOTO: "Upload Photo",
-    SCREEN_TITLE_PROGRESS_PHOTO:"Progress Photo",
-    SCREEN_TITLE_CURRENT_WORKOUT:"Current Workout"
+    SCREEN_TITLE_PROGRESS_PHOTO: "Progress Photo",
+    SCREEN_TITLE_CURRENT_WORKOUT: "Current Workout"
 
 };
 
@@ -64,14 +64,15 @@ const route = {
     MEDIA: "Media",
     UPLOAD_PHOTO: "UploadPhoto",
     LOG_NUTRITION: "LogNutrition",
-    WORKOUT_DETAIL:"WorkoutDetails",
-    PROGRESS_PHOTO:"ProgressPhoto",
-    CURRENT_WORKOUT:"CurrentWorkout"
+    WORKOUT_DETAIL: "WorkoutDetails",
+    PROGRESS_PHOTO: "ProgressPhoto",
+    CURRENT_WORKOUT: "CurrentWorkout"
 
 }
 const TOKEN = "token";
 const MULTIPART = "multipart";
 const EMPTY = "";
+const ICON_COLOR = "lightgray";
 
 export {
     screen,
@@ -80,4 +81,5 @@ export {
     EMPTY,
     MULTIPART,
     LOGO,
+    ICON_COLOR
 }

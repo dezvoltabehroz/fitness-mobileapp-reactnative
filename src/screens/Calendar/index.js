@@ -108,7 +108,8 @@ class Calendar extends Component {
                         <View style={styles.generalMargin}>
                             <Text style={styles.headingTextStyle}>Company Calendar</Text>
                         </View>
-                        <RNBounceable onPress={() => this.props.authActions.calenderModal(!this.props.user.calenderModal)} style={styles.itemContainer}>
+                        <RNBounceable onPress={() => this.props.authActions.calenderModal(!this.props.user.calenderModal)}
+                            style={styles.itemContainer}>
                             <View style={styles.rowContainer}>
                                 <View style={styles.backContainer}>
                                     <Icon.MaterialCommunityIcons
@@ -126,7 +127,8 @@ class Calendar extends Component {
                         <View style={styles.generalMargin}>
                             <Text style={styles.headingTextStyle}>My Calendar</Text>
                         </View>
-                        <RNBounceable onPress={() => this.props.authActions.calenderModal(!this.props.user.calenderModal)} style={styles.itemContainer}>
+                        <RNBounceable onPress={() => this.props.authActions.calenderModal(!this.props.user.calenderModal)}
+                            style={styles.itemContainer}>
                             <View style={styles.rowContainer}>
                                 <View style={styles.backContainer}>
                                     <Text style={styles.nameStyle} >T</Text>
@@ -141,7 +143,8 @@ class Calendar extends Component {
                         <View style={styles.generalMargin}>
                             <Text style={styles.headingTextStyle}>Trainer Calendar</Text>
                         </View>
-                        <RNBounceable onPress={() => this.props.authActions.calenderModal(!this.props.user.calenderModal)} style={styles.itemContainer}>
+                        <RNBounceable onPress={() => this.props.authActions.calenderModal(!this.props.user.calenderModal)}
+                            style={styles.itemContainer}>
                             <View style={styles.rowContainer}>
                                 <Image
                                     source={require('../../assets/images/logo.png')}
