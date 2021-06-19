@@ -82,6 +82,12 @@ export const CreditPackages = _CreditPackages;
 import _Workouts from './Workouts';
 export const Workouts = _Workouts;
 
+import _NutritionLibrary from './NutritionLibrary';
+export const NutritionLibrary = _NutritionLibrary;
+
+import _NutritionDetail from './NutritionDetail';
+export const NutritionDetail = _NutritionDetail;
+
 import _UploadPhoto from './UploadPhoto';
 export const UploadPhoto = _UploadPhoto;
 

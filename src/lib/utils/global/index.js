@@ -32,6 +32,17 @@ export const apiHeaderConfiguration = (token, type) => {
 }
 
 /**
+ * Return a view of Blank Space
+ */
+import React from 'react';
+import { View } from 'react-native';
+export const renderSeperator = () => {
+    return (
+        <View style={{ height: 15 }}></View>
+    )
+}
+
+/**
  * Return True if email enter is correct
  * @param email
  */

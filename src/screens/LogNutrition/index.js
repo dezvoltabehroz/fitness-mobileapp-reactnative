@@ -10,6 +10,7 @@ import { Container, Icon, Button } from "../../components";
 import { authActions } from '../../redux/actions/auth';
 
 import styles from './style';
+import { route } from '../../lib/utils/constants';
 
 
 class StartWorkout extends Component {
@@ -29,7 +30,7 @@ class StartWorkout extends Component {
                 <View style={styles.container}>
                     <View style={styles.selectPlanContainer}>
                         <Text style={[styles.textStyle, { color: '#544b4c' }]}>Assigned Plans</Text>
-                        <RNBounceable style={styles.selectPlanInnerContainer}>
+                        <RNBounceable onPress={()=>this.props.navigation.navigate(route.NUTRITION_LIBRARY)} style={styles.selectPlanInnerContainer}>
                             <Text style={styles.textStyle}>Select nutrition plan</Text>
                             <Icon.AntDesign name="right" size={20} color={"gray"} />
                         </RNBounceable>
@@ -75,16 +76,11 @@ class StartWorkout extends Component {
     }
 }
 const mapStateToProps = (state) => {
-
-    return {
-        user: state.authReducer || {}
-    };
+    return { user: state.authReducer || {} };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        authActions: bindActionCreators(authActions, dispatch)
-    };
+    return { authActions: bindActionCreators(authActions, dispatch) };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartWorkout);

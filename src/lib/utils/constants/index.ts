@@ -29,8 +29,8 @@ const screen = {
     SCREEN_TITLE_UPLOAD_PHOTO: "Upload Photo",
     SCREEN_TITLE_PROGRESS_PHOTO: "Progress Photo",
     SCREEN_TITLE_CURRENT_WORKOUT: "Current Workout",
-    SCREEN_TITLE_CHAT:"Chats"
-
+    SCREEN_TITLE_CHAT: "Chats",
+    SCREEN_TITLE_NUTRITION_LIBRARY: "Nutrition Library",
 };
 
 const route = {
@@ -56,6 +56,7 @@ const route = {
     INTEGRATION: "Integrations",
     WORKOUT: "Workouts",
     WORKOUT_LIBRARY: "WorkoutLibrary",
+    NUTRITION_LIBRARY: "NutritionLibrary",
     NUTRITION: "Nutrition",
     MARKETPLACE: "Marketplace",
     PACKAGE: "Packages",
@@ -67,7 +68,8 @@ const route = {
     LOG_NUTRITION: "LogNutrition",
     WORKOUT_DETAIL: "WorkoutDetails",
     PROGRESS_PHOTO: "ProgressPhoto",
-    CURRENT_WORKOUT: "CurrentWorkout"
+    CURRENT_WORKOUT: "CurrentWorkout",
+    NUTRITION_DETAIL: "Nutrition Detail"
 
 }
 const TOKEN = "token";

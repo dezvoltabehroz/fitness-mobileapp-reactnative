@@ -7,7 +7,7 @@ import {
     Workouts, WorkoutLibrary, ProgressPhoto, LogNutrition, StartWorkout, Integrations, Notifications,
     UnitMeasurement, UploadPhoto, Programs, ProgramLibrary, MarketPlace, CreditPackages, Packages,
     WorkoutDetails, CurrentWorkout, Financials, Nutrition, AddItem, Measurement, Calendar, ChatList,
-    ChatSetting, Media, Chat
+    ChatSetting, Media, Chat, NutritionLibrary, NutritionDetail
 } from '../screens';
 import { screen, route, EMPTY } from '../lib/utils/constants';
 import { NavigationHeaderLeftButton, NavigationHeaderRightButton } from '../components/special/navigationHeaderButton';
@@ -103,12 +103,23 @@ function AppRoutes() {
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
                 headerTitle: screen.SCREEN_TITLE_WORKOUT_LIBRARY
             })} />
+             <Stack.Screen name={route.NUTRITION_LIBRARY} component={NutritionLibrary} options={({ navigation, route }) => ({
+                headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),
+                headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
+                headerRight: () => (<NavigationHeaderRightButton navigation={navigation} dot={true} />),
+                headerTitle: screen.SCREEN_TITLE_NUTRITION_LIBRARY
+            })} />
             <Stack.Screen name={route.PROGRAM_LIBRARY} component={ProgramLibrary} options={({ navigation, route }) => ({
                 headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
                 headerTitle: screen.SCREEN_TITLE_PROGRAM_LIBRARY
             })} />
             <Stack.Screen name={route.WORKOUT_DETAIL} component={WorkoutDetails} options={({ navigation, route }) => ({
+                headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),
+                headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
+                headerTitle: `${route.params.heading}`
+            })} />
+              <Stack.Screen name={route.NUTRITION_DETAIL} component={NutritionDetail} options={({ navigation, route }) => ({
                 headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
                 headerTitle: `${route.params.heading}`

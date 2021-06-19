@@ -227,7 +227,7 @@ class Nutrition extends Component {
                                 <View style={{ height: 50 }}></View>
                             </ScrollView>
                             <View style={styles.buttonContainer}>
-                                <View style={buttonCon}>
+                                <View style={styles.buttonStyle}>
                                     <Button.SlimButton title={"Create Custom Food"} onPress={() => { this.props.navigation.navigate('AddItem') }} />
                                 </View>
                             </View>

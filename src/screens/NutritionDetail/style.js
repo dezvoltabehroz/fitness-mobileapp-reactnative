@@ -16,7 +16,12 @@ export default StyleSheet.create({
         justifyContent: "space-between",
     },
     textStyle: {
-        color: "#181818",
+        // color: THEME.PRIMARY_BACKGROUND_COLOR,
+        fontSize: 20,
+        fontWeight: "bold",
+    },
+    textStyle2: {
+        color: THEME.PRIMARY_BACKGROUND_COLOR,
         fontSize: 20,
         fontWeight: "bold",
     },
@@ -55,6 +60,6 @@ export default StyleSheet.create({
     marginTop: {
         marginTop: "5%"
     },
-    generalMargin:{ marginTop: "5%", marginHorizontal: "5%" },
-    itemContainer:{ flex: 1, flexDirection: "row", alignItems: "center", marginHorizontal: "5%", elevation: 2, padding: "5%", borderRadius: 10, marginBottom: 10 }
+    generalMargin: { elevation: 2, marginTop: "5%", marginHorizontal: "5%" },
+    itemContainer: { flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", elevation: 2, padding: "5%", marginBottom: 10 }
 })
