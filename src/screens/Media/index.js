@@ -3,7 +3,7 @@ import { View, Text, ScrollView } from 'react-native';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 
-import { Container,Icon } from '../../components';
+import { Container, Icon } from '../../components';
 import { authActions } from '../../redux/actions/auth';
 
 import styles from './style';
@@ -37,15 +37,11 @@ class Media extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    return {
-        user: state.authReducer || {}
-    };
+    return { user: state.authReducer || {} };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        authActions: bindActionCreators(authActions, dispatch)
-    };
+    return { authActions: bindActionCreators(authActions, dispatch) };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Media)

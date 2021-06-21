@@ -68,8 +68,6 @@ class Programs extends Component {
         }
     }
 
-
-
     render() {
         const { workout, reportModal, issue } = this.state;
         const totalItemWidth = Dimensions.get('window').width - 140;
@@ -112,16 +110,11 @@ class Programs extends Component {
     }
 }
 const mapStateToProps = (state) => {
-
-    return {
-        user: state.authReducer || {}
-    };
+    return { user: state.authReducer || {} };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        authActions: bindActionCreators(authActions, dispatch)
-    };
+    return { authActions: bindActionCreators(authActions, dispatch) };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Programs);

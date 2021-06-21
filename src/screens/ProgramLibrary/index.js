@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, ScrollView } from 'react-native';
 import { connect } from 'react-redux'
-import { bindActionCreators } from "redux";import RNBounceable from '@freakycoder/react-native-bounceable';
+import { bindActionCreators } from "redux"; import RNBounceable from '@freakycoder/react-native-bounceable';
 import { Container, FilterModal, Icon } from '../../components';
 
 import { authActions } from '../../redux/actions/auth';
@@ -85,7 +85,7 @@ class ProgramLibrary extends Component {
     }
 
     render() {
-        const { program, reportModal, issue,filterModal } = this.state;
+        const { program, reportModal, issue, filterModal } = this.state;
         return (
             <Container props={this.props}>
                 <View style={styles.container}>
@@ -115,15 +115,11 @@ class ProgramLibrary extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    return {
-        user: state.authReducer || {}
-    };
+    return { user: state.authReducer || {} };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        authActions: bindActionCreators(authActions, dispatch)
-    };
+    return { authActions: bindActionCreators(authActions, dispatch) };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProgramLibrary)

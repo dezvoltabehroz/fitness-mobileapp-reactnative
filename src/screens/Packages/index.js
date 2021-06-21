@@ -23,12 +23,7 @@ class MarketPlace extends Component {
             side: "",
             back: ""
         }
-
     }
-
-    l
-
-
 
     render() {
         const { data, selectedValue, dropdown } = this.state;
@@ -47,15 +42,11 @@ class MarketPlace extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    return {
-        user: state.authReducer || {}
-    };
+    return { user: state.authReducer || {} };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        authActions: bindActionCreators(authActions, dispatch)
-    };
+    return { authActions: bindActionCreators(authActions, dispatch) };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MarketPlace);

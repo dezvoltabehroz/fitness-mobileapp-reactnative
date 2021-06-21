@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { View, Text,  ScrollView, StatusBar, Dimensions } from 'react-native'
+import { View, Text, ScrollView, StatusBar, Dimensions } from 'react-native'
 import RNBounceable from "@freakycoder/react-native-bounceable";
 import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 import { authActions } from '../../redux/actions/auth';
-import { Icon, Button,  Container,} from "../../components";
+import { Icon, Button, Container, } from "../../components";
 
 import styles from './style';
 
@@ -194,11 +194,11 @@ class WorkoutDetail extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    return {user: state.authReducer || {}};
+    return { user: state.authReducer || {} };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {authActions: bindActionCreators(authActions, dispatch)};
+    return { authActions: bindActionCreators(authActions, dispatch) };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkoutDetail);

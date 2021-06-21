@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 
 import { authActions } from '../../redux/actions/auth';
-import { Icon,  Container } from "../../components";
+import { Icon, Container } from "../../components";
 
 import styles from './style';
 import themeStyle from '../../assets/styles/theme.style';
@@ -332,16 +332,11 @@ class Financials extends Component {
     }
 }
 const mapStateToProps = (state) => {
-
-    return {
-        user: state.authReducer || {}
-    };
+    return { user: state.authReducer || {} };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        authActions: bindActionCreators(authActions, dispatch)
-    };
+    return { authActions: bindActionCreators(authActions, dispatch) };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Financials);

@@ -37,7 +37,7 @@ class ProgressPhoto extends Component {
                     </View>
 
                     <View style={{ flex: 0.3, justifyContent: "flex-end", }}>
-                        <Button.SlimButton  title={"Upload"} onPress={() => this.props.navigation.navigate('UploadPhoto')} />
+                        <Button.SlimButton title={"Upload"} onPress={() => this.props.navigation.navigate('UploadPhoto')} />
                     </View>
                 </View>
             </Container >
@@ -45,16 +45,11 @@ class ProgressPhoto extends Component {
     }
 }
 const mapStateToProps = (state) => {
-
-    return {
-        user: state.authReducer || {}
-    };
+    return { user: state.authReducer || {} };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        authActions: bindActionCreators(authActions, dispatch)
-    };
+    return { authActions: bindActionCreators(authActions, dispatch) };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProgressPhoto);
