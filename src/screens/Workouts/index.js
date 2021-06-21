@@ -10,6 +10,7 @@ import { authActions } from '../../redux/actions/auth';
 import { Icon, Button, Container, } from "../../components";
 
 import styles from './style';
+import { renderSeperator } from '../../lib/utils/global';
 
 class Workouts extends Component {
     constructor(props) {
@@ -95,10 +96,11 @@ class Workouts extends Component {
                             data={workout}
                             contentContainerStyle={{ paddingBottom: 180 }}
                             keyExtractor={item => item}
+                            ItemSeparatorComponent={(renderSeperator)}
                             renderItem={({ index, item }) => {
                                 return (
                                     <RNBounceable onPressIn={() => { this.props.navigation.navigate('WorkoutDetails', { heading: item.type }) }} style={styles.itemContainer} onPress={() => { }}>
-                                        <View style={styles.bocView}>
+                                        <View style={styles.boxView}>
                                             <Text></Text>
                                         </View>
                                         <View style={styles.itemTypeContainer}>

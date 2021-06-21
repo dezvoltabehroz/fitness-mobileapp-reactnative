@@ -52,7 +52,7 @@ class StartWorkout extends Component {
                     </View>
                     <View style={{ margin: "5%", flexDirection: "column" }}>
                         <Text style={[styles.textStyle, { color: '#544b4c' }]}>Available Workouts</Text>
-                        <RNBounceable onPress={() => this.props.navigation.navigate('WorkoutTemplate')} style={styles.selectWorkout}>
+                        <RNBounceable onPress={() => this.props.navigation.navigate('WorkoutTemplate')} style={styles.selectWorkoutContainer}>
                             <Text>Select Workout</Text>
                             <Icon.AntDesign name="right" size={25} color={"gray"} />
                         </RNBounceable>

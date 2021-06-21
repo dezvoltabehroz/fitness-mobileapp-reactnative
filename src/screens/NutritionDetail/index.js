@@ -43,7 +43,49 @@ class NutritionDetail extends Component {
                     quantity: '5 g',
                     calories: 148,
                 }
-            ]
+            ],
+            macros: [{
+                name: "Calories",
+                target: 1650,
+                total: 1534,
+                left: 116
+            }, {
+                name: "Protein (g)",
+                target: 1650,
+                total: 1534,
+                left: 116
+            },
+            {
+                name: "Carbohydrate (g)",
+                target: 1650,
+                total: 1534,
+                left: 116
+            },
+            {
+                name: "Fibre (g)",
+                target: 1650,
+                total: 1534,
+                left: -1
+            },
+            {
+                name: "Sugars (g)",
+                target: 1650,
+                total: 1534,
+                left: 116
+            },
+            {
+                name: "Fat (g)",
+                target: 1650,
+                total: 1534,
+                left: 116
+            },
+            {
+                name: "Sodium (mg)",
+                target: 1650,
+                total: 1534,
+                left: 116
+            }]
+
         }
         this.data = this.state.activityArr
     }
@@ -98,7 +140,7 @@ class NutritionDetail extends Component {
     }
 
     render() {
-        const { currentPage, breakFast, macrosModal } = this.state;
+        const { currentPage, breakFast, macrosModal, macros } = this.state;
         let { heading } = this.props.route.params;
         return (
             <>
@@ -204,7 +246,7 @@ class NutritionDetail extends Component {
                                             renderItem={({ index, item }) => this._renderItems(item, index)} />
                                     </View>
                                     <View style={styles.buttonContainer}>
-                                        <Button.OutlineButton title={"View Macros"} onPress={() => {  }} />
+                                        <Button.OutlineButton title={"View Macros"} onPress={() => this.setState({ macrosModal: true })} />
                                     </View>
                                 </ScrollView>
                             </View>
@@ -212,8 +254,6 @@ class NutritionDetail extends Component {
                                 <ScrollView contentContainerStyle={{ paddingBottom: '30%' }}>
                                     <View style={{ flex: 1, }}>
                                         <View style={{ marginHorizontal: "5%", flex: 0.7 }}>
-                                            {/* <View style={styles.iconContainer}>
-                                        </View> */}
                                             <View style={styles.marginTop}>
                                                 <Text style={styles.textStyle2}>Plan Title</Text>
                                             </View>
@@ -237,11 +277,57 @@ class NutritionDetail extends Component {
                                 </ScrollView>
                             </View>
                         </ScrollView>
-
                     </View>
                 </Container>
-                <Modal isVisible={macrosModal}>
+                <Modal
+                    style={styles.modalContainer}
+                    isVisible={macrosModal}
+                    onBackdropPress={() => this.setState({ macrosModal: false })} >
+                    <View style={{ bottom: "5%" }}>
+                        <Text style={styles.searchText}>Nutrition Tile Macros</Text>
+                    </View>
+                    <View style={styles.modalLowerContainer}>
+                        <ScrollView contentContainerStyle={{ paddingBottom: "10%", marginBottom: 120 }}>
+                            <View style={{ flex: 1 }}>
+                                <View style={styles.row}>
+                                    <View style={styles.first}>
+                                        <Text></Text>
+                                    </View>
+                                    <View style={styles.second}>
+                                        <Text>Target</Text>
+                                    </View>
+                                    <View style={styles.third}>
+                                        <Text>Total</Text>
+                                    </View>
+                                    <View style={styles.fourth}>
+                                        <Text>Left</Text>
+                                    </View>
+                                </View>
+                                {macros.map((item, index) => {
+                                    return (
+                                        <View style={styles.row}>
+                                            <View style={styles.first}>
+                                                <Text>{item.name}</Text>
+                                            </View>
+                                            <View style={styles.second}>
+                                                <Text>{item.target}</Text>
+                                            </View>
+                                            <View style={styles.third}>
+                                                <Text>{item.total}</Text>
+                                            </View>
+                                            <View style={styles.fourth}>
+                                                <Text style={{ color: item.left < 0 ? 'red' : 'lightgreen' }}>{item.left}</Text>
+                                            </View>
+                                        </View>
+                                    )
 
+                                })
+                                }
+                            </View>
+
+                        </ScrollView>
+
+                    </View>
                 </Modal>
             </>
         )

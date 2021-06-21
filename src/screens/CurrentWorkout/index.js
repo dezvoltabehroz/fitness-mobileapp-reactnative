@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-    View, Text, TouchableOpacity, Alert, StatusBar
+    View, Text, TouchableOpacity, Alert, StatusBar, FlatList, Image, ScrollView
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import RNBounceable from '@freakycoder/react-native-bounceable';
@@ -9,7 +9,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 
 import { authActions } from '../../redux/actions/auth';
-import { Container, Icon, Button, Input } from "../../components";
+import { Container, Icon, Button, Input, Sets } from "../../components";
+import { renderSeperator } from '../../lib/utils/global'
 
 import THEME from '../../assets/styles/theme.style'
 import styles from './style';
@@ -174,6 +175,98 @@ class CurrentWorkout extends Component {
                 id: 16,
                 label: "55 min",
                 value: "55 min"
+            }],
+            workout: [{
+                title: "Planks",
+                image: require('../../assets/images/logo.png'),
+                sets: [{
+                    time: 30,
+                    reps: 10,
+                    rest: 15,
+                    selected: false
+                },
+                {
+                    time: 30,
+                    reps: 10,
+                    rest: 15,
+                    selected: false
+                },
+                {
+                    time: 30,
+                    reps: 10,
+                    rest: 15,
+                    selected: false
+                }]
+
+            },
+            {
+                title: "Reverse Planks",
+                image: require('../../assets/images/logo.png'),
+                sets: [{
+                    time: 30,
+                    reps: 10,
+                    rest: 15,
+                    selected: false
+                },
+                {
+                    time: 30,
+                    reps: 10,
+                    rest: 15,
+                    selected: false
+                },
+                {
+                    time: 30,
+                    reps: 10,
+                    rest: 15,
+                    selected: false
+                }]
+
+            },
+            {
+                title: "Long Band",
+                image: require('../../assets/images/logo.png'),
+                sets: [{
+                    time: 30,
+                    reps: 10,
+                    rest: 15,
+                    selected: false
+                },
+                {
+                    time: 30,
+                    reps: 10,
+                    rest: 15,
+                    selected: false
+                },
+                {
+                    time: 30,
+                    reps: 10,
+                    rest: 15,
+                    selected: false
+                }]
+
+            },
+            {
+                title: "Dips",
+                image: require('../../assets/images/logo.png'),
+                sets: [{
+                    time: 30,
+                    reps: 10,
+                    rest: 15,
+                    selected: false
+                },
+                {
+                    time: 30,
+                    reps: 10,
+                    rest: 15,
+                    selected: false
+                },
+                {
+                    time: 30,
+                    reps: 10,
+                    rest: 15,
+                    selected: false
+                }]
+
             }]
         }
     }
@@ -198,8 +291,26 @@ class CurrentWorkout extends Component {
         )
     }
 
+    _renderItem = (item, index) => {
+        return (
+            <View style={styles.flatListContainer}>
+                <View style={styles.flatListRowContainer}>
+                    <View style={styles.flatListRow}>
+                        <Image source={item.image} style={styles.imageStyle} resizeMode="contain" />
+                        <View style={styles.gapWidth}></View>
+                        <Text style={styles.flatListTitleStyle}>{item.title}</Text>
+                    </View>
+                    <View>
+                        <Icon.Ionicons name="ellipsis-horizontal" size={30} color={THEME.COLOR_LIGHT_GRAY} />
+                    </View>
+                </View>
+                <Sets item={item.sets} />
+            </View>
+        )
+    }
+
     render() {
-        const { currentPage, searchModal, distance, second, minutes } = this.state;
+        const { currentPage, searchModal, distance, workout, minutes } = this.state;
         return (
             <>
                 <Container
@@ -209,18 +320,25 @@ class CurrentWorkout extends Component {
                     selectedSecF={(value) => this.setState({ selectedSec: value })}>
                     <StatusBar backgroundColor={this.props.user.menuModal ? THEME.PRIMARY_BACKGROUND_COLOR : "#181818"} barStyle={"light-content"} />
                     <View style={styles.container}>
-                        <View style={styles.contentContainer}>
-                            <TouchableOpacity
-                                onPress={() => this.setState({ searchModal: true })}
-                                style={styles.addExerciseContainer}>
-                                <Text style={styles.textStyle}>Add Exercise</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => this.handleAlert()}
-                                style={{ margin: "10%", }}>
-                                <Text style={styles.textStyle2}>Cancel</Text>
-                            </TouchableOpacity>
-                        </View>
+                        <ScrollView>
+                            <FlatList
+                                data={workout}
+                                ItemSeparatorComponent={(renderSeperator)}
+                                contentContainerStyle={{ paddingVertical: "5%" }}
+                                renderItem={({ index, item }) => this._renderItem(item, index)} />
+                            <View style={styles.contentContainer}>
+                                <TouchableOpacity
+                                    onPress={() => this.setState({ searchModal: true })}
+                                    style={styles.addExerciseContainer}>
+                                    <Text style={styles.textStyle}>Add Exercise</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => this.handleAlert()}
+                                    style={{ margin: "10%", }}>
+                                    <Text style={styles.textStyle2}>Cancel</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </ScrollView>
                     </View>
 
                 </Container>

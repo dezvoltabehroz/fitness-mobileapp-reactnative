@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, ScrollView, Dimensions } from 'react-native'
+import { View, Text, ScrollView, Dimensions, FlatList } from 'react-native'
 import RNBounceable from "@freakycoder/react-native-bounceable";
 import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux'
@@ -10,6 +10,7 @@ import { authActions } from '../../redux/actions/auth';
 import { Input } from '../../components/Input/Input.component';
 
 import styles from './style';
+import { renderSeperator } from '../../lib/utils/global';
 
 const { width, height } = Dimensions.get('window');
 
@@ -90,7 +91,37 @@ class Nutrition extends Component {
                     activity: 'Female Fat Loss',
                     time: new Date(),
                 },
-            ]
+            ],
+            shoppingList: [{
+                title: "Eggs",
+                quantity: '5 g',
+                selected: false
+            },
+            {
+                title: "Blueberries",
+                quantity: '5 g',
+                selected: false
+            },
+            {
+                title: "Avocado",
+                quantity: '5 g',
+                selected: false
+            },
+            {
+                title: "Rye Bread",
+                quantity: '5 g',
+                selected: false
+            },
+            {
+                title: "Salmon Fillters",
+                quantity: '5 g',
+                selected: false
+            },
+            {
+                title: "Mixed Salad Greens",
+                quantity: '5 g',
+                selected: false
+            }]
         }
         this.data = this.state.activityArr
     }
@@ -141,9 +172,33 @@ class Nutrition extends Component {
         }
     }
 
+    _renderItem = (item, index) => {
+        return (
+            <RNBounceable onPress={() => {
+                let { shoppingList } = this.state;
+                let array = [...shoppingList]
+                if (item.selected) {
+                    array[index] = { ...array[index], selected: false }
+                } else {
+                    array[index] = { ...array[index], selected: true }
+                }
+
+
+                this.setState({ shoppingList: array })
+            }} style={styles.itemContainer}>
+                <View>
+                    {item.selected ? <Icon.MaterialCommunityIcons name="checkbox-marked-circle" size={20} color={"lightgreen"} /> : <Icon.MaterialCommunityIcons name="checkbox-blank-circle-outline" size={20} color={"lightgray"} />}
+                </View>
+                <View style={{ marginLeft: "5%" }}>
+                    <Text>{item.title}</Text>
+                    <Text>{item.quantity}</Text>
+                </View>
+            </RNBounceable>
+        )
+    }
 
     render() {
-        const { currentPage, filterModal } = this.state;
+        const { currentPage, filterModal, shoppingList } = this.state;
         return (
             <Container props={this.props} >
                 <View style={styles.container}>
@@ -233,22 +288,31 @@ class Nutrition extends Component {
                             </View>
                         </View>
                         <View style={styles.secondContainer}>
-                            <ScrollView style={{ flex: 1 }}>
-
-                                <View style={{ alignItems: "center" }}>
-                                    <View style={styles.iconContainer}>
-                                        <Icon.MaterialIcons name="dinner-dining" size={30} color={"white"} />
-                                    </View>
-                                    <View style={styles.marginTop}>
-                                        <Text style={styles.textStyle3}>No Shopping Items</Text>
-                                    </View>
-                                    <View style={styles.generalMargin}>
-                                        <Text style={styles.textStyle1}>Your Trainer hasn't assigned any food items to you just yet.</Text>
-                                    </View>
-                                </View>
-                                <View style={{ height: 50 }}></View>
+                            <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingTop: "5%" }}>
+                                {
+                                    shoppingList.length == 0 ?
+                                        <>
+                                            <View style={{ alignItems: "center" }}>
+                                                <View style={styles.iconContainer}>
+                                                    <Icon.MaterialIcons name="dinner-dining" size={30} color={"white"} />
+                                                </View>
+                                                <View style={styles.marginTop}>
+                                                    <Text style={styles.textStyle3}>No Shopping Items</Text>
+                                                </View>
+                                                <View style={styles.generalMargin}>
+                                                    <Text style={styles.textStyle1}>Your Trainer hasn't assigned any food items to you just yet.</Text>
+                                                </View>
+                                            </View>
+                                            <View style={{ height: 50 }}></View>
+                                        </>
+                                        :
+                                        <FlatList
+                                            data={shoppingList}
+                                            contentContainerStyle={{ paddingBottom: "5%" }}
+                                            ItemSeparatorComponent={renderSeperator}
+                                            renderItem={({ item, index }) => this._renderItem(item, index)} />
+                                }
                             </ScrollView>
-
                         </View>
                     </ScrollView>
                 </View>

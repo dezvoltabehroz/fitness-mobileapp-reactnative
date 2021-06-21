@@ -61,5 +61,43 @@ export default StyleSheet.create({
         marginTop: "5%"
     },
     generalMargin: { elevation: 2, marginTop: "5%", marginHorizontal: "5%" },
-    itemContainer: { flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", elevation: 2, padding: "5%", marginBottom: 10 }
+    itemContainer: { flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", elevation: 2, padding: "5%", marginBottom: 10 },
+    modalLowerContainer: {
+        flex: 0.8,
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        backgroundColor: "white",
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25,
+    },
+    modalContainer: {
+        backgroundColor: 'rgba(0,0,0,0.7)',
+        justifyContent: 'flex-end',
+        margin: 0,
+    },
+    searchText: { fontSize: 35, marginHorizontal: "5%", color: "white", fontWeight: "bold" },
+    first: {
+        flex: 0.55,
+        padding: "5%",
+        flexDirection: "column",
+    },
+    second: {
+        flex: 0.15,
+        alignItems: "center",
+        paddingVertical: "5%", paddingHorizontal: "2.5%",
+        flexDirection: "column",
+    },
+    third: {
+        flex: 0.15,
+        paddingVertical: "5%", paddingHorizontal: "2.5%",
+        alignItems: "center",
+        flexDirection: "column",
+    },
+    fourth: {
+        flex: 0.15,
+        paddingVertical: "5%", paddingHorizontal: "2.5%",
+        alignItems: "center",
+        flexDirection: "column",
+    },
+
 })

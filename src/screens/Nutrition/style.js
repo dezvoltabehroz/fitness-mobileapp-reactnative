@@ -134,5 +134,15 @@ export default StyleSheet.create({
     buttonStyle: { position: "absolute", bottom: 40, },
     alignItems: {
         alignItems: "center"
+    },
+    itemContainer: {
+        flexDirection: "row",
+        marginHorizontal: "5%",
+        padding: "5%",
+        elevation: 2,
+        backgroundColor: "white",
+        borderRadius: 10,
+        alignItems: "center"
+
     }
 })

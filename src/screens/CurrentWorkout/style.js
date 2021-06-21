@@ -16,7 +16,7 @@ export default StyleSheet.create({
     },
     searchText: { fontSize: 35, marginHorizontal: "5%", color: "white", fontWeight: "bold" },
     contentContainer: { flex: 0.7, marginTop: "12.5%" },
-    headingContainer:{ flexDirection: "row", marginTop: "10%", marginHorizontal: "5%", justifyContent: "space-between", alignItems: "center" },
+    headingContainer: { flexDirection: "row", marginTop: "10%", marginHorizontal: "5%", justifyContent: "space-between", alignItems: "center" },
     modalLowerContainer: {
         flex: 0.8,
         flexDirection: "column",
@@ -113,5 +113,32 @@ export default StyleSheet.create({
     labelStyle: {
         color: "black",
     },
-    addExerciseContainer: { borderWidth: 1, marginHorizontal: "20%", borderColor: "#544b4c", alignItems: "center", justifyContent: "center", borderRadius: 35, height: 54 }
+    addExerciseContainer: { borderWidth: 1, marginHorizontal: "20%", borderColor: "#544b4c", alignItems: "center", justifyContent: "center", borderRadius: 35, height: 54 },
+    flatListContainer: {
+        borderRadius: 10,
+        backgroundColor: THEME.COLOR_WHITE,
+        elevation: 2,
+        marginHorizontal: "5%",
+        padding: "2.5%"
+    },
+    flatListRowContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems:"center"
+    },
+    flatListRow: {
+        flexDirection: "row",
+        alignItems:"center"
+    },
+    gapWidth: {
+        width: 15
+    },
+    imageStyle: {
+        height: 50,
+        width: 70
+    },
+    flatListTitleStyle: {
+        fontSize: 18,
+        fontWeight: "bold"
+    }
 })

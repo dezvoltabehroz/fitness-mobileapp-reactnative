@@ -57,8 +57,8 @@ export default StyleSheet.create({
         alignItems: "center"
     },
     itemContainer:{ flex: 1, flexDirection: "row", marginHorizontal: "5%" },
-    bocView:{
-        borderRadius: 30, height: 40, width: 40,
+    boxView: {
+        borderRadius: 10, height: 70, width: 70,
         justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
     },
     itemTypeContainer:{ flex: 0.8, marginHorizontal: "5%" },
