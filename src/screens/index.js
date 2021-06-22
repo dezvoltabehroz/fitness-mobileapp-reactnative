@@ -88,6 +88,10 @@ export const NutritionLibrary = _NutritionLibrary;
 import _NutritionDetail from './NutritionDetail';
 export const NutritionDetail = _NutritionDetail;
 
+import _ExerciseDetail from './ExerciseDetail';
+export const ExerciseDetail = _ExerciseDetail;
+
+
 import _UploadPhoto from './UploadPhoto';
 export const UploadPhoto = _UploadPhoto;
 

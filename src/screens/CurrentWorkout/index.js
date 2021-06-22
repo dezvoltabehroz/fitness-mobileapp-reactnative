@@ -9,11 +9,12 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 
 import { authActions } from '../../redux/actions/auth';
-import { Container, Icon, Button, Input, Sets } from "../../components";
+import { Container, Icon, Button, Input, Sets, MenuModal, UnfinishedModal, ExerciseModal } from "../../components";
 import { renderSeperator } from '../../lib/utils/global'
 
 import THEME from '../../assets/styles/theme.style'
 import styles from './style';
+import { LOGO, route } from '../../lib/utils/constants';
 
 class CurrentWorkout extends Component {
     constructor(props) {
@@ -180,21 +181,21 @@ class CurrentWorkout extends Component {
                 title: "Planks",
                 image: require('../../assets/images/logo.png'),
                 sets: [{
-                    time: 30,
+                    time: '00:30',
                     reps: 10,
-                    rest: 15,
+                    rest: '00:15',
                     selected: false
                 },
                 {
-                    time: 30,
+                    time: '00:30',
                     reps: 10,
-                    rest: 15,
+                    rest: '00:15',
                     selected: false
                 },
                 {
-                    time: 30,
+                    time: '00:30',
                     reps: 10,
-                    rest: 15,
+                    rest: '00:15',
                     selected: false
                 }]
 
@@ -203,21 +204,21 @@ class CurrentWorkout extends Component {
                 title: "Reverse Planks",
                 image: require('../../assets/images/logo.png'),
                 sets: [{
-                    time: 30,
+                    time: '00:30',
                     reps: 10,
-                    rest: 15,
+                    rest: '00:15',
                     selected: false
                 },
                 {
-                    time: 30,
+                    time: '00:30',
                     reps: 10,
-                    rest: 15,
+                    rest: '00:15',
                     selected: false
                 },
                 {
-                    time: 30,
+                    time: '00:30',
                     reps: 10,
-                    rest: 15,
+                    rest: '00:15',
                     selected: false
                 }]
 
@@ -226,21 +227,21 @@ class CurrentWorkout extends Component {
                 title: "Long Band",
                 image: require('../../assets/images/logo.png'),
                 sets: [{
-                    time: 30,
+                    time: '00:30',
                     reps: 10,
-                    rest: 15,
+                    rest: '00:15',
                     selected: false
                 },
                 {
-                    time: 30,
+                    time: '00:30',
                     reps: 10,
-                    rest: 15,
+                    rest: '00:15',
                     selected: false
                 },
                 {
-                    time: 30,
+                    time: '00:30',
                     reps: 10,
-                    rest: 15,
+                    rest: '00:15',
                     selected: false
                 }]
 
@@ -249,25 +250,28 @@ class CurrentWorkout extends Component {
                 title: "Dips",
                 image: require('../../assets/images/logo.png'),
                 sets: [{
-                    time: 30,
+                    time: '00:30',
                     reps: 10,
-                    rest: 15,
+                    rest: '00:15',
                     selected: false
                 },
                 {
-                    time: 30,
+                    time: '00:30',
                     reps: 10,
-                    rest: 15,
+                    rest: '00:15',
                     selected: false
                 },
                 {
-                    time: 30,
+                    time: '00:30',
                     reps: 10,
-                    rest: 15,
+                    rest: '00:15',
                     selected: false
                 }]
 
-            }]
+            }],
+            exerciseModal: false,
+            image: LOGO,
+            title: ''
         }
     }
 
@@ -276,41 +280,46 @@ class CurrentWorkout extends Component {
     }
 
     handleAlert = () => {
-        Alert.alert(
-            `Are you sure?`,
-            'Please confirm that you want to quit this session - Any data logged during the session will be cleared ',
-            [
-                {
-                    text: 'CANCEL'
-                },
-                {
-                    text: 'QUIT SESSION',
-                    onPress: () => { }
-                }
-            ]
-        )
+        this.props.authActions.menuDotModal(!this.props.user.menuDotModal);
+        this.setState({ unfinishModal: true })
     }
 
     _renderItem = (item, index) => {
         return (
             <View style={styles.flatListContainer}>
                 <View style={styles.flatListRowContainer}>
-                    <View style={styles.flatListRow}>
+                    <RNBounceable onPress={() => { this.props.navigation.navigate(route.EXERCISE, { heading: item.title }) }} style={styles.flatListRow}>
                         <Image source={item.image} style={styles.imageStyle} resizeMode="contain" />
                         <View style={styles.gapWidth}></View>
                         <Text style={styles.flatListTitleStyle}>{item.title}</Text>
-                    </View>
-                    <View>
+                    </RNBounceable>
+                    <RNBounceable onPress={() => this.setState({ image: item.image, title: item.title, exerciseModal: true })}>
                         <Icon.Ionicons name="ellipsis-horizontal" size={30} color={THEME.COLOR_LIGHT_GRAY} />
-                    </View>
+                    </RNBounceable>
                 </View>
-                <Sets item={item.sets} />
+                <View>
+                    <Sets item={item.sets} />
+                </View>
+                <View style={styles.buttonStyle}>
+                    <Button.OutlineButton title="Add Set" onPress={() => { }} />
+                </View>
+            </View>
+        )
+    }
+
+    _renderItem4 = (item, index) => {
+        return (
+
+            <View style={styles.flatListRow}>
+                <Image source={item.image} style={styles.imageStyle} resizeMode="contain" />
+                <View style={styles.gapWidth}></View>
+                <Text>{item.title}</Text>
             </View>
         )
     }
 
     render() {
-        const { currentPage, searchModal, distance, workout, minutes } = this.state;
+        const { currentPage, searchModal, distance, workout, exerciseModal, image, title } = this.state;
         return (
             <>
                 <Container
@@ -345,30 +354,80 @@ class CurrentWorkout extends Component {
                 <Modal style={styles.modalContainer} isVisible={searchModal} onBackdropPress={() => this.setState({ searchModal: false })} >
                     <View style={{ bottom: "5%" }}>
                         <Text style={styles.searchText}>Search Exercise</Text>
-                        <View style={styles.headingContainer}>
+                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{
+                            flexDirection: "row",
+                            paddingTop: "5%"
+                        }} contentContainerStyle={{ paddingLeft: "5%", paddingRight: "50%" }} >
+                            {/* <View style={styles.headingContainer}> */}
                             <RNBounceable
                                 onPress={() => this.setState({ currentPage: 0 })}
                                 style={[styles.rowContainer, { backgroundColor: currentPage == 0 ? "white" : "transparent" }]}>
-                                <Icon.Feather name="search" size={20} color={currentPage == 0 ? 'black' : 'white'} />
-                                <Text style={[styles.tabStyle, { color: currentPage == 0 ? 'black' : 'white' }]}>Search</Text>
+                                <Icon.MaterialCommunityIcons name="refresh" size={20} color={currentPage == 0 ? 'black' : 'white'} />
+                                <Text style={[styles.tabStyle, { color: currentPage == 0 ? 'black' : 'white' }]}>Alertnatives</Text>
                             </RNBounceable>
                             <RNBounceable
                                 onPress={() => this.setState({ currentPage: 1 })}
                                 style={[styles.rowContainer, { backgroundColor: currentPage == 1 ? "white" : "transparent" }]}>
-                                <Icon.MaterialCommunityIcons name="weight-lifter" size={20} color={currentPage == 1 ? 'black' : 'white'} />
-                                <Text style={[styles.tabStyle, { color: currentPage == 1 ? 'black' : 'white' }]}>Body Part</Text>
+                                <Icon.Feather name="search" size={20} color={currentPage == 1 ? 'black' : 'white'} />
+                                <Text style={[styles.tabStyle, { color: currentPage == 1 ? 'black' : 'white' }]}>Search</Text>
                             </RNBounceable>
                             <RNBounceable
                                 onPress={() => this.setState({ currentPage: 2 })}
                                 style={[styles.rowContainer, { backgroundColor: currentPage == 2 ? "white" : "transparent" }]}>
-                                <Icon.Entypo name="back-in-time" size={20} color={currentPage == 2 ? 'black' : 'white'} />
-                                <Text style={[styles.tabStyle, { color: currentPage == 2 ? 'black' : 'white' }]}>Recent</Text>
+                                <Icon.MaterialCommunityIcons name="weight-lifter" size={20} color={currentPage == 2 ? 'black' : 'white'} />
+                                <Text style={[styles.tabStyle, { color: currentPage == 2 ? 'black' : 'white' }]}>Body Part</Text>
                             </RNBounceable>
-                        </View>
+                            <RNBounceable
+                                onPress={() => this.setState({ currentPage: 3 })}
+                                style={[styles.rowContainer, { backgroundColor: currentPage == 3 ? "white" : "transparent" }]}>
+                                <Icon.Entypo name="back-in-time" size={20} color={currentPage == 3 ? 'black' : 'white'} />
+                                <Text style={[styles.tabStyle, { color: currentPage == 3 ? 'black' : 'white' }]}>Recent</Text>
+                            </RNBounceable>
+                            <RNBounceable
+                                onPress={() => this.setState({ currentPage: 4 })}
+                                style={[styles.rowContainer, { backgroundColor: currentPage == 4 ? "white" : "transparent" }]}>
+                                <Icon.MaterialCommunityIcons name="star" size={20} color={currentPage == 4 ? 'black' : 'white'} />
+                                <Text style={[styles.tabStyle, { color: currentPage == 4 ? 'black' : 'white' }]}>Frequent</Text>
+                            </RNBounceable>
+                            <RNBounceable
+                                onPress={() => this.setState({ currentPage: 5 })}
+                                style={[styles.rowContainer, { backgroundColor: currentPage == 5 ? "white" : "transparent" }]}>
+                                <Icon.MaterialIcons name="mode-edit" size={20} color={currentPage == 5 ? 'black' : 'white'} />
+                                <Text style={[styles.tabStyle, { color: currentPage == 5 ? 'black' : 'white' }]}>Custom</Text>
+                            </RNBounceable>
+                            {/* </View> */}
+                        </ScrollView>
+
                     </View>
                     <View style={styles.modalLowerContainer}>
                         {
                             currentPage == 0 ?
+                                <View style={{ flex: 1 }}>
+                                    <View style={{ alignItems: "center", flex: 0.7 }}>
+                                        <View style={styles.iconContainer}>
+                                            <Icon.FontAwesome5 name="running" size={30} color={"white"} />
+                                        </View>
+                                        <View style={styles.marginTop}>
+                                            <Text style={styles.textStyle3}>No Alternative Exercise</Text>
+                                        </View>
+                                        <View style={styles.generalMargin}>
+                                            <Text style={styles.textStyle1}>This exercise doesn't have any alternatives.</Text>
+                                        </View>
+                                    </View>
+                                    <View style={styles.lowerViewContainer}>
+                                        <View style={styles.inputContainer}>
+                                            {/* <Input placeholder="Search" leftIcon={<View style={styles.generalMarginLeft}><Icon.EvilIcons name="search" size={20} /></View>} /> */}
+                                        </View>
+                                        <View style={styles.buttonContainer}>
+                                            <Button.BrownButton title="Save" onPress={() => { }} />
+                                        </View>
+                                    </View>
+                                </View>
+                                :
+                                null
+                        }
+                        {
+                            currentPage == 1 ?
                                 <View style={{ flex: 1 }}>
                                     <View style={{ alignItems: "center", flex: 0.7 }}>
                                         <View style={styles.iconContainer}>
@@ -394,7 +453,7 @@ class CurrentWorkout extends Component {
                                 null
                         }
                         {
-                            currentPage == 1 ?
+                            currentPage == 2 ?
                                 <View style={{ flex: 1 }}>
                                     <View style={styles.lowerViewContainer}>
                                         <View style={styles.inputContainer}>
@@ -421,9 +480,34 @@ class CurrentWorkout extends Component {
                                 null
                         }
                         {
-                            currentPage == 2 ?
+                            currentPage == 3 ?
                                 <View style={{ flex: 1 }}>
-                                    <View style={{ alignItems: "center", flex: 0.7 }}>
+                                    <FlatList
+                                        data={workout}
+                                        ItemSeparatorComponent={(renderSeperator)}
+                                        contentContainerStyle={{ paddingVertical: "5%" }}
+                                        renderItem={({ index, item }) => this._renderItem4(item, index)} />
+                                    <View style={styles.lowerViewContainer}>
+                                        <View style={styles.inputContainer}>
+
+                                        </View>
+                                        <View style={styles.buttonContainer}>
+                                            <Button.BrownButton title="Save" onPress={() => { }} />
+                                        </View>
+                                    </View>
+                                </View>
+                                :
+                                null
+                        }
+                        {
+                            currentPage == 4 ?
+                                <View style={{ flex: 1 }}>
+                                    <FlatList
+                                        data={workout}
+                                        ItemSeparatorComponent={(renderSeperator)}
+                                        contentContainerStyle={{ paddingVertical: "5%" }}
+                                        renderItem={({ index, item }) => this._renderItem4(item, index)} />
+                                    {/* <View style={{ alignItems: "center", flex: 0.7 }}>
                                         <View style={styles.iconContainer}>
                                             <Icon.FontAwesome5 name="running" size={30} color={"white"} />
                                         </View>
@@ -432,6 +516,32 @@ class CurrentWorkout extends Component {
                                         </View>
                                         <View style={styles.generalMargin}>
                                             <Text style={styles.textStyle1}>Looks like you haven't used any exercises yet!</Text>
+                                        </View>
+                                    </View> */}
+                                    <View style={styles.lowerViewContainer}>
+                                        <View style={styles.inputContainer}>
+
+                                        </View>
+                                        <View style={styles.buttonContainer}>
+                                            <Button.BrownButton title="Save" onPress={() => { }} />
+                                        </View>
+                                    </View>
+                                </View>
+                                :
+                                null
+                        }
+                        {
+                            currentPage == 5 ?
+                                <View style={{ flex: 1 }}>
+                                    <View style={{ alignItems: "center", flex: 0.7 }}>
+                                        <View style={styles.iconContainer}>
+                                            <Icon.FontAwesome5 name="running" size={30} color={"white"} />
+                                        </View>
+                                        <View style={styles.marginTop}>
+                                            <Text style={styles.textStyle3}>No Custom Exercises</Text>
+                                        </View>
+                                        <View style={styles.generalMargin}>
+                                            <Text style={styles.textStyle1}>You haven't created any exercise.</Text>
                                         </View>
                                     </View>
                                     <View style={styles.lowerViewContainer}>
@@ -448,6 +558,32 @@ class CurrentWorkout extends Component {
                         }
                     </View>
                 </Modal>
+                <ExerciseModal isVisible={exerciseModal} image={image} title={title} hide={() => this.setState({ exerciseModal: false })} />
+                <MenuModal
+                    isVisible={this.props.user.menuDotModal}
+                    hide={() => this.props.authActions.menuDotModal(!this.props.user.menuDotModal)}
+                    reOrder={() => { }}
+                    quitSession={() => this.handleAlert()} />
+                <UnfinishedModal
+                    isVisible={this.state.unfinishModal}
+                    hide={() => this.setState({ unfinishModal: false })}
+                    reOrder={() => { }}
+                    quitSession={() => this.setState({ unfinishModal: false }, () => {
+                        this.props.authActions.menuDotModal(!this.props.user.menuDotModal)
+                        Alert.alert(
+                            `Are you sure?`,
+                            'Please confirm that you want to quit this session - Any data logged during the session will be cleared ',
+                            [
+                                {
+                                    text: 'CANCEL'
+                                },
+                                {
+                                    text: 'QUIT SESSION',
+                                    onPress: () => { }
+                                }
+                            ]
+                        )
+                    })} />
 
             </>
         )

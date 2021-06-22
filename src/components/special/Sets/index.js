@@ -22,11 +22,11 @@ class Sets extends Component {
     renderItems = (item, index) => {
         return (
             <View style={styles.rowTitleContainer}>
-                <View style={styles.first}><Text>{index + 1}</Text></View>
-                <View style={styles.second}><Text></Text></View>
-                <RNBounceable onPress={() => this.setState({ showTimePicker: true, index: index })} style={styles.thirdShadow}><Text>{item.time}</Text></RNBounceable>
-                <View style={styles.fourth}><Text>{item.reps}</Text></View>
-                <RNBounceable onPress={() => this.setState({ showRestTimePicker: true, index: index })} style={styles.fifthShadow}><Text>{item.rest}</Text></RNBounceable>
+                <View style={styles.first}><Text style={styles.textStyle}>{index + 1}</Text></View>
+                <View style={styles.secondShadow}><Text style={styles.headingTtextStyleext}>  </Text></View>
+                <RNBounceable onPress={() => this.setState({ showTimePicker: true, index: index })} style={styles.thirdShadow}><Text style={styles.textStyle}>{item.time}</Text></RNBounceable>
+                <View style={styles.fourthShadow}><Text style={styles.textStyle}>{item.reps}</Text></View>
+                <RNBounceable onPress={() => this.setState({ showRestTimePicker: true, index: index })} style={styles.fifthShadow}><Text style={styles.textStyle}>{item.rest}</Text></RNBounceable>
                 <RNBounceable style={styles.sixth}>
                     {
                         item.selected ?
@@ -67,7 +67,7 @@ class Sets extends Component {
                     <View style={styles.first}><Text>#</Text></View>
                     <View style={styles.second}><Text>Bodyw...</Text></View>
                     <View style={styles.third}><Text>Time</Text></View>
-                    <View style={styles.fourth}><Text style={styles.textStyle}>AMRAP</Text></View>
+                    <View style={styles.fourth}><Text style={styles.headingText}>AMRAP</Text></View>
                     <View style={styles.fifth}><Text>Rest</Text></View>
                     <RNBounceable onPress={() => this.handleSelectAll()} style={styles.sixth}>
                         <Icon.Feather name="check" size={25} />

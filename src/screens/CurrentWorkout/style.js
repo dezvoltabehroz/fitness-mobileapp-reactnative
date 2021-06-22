@@ -10,7 +10,8 @@ export default StyleSheet.create({
     rowContainer: {
         flexDirection: "row",
         alignItems: "center",
-        padding: "5%",
+        padding: "2.5%",
+        marginHorizontal: 10,
         justifyContent: "center",
         borderRadius: 30,
     },
@@ -27,7 +28,7 @@ export default StyleSheet.create({
     lowerViewContainer: {
         flex: 1,
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "space-evenly",
         alignItems: "flex-end"
     },
     inputContainer: {
@@ -37,8 +38,8 @@ export default StyleSheet.create({
         justifyContent: "flex-end"
     },
     buttonContainer: {
-        width: 120,
-        flex: 0.25,
+        marginHorizontal: "2%",
+        flex: 0.3,
     },
     headingTextStyle: {
         fontSize: 25,
@@ -47,6 +48,7 @@ export default StyleSheet.create({
     },
     tabStyle: {
         paddingHorizontal: "1%",
+        marginLeft: 10
     },
     textStyle: {
         color: "#544b4c",
@@ -124,11 +126,11 @@ export default StyleSheet.create({
     flatListRowContainer: {
         flexDirection: "row",
         justifyContent: "space-between",
-        alignItems:"center"
+        alignItems: "center"
     },
     flatListRow: {
         flexDirection: "row",
-        alignItems:"center"
+        alignItems: "center"
     },
     gapWidth: {
         width: 15
@@ -140,5 +142,10 @@ export default StyleSheet.create({
     flatListTitleStyle: {
         fontSize: 18,
         fontWeight: "bold"
+    },
+    buttonStyle: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
     }
 })

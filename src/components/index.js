@@ -11,6 +11,15 @@ export const Icon = _Icon;
 import _FilterModal from './FilterModal';
 export const FilterModal = _FilterModal;
 
+import _MenuModal from './special/MenuModal';
+export const MenuModal = _MenuModal;
+
+import _UnfinishedModal from './special/UnfinishedModal';
+export const UnfinishedModal = _UnfinishedModal;
+
+import _ExerciseModal from './special/ExerciseModal';
+export const ExerciseModal = _ExerciseModal;
+
 // Input Text Field Component
 import _Input from './Input';
 export const Input = _Input;

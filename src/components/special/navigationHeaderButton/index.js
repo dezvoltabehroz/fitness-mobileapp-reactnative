@@ -32,7 +32,7 @@ export const NavigationHeaderRightButton = (props) => {
     return (
         <TouchableOpacity
             style={{ marginRight: 10 }}
-            onPress={() => props.dot ? handleAlert() : props.navigation.navigate('ChatSettings')}>
+            onPress={() => props.dot ? props.authActions.menuDotModal(!props.user.menuDotModal) : props.navigation.navigate('ChatSettings')}>
             {
                 props.dot ?
                     <Icon.MaterialCommunityIcons name="dots-horizontal" size={25} color="lightgray" />

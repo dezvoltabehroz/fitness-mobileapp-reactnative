@@ -13,7 +13,8 @@ import {
     NOTIFICATION_MODAL_SUCCESS,
     FILTER_MODAL_SUCCESS,
     CALENDER_MODAL_SUCCESS,
-    STOPWATCH_MODAL_SUCCESS
+    STOPWATCH_MODAL_SUCCESS,
+    MENU_DOTS_MODAL_SUCCESS
 } from '../types';
 
 const initialState = {
@@ -24,6 +25,7 @@ const initialState = {
     filterModal: false,
     stopwatchModal: false,
     calenderModal: false,
+    menuDotModal: false,
     name: '',
     dob: '',
     gender: '',
@@ -125,6 +127,11 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 stopwatchModal: action.modal
+            }
+        case MENU_DOTS_MODAL_SUCCESS:
+            return {
+                ...state,
+                menuDotModal: action.modal
             }
         default:
             return state;

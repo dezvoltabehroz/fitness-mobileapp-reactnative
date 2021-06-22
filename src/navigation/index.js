@@ -1,13 +1,16 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import moment from 'moment';
+import { connect } from 'react-redux'
+import { bindActionCreators } from "redux";
 
+import { authActions } from '../redux/actions/auth';
 import {
     Home, Login, Settings, MyProfile, Files, WorkoutTemplate, Forms, UpdateNotificationSettings,
     Workouts, WorkoutLibrary, ProgressPhoto, LogNutrition, StartWorkout, Integrations, Notifications,
     UnitMeasurement, UploadPhoto, Programs, ProgramLibrary, MarketPlace, CreditPackages, Packages,
     WorkoutDetails, CurrentWorkout, Financials, Nutrition, AddItem, Measurement, Calendar, ChatList,
-    ChatSetting, Media, Chat, NutritionLibrary, NutritionDetail
+    ChatSetting, Media, Chat, NutritionLibrary, NutritionDetail, ExerciseDetail
 } from '../screens';
 import { screen, route, EMPTY } from '../lib/utils/constants';
 import { NavigationHeaderLeftButton, NavigationHeaderRightButton } from '../components/special/navigationHeaderButton';
@@ -15,7 +18,7 @@ import styles from './style';
 
 const Stack = createStackNavigator();
 
-function AppRoutes() {
+function AppRoutes(props) {
     return (
         <Stack.Navigator initialRouteName={route.LOGIN} >
             <Stack.Screen name={route.LOGIN} component={Login} options={{ headerShown: false }} />
@@ -103,10 +106,10 @@ function AppRoutes() {
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
                 headerTitle: screen.SCREEN_TITLE_WORKOUT_LIBRARY
             })} />
-             <Stack.Screen name={route.NUTRITION_LIBRARY} component={NutritionLibrary} options={({ navigation, route }) => ({
+            <Stack.Screen name={route.NUTRITION_LIBRARY} component={NutritionLibrary} options={({ navigation, route }) => ({
                 headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
-                headerRight: () => (<NavigationHeaderRightButton navigation={navigation} dot={true} />),
+                headerRight: () => (<NavigationHeaderRightButton navigation={navigation} dot={true} authActions={props.authActions} />),
                 headerTitle: screen.SCREEN_TITLE_NUTRITION_LIBRARY
             })} />
             <Stack.Screen name={route.PROGRAM_LIBRARY} component={ProgramLibrary} options={({ navigation, route }) => ({
@@ -119,21 +122,26 @@ function AppRoutes() {
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
                 headerTitle: `${route.params.heading}`
             })} />
-              <Stack.Screen name={route.NUTRITION_DETAIL} component={NutritionDetail} options={({ navigation, route }) => ({
+            <Stack.Screen name={route.NUTRITION_DETAIL} component={NutritionDetail} options={({ navigation, route }) => ({
+                headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),
+                headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
+                headerTitle: `${route.params.heading}`
+            })} />
+            <Stack.Screen name={route.EXERCISE} component={ExerciseDetail} options={({ navigation, route }) => ({
                 headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
                 headerTitle: `${route.params.heading}`
             })} />
             <Stack.Screen name={route.PACKAGE} component={Packages} options={({ navigation, route }) => ({
                 headerTitleStyle: styles.headerTitleStyle,
-                headerStyle:styles.headerStyle ,
+                headerStyle: styles.headerStyle,
                 headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
                 headerTitle: screen.SCREEN_TITLE_PACKAGE
             })} />
             <Stack.Screen name={route.CREDIT} component={CreditPackages} options={({ navigation, route }) => ({
                 headerTitleStyle: styles.headerTitleStyle,
-                headerStyle:styles.headerStyle ,
+                headerStyle: styles.headerStyle,
                 headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
                 headerTitle: screen.SCREEN_TITLE_CREDIT
@@ -146,7 +154,7 @@ function AppRoutes() {
             <Stack.Screen name={route.CURRENT_WORKOUT} component={CurrentWorkout} options={({ navigation, route }) => ({
                 headerLeft: false,
                 headerStyle: { elevation: 0 },
-                headerRight: () => (<NavigationHeaderRightButton navigation={navigation} dot={true} />),
+                headerRight: () => (<NavigationHeaderRightButton navigation={navigation} dot={true} authActions={props.authActions} user={props.user} />),
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
                 headerTitle: screen.SCREEN_TITLE_CURRENT_WORKOUT
             })} />
@@ -155,7 +163,14 @@ function AppRoutes() {
 }
 
 
+const mapStateToProps = (state) => {
+    return { user: state.authReducer || {} };
+};
 
-export default AppRoutes;
+const mapDispatchToProps = dispatch => {
+    return { authActions: bindActionCreators(authActions, dispatch) };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppRoutes);
 
 
