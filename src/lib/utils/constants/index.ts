@@ -35,6 +35,7 @@ const screen = {
 
 const route = {
     EXERCISE: "Exercise",
+    PROGRAM_DETAIL: "ProgramDetail",
     MEASUREMENT: "Measurement",
     LOGIN: "Login",
     HOME: "Home",

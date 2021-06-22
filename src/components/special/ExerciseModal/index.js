@@ -58,7 +58,6 @@ class ExerciseModal extends Component {
                 }
             </RNBounceable>
         )
-
     }
 
     render() {
@@ -69,7 +68,6 @@ class ExerciseModal extends Component {
                 animationOutTiming={1000}
                 style={{ justifyContent: 'flex-end', margin: 0 }} >
                 <View style={styles.modalLowerFilterContainer}>
-
                     <View style={styles.headingContainer}>
                         <View style={styles.imageContainer}>
                             <Image source={image} style={styles.imageStyle} resizeMode="contain" />

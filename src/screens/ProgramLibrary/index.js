@@ -8,6 +8,7 @@ import { authActions } from '../../redux/actions/auth';
 import { Input } from '../../components/Input/Input.component';
 
 import styles from './style';
+import { route } from '../../lib/utils/constants';
 
 class ProgramLibrary extends Component {
     constructor(props) {
@@ -69,7 +70,7 @@ class ProgramLibrary extends Component {
 
     _renderItems = ({ index, item }) => {
         return (
-            <RNBounceable style={styles.itemContainer} onPress={() => { }}>
+            <RNBounceable style={styles.itemContainer} onPress={() => { this.props.navigation.navigate(route.PROGRAM_DETAIL, { heading: item.type }) }}>
                 <View style={styles.boxView}>
                     <Text></Text>
                 </View>
