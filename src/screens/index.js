@@ -91,6 +91,9 @@ export const NutritionDetail = _NutritionDetail;
 import _ExerciseDetail from './ExerciseDetail';
 export const ExerciseDetail = _ExerciseDetail;
 
+import _WeekDetail from './WeekDetail';
+export const WeekDetail = _WeekDetail;
+
 import _ProgramDetail from './ProgramDetail';
 export const ProgramDetail = _ProgramDetail;
 

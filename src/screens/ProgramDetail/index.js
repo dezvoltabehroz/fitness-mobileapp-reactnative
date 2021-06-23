@@ -8,7 +8,7 @@ import RNBounceable from '@freakycoder/react-native-bounceable';
 
 import { Container, Icon } from '../../components';
 import { authActions } from '../../redux/actions/auth';
-import { LOGO } from '../../lib/utils/constants';
+import { LOGO, route } from '../../lib/utils/constants';
 import { renderSeperator } from '../../lib/utils/global';
 
 import THEME from '../../assets/styles/theme.style'
@@ -146,7 +146,15 @@ class ProgramDetail extends Component {
 
     _renderItem = (item, index) => {
         return (
-            <RNBounceable style={styles.rowContainer}>
+            <RNBounceable onPress={() => this.props.navigation.navigate(route.WEEK_DETAIL, {
+                heading: this.props.route.params.heading,
+                week: {
+                    id: (index + 1),
+                    label: "Week " + (index + 1) + "/" + this.state.weeks.length,
+                    value: "Week " + (index + 1) + "/" + this.state.weeks.length
+                },
+                length: this.state.weeks.length
+            })} style={styles.rowContainer}>
                 <View style={styles.rowStyle}>
                     <View style={{ marginHorizontal: "3%" }}>
                         <Text>{index + 1}</Text>
@@ -208,7 +216,7 @@ class ProgramDetail extends Component {
                         </View>
 
 
-                        <View>
+                        <View style={{ marginVertical: "5%" }}>
 
                             <FlatList
                                 data={weeks}
