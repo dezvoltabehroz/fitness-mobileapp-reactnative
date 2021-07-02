@@ -6,13 +6,15 @@ import { bindActionCreators } from "redux";
 import ProgressCircle from 'react-native-progress-circle'
 import RNBounceable from '@freakycoder/react-native-bounceable';
 
-import { Container, Icon } from '../../components';
+import { Container, Icon, UpdateWeightModal, Button } from '../../components';
 import { authActions } from '../../redux/actions/auth';
 import { LOGO, route } from '../../lib/utils/constants';
 import { renderSeperator } from '../../lib/utils/global';
 
 import THEME from '../../assets/styles/theme.style'
 import styles from './style';
+import { Input } from '../../components/Input/Input.component';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 class ProgramDetail extends Component {
     constructor(props) {
@@ -20,6 +22,9 @@ class ProgramDetail extends Component {
         this.state = {
             workouts: true,
             nutrition: false,
+            updateModal: false,
+            update: false,
+            weight: "",
             weeks: [
                 {
                     days: [{
@@ -140,8 +145,27 @@ class ProgramDetail extends Component {
                         worked: false,
                         date: '2021-07-20'
                     }]
-                }]
+                }],
+            weights: [
+                {
+                    id: 1,
+                    label: "Kg",
+                    value: "Kg"
+                },
+                {
+                    id: 2,
+                    label: "Lbs",
+                    value: "Lbs"
+                }],
+            selectedValue: {
+                id: 1,
+                label: "Kg",
+                value: "Kg"
+            },
         }
+    }
+    componentDidMount=()=>{
+
     }
 
     _renderItem = (item, index) => {
@@ -164,7 +188,7 @@ class ProgramDetail extends Component {
                             item.days.map((element, i) => {
                                 return (
                                     <View style={{ marginHorizontal: "3%" }}>
-                                        { element.date == moment().format('YYYY-MM-DD') ?
+                                        {element.date == moment().format('YYYY-MM-DD') ?
                                             <Icon.MaterialIcons name="radio-button-checked" size={25} color={THEME.BUTTON_COLOR} />
                                             :
                                             <View >
@@ -190,7 +214,8 @@ class ProgramDetail extends Component {
     }
 
     render() {
-        const { workouts, nutrition, weeks } = this.state;
+        const { workouts, nutrition, weeks, updateModal, update, weights, selectedValue, weight } = this.state;
+        const { heading } = this.props.route.params;
         return (
             <Container props={this.props}>
                 <View style={styles.container}>
@@ -225,19 +250,63 @@ class ProgramDetail extends Component {
                             />
 
                         </View>
-                        <Text style={styles.headingStyle}>Latest Weight </Text>
-                        <View style={styles.latestCircleContainer}>
-                            <ProgressCircle
-                                percent={0}
-                                radius={70}
-                                borderWidth={8}
-                                color="#3399FF"
-                                shadowColor="lightgray"
-                                bgColor="#fff"
-                            >
-                                <Text style={{ fontSize: 30 }}>{'0.00kg'}</Text>
-                            </ProgressCircle>
+                        <View style={styles.rowContainer}>
+                            <View>
+                                <Text style={styles.headingStyle}>Latest Weight </Text>
+                            </View>
+                            <RNBounceable onPress={() => this.setState({ updateModal: true })}>
+                                <Icon.Ionicons name="ellipsis-horizontal" size={30} color="lightgray" />
+                            </RNBounceable>
                         </View>
+                        {
+                            update ?
+                                <View >
+                                    <View style={[styles.generalMargin2, styles.rowContainer1]}>
+                                        <View style={{ flex: 0.5 }}>
+                                            <Input label="Kg's and grams" keyboardType={"number-pad"} placeholder="0.00" onChangeText={(Value) => this.setState({ weight: Value })} value={weight} />
+                                        </View>
+                                        <View style={{ flex: 0.5 }}>
+                                            <DropDownPicker
+                                                items={weights}
+                                                arrowColor={THEME.COLOR_BLACK}
+                                                activeLabelStyle={styles.activeLabelStyle}
+                                                activeItemStyle={styles.activeItemStyle}
+                                                itemStyle={styles.itemStyle}
+                                                labelStyle={styles.labelStyle}
+                                                placeholder="Select Value"
+                                                onClose={() => this.setState({ dropdownOpen1: false })}
+                                                onOpen={() => this.setState({ dropdownOpen1: true })}
+                                                globalTextStyle={{ color: "#000000", textAlign: "left", }}
+                                                containerStyle={{ height: 40, marginBottom: this.state.dropdownOpen1 ? '21%' : 0 }}
+                                                defaultValue={selectedValue?.label}
+
+                                                onChangeItem={(item) => {
+                                                    this.setState({
+                                                        selectedValue: item, item: item.value, index: item.value,
+                                                    })
+                                                }}
+                                            />
+                                        </View>
+
+
+                                    </View>
+                                    <View style={styles.buttonContainer}>
+                                        <Button.BrownButton title={"Update Weight"} onPress={()=>this.setState({update:false})} />
+                                    </View>
+                                </View>
+                                :
+                                <View style={styles.latestCircleContainer}>
+                                    <ProgressCircle
+                                        percent={0}
+                                        radius={70}
+                                        borderWidth={8}
+                                        color="#3399FF"
+                                        shadowColor="lightgray"
+                                        bgColor="#fff"
+                                    >
+                                        <Text style={{ fontSize: 18,fontWeight:"bold" }}>{weight != "" ? `${weight} ${selectedValue.label}` : '0.00kg'}</Text>
+                                    </ProgressCircle>
+                                </View>}
                         <View style={styles.rowContainer}>
                             <Text>Starting Weight</Text>
                             <Text>120.00kg</Text>
@@ -311,6 +380,7 @@ class ProgramDetail extends Component {
                         </View>
                     </ScrollView>
                 </View>
+                <UpdateWeightModal isVisible={updateModal} onUpdate={() => this.setState({ updateModal: false, update: true })} title={heading} hide={() => this.setState({ updateModal: false })} />
             </Container >
         )
     }

@@ -31,6 +31,7 @@ const screen = {
     SCREEN_TITLE_CURRENT_WORKOUT: "Current Workout",
     SCREEN_TITLE_CHAT: "Chats",
     SCREEN_TITLE_NUTRITION_LIBRARY: "Nutrition Library",
+    reset_password_label:"Please enter your email address below to reset your password"
 };
 
 const route = {
@@ -41,6 +42,7 @@ const route = {
     LOGIN: "Login",
     HOME: "Home",
     ITEM: "AddItem",
+    NUTRITIONITEM: "AddNutritionItem",
     FILE: "Files",
     CHATSETTING: "ChatSettings",
     FORM: "Forms",

@@ -13,9 +13,10 @@ export default StyleSheet.create({
         // marginHorizontal: 15
     },
     labelStyle: {
+        marginBottom:5,
         fontSize: 12,
         color: "#e0b92e",
-        height: 25
+        // height: 25
     },
     inputStyle: {
         flex: 1,

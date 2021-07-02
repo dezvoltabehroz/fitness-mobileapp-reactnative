@@ -59,7 +59,8 @@ export default StyleSheet.create({
     },
     btnOutlinePrimary: {
         height: 54,
-        width: 120,
+        // width: 120,
+        paddingHorizontal: "5%",
         borderColor: THEME.PRIMARY_BACKGROUND_COLOR,
         borderWidth: 2,
         borderRadius: 30,

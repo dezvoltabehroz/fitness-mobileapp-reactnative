@@ -5,12 +5,13 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 import { authActions } from '../../redux/actions/auth';
-import { Icon, Button, Container, } from "../../components";
+import { Icon, Button, Container, MealModal, } from "../../components";
 
 import styles from './style';
 import { renderSeperator } from '../../lib/utils/global';
 import { Divider } from 'react-native-elements';
 import Modal from 'react-native-modal';
+import { route } from '../../lib/utils/constants';
 
 const { width, height } = Dimensions.get('window');
 
@@ -84,8 +85,8 @@ class NutritionDetail extends Component {
                 target: 1650,
                 total: 1534,
                 left: 116
-            }]
-
+            }],
+            mealModal: false
         }
         this.data = this.state.activityArr
     }
@@ -140,8 +141,9 @@ class NutritionDetail extends Component {
     }
 
     render() {
-        const { currentPage, breakFast, macrosModal, macros } = this.state;
+        const { currentPage, breakFast, macrosModal, mealModal, macros } = this.state;
         let { heading } = this.props.route.params;
+        let { navigate } = this.props.navigation;
         return (
             <>
                 <Container props={this.props} >
@@ -171,7 +173,14 @@ class NutritionDetail extends Component {
                                 <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 120 }}>
 
                                     <View style={styles.generalMargin}>
-                                        <Text style={styles.textStyle}>Break Fast</Text>
+                                        <View onPress={() => { }} style={styles.itemContainer}>
+                                            <View >
+                                                <Text style={styles.textStyle}>Breakfast</Text>
+                                            </View>
+                                            <RNBounceable onPress={() => this.setState({ mealModal: true })}>
+                                                <Icon.Ionicons name="ellipsis-horizontal" size={30} color="lightgray" />
+                                            </RNBounceable>
+                                        </View>
                                         <Divider style={{ marginTop: "5%" }} ></Divider>
                                         <View onPress={() => { }} style={styles.itemContainer}>
                                             <View >
@@ -191,7 +200,14 @@ class NutritionDetail extends Component {
                                     <View style={{ height: 50, backgroundColor: '#F2f2f2' }}></View>
 
                                     <View style={styles.generalMargin}>
-                                        <Text style={styles.textStyle}>Lunch</Text>
+                                        <View onPress={() => { }} style={styles.itemContainer}>
+                                            <View >
+                                                <Text style={styles.textStyle}>Lunch</Text>
+                                            </View>
+                                            <RNBounceable onPress={() => this.setState({ mealModal: true })}>
+                                                <Icon.Ionicons name="ellipsis-horizontal" size={30} color="lightgray" />
+                                            </RNBounceable>
+                                        </View>
                                         <Divider style={{ marginTop: "5%" }} ></Divider>
                                         <View onPress={() => { }} style={styles.itemContainer}>
                                             <View >
@@ -210,7 +226,15 @@ class NutritionDetail extends Component {
                                     <View style={{ height: 50, backgroundColor: '#F2f2f2' }}></View>
 
                                     <View style={styles.generalMargin}>
-                                        <Text style={styles.textStyle}>Dinner</Text>
+                                        <View onPress={() => { }} style={styles.itemContainer}>
+                                            <View >
+                                                <Text style={styles.textStyle}>Dinner</Text>
+                                            </View>
+                                            <RNBounceable onPress={() => this.setState({ mealModal: true })}>
+                                                <Icon.Ionicons name="ellipsis-horizontal" size={30} color="lightgray" />
+                                            </RNBounceable>
+                                        </View>
+
                                         <Divider style={{ marginTop: "5%" }} ></Divider>
                                         <View onPress={() => { }} style={styles.itemContainer}>
                                             <View >
@@ -229,7 +253,14 @@ class NutritionDetail extends Component {
                                     <View style={{ height: 50, backgroundColor: '#F2f2f2' }}></View>
 
                                     <View style={styles.generalMargin}>
-                                        <Text style={styles.textStyle}>Snack through out the day</Text>
+                                        <View style={styles.itemContainer}>
+                                            <View >
+                                                <Text style={styles.textStyle}>Snack through out the day</Text>
+                                            </View>
+                                            <RNBounceable onPress={() => this.setState({ mealModal: true })}>
+                                                <Icon.Ionicons name="ellipsis-horizontal" size={30} color="lightgray" />
+                                            </RNBounceable>
+                                        </View>
                                         <Divider style={{ marginTop: "5%" }} ></Divider>
                                         <View onPress={() => { }} style={styles.itemContainer}>
                                             <View >
@@ -244,9 +275,15 @@ class NutritionDetail extends Component {
                                             contentContainerStyle={{ elevation: 2, marginBottom: "10%" }}
                                             ItemSeparatorComponent={(renderSeperator)}
                                             renderItem={({ index, item }) => this._renderItems(item, index)} />
+                                        <RNBounceable onPress={() => navigate(route.NUTRITIONITEM)} style={{ ...styles.buttonContainer, marginBottom: "10%" }}>
+                                            <Text style={styles.itemTextStyle}>{"+ Add Food / drink"}</Text>
+                                        </RNBounceable>
                                     </View>
                                     <View style={styles.buttonContainer}>
-                                        <Button.OutlineButton title={"View Macros"} onPress={() => this.setState({ macrosModal: true })} />
+                                        <Button.BrownButton title={"Save Log"} onPress={() => this.setState({ macrosModal: true })} />
+                                        <View style={{ marginTop: "5%" }}>
+                                            <Button.OutlineButton title={"View Macros"} onPress={() => this.setState({ macrosModal: true })} />
+                                        </View>
                                     </View>
                                 </ScrollView>
                             </View>
@@ -279,6 +316,7 @@ class NutritionDetail extends Component {
                         </ScrollView>
                     </View>
                 </Container>
+                <MealModal isVisible={mealModal} hide={() => this.setState({ mealModal: false })} />
                 <Modal
                     style={styles.modalContainer}
                     isVisible={macrosModal}

@@ -19,6 +19,8 @@ export const UnfinishedModal = _UnfinishedModal;
 
 import _ExerciseModal from './special/ExerciseModal';
 export const ExerciseModal = _ExerciseModal;
+import _MealModal from './special/MealModal';
+export const MealModal = _MealModal;
 
 // Input Text Field Component
 import _Input from './Input';
@@ -37,3 +39,9 @@ export const Container = _Container;
 
 import _sets from './special/Sets';
 export const Sets = _sets;
+
+import _ForgotPassword from './special/ForgotPassword';
+export const ForgotPassword = _ForgotPassword;
+
+import _UpdateWeightModal from './special/UpdateWeightModal';
+export const UpdateWeightModal = _UpdateWeightModal;

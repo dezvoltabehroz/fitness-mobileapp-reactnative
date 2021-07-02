@@ -111,3 +111,6 @@ export const StartWorkout = _StartWorkout;
 
 import _UnitMeasurement from './UnitMeasurement';
 export const UnitMeasurement = _UnitMeasurement;
+
+import _AddNutritionItem from './AddNutritionItem';
+export const AddNutritionItem = _AddNutritionItem;

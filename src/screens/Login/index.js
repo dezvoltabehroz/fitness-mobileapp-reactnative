@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 
-import { Button } from "../../components";
+import { Button, ForgotPassword } from "../../components";
 import { Input } from '../../components/Input/Input.component';
 import { authActions } from '../../redux/actions/auth';
 import { LOGO } from '../../lib/utils/constants'
@@ -20,14 +20,8 @@ class Login extends Component {
         this.state = {
             email: '',
             password: '',
-            isEmailFocus: false,
-            isPasswordFocus: null,
-            emailValid: true,
-            submiting: true,
-            staySignIn: true,
-            signInModal: false,
-            provider: false,
-            costumer: false
+            forgotPassword: false,
+            forgotEmail: ""
         }
     }
 
@@ -44,6 +38,7 @@ class Login extends Component {
 
     render() {
         const navigate = this.props.navigation.replace;
+        const { forgotPassword, forgotEmail } = this.state;
         return (
 
             <View style={styles.container}>
@@ -61,9 +56,12 @@ class Login extends Component {
                     <View style={styles.buttonContainer}>
                         <Button.LoginButton title="Login" onPress={() => navigate('Home')} />
                     </View>
+                    <TouchableOpacity onPress={() => this.setState({ forgotPassword: true })}>
+                        <Text style={styles.forgetPasswordTextStyle}>Forget Password?</Text>
+                    </TouchableOpacity>
 
-                    <Text onPress={() => this.forgetPassword()} style={styles.forgetPasswordTextStyle}>Forget Password?</Text>
                 </View>
+                <ForgotPassword isVisible={forgotPassword} onClose={() => this.setState({ forgotPassword: false, forgotEmail: "" })} onChangeText={(val) => this.setState({ forgotEmail: val })} value={forgotEmail} onPress={() => this.forgetPassword} />
             </View>
 
         )

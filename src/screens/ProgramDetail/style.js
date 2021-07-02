@@ -76,5 +76,29 @@ export default StyleSheet.create({
     imageStyle: {
         height: 100,
         width: 80
+    },
+    generalMargin2: {
+        marginHorizontal: "2.5%",
+        marginTop: '2.5%'
+    },
+    rowContainer1: {
+        flexDirection: "row",
+        // width: '48%',
+        justifyContent: "space-between",
+        alignItems: "center"
+    },
+    activeLabelStyle: {
+        color: "white",
+        fontWeight: "bold"
+    },
+    itemStyle: {
+        justifyContent: 'flex-start',
+        paddingHorizontal: "5%"
+    },
+    activeItemStyle: {
+        backgroundColor: THEME.BUTTON_COLOR
+    },
+    labelStyle: {
+        color: "black",
     }
 })

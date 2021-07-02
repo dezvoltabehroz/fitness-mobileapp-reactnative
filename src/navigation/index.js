@@ -10,7 +10,7 @@ import {
     Workouts, WorkoutLibrary, ProgressPhoto, LogNutrition, StartWorkout, Integrations, Notifications,
     UnitMeasurement, UploadPhoto, Programs, ProgramLibrary, MarketPlace, CreditPackages, Packages,
     WorkoutDetails, CurrentWorkout, Financials, Nutrition, AddItem, Measurement, Calendar, ChatList,
-    ChatSetting, Media, Chat, NutritionLibrary, NutritionDetail, ExerciseDetail, ProgramDetail, WeekDetail
+    ChatSetting, Media, Chat, NutritionLibrary, NutritionDetail, ExerciseDetail, ProgramDetail, WeekDetail, AddNutritionItem
 } from '../screens';
 import { screen, route, EMPTY } from '../lib/utils/constants';
 import { NavigationHeaderLeftButton, NavigationHeaderRightButton } from '../components/special/navigationHeaderButton';
@@ -55,6 +55,11 @@ function AppRoutes(props) {
                 headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
                 headerTitle: screen.SCREEN_TITLE_MEDIA
+            })} />
+            <Stack.Screen name={route.NUTRITIONITEM} component={AddNutritionItem} options={({ navigation, route }) => ({
+                headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),
+                headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
+                headerTitle: screen.SCREEN_TITLE_ITEM
             })} />
             <Stack.Screen name={route.ITEM} component={AddItem} options={({ navigation, route }) => ({
                 headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),
@@ -137,7 +142,7 @@ function AppRoutes(props) {
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
                 headerTitle: `${route.params.heading}`
             })} />
-              <Stack.Screen name={route.WEEK_DETAIL} component={WeekDetail} options={({ navigation, route }) => ({
+            <Stack.Screen name={route.WEEK_DETAIL} component={WeekDetail} options={({ navigation, route }) => ({
                 headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
                 headerTitle: `${route.params.heading}`
