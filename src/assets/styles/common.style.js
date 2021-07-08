@@ -40,7 +40,6 @@ export default StyleSheet.create({
         paddingTop: "1%",
         paddingLeft: 8,
         color: '#c30000',
-        fontFamily:'notoserif', // "Poppins-Regular",
         fontSize: 12,
         marginLeft: 5
     },
@@ -48,7 +47,6 @@ export default StyleSheet.create({
         paddingTop: "1%",
         paddingLeft: 8,
         color: '#c30000',
-        fontFamily:'notoserif', // "Poppins-Regular",
         fontSize: 10,
         marginLeft: 5
     }

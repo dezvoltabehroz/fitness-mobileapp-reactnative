@@ -4,30 +4,31 @@ import inputStyles from './Input.component.style';
 import THEME from '../../assets/styles/theme.style';
 
 const Input = (props) => {
-    return(
+    return (
         <ElementInput
             {...props}
             labelStyle={inputStyles.labelStyle}
+            containerStyle={{ height: 65, marginTop: '2.5%' }}
             placeholderTextColor={THEME.PRIMARY_TEXT_COLOR}
             inputContainerStyle={inputStyles.inputContainerStyle}
             inputStyle={inputStyles.inputStyle}
         />
     );
 }
-const GeneralInput = (props) =>{
-    return(
+const GeneralInput = (props) => {
+    return (
         <ElementInput
             {...props}
-            
+
         />
     );
 }
 const Pigeon_Detail_Screen_Input = (props) => {
-    return(
+    return (
         <ElementInput
             {...props}
             inputContainerStyle={inputStyles.P_D_SinputContainerStyle}
-            inputStyle={inputStyles.P_D_SinputStyle}  
+            inputStyle={inputStyles.P_D_SinputStyle}
         />
     );
 }

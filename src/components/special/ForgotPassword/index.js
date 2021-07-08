@@ -7,8 +7,11 @@ import { Input } from '../../Input/Input.component';
 import { screen } from "../../../lib/utils/constants";
 
 import styles from "./style";
+import { isEmailValid } from "../../../lib/utils/global";
+import commonStyle from "../../../assets/styles/common.style";
 
 const ForgotPassword = (props) => {
+    console.log(props.submit)
     return (
         <Modal isVisible={props.isVisible}>
             <View style={styles.container}>
@@ -24,9 +27,17 @@ const ForgotPassword = (props) => {
                     label={screen.reset_password_label}
                     value={props.value}
                     onChangeText={(val) => props.onChangeText(val)} />
+                <View style={{ marginTop: '5%', marginBottom: "5%" }}>
+
+                    {props.submit && !props.value ? <Text style={commonStyle.errorText}>Please fill this field</Text>
+                        :
+                        props.submit && props.value && !isEmailValid(props.value) ? <Text style={commonStyle.errorText}>Email is invalid</Text>
+                            : null
+                    }
+                </View>
+
                 <View style={styles.buttonContainer}>
-                    <Button.BrownButton title={'Reset Password'} onPress={() => props.onClose()//props.onPress()
-                    } />
+                    <Button.BrownButton loading={props.loading} title={'Reset Password'} onPress={() => props.onPress()} />
                 </View>
             </View>
         </Modal>

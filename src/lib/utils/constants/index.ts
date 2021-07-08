@@ -31,7 +31,7 @@ const screen = {
     SCREEN_TITLE_CURRENT_WORKOUT: "Current Workout",
     SCREEN_TITLE_CHAT: "Chats",
     SCREEN_TITLE_NUTRITION_LIBRARY: "Nutrition Library",
-    reset_password_label:"Please enter your email address below to reset your password"
+    reset_password_label: "Please enter your email address below to reset your password"
 };
 
 const route = {
@@ -81,6 +81,7 @@ const TOKEN = "token";
 const MULTIPART = "multipart";
 const EMPTY = "";
 const ICON_COLOR = "lightgray";
+const SUCCESS_CODE = '000'
 
 export {
     screen,
@@ -89,5 +90,6 @@ export {
     EMPTY,
     MULTIPART,
     LOGO,
-    ICON_COLOR
+    ICON_COLOR,
+    SUCCESS_CODE
 }

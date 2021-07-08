@@ -164,7 +164,7 @@ class Setting extends Component {
                         <View style={{ backgroundColor: "white", paddingTop: "10%" }}>
 
                             <View style={styles.buttonContainer}>
-                                <Button.OutlineButton title="Log Out" onPress={() => this.props.navigation.replace('Login')} />
+                                <Button.OutlineButton title="Log Out" onPress={() => this.props.authActions.removeUser(this.props.navigation.replace)} />
                             </View>
 
                             <View style={{}}>

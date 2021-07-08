@@ -18,7 +18,9 @@ export default StyleSheet.create({
         fontWeight: "bold",
     },
     buttonContainer: {
+        marginTop: "5%",
+        marginHorizontal:"15%",
         justifyContent: "center",
-        alignItems: "center"
+        // alignItems: "center"
     }
 })

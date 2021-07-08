@@ -67,6 +67,7 @@ const _LoginButton = (props) => {
             loading={loading}
             onPress={onPress}
             loadingStyle={loadingStyle}
+            loadingProps={{ color: 'black'}}
             raised={raised}
             title={title}
             type={type}
@@ -178,6 +179,7 @@ const _BrownButton = (props) => {
             disabledTitleStyle={disabledTitleStyle}
             loading={loading}
             onPress={onPress}
+            iconContainerStyle={{marginHorizontal:0}}
             loadingStyle={loadingStyle}
             raised={raised}
             title={title}

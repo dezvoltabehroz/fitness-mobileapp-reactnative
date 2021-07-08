@@ -17,7 +17,7 @@ export default StyleSheet.create({
         // textAlign: 'center',
         marginLeft: "5%",
         fontSize: THEME.FONT_SIZE_MEDIUM,
-        fontFamily: 'notoserif', // 'Poppins-Regular',
+         // 'Poppins-Regular',
         color: THEME.PRIMARY_COLOR,
     },
     phoneInputContainerStyle: {
@@ -31,7 +31,7 @@ export default StyleSheet.create({
         // textAlign: 'center',
         // marginLeft: "5%",
         fontSize: THEME.FONT_SIZE_MEDIUM,
-        fontFamily: 'notoserif', // 'Poppins-Regular',
+         // 'Poppins-Regular',
         color: THEME.PRIMARY_COLOR,
     },
     messageinputStyle: {
@@ -39,7 +39,7 @@ export default StyleSheet.create({
         marginLeft: "5%",
         alignSelf: "flex-start",
         fontSize: THEME.FONT_SIZE_MEDIUM,
-        fontFamily: 'notoserif', // 'Poppins-Regular',
+         // 'Poppins-Regular',
         color: THEME.PRIMARY_COLOR,
     },
     messageInputContainerStyle: {

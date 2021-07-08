@@ -4,10 +4,16 @@ import {
     CALENDER_MODAL_SUCCESS,
     FILTER_MODAL_SUCCESS,
     STOPWATCH_MODAL_SUCCESS,
-    MENU_DOTS_MODAL_SUCCESS
+    MENU_DOTS_MODAL_SUCCESS,
+    USER_LOGIN_SUCCESS,
+    LOADING_SUCCESS,
+    USER_LOGOUT_SUCCESS
 } from '../types';
 import { Alert, Linking, Platform } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import { AuthServices } from '../../services';
+import { SUCCESS_CODE } from '../../lib/utils/constants';
+import { clearLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
 
 const menuModal = (modal) => {
     return (dispatch) => {
@@ -45,6 +51,66 @@ const menuDotModal = (modal) => {
     }
 }
 
+const userLogin = (userData, navigate) => {
+
+    return (dispatch) => {
+        let loading = true;
+        if (loading) {
+            dispatch({ type: LOADING_SUCCESS, loading: loading })
+        }
+        AuthServices.userLogin(userData)
+            .then((res) => {
+                if (res.data.responseCode == SUCCESS_CODE) {
+                    dispatch({ type: USER_LOGIN_SUCCESS, userData: res.data, loading: !loading })
+                    storeLocalData(LOCAL_STORAGE_KEYS.userToken, JSON.stringify(res.data))
+                    navigate('Home')
+                }
+                else {
+                    alert(res.data.responseMessage)
+                    dispatch({ type: LOADING_SUCCESS, loading: !loading })
+                }
+            })
+            .catch((err) => {
+                console.log(err.response)
+                alert(err.response.data.responseMessage)
+                dispatch({ type: LOADING_SUCCESS, loading: !loading })
+            })
+    }
+}
+
+const removeUser = (navigate) => {
+    return (dispatch) => {
+        navigate('Login')
+        dispatch({ type: USER_LOGOUT_SUCCESS })
+        clearLocalData(LOCAL_STORAGE_KEYS.userToken);
+    }
+};
+
+const forgotPassword = (userData, success, error) => {
+
+    return (dispatch) => {
+
+        AuthServices.forgotPassword(userData)
+            .then((res) => {
+                console.log(res.data)
+                if (res.data.responseCode == SUCCESS_CODE) {
+                    // dispatch({ type: USER_LOGIN_SUCCESS, userData: res.data, loading: !loading })
+                    success()
+                }
+                else {
+                    error()
+                }
+            })
+            .catch((err) => {
+                console.log(err.response.data.responseMessage)
+                error()
+                alert(err.response.data.responseMessage)
+            })
+    }
+}
+
+
+
 
 
 export const authActions = {
@@ -53,5 +119,8 @@ export const authActions = {
     notificationModal,
     filterModal,
     calenderModal,
-    stopwatchModal
+    stopwatchModal,
+    userLogin,
+    forgotPassword,
+    removeUser
 };

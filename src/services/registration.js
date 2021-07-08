@@ -79,17 +79,16 @@ const Api = {
     },
 
     userLogin: function (userData) {
-        return axiosInstance.post('registration/login', {
-            email: userData.email,
-            password: userData.password,
-            type: userData.type
-        }, apiHeaderConfiguration(EMPTY, EMPTY))
+        return axiosInstance.post('Login', userData, apiHeaderConfiguration(EMPTY, EMPTY))
+    },
+    forgotPassword: function (userData) {
+        return axiosInstance.post('ForgotPassword', userData, apiHeaderConfiguration(EMPTY, EMPTY))
     },
     userStepCount: function (userData) {
         return axiosInstance.post('registration/updateStepsCount', {
             user_id: userData.id,
             steps_count: userData.steps_count
-        },apiHeaderConfiguration(userData.token, TOKEN))
+        }, apiHeaderConfiguration(userData.token, TOKEN))
     },
     updateFCMToken: function (userData) {
         return axiosInstance.post('registration/updateFcmtoken', {

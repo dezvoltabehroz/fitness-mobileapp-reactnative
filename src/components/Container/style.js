@@ -41,7 +41,7 @@ export default StyleSheet.create({
         fontWeight: "bold"
     },
     babeoTextStyle: {
-        fontFamily: 'notoserif', // 'Poppins-Bold',
+         // 'Poppins-Bold',
         fontSize: THEME.FONT_SIZE_LARGE,
         color: THEME.PRIMARY_COLOR
     },
@@ -68,7 +68,7 @@ export default StyleSheet.create({
         marginHorizontal: 10
     },
     optionTextStyle: {
-        fontFamily: 'notoserif', // 'Poppins-Regular',
+         // 'Poppins-Regular',
         fontSize: 15,
         marginHorizontal: 10,
         marginTop: 5
@@ -110,7 +110,7 @@ export default StyleSheet.create({
     },
     signUpAndLoginTextStyle: {
         marginVertical: "1%",
-        fontFamily: 'notoserif', // "Poppins-Regular",
+         // "Poppins-Regular",
         fontSize: 16,
         textAlign: "center",
         color: THEME.COLOR_WHITE
@@ -118,21 +118,21 @@ export default StyleSheet.create({
     forgetPasswordTextStyle: {
         marginVertical: "5%",
         fontSize: 16,
-        fontFamily: 'notoserif', // "Poppins-Regular",
+         // "Poppins-Regular",
         textAlign: "center",
         color: '#534c4d'
     },
     continueWithoutTextStyle: {
         marginTop: "5%",
         marginBottom: '5%',
-        fontFamily: 'notoserif', // "Poppins-Regular",
+         // "Poppins-Regular",
         textAlign: "center",
         color: '#9FACBD',
         textDecorationLine: 'underline'
     },
     signUpAsBarberTextStyle: {
         marginTop: "5%",
-        fontFamily: 'notoserif', // "Poppins-Regular",
+         // "Poppins-Regular",
         textAlign: "center",
         color: '#9FACBD',
         textDecorationLine: 'underline'
@@ -141,7 +141,7 @@ export default StyleSheet.create({
         color: "#fff",
         fontSize: 15,
         // textAlign: "center",
-        fontFamily: 'notoserif', // "Poppins-Medium"
+         // "Poppins-Medium"
     },
     phoneTextContainer: {
         flexDirection: "column",
@@ -192,7 +192,7 @@ export default StyleSheet.create({
         // color: "#fff",
         fontSize: 16,
         textAlign: "center",
-        fontFamily: 'notoserif', // "Poppins-Medium"
+         // "Poppins-Medium"
     },
     contentContainer: {
         flexDirection: 'row',

@@ -53,7 +53,7 @@ export default StyleSheet.create({
         fontSize: 16,
         fontWeight: "bold",
         textAlign: "center",
-        fontFamily: 'notoserif', // "Poppins-Medium"
+         // "Poppins-Medium"
     },
     activeLabelStyle: {
         color: "white",
