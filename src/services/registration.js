@@ -9,19 +9,6 @@ import { EMPTY, MULTIPART, TOKEN } from '../lib/utils/constants'
 
 const Api = {
 
-    sendCodeToPhoneNumber: function (number) {
-        return axiosInstance.post('registration/regPhoneNumber', {
-            phone: `${number}`,
-            type: "customer"
-        }, apiHeaderConfiguration(EMPTY, EMPTY))
-    },
-
-    verifyTheCode: function (userData) {
-        return axiosInstance.post('registration/verifyCode', {
-            phone: `${userData.phone}`
-        }, apiHeaderConfiguration(EMPTY, EMPTY))
-    },
-
     updatePersonalInfo: function (userData, phone) {
         let formData = new FormData();
         formData.append('full_name', userData.name);
@@ -37,13 +24,8 @@ const Api = {
 
         return axios.post(`${BASE_URL}registration/updatePersonalInfo`, formData, apiHeaderConfiguration(EMPTY, MULTIPART));
     },
-    updateProfileInfo: function (userData) {
-        return axiosInstance.post('registration/updateProfileInfo', {
-            user_id: userData.id,
-            full_name: userData.name,
-            gender: userData.gender,
-            dob: userData.dob
-        }, apiHeaderConfiguration(userData.token, TOKEN))
+    updateProfileInfo: function (userData, token) {
+        return axiosInstance.post('CreateExercise', userData, apiHeaderConfiguration(token, TOKEN))
     },
     updateProfilePicture: function (userData) {
         // console.log("userData:", userData)
@@ -59,37 +41,14 @@ const Api = {
         return axios.post(`${BASE_URL}registration/updateProfilePic`, formData, apiHeaderConfiguration(userData.token, TOKEN));
     },
 
-    updateEmailAndPassword: function (userData) {
-        return axiosInstance.post('registration/updateEmailAndPassword', {
-            email: userData.email,
-            password: userData.password,
-            macAddress: userData.macAddress,
-            phone: userData.phone
-            // phone:'+923123680434'
-        }, apiHeaderConfiguration(EMPTY, EMPTY))
-    },
-
-    getUserProfile: function (userData) {
-        // console.log(userData.id)
-        // console.log(userData.token)
-        return axiosInstance.post('registration/profileDetail', {
-            id: userData.id,
-            review_by: userData.type
-        }, apiHeaderConfiguration(userData.token, TOKEN))
-    },
-
+   
     userLogin: function (userData) {
         return axiosInstance.post('Login', userData, apiHeaderConfiguration(EMPTY, EMPTY))
     },
     forgotPassword: function (userData) {
         return axiosInstance.post('ForgotPassword', userData, apiHeaderConfiguration(EMPTY, EMPTY))
     },
-    userStepCount: function (userData) {
-        return axiosInstance.post('registration/updateStepsCount', {
-            user_id: userData.id,
-            steps_count: userData.steps_count
-        }, apiHeaderConfiguration(userData.token, TOKEN))
-    },
+   
     updateFCMToken: function (userData) {
         return axiosInstance.post('registration/updateFcmtoken', {
             user_id: userData.id,
@@ -100,20 +59,6 @@ const Api = {
         return axiosInstance.post('registration/removeFcmToken', {
             user_id: userData.id
         }, apiHeaderConfiguration(userData.token, TOKEN))
-    },
-    getCodeForResetPass: function (email) {
-        return axiosInstance.post('registration/getCodeForResetPass', {
-            email: email
-        }, apiHeaderConfiguration(userData.token, TOKEN))
-    },
-    updatePassword: function (userData) {
-        return axiosInstance.post('registration/updatePassword', {
-            id: userData.id,
-            newPassword: userData.password
-        }, apiHeaderConfiguration(EMPTY, EMPTY))
-    },
-    verifyCodeForResetPass: function (code) {
-        return axiosInstance.post('registration/verifyCodeForResetPass', { code: code }, apiHeaderConfiguration(EMPTY, EMPTY))
     },
 };
 
