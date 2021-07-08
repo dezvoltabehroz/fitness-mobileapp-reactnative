@@ -114,3 +114,6 @@ export const UnitMeasurement = _UnitMeasurement;
 
 import _AddNutritionItem from './AddNutritionItem';
 export const AddNutritionItem = _AddNutritionItem;
+
+import _AuthLoading from './AuthLoading';
+export const AuthLoading = _AuthLoading;

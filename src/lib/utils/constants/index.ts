@@ -36,6 +36,7 @@ const screen = {
 
 const route = {
     EXERCISE: "Exercise",
+    AuthLoading:"AuthLoading",
     PROGRAM_DETAIL: "ProgramDetail",
     WEEK_DETAIL: "WeekDetail",
     MEASUREMENT: "Measurement",

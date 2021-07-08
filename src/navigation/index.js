@@ -10,7 +10,7 @@ import {
     Workouts, WorkoutLibrary, ProgressPhoto, LogNutrition, StartWorkout, Integrations, Notifications,
     UnitMeasurement, UploadPhoto, Programs, ProgramLibrary, MarketPlace, CreditPackages, Packages,
     WorkoutDetails, CurrentWorkout, Financials, Nutrition, AddItem, Measurement, Calendar, ChatList,
-    ChatSetting, Media, Chat, NutritionLibrary, NutritionDetail, ExerciseDetail, ProgramDetail, WeekDetail, AddNutritionItem
+    ChatSetting, Media, Chat, NutritionLibrary, NutritionDetail, ExerciseDetail, ProgramDetail, WeekDetail, AddNutritionItem, AuthLoading
 } from '../screens';
 import { screen, route, EMPTY } from '../lib/utils/constants';
 import { NavigationHeaderLeftButton, NavigationHeaderRightButton } from '../components/special/navigationHeaderButton';
@@ -20,7 +20,8 @@ const Stack = createStackNavigator();
 
 function AppRoutes(props) {
     return (
-        <Stack.Navigator initialRouteName={route.LOGIN} >
+        <Stack.Navigator initialRouteName={route.AuthLoading} >
+             <Stack.Screen name={route.AuthLoading} component={AuthLoading} options={{ headerShown: false }} />
             <Stack.Screen name={route.LOGIN} component={Login} options={{ headerShown: false }} />
             <Stack.Screen name={route.HOME} component={Home} options={{ headerShown: false }} />
             <Stack.Screen name={route.CALENDAR} component={Calendar} options={{ headerShown: false }} />
