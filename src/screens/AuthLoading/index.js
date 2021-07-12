@@ -5,8 +5,11 @@ import {
     View,
 } from 'react-native';
 import { connect } from "react-redux";
+import { bindActionCreators } from 'redux';
 import themeStyle from '../../assets/styles/theme.style';
+import { dataParsing } from '../../lib/utils/global';
 import { getLocalData, LOCAL_STORAGE_KEYS } from '../../lib/utils/localstorage';
+import { authActions } from '../../redux/actions/auth';
 
 
 class AuthLoadingScreen extends React.Component {
@@ -15,9 +18,11 @@ class AuthLoadingScreen extends React.Component {
         this._bootstrapAsync();
     }
 
-    _bootstrapAsync =  async() => {
+    _bootstrapAsync = async () => {
         const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken);
         if (userToken) {
+            let data = dataParsing(userToken);
+            this.props.authAction.setUserData(data);
             this.props.navigation.replace('Home');
         } else {
             this.props.navigation.replace('Login');
@@ -46,7 +51,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        authAction: bindActionCreators(authActions, dispatch)
     };
 };
 

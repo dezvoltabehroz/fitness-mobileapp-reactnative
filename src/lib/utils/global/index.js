@@ -3,12 +3,14 @@
  * @param token
  * @param type
  */
-export const apiHeaderConfiguration = (token, type) => {
+export const apiHeaderConfiguration = (token, type, userId) => {
+    console.log(token, type, id)
     switch (type) {
         case "token":
             return {
                 headers: {
                     'Authorization': 'Bearer ' + token,
+                    'UserId': userId,
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
                 }
@@ -29,6 +31,13 @@ export const apiHeaderConfiguration = (token, type) => {
             break;
 
     }
+}
+
+/**
+ * Return a data parsing 
+ */
+export const dataParsing = (data) => {
+    return JSON.parse(data)
 }
 
 /**

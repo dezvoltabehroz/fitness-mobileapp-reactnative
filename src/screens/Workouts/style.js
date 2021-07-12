@@ -56,14 +56,14 @@ export default StyleSheet.create({
         flexDirection: "row",
         alignItems: "center"
     },
-    itemContainer:{ flex: 1, flexDirection: "row", marginHorizontal: "5%" ,alignItems:"center"},
+    itemContainer: { flex: 1, flexDirection: "row", marginHorizontal: "5%", alignItems: "center" },
     boxView: {
         borderRadius: 10, height: 70, width: 70,
-        justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
+        justifyContent: "center", alignItems: "center", //backgroundColor: '#544b4c'
     },
-    itemTypeContainer:{ flex: 0.8, marginHorizontal: "5%" },
-    fromNowText:{ color: "gray", fontWeight: "bold", fontSize: 12 },
-    iconContainer:{ flex: 0.2, justifyContent: "flex-start", alignItems: "flex-end" },
-    buttonContainer:{ alignItems: "center", justifyContent: "center" },
-    buttonStyle:{ position: "absolute", bottom: 40, }
+    itemTypeContainer: { flex: 0.8, marginHorizontal: "5%" },
+    fromNowText: { color: "gray", fontWeight: "bold", fontSize: 12 },
+    iconContainer: { flex: 0.2, justifyContent: "flex-start", alignItems: "flex-end" },
+    buttonContainer: { alignItems: "center", justifyContent: "center" },
+    buttonStyle: { position: "absolute", bottom: 40, }
 })

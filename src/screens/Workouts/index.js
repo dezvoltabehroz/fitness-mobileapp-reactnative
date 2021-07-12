@@ -1,74 +1,42 @@
 import React, { Component } from 'react'
 import {
-    View, Text, FlatList
+    View, Text, FlatList, Image
 } from 'react-native';
 import RNBounceable from "@freakycoder/react-native-bounceable";
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 
 import { authActions } from '../../redux/actions/auth';
-import { Icon, Button, Container, } from "../../components";
+import { Icon, Button, Container, Loader, } from "../../components";
 
 import styles from './style';
 import { renderSeperator } from '../../lib/utils/global';
+import { WorkoutsServices } from '../../services';
+import { LOGO, TOKEN } from '../../lib/utils/constants';
 
 class Workouts extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            workout: [
-                {
-                    user_name: 'T',
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-                {
-                    user_name: 'T',
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-                {
-                    user_name: 'T',
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-                {
-                    user_name: 'T',
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-                {
-                    user_name: 'T',
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-                {
-                    user_name: 'T',
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-                {
-                    user_name: 'T',
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-                {
-                    user_name: 'T',
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-            ]
+            workout: [],
+            loading: true
         }
     }
 
+
+    componentDidMount = () => {
+        const { userData } = this.props.user;
+        console.log(userData)
+        WorkoutsServices.getAllWorkouts(userData.token, TOKEN, userData.userId)
+            .then((res) => {
+                console.log(res.data)
+                this.setState({ workout: res.data, loading: false })
+            })
+            .catch((err) => {
+                this.setState({ workout: [], loading: false })
+                console.log(err.response)
+            })
+    }
 
 
     renderSeparator = () => {
@@ -77,7 +45,7 @@ class Workouts extends Component {
 
 
     render() {
-        const { workout, reportModal, issue } = this.state;
+        const { workout, reportModal, loading } = this.state;
         return (
             <Container props={this.props}>
                 <View style={styles.container}>
@@ -92,31 +60,40 @@ class Workouts extends Component {
                                 <Icon.Entypo name="chevron-small-right" size={20} />
                             </RNBounceable>
                         </View>
-                        <FlatList
-                            data={workout}
-                            contentContainerStyle={{ paddingBottom: 180 }}
-                            keyExtractor={item => item}
-                            ItemSeparatorComponent={(renderSeperator)}
-                            renderItem={({ index, item }) => {
-                                return (
-                                    <RNBounceable onPressIn={() => { this.props.navigation.navigate('WorkoutDetails', { heading: item.type }) }} style={styles.itemContainer} onPress={() => { }}>
-                                        <View style={styles.boxView}>
-                                            <Text></Text>
-                                        </View>
-                                        <View style={styles.itemTypeContainer}>
-                                            <Text numberOfLines={3} style={{ fontWeight: "bold", }}>{item.type}</Text>
-                                        </View>
-                                    </RNBounceable>
-                                )
-                            }}
+                        {
+                            loading ?
+                                <Loader />
+                                :
+                                workout.length == 0 ?
+                                    <View style={{ justifyContent: "center", alignItems: "center" }}>
+                                        <Text style={styles.viewStyle} >No workout is found</Text>
+                                    </View>
+                                    :
+                                    <>
+                                        <FlatList
+                                            data={workout}
+                                            contentContainerStyle={{ paddingBottom: 180 }}
+                                            keyExtractor={item => item}
+                                            ItemSeparatorComponent={(renderSeperator)}
+                                            renderItem={({ index, item }) => {
+                                                return (
+                                                    <RNBounceable onPress={() => { this.props.navigation.navigate('WorkoutDetails', { heading: item.workoutName }) }} style={styles.itemContainer} onPress={() => { }}>
+                                                        <Image style={styles.boxView} source={item.imagePath != "" ? { uri: item.imagePath } : LOGO} />
+                                                        <View style={styles.itemTypeContainer}>
+                                                            <Text numberOfLines={3} style={{ fontWeight: "bold", }}>{item.workoutName}</Text>
+                                                        </View>
+                                                    </RNBounceable>
+                                                )
+                                            }}
 
-                        />
-                        <View style={styles.buttonContainer}>
-                            <View style={styles.buttonStyle}>
-                                <Button.SlimButton title={"Start Workout"} onPress={() => { this.props.navigation.navigate('StartWorkout') }} />
-                            </View>
-                        </View>
-
+                                        />
+                                        <View style={styles.buttonContainer}>
+                                            <View style={styles.buttonStyle}>
+                                                <Button.SlimButton title={"Start Workout"} onPress={() => { this.props.navigation.navigate('StartWorkout') }} />
+                                            </View>
+                                        </View>
+                                    </>
+                        }
                     </View>
                 </View>
             </Container >

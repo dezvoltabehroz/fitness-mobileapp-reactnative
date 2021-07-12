@@ -51,6 +51,12 @@ const menuDotModal = (modal) => {
     }
 }
 
+const setUserData = (data) => {
+    return (dispatch) => {
+        dispatch({ type: USER_LOGIN_SUCCESS, userData: data, loading: false })
+    }
+}
+
 const userLogin = (userData, navigate) => {
 
     return (dispatch) => {
@@ -109,13 +115,10 @@ const forgotPassword = (userData, success, error) => {
     }
 }
 
-
-
-
-
 export const authActions = {
     menuDotModal,
     menuModal,
+    setUserData,
     notificationModal,
     filterModal,
     calenderModal,

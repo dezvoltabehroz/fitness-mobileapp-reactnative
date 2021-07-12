@@ -1,11 +1,11 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import axiosInstance from './Interceptor';
 import { apiHeaderConfiguration } from '../lib/utils/global'
-import { EMPTY, TOKEN } from '../lib/utils/constants'
+import { EMPTY, TOKEN, } from '../lib/utils/constants'
 
 const Api = {
-    getAllWorkouts: function () {
-        return axiosInstance.get('GetAllWorkouts', apiHeaderConfiguration(EMPTY, EMPTY))
+    getAllWorkouts: function (token, type, id) {
+        return axiosInstance.get('GetAllWorkouts', apiHeaderConfiguration(token, type, id))
     },
     getAllWorkoutsbyId: function (id) {
         return axiosInstance.get('GetAllWorkoutsById?ClientId=' + id, apiHeaderConfiguration(EMPTY, EMPTY))

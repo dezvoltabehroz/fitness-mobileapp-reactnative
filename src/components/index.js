@@ -45,3 +45,6 @@ export const ForgotPassword = _ForgotPassword;
 
 import _UpdateWeightModal from './special/UpdateWeightModal';
 export const UpdateWeightModal = _UpdateWeightModal;
+
+import _Loader from './Loader';
+export const Loader = _Loader;
