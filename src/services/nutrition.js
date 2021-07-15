@@ -10,11 +10,11 @@ const Api = {
     getAllMacros: function () {
         return axiosInstance.get('GetAllMacros', apiHeaderConfiguration(EMPTY, EMPTY))
     },
-    addCustomFood: function (userData, token) {
-        return axiosInstance.post('AddCustomFood', userData, apiHeaderConfiguration(token, TOKEN))
+    addCustomFood: function (userData, token, id) {
+        return axiosInstance.post('AddCustomFood', userData, apiHeaderConfiguration(token, TOKEN, id))
     },
-    updateCustomFood: function (userData, token) {
-        return axiosInstance.post('UpdateCustomFood', userData, apiHeaderConfiguration(token, TOKEN))
+    updateCustomFood: function(userData, token, id) {
+        return axiosInstance.post('UpdateCustomFood', userData, apiHeaderConfiguration(token, TOKEN, id))
     },
     deleteCustomFood: function (userData, token) {
         return axiosInstance.post('DeleteCustomFood', userData, apiHeaderConfiguration(token, TOKEN))
