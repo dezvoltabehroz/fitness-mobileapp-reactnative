@@ -22,7 +22,7 @@ export default StyleSheet.create({
         flex: 1,
         marginLeft: 10,
         color: THEME.PRIMARY_TEXT_COLOR,
-        fontSize: 14,
+        fontSize: 12,
 
     },
     P_D_SinputContainerStyle: {

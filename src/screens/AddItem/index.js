@@ -12,6 +12,7 @@ import { authActions } from '../../redux/actions/auth';
 
 import THEME from '../../assets/styles/theme.style';
 import styles from './style';
+import { screen } from '../../lib/utils/constants';
 
 class AddItem extends Component {
     constructor(props) {
@@ -52,9 +53,9 @@ class AddItem extends Component {
                             <Text style={styles.headingTextStyle}>General</Text>
                         </View>
                         <Input label="Name" placeholder="Name of your food / drink item" />
-                        <Input label="Serving Size" placeholder="Serving Size" />
+                        <Input label={screen.unitMeasurement_Serving_Size} placeholder={screen.unitMeasurement_Serving_Size} />
                         <View style={styles.generalMargin}>
-                            <Text style={styles.notiText}>Body weights</Text>
+                            <Text style={styles.notiText}>Unit Measurement</Text>
                             <DropDownPicker
                                 items={unitMeasurement}
                                 arrowColor={THEME.COLOR_BLACK}
@@ -62,7 +63,7 @@ class AddItem extends Component {
                                 activeItemStyle={styles.activeItemStyle}
                                 itemStyle={styles.itemStyle}
                                 labelStyle={styles.labelStyle}
-                                placeholder="Select Value"
+                                placeholder=""
                                 onClose={() => this.setState({ dropdownOpen2: false })}
                                 onOpen={() => this.setState({ dropdownOpen2: true })}
                                 containerStyle={{ height: 40, marginBottom: this.state.dropdownOpen2 ? '31%' : 0 }}
@@ -73,22 +74,22 @@ class AddItem extends Component {
                         <View style={styles.generalMargin}>
                             <Text style={styles.headingTextStyle}>Nutrients</Text>
                         </View>
-                        <Input label="Colories" placeholder="Colories" />
-                        <Input label="Protein (g)" placeholder="Protein (g)" />
-                        <Input label="Total Carbohydrates (g)" placeholder="Total Carbohydrates (g)" />
-                        <Input label="Sugars (g)" placeholder="Sugars (g)" />
-                        <Input label="Total Fat (g)" placeholder="Total Fat (g)" />
-                        <Input label="Saturated Fat (g)" placeholder="Saturated Fat (g)" />
-                        <Input label="Polyunsaturated (g)" placeholder="Polyunsaturated (g)" />
-                        <Input label="Monounsaturated (g)" placeholder="Monounsaturated (g)" />
-                        <Input label="Cholestrol (mg)" placeholder="Cholestrol (mg)" />
-                        <Input label="Sodium (mg)" placeholder="Sodium (mg)" />
-                        <Input label="Potassium (mg)" placeholder="Potassium (mg)" />
-                        <Input label="Dietary Fiber (g)" placeholder="Dietary Fiber (g)" />
-                        <Input label="Vitamin A (%)" placeholder="Vitamin A (%)" />
-                        <Input label="Vitamin C (%)" placeholder="Vitamin C (%)" />
-                        <Input label="Calcium (%)" placeholder="Calcium (%)" />
-                        <Input label="Iron (%)" placeholder="Iron (%)" />
+                        <Input label={screen.unitMeasurement_Colories} placeholder={screen.unitMeasurement_Colories} />
+                        <Input label={screen.unitMeasurement_Protein} placeholder="Protein (g)" />
+                        <Input label={screen.unitMeasurement_Carbohydrates} placeholder="Total Carbohydrates (g)" />
+                        <Input label={screen.unitMeasurement_Sugars} placeholder="Sugars (g)" />
+                        <Input label={screen.unitMeasurement_Fat} placeholder="Total Fat (g)" />
+                        <Input label={screen.unitMeasurement_SaturatedFat} placeholder="Saturated Fat (g)" />
+                        <Input label={screen.unitMeasurement_Polyunsaturated} placeholder="Polyunsaturated (g)" />
+                        <Input label={screen.unitMeasurement_Monounsaturated} placeholder="Monounsaturated (g)" />
+                        <Input label={screen.unitMeasurement_Cholestrol} placeholder="Cholestrol (mg)" />
+                        <Input label={screen.unitMeasurement_Sodium} placeholder="Sodium (mg)" />
+                        <Input label={screen.unitMeasurement_Potassium} placeholder="Potassium (mg)" />
+                        <Input label={screen.unitMeasurement_DietaryFiber} placeholder="Dietary Fiber (g)" />
+                        <Input label={screen.unitMeasurement_VitaminA} placeholder="Vitamin A (%)" />
+                        <Input label={screen.unitMeasurement_VitaminC} placeholder="Vitamin C (%)" />
+                        <Input label={screen.unitMeasurement_Calcium} placeholder="Calcium (%)" />
+                        <Input label={screen.unitMeasurement_Iron} placeholder="Iron (%)" />
                         <View style={styles.buttonContainer}>
                             <Button.SlimButton title="Save" onPress={() => this.props.navigation.replace('Home')} />
                         </View>

@@ -4,7 +4,6 @@
  * @param type
  */
 export const apiHeaderConfiguration = (token, type, userId) => {
-    console.log(token, type, id)
     switch (type) {
         case "token":
             return {

@@ -24,9 +24,11 @@ const Api = {
 
         return axios.post(`${BASE_URL}registration/updatePersonalInfo`, formData, apiHeaderConfiguration(EMPTY, MULTIPART));
     },
-    updateProfileInfo: function (userData, token) {
-        return axiosInstance.post('CreateExercise', userData, apiHeaderConfiguration(token, TOKEN))
+
+    updateProfileInfo: function (userData, id) {
+        return axiosInstance.post('CreateExercise', userData, apiHeaderConfiguration(userData.token, TOKEN,id))
     },
+
     updateProfilePicture: function (userData) {
         // console.log("userData:", userData)
         let formData = new FormData();
@@ -41,7 +43,6 @@ const Api = {
         return axios.post(`${BASE_URL}registration/updateProfilePic`, formData, apiHeaderConfiguration(userData.token, TOKEN));
     },
 
-   
     userLogin: function (userData) {
         return axiosInstance.post('Login', userData, apiHeaderConfiguration(EMPTY, EMPTY))
     },

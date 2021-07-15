@@ -31,7 +31,24 @@ const screen = {
     SCREEN_TITLE_CURRENT_WORKOUT: "Current Workout",
     SCREEN_TITLE_CHAT: "Chats",
     SCREEN_TITLE_NUTRITION_LIBRARY: "Nutrition Library",
-    reset_password_label: "Please enter your email address below to reset your password"
+    reset_password_label: "Please enter your email address below to reset your password",
+    unitMeasurement_Serving_Size:"Serving Size",
+    unitMeasurement_Colories:"Colories",
+    unitMeasurement_Protein:"Protein (g)",  
+    unitMeasurement_Carbohydrates:"Total Carbohydrates (g)",
+    unitMeasurement_Sugars:"Sugars (g)",
+    unitMeasurement_Fat:"Total Fat (g)",
+    unitMeasurement_SaturatedFat:"Saturated Fat (g)",
+    unitMeasurement_Polyunsaturated:"Polyunsaturated (g)",
+    unitMeasurement_Monounsaturated:"Monounsaturated (g)",
+    unitMeasurement_Cholestrol:"Cholestrol (mg)",
+    unitMeasurement_Sodium:"Sodium (mg)",
+    unitMeasurement_Potassium:"Potassium (mg)",
+    unitMeasurement_DietaryFiber:"Dietary Fiber (g)",
+    unitMeasurement_VitaminA:"Vitamin A (%)",
+    unitMeasurement_VitaminC:"Vitamin C (%)",
+    unitMeasurement_Calcium:"Calcium (%)",
+    unitMeasurement_Iron:"Iron (%)",
 };
 
 const route = {

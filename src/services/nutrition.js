@@ -4,8 +4,8 @@ import { apiHeaderConfiguration } from '../lib/utils/global'
 import { EMPTY, TOKEN } from '../lib/utils/constants'
 
 const Api = {
-    getAllCustomFoods: function () {
-        return axiosInstance.get('GetAllCustomFoods', apiHeaderConfiguration(EMPTY, EMPTY))
+    getAllCustomFoods: function (token, id) {
+        return axiosInstance.get('GetAllCustomFoods', apiHeaderConfiguration(token, TOKEN, id))
     },
     getAllMacros: function () {
         return axiosInstance.get('GetAllMacros', apiHeaderConfiguration(EMPTY, EMPTY))
@@ -49,7 +49,7 @@ const Api = {
     deleteMealPlanDetailsAccumulated: function (userData, token) {
         return axiosInstance.post('DeleteMealPlanDetailsAccumulated', userData, apiHeaderConfiguration(token, TOKEN))
     },
-  
+
 };
 
 export default Api;

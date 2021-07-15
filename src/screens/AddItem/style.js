@@ -33,6 +33,7 @@ export default StyleSheet.create({
         marginBottom: 5
     },
     buttonContainer: {
+        marginTop: "10%",
         marginHorizontal: '10%',
         justifyContent: "center",
         alignItems: "center"

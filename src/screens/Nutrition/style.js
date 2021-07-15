@@ -144,5 +144,10 @@ export default StyleSheet.create({
         borderRadius: 10,
         alignItems: "center"
 
-    }
+    },
+    itemContainer: { flex: 1, flexDirection: "row", marginHorizontal: "5%", alignItems: "center" },
+    boxView: {
+        borderRadius: 10, height: 70, width: 70,
+        justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
+    },
 })

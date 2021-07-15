@@ -4,8 +4,8 @@ import { apiHeaderConfiguration } from '../lib/utils/global'
 import { EMPTY, TOKEN, } from '../lib/utils/constants'
 
 const Api = {
-    getAllWorkouts: function (token, type, id) {
-        return axiosInstance.get('GetAllWorkouts', apiHeaderConfiguration(token, type, id))
+    getAllWorkouts: function (token, id) {
+        return axiosInstance.get('GetAllWorkouts', apiHeaderConfiguration(token, TOKEN, id))
     },
     getAllWorkoutsbyId: function (id) {
         return axiosInstance.get('GetAllWorkoutsById?ClientId=' + id, apiHeaderConfiguration(EMPTY, EMPTY))
