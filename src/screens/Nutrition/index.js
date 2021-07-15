@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, ScrollView, Dimensions, FlatList, Image } from 'react-native'
-import RNBounceable from "@freakycoder/react-native-bounceable";
+import RNBounceable from '@freakycoder/react-native-bounceable';
 import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
@@ -12,6 +12,8 @@ import { Input } from '../../components/Input/Input.component';
 import styles from './style';
 import { renderSeperator } from '../../lib/utils/global';
 import { NutritionsServices } from '../../services';
+import { route } from '../../lib/utils/constants';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const { width, height } = Dimensions.get('window');
 
@@ -201,7 +203,7 @@ class Nutrition extends Component {
 
     _renderCustomFoodItem = (item, index) => {
         return (
-            <RNBounceable onPress={() => { this.props.navigation.navigate('WorkoutDetails', { heading: item.workoutName }) }} style={styles.itemContainer} onPress={() => { }}>
+            <RNBounceable onPress={() => { this.props.navigation.navigate(route.ITEM, { data: item }) }} style={styles.itemContainer}>
                 <Image style={styles.boxView} source={item.imagePath != "" ? { uri: item.imagePath } : LOGO} />
                 <View style={styles.itemTypeContainer}>
                     <Text numberOfLines={3} style={{ fontWeight: "bold", }}>{item.itemName}</Text>
@@ -301,7 +303,7 @@ class Nutrition extends Component {
                                         :
                                         <FlatList
                                             data={customFoods}
-                                            contentContainerStyle={{ paddingBottom: "5%" }}
+                                            contentContainerStyle={{ paddingBottom: "10%", paddingTop: "5%" }}
                                             ItemSeparatorComponent={renderSeperator}
                                             renderItem={({ item, index }) => this._renderCustomFoodItem(item, index)} />
                                 }

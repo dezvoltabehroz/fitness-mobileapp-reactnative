@@ -65,7 +65,7 @@ function AppRoutes(props) {
             <Stack.Screen name={route.ITEM} component={AddItem} options={({ navigation, route }) => ({
                 headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
-                headerTitle: screen.SCREEN_TITLE_ITEM
+                headerTitle: route.params?route.params.data.itemName:screen.SCREEN_TITLE_ITEM
             })} />
             <Stack.Screen name={screen.SCREEN_TITLE_MEASUREMENT} component={Measurement} options={({ navigation, route }) => ({
                 headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),

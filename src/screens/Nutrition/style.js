@@ -150,4 +150,5 @@ export default StyleSheet.create({
         borderRadius: 10, height: 70, width: 70,
         justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
     },
+    itemTypeContainer: { flex: 0.8, marginHorizontal: "5%" },
 })
