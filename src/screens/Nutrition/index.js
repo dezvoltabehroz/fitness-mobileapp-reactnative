@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 
-import { Icon, Button, Container, FilterModal } from "../../components";
+import { Icon, Button, Container, FilterModal, Loader } from "../../components";
 import { authActions } from '../../redux/actions/auth';
 import { Input } from '../../components/Input/Input.component';
 
@@ -125,7 +125,9 @@ class Nutrition extends Component {
                 title: "Mixed Salad Greens",
                 quantity: '5 g',
                 selected: false
-            }]
+            }],
+            nutritions: [],
+            isLoading: true
         }
         this.data = this.state.activityArr
     }
@@ -136,6 +138,11 @@ class Nutrition extends Component {
         NutritionsServices.getAllCustomFoods(userData.token, userData.userId)
             .then((response) => {
                 this.setState({ customFoods: response.data })
+            })
+            .catch((error) => console.log(error))
+        NutritionsServices.getAllMealPlanDetails(userData.token, userData.userId)
+            .then((response) => {
+                this.setState({ nutritions: response.data, isLoading: false })
             })
             .catch((error) => console.log(error))
     }
@@ -212,8 +219,19 @@ class Nutrition extends Component {
         )
     }
 
+    _renderNutritionItem = (item, index) => {
+        return (
+            <RNBounceable onPress={() => { this.props.navigation.navigate(route.NUTRITION_DETAIL, { data: item }) }} style={styles.itemContainer}>
+                <Image style={styles.boxView} source={item.imagePath != "" ? { uri: item.imagePath } : LOGO} />
+                <View style={styles.itemTypeContainer}>
+                    <Text numberOfLines={3} style={{ fontWeight: "bold", }}>{item.mealPlanName}</Text>
+                </View>
+            </RNBounceable>
+        )
+    }
+
     render() {
-        const { currentPage, filterModal, shoppingList, customFoods } = this.state;
+        const { currentPage, filterModal, shoppingList, customFoods, nutritions, isLoading } = this.state;
         return (
             <Container props={this.props} >
                 <View style={styles.container}>
@@ -254,17 +272,34 @@ class Nutrition extends Component {
                         style={{ flex: 0.7 }} >
                         <View style={styles.firstContainer}>
                             <ScrollView style={{ flex: 1 }}>
-                                <View style={styles.alignItems}>
-                                    <View style={styles.iconContainer}>
-                                        <Icon.MaterialIcons name="dinner-dining" size={30} color={"white"} />
-                                    </View>
-                                    <View style={styles.marginTop}>
-                                        <Text style={styles.textStyle3}>Nothing to see here?</Text>
-                                    </View>
-                                    <View style={styles.generalMargin}>
-                                        <Text style={styles.textStyle1}>No nutrition plans assigned yet!</Text>
-                                    </View>
-                                </View>
+                                {
+                                    isLoading ?
+                                        <View style={{ paddingTop: "45%" }}>
+                                            <Loader />
+                                        </View>
+                                        :
+                                        nutritions.length == 0 ?
+                                            <>
+                                                <View style={{ alignItems: "center" }}>
+                                                    <View style={styles.iconContainer}>
+                                                        <Icon.MaterialIcons name="dinner-dining" size={30} color={"white"} />
+                                                    </View>
+                                                    <View style={styles.marginTop}>
+                                                        <Text style={styles.textStyle3}>Nothing to see here?</Text>
+                                                    </View>
+                                                    <View style={styles.generalMargin}>
+                                                        <Text style={styles.textStyle1}>Nothing added just yet!</Text>
+                                                    </View>
+                                                </View>
+                                                <View style={{ height: 50 }}></View>
+                                            </>
+                                            :
+                                            <FlatList
+                                                data={nutritions}
+                                                contentContainerStyle={{ paddingBottom: "10%", paddingTop: "5%" }}
+                                                ItemSeparatorComponent={renderSeperator}
+                                                renderItem={({ item, index }) => this._renderNutritionItem(item, index)} />
+                                }
                                 <View style={{ height: 50 }}></View>
                             </ScrollView>
                             <View style={styles.buttonContainer}>

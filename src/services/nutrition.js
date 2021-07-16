@@ -16,11 +16,11 @@ const Api = {
     updateCustomFood: function(userData, token, id) {
         return axiosInstance.post('UpdateCustomFood', userData, apiHeaderConfiguration(token, TOKEN, id))
     },
-    deleteCustomFood: function (userData, token) {
+    deleteCustomFood: function (token, id) {
         return axiosInstance.post('DeleteCustomFood', userData, apiHeaderConfiguration(token, TOKEN))
     },
-    getAllMealPlanDetails: function (name) {
-        return axiosInstance.get('GetAllMealPlanDetails?name=' + name, apiHeaderConfiguration(EMPTY, EMPTY))
+    getAllMealPlanDetails: function (token, id) {
+        return axiosInstance.get('GetAllMealPlanDetails', apiHeaderConfiguration(token, TOKEN, id))
     },
     recipeSearch: function () {
         return axiosInstance.get('search?q=chicken&app_id=9929fc03&app_key=beb5bf4f114df61b5f74074c20193f07&from=0&to=3&calories=591-722&health=alcohol-free', apiHeaderConfiguration(EMPTY, EMPTY))
