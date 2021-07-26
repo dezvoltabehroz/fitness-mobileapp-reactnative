@@ -10,6 +10,7 @@ import { Input } from '../../components/Input/Input.component';
 import { Icon, Container, Button } from "../../components";
 
 import styles from './style';
+import { WorkoutsServices } from '../../services';
 
 
 const { width, height } = Dimensions.get('window');
@@ -21,66 +22,19 @@ class WorkoutTemplate extends Component {
         this.state = {
             visible: true,
             currentPage: 0,
-            templates: [
-                {
-                    selected: false,
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-                {
-                    selected: false,
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-                {
-                    selected: false,
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-                {
-                    selected: false,
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-                {
-                    selected: false,
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-                {
-                    selected: false,
-                    type: 'Ended program Female Fat',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-                {
-                    selected: true,
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-                {
-                    selected: false,
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-            ]
+            templates: []
         }
         this.data = this.state.activityArr
     }
 
     componentDidMount = async () => {
-        let userToken = await AsyncStorage.getItem('Email')
-        if (userToken) {
-            let data = JSON.parse(userToken);
-            this.setState({ email: data.email, password: data.password })
-        }
+        const { userData } = this.props.user;
+        console.log(userData)
+        WorkoutsServices.getAllWorkouts(userData.token, userData.userId)
+            .then((response) => {
+                this.setState({ templates: response.data })
+            })
+            .catch((error) => console.log(error))
     }
 
     setSliderPage = (event: any) => {
@@ -113,7 +67,7 @@ class WorkoutTemplate extends Component {
                     <Text></Text>
                 </View>
                 <View style={styles.row}>
-                    <Text numberOfLines={3} style={styles.itemTextStyle}>{item.type}</Text>
+                    <Text numberOfLines={3} style={styles.itemTextStyle}>{item.workoutName}</Text>
                     <View style={{ flex: 0.1 }} >
                         <Icon.MaterialIcons name={item.selected ? 'check-box' : 'check-box-outline-blank'} size={20} color='black' />
                     </View>
