@@ -8,6 +8,7 @@ import { authActions } from '../../redux/actions/auth';
 import { Icon, Button, Container, } from "../../components";
 
 import styles from './style';
+import { WorkoutsServices } from '../../services';
 
 const { width, height } = Dimensions.get('window');
 
@@ -18,6 +19,8 @@ class WorkoutDetail extends Component {
         this.state = {
             visible: true,
             currentPage: 0,
+            exerciseData: null,
+            loading: true,
             templates: [
                 {
                     selected: false,
@@ -73,11 +76,14 @@ class WorkoutDetail extends Component {
     }
 
     componentDidMount = async () => {
-        let userToken = await AsyncStorage.getItem('Email')
-        if (userToken) {
-            let data = JSON.parse(userToken);
-            this.setState({ email: data.email, password: data.password })
-        }
+        const { userData } = this.props.user;
+        console.log(userData)
+        WorkoutsServices.getExerciseById(userData.token, userData.userId, this.props.route.params.data.exerciseId)
+            .then((res) => {
+                console.log("res.data : ", res.data)
+                this.setState({ exerciseData: res.data[0], loading: false })
+            })
+            .catch((error) => console.log(error))
     }
 
     setSliderPage = (event: any) => {
@@ -124,7 +130,7 @@ class WorkoutDetail extends Component {
     }
 
     render() {
-        const { currentPage, } = this.state;
+        const { currentPage, exerciseData} = this.state;
         return (
             <Container props={this.props} >
                 <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
@@ -164,19 +170,19 @@ class WorkoutDetail extends Component {
                                             <Text style={styles.textStyle}>Description</Text>
                                         </View>
                                         <View style={styles.marginTop}>
-                                            <Text style={styles.textStyle1}>Nothing added just yet!</Text>
+                                            <Text style={styles.textStyle1}>{exerciseData!=null?exerciseData.name:"Nothing added just yet!"}</Text>
                                         </View>
                                         <View style={styles.marginTop}>
                                             <Text style={styles.textStyle}>Note</Text>
                                         </View>
                                         <View style={styles.marginTop}>
-                                            <Text style={styles.textStyle1}>Nothing added just yet!</Text>
+                                            <Text style={styles.textStyle1}>{exerciseData!=null?exerciseData.note:"Nothing added just yet!"}</Text>
                                         </View>
                                         <View style={styles.marginTop}>
                                             <Text style={styles.textStyle}>Files</Text>
                                         </View>
                                         <View style={styles.marginTop}>
-                                            <Text style={styles.textStyle1}>Nothing added just yet!</Text>
+                                            <Text style={styles.textStyle1}>{exerciseData!=null?exerciseData.files:"Nothing added just yet!"}</Text>
                                         </View>
                                     </View>
                                 </View>

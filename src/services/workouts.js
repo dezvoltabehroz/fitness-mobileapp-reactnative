@@ -19,6 +19,9 @@ const Api = {
     getSelfCreatedWorkoutsByClientId: function (token, id) {
         return axiosInstance.get(`GetSelfCreatedWorkoutsByClientId?ClientId=${id}` , apiHeaderConfiguration(token, TOKEN, id))
     },
+    getExerciseById: function (token, id,exerciseId) {
+        return axiosInstance.get(`GetExerciseById?ExerciseId=${exerciseId}` , apiHeaderConfiguration(token, TOKEN, id))
+    },
     createWorkout: function (userData, token) {
         return axiosInstance.post('CreateWorkout', userData, apiHeaderConfiguration(token, TOKEN))
     },

@@ -9,7 +9,9 @@ export default StyleSheet.create({
     },
     buttonContainer: {
         justifyContent: "center",
-        alignItems: "center"
+        marginTop: "5%",
+        marginHorizontal: "20%"
+        // alignItems: "center"
     },
     generalMargin: {
         marginHorizontal: "5%",

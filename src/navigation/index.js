@@ -21,7 +21,7 @@ const Stack = createStackNavigator();
 function AppRoutes(props) {
     return (
         <Stack.Navigator initialRouteName={route.AuthLoading} >
-             <Stack.Screen name={route.AuthLoading} component={AuthLoading} options={{ headerShown: false }} />
+            <Stack.Screen name={route.AuthLoading} component={AuthLoading} options={{ headerShown: false }} />
             <Stack.Screen name={route.LOGIN} component={Login} options={{ headerShown: false }} />
             <Stack.Screen name={route.HOME} component={Home} options={{ headerShown: false }} />
             <Stack.Screen name={route.CALENDAR} component={Calendar} options={{ headerShown: false }} />
@@ -65,7 +65,7 @@ function AppRoutes(props) {
             <Stack.Screen name={route.ITEM} component={AddItem} options={({ navigation, route }) => ({
                 headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
-                headerTitle: route.params?route.params.data.itemName:screen.SCREEN_TITLE_ITEM
+                headerTitle: route.params ? route.params.data.itemName : screen.SCREEN_TITLE_ITEM
             })} />
             <Stack.Screen name={screen.SCREEN_TITLE_MEASUREMENT} component={Measurement} options={({ navigation, route }) => ({
                 headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),
@@ -126,7 +126,7 @@ function AppRoutes(props) {
             <Stack.Screen name={route.WORKOUT_DETAIL} component={WorkoutDetails} options={({ navigation, route }) => ({
                 headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
-                headerTitle: `${route.params.heading}`
+                headerTitle: `${route.params.data.workoutName}`
             })} />
             <Stack.Screen name={route.NUTRITION_DETAIL} component={NutritionDetail} options={({ navigation, route }) => ({
                 headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),

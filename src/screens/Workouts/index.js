@@ -77,7 +77,7 @@ class Workouts extends Component {
                                             ItemSeparatorComponent={(renderSeperator)}
                                             renderItem={({ index, item }) => {
                                                 return (
-                                                    <RNBounceable onPress={() => { this.props.navigation.navigate('WorkoutDetails', { heading: item.workoutName }) }} style={styles.itemContainer}>
+                                                    <RNBounceable onPress={() => { this.props.navigation.navigate('WorkoutDetails', { data: item }) }} style={styles.itemContainer}>
                                                         <Image style={styles.boxView} source={item.imagePath != "" ? { uri: item.imagePath } : LOGO} />
                                                         <View style={styles.itemTypeContainer}>
                                                             <Text numberOfLines={3} style={{ fontWeight: "bold", }}>{item.workoutName}</Text>
