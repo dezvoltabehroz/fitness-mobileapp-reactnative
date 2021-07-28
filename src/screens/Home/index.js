@@ -115,9 +115,18 @@ class Home extends Component {
         }
     };
 
+    navigateToScreen = (title) => {
+        if (title == 'StartWorkout') {
+            this.props.navigation.navigate(title, { workout: null })
+        } else {
+            this.props.navigation.navigate(title)
+        }
+
+    }
+
     _renderItems = ({ index, item }) => {
         return (
-            <RNBounceable style={styles.flatListcontentContainer} onPress={() => { this.props.navigation.navigate(item.title) }}>
+            <RNBounceable style={styles.flatListcontentContainer} onPress={() => this.navigateToScreen(item.title)}>
                 <View style={[styles.rowContainerSpaceBetween, { flex: 1 }]}>
                     <View style={{ flex: 1, flexDirection: "column" }}>
                         <Text numberOfLines={3} style={styles.renderItemText}>{item.text}</Text>

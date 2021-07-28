@@ -131,7 +131,7 @@ function AppRoutes(props) {
             <Stack.Screen name={route.NUTRITION_DETAIL} component={NutritionDetail} options={({ navigation, route }) => ({
                 headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
-                headerTitle: `${route.params.heading}`
+                headerTitle: `${route.params.data.mealPlanName}`
             })} />
             <Stack.Screen name={route.EXERCISE} component={ExerciseDetail} options={({ navigation, route }) => ({
                 headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),

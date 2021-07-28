@@ -12,6 +12,7 @@ import { Container, Icon, Button } from "../../components";
 
 import THEME from '../../assets/styles/theme.style'
 import styles from './style';
+import { route } from '../../lib/utils/constants';
 
 class StartWorkout extends Component {
     constructor(props) {
@@ -53,12 +54,12 @@ class StartWorkout extends Component {
                     <View style={{ margin: "5%", flexDirection: "column" }}>
                         <Text style={[styles.textStyle, { color: '#544b4c' }]}>Available Workouts</Text>
                         <RNBounceable onPress={() => this.props.navigation.navigate('WorkoutTemplate')} style={styles.selectWorkoutContainer}>
-                            <Text>Select Workout</Text>
+                            <Text>{this.props.route.params.workout ? this.props.route.params.workout.workoutName : "Select Workout"}</Text>
                             <Icon.AntDesign name="right" size={25} color={"gray"} />
                         </RNBounceable>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <Button.SlimButton title="Start" onPress={() => { }} />
+                        <Button.SlimButton disabled={this.props.route.params.workout ? false : true} title="Start" onPress={() => { this.props.navigation.navigate(route.CURRENT_WORKOUT, { workout: this.props.route.params.workout }) }} />
                     </View>
                 </View>
             </Container >

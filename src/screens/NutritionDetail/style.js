@@ -55,7 +55,7 @@ export default StyleSheet.create({
     row: { flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginHorizontal: "2.5%" },
     itemTextStyle: { flex: 0.8, fontWeight: "bold", paddingRight: 5 },
     upperContentContainer: { flexDirection: "row", margin: "5%", justifyContent: "flex-start", width: screenWidth * 0.7 },
-    buttonContainer: { alignItems: "center", justifyContent: "center" },
+    buttonContainer: { marginHorizontal:"20%", justifyContent: "center" },
     buttonStyle: { position: "absolute", bottom: 40, },
     marginTop: {
         marginTop: "5%"

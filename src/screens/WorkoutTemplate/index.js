@@ -7,7 +7,7 @@ import { bindActionCreators } from "redux";
 
 import { authActions } from '../../redux/actions/auth';
 import { Input } from '../../components/Input/Input.component';
-import { Icon, Container, Button } from "../../components";
+import { Icon, Container, Button, Loader } from "../../components";
 
 import styles from './style';
 import { WorkoutsServices } from '../../services';
@@ -22,7 +22,10 @@ class WorkoutTemplate extends Component {
         this.state = {
             visible: true,
             currentPage: 0,
-            templates: []
+            templates: [],
+            createdWorkouts: [],
+            loading: true,
+            item: {}
         }
         this.data = this.state.activityArr
     }
@@ -33,8 +36,15 @@ class WorkoutTemplate extends Component {
         WorkoutsServices.getAllWorkouts(userData.token, userData.userId)
             .then((response) => {
                 this.setState({ templates: response.data })
+                WorkoutsServices.getSelfCreatedWorkoutsByClientId(userData.token, userData.userId)
+                    .then((res) => {
+                        console.log("res.data : ", res.data)
+                        this.setState({ createdWorkouts: res.data, loading: false })
+                    })
+                    .catch((error) => console.log(error))
             })
             .catch((error) => console.log(error))
+
     }
 
     setSliderPage = (event: any) => {
@@ -49,7 +59,6 @@ class WorkoutTemplate extends Component {
     };
 
     handlePress = (index) => {
-        console.log("press")
         let array = [...this.state.templates]
         for (let i = 0; i < array.length; i++) {
             array[i] = { ...array[i], selected: false };
@@ -57,7 +66,7 @@ class WorkoutTemplate extends Component {
         console.log(array)
         array[index] = { ...array[index], selected: true };
         console.log(array)
-        this.setState({ templates: array })
+        this.setState({ templates: array, item: array[index] })
     }
 
     _renderItems = ({ index, item }) => {
@@ -81,7 +90,7 @@ class WorkoutTemplate extends Component {
     }
 
     render() {
-        const { currentPage, } = this.state;
+        const { currentPage, templates, loading, createdWorkouts } = this.state;
         return (
             <Container props={this.props} >
                 <View style={styles.container}>
@@ -107,50 +116,78 @@ class WorkoutTemplate extends Component {
                         onScroll={(event) => this.setSliderPage(event)}
                         style={{ flex: 0.8 }} >
                         <View style={styles.firstContainer}>
-                            <View style={styles.marginHorizontal}>
-                                <Input inputStyle={{ height: 40 }} placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
-                            </View>
-                            <FlatList
-                                data={this.state.templates}
-                                keyExtractor={item => item}
-                                contentContainerStyle={{ paddingTop: "5%", paddingBottom: 120 }}
-                                ItemSeparatorComponent={this.renderSeparator}
-                                showsVerticalScrollIndicator={false}
-                                renderItem={({ index, item }) => this._renderItems({ index, item })}
+                            {
+                                loading ?
+                                    <Loader />
+                                    :
+                                    <>
+                                        <View style={styles.marginHorizontal}>
+                                            <Input inputStyle={{ height: 40 }} placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
+                                        </View>
+                                        <FlatList
+                                            data={this.state.templates}
+                                            keyExtractor={item => item}
+                                            contentContainerStyle={{ paddingTop: "5%", paddingBottom: 120 }}
+                                            ItemSeparatorComponent={this.renderSeparator}
+                                            showsVerticalScrollIndicator={false}
+                                            renderItem={({ index, item }) => this._renderItems({ index, item })}
 
-                            />
-                            <View style={styles.buttonContainer}>
-                                <View style={styles.buttonStyle}>
-                                    <Button.SlimButton title={"Done"} onPress={() => { this.props.navigation.navigate('StartWorkout') }} />
-                                </View>
-                            </View>
+                                        />
+                                        <View style={styles.buttonContainer}>
+                                            <View style={styles.buttonStyle}>
+                                                <Button.SlimButton title={"Done"} onPress={() => { this.props.navigation.push('StartWorkout', { workout: this.state.item }) }}/>
+                                            </View>
+                                        </View>
+                                    </>}
                         </View>
 
                         <View style={styles.secondContainer}>
                             <View style={{ flex: 1, }}>
-                                <View style={styles.marginHorizontal}>
-                                    <Input inputStyle={{ height: 40 }} placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
-                                </View>
+                                {
+                                    loading ?
+                                        <Loader />
+                                        :
+                                        createdWorkouts.length == 0 ?
+                                            <View style={{ alignItems: "center", flex: 0.7 }}>
+                                                <View style={styles.iconContainer}>
+                                                    <Icon.FontAwesome5 name="fire-alt" size={30} color={"white"} />
+                                                </View>
+                                                <View style={styles.marginTop}>
+                                                    <Text style={styles.textStyle}>Nothing to see here?</Text>
+                                                </View>
+                                                <View style={styles.marginTop}>
+                                                    <Text style={styles.textStyle1}>Nothing added just yet!</Text>
+                                                </View>
+                                            </View>
+                                            :
+                                            <>
+                                                <View style={styles.marginHorizontal}>
+                                                    <Input inputStyle={{ height: 40 }} placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
+                                                </View>
+                                                <FlatList
+                                                    data={this.state.templates}
+                                                    keyExtractor={item => item}
+                                                    contentContainerStyle={{ paddingTop: "5%", paddingBottom: 120 }}
+                                                    ItemSeparatorComponent={this.renderSeparator}
+                                                    showsVerticalScrollIndicator={false}
+                                                    renderItem={({ index, item }) => this._renderItems({ index, item })}
 
-                                <View style={{ alignItems: "center", flex: 0.7 }}>
-                                    <View style={styles.iconContainer}>
-                                        <Icon.FontAwesome5 name="fire-alt" size={30} color={"white"} />
-                                    </View>
-                                    <View style={styles.marginTop}>
-                                        <Text style={styles.textStyle}>Nothing to see here?</Text>
-                                    </View>
-                                    <View style={styles.marginTop}>
-                                        <Text style={styles.textStyle1}>Nothing added just yet!</Text>
-                                    </View>
-                                </View>
+                                                />
+                                                <View style={styles.buttonContainer}>
+                                                    <View style={styles.buttonStyle}>
+                                                        <Button.SlimButton title={"Done"} onPress={() => { this.props.navigation.push('StartWorkout', { workout: this.state.item }) }} />
+                                                    </View>
+                                                </View>
+                                            </>
+                                }
                             </View>
 
 
-                            <View style={styles.buttonContainer}>
+                            {/* <View style={styles.buttonContainer}>
                                 <View style={styles.buttonStyle}>
-                                    <Button.SlimButton title={"Done"} onPress={() => { this.props.navigation.navigate('StartWorkout') }} />
+                                    <Button.SlimButton title={"Done"} onPress={() => { this.props.navigation.navigate('StartWorkout',{workoutName:}) }} />
                                 </View>
-                            </View>
+                            </View> */}
 
                         </View>
                     </ScrollView>
