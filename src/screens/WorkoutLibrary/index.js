@@ -31,7 +31,7 @@ class WorkoutLibrary extends Component {
 
     _renderItems = ({ index, item }) => {
         return (
-            <RNBounceable onPress={() => { this.props.navigation.navigate('WorkoutDetails', { heading: item.type }) }} style={styles.itemContainer} onPress={() => { }}>
+            <RNBounceable onPressOut={() => { this.props.navigation.navigate('WorkoutDetails', { data: item }) }} style={styles.itemContainer} onPress={() => { }}>
                 <Image style={styles.boxView} source={item.imagePath != "" ? { uri: item.imagePath } : LOGO} />
                 <View style={styles.itemTypeContainer}>
                     <Text numberOfLines={3} style={{ fontWeight: "bold", }}>{item.workoutName}</Text>

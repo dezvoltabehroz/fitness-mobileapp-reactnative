@@ -164,7 +164,7 @@ class ProgramDetail extends Component {
             },
         }
     }
-    componentDidMount=()=>{
+    componentDidMount = () => {
 
     }
 
@@ -262,7 +262,7 @@ class ProgramDetail extends Component {
                             update ?
                                 <View >
                                     <View style={[styles.generalMargin2, styles.rowContainer1]}>
-                                        <View style={{ flex: 0.5 }}>
+                                        <View style={{ flex: 0.5, marginBottom: '7.5%' }}>
                                             <Input label="Kg's and grams" keyboardType={"number-pad"} placeholder="0.00" onChangeText={(Value) => this.setState({ weight: Value })} value={weight} />
                                         </View>
                                         <View style={{ flex: 0.5 }}>
@@ -291,7 +291,7 @@ class ProgramDetail extends Component {
 
                                     </View>
                                     <View style={styles.buttonContainer}>
-                                        <Button.BrownButton title={"Update Weight"} onPress={()=>this.setState({update:false})} />
+                                        <Button.BrownButton title={"Update Weight"} onPress={() => this.setState({ update: false })} />
                                     </View>
                                 </View>
                                 :
@@ -304,7 +304,7 @@ class ProgramDetail extends Component {
                                         shadowColor="lightgray"
                                         bgColor="#fff"
                                     >
-                                        <Text style={{ fontSize: 18,fontWeight:"bold" }}>{weight != "" ? `${weight} ${selectedValue.label}` : '0.00kg'}</Text>
+                                        <Text style={{ fontSize: 18, fontWeight: "bold" }}>{weight != "" ? `${weight} ${selectedValue.label}` : '0.00kg'}</Text>
                                     </ProgressCircle>
                                 </View>}
                         <View style={styles.rowContainer}>

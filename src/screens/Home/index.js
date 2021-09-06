@@ -8,9 +8,10 @@ import Timeline from 'react-native-timeline-flatlist';
 import moment from "moment"
 
 import { authActions } from '../../redux/actions/auth';
-import { Icon, Container } from "../../components";
+import { Icon, Container, Loader } from "../../components";
 
 import styles from './style';
+import { ActivitiesServices } from '../../services';
 
 const { width, height } = Dimensions.get('window');
 const screenWidth = Dimensions.get('window').width;
@@ -21,7 +22,8 @@ class Home extends Component {
 
         this.state = {
             visible: true,
-            currentPage: 0,
+            currentPage: 1,
+            loading: false,
             buttonArr: [{
                 text: "Start a workout",
                 title: "StartWorkout",
@@ -96,12 +98,16 @@ class Home extends Component {
         this.data = this.state.activityArr
     }
 
-    componentDidMount = async () => {
-        let userToken = await AsyncStorage.getItem('Email')
-        if (userToken) {
-            let data = JSON.parse(userToken);
-            this.setState({ email: data.email, password: data.password })
-        }
+    componentDidMount = () => {
+        const { userData } = this.props.user;
+        this.setState({ loading: true })
+        ActivitiesServices.getAllActivitiesByAudit(userData.token, userData.userId)
+            .then((response) => {
+                console.log(response.data)
+                this.setState({ activityArr: response.data, loading: false })
+            })
+            .catch((err) => console.log(err))
+
     }
 
     setSliderPage = (event: any) => {
@@ -251,7 +257,9 @@ class Home extends Component {
 
 
     render() {
-        const { currentPage, } = this.state;
+        const { currentPage, activityArr, loading } = this.state;
+        const { userData } = this.props.user;
+
         return (
             <Container props={this.props} >
                 <View style={styles.container}>
@@ -271,7 +279,7 @@ class Home extends Component {
                         <TouchableOpacity
                             onPress={() => { this.props.navigation.navigate('Settings'); }}
                             style={styles.userNameContainer}>
-                            <Text style={styles.userNameText} >T</Text>
+                            <Text style={styles.userNameText} >{userData?.firstName[0]}</Text>
                         </TouchableOpacity>
                     </View>
                     <ScrollView
@@ -330,31 +338,42 @@ class Home extends Component {
 
                         <View style={styles.secondContainer}>
 
-                            <Timeline
-                                style={{ width: screenWidth }}
-                                data={this.state.activityArr}
-                                circleSize={50}
-                                circleColor='rgb(255, 200, 0)'
-                                lineColor='lightgrey'
-                                options={{
-                                    style: { padding: 0 }
-                                }}
-                                timeContainerStyle={{ minWidth: 0, marginTop: -15 }}
-                                options={{
-                                    style: { paddingTop: 15, paddingLeft: 0, width: screenWidth },
-                                    refreshControl:
-                                        <RefreshControl
-                                            refreshing={this.state.isRefreshing}
-                                            onRefresh={() => this.onRefresh()} />
-                                }}
-                                listViewContainerStyle={{
-                                    paddingTop: 10,
-                                    paddingLeft: 10,
-                                }}
-                                renderCircle={() => { }}
-                                innerCircle={'dot'}
-                                showTime={false}
-                                renderDetail={(navigation) => this.renderDetail(navigation)} />
+                            {
+                                loading ?
+                                    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                                        <Loader />
+                                    </View>
+                                    :
+                                    activityArr.length == 0 ?
+                                        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                                            <Text>No Activities Found!</Text>
+                                        </View>
+                                        :
+                                        <Timeline
+                                            style={{ width: screenWidth }}
+                                            data={this.state.activityArr}
+                                            circleSize={50}
+                                            circleColor='rgb(255, 200, 0)'
+                                            lineColor='lightgrey'
+                                            options={{
+                                                style: { padding: 0 }
+                                            }}
+                                            timeContainerStyle={{ minWidth: 0, marginTop: -15 }}
+                                            options={{
+                                                style: { paddingTop: 15, paddingLeft: 0, width: screenWidth },
+                                                refreshControl:
+                                                    <RefreshControl
+                                                        refreshing={this.state.isRefreshing}
+                                                        onRefresh={() => this.onRefresh()} />
+                                            }}
+                                            listViewContainerStyle={{
+                                                paddingTop: 10,
+                                                paddingLeft: 10,
+                                            }}
+                                            renderCircle={() => { }}
+                                            innerCircle={'dot'}
+                                            showTime={false}
+                                            renderDetail={(navigation) => this.renderDetail(navigation)} />}
                         </View>
                     </ScrollView>
                 </View>

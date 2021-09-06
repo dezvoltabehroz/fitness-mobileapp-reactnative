@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, ScrollView } from 'react-native';
-import RNBounceable from '@freakycoder/react-native-bounceable';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 
@@ -11,6 +10,7 @@ import { Input } from '../../components/Input/Input.component';
 import styles from './style';
 import { renderSeperator } from '../../lib/utils/global';
 import { route } from '../../lib/utils/constants';
+import RNBounceable from '@freakycoder/react-native-bounceable';
 
 class NutritionLibrary extends Component {
     constructor(props) {
@@ -73,7 +73,7 @@ class NutritionLibrary extends Component {
 
     _renderItems = ({ index, item }) => {
         return (
-            <RNBounceable onPressIn={() => { this.props.navigation.navigate(route.NUTRITION_DETAIL, { heading: item.type }) }} style={styles.itemContainer} onPress={() => { }}>
+            <RNBounceable onPressOut={() => { this.props.navigation.navigate(route.NUTRITION_DETAIL, { data: { mealPlanName: item.type } }) }} style={styles.itemContainer} onPress={() => { }}>
                 <View style={styles.boxView}>
                     <Text></Text>
                 </View>

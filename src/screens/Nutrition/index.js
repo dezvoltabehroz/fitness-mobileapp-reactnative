@@ -145,6 +145,11 @@ class Nutrition extends Component {
                 this.setState({ nutritions: response.data, isLoading: false })
             })
             .catch((error) => console.log(error))
+            NutritionsServices.getAllMealPlanDetailsById(userData.token, userData.userId)
+            .then((response) => {
+                this.setState({ shoppingList: response.data, isLoading: false })
+            })
+            .catch((error) => console.log(error))
     }
 
     setSliderPage = (event: any) => {
@@ -201,8 +206,8 @@ class Nutrition extends Component {
                     {item.selected ? <Icon.MaterialCommunityIcons name="checkbox-marked-circle" size={20} color={"lightgreen"} /> : <Icon.MaterialCommunityIcons name="checkbox-blank-circle-outline" size={20} color={"lightgray"} />}
                 </View>
                 <View style={{ marginLeft: "5%" }}>
-                    <Text>{item.title}</Text>
-                    <Text>{item.quantity}</Text>
+                    <Text style={{ fontWeight: "bold",textTransform:"capitalize" }}>{item.customFood}</Text>
+                    <Text style={{ fontWeight: "bold",color:'lightgray' }}>{item.calories} g</Text>
                 </View>
             </RNBounceable>
         )
@@ -213,7 +218,7 @@ class Nutrition extends Component {
             <RNBounceable onPress={() => { this.props.navigation.navigate(route.ITEM, { data: item }) }} style={styles.itemContainer}>
                 <Image style={styles.boxView} source={item.imagePath != "" ? { uri: item.imagePath } : LOGO} />
                 <View style={styles.itemTypeContainer}>
-                    <Text numberOfLines={3} style={{ fontWeight: "bold", }}>{item.itemName}</Text>
+                    <Text numberOfLines={3} style={{ fontWeight: "bold",textTransform:"capitalize" }}>{item.itemName}</Text>
                 </View>
             </RNBounceable>
         )
@@ -296,7 +301,7 @@ class Nutrition extends Component {
                                             :
                                             <FlatList
                                                 data={nutritions}
-                                                contentContainerStyle={{ paddingBottom: "10%", paddingTop: "5%" }}
+                                                contentContainerStyle={{ paddingBottom: "20%", paddingTop: "5%" }}
                                                 ItemSeparatorComponent={renderSeperator}
                                                 renderItem={({ item, index }) => this._renderNutritionItem(item, index)} />
                                 }
@@ -304,7 +309,7 @@ class Nutrition extends Component {
                             </ScrollView>
                             <View style={styles.buttonContainer}>
                                 <View style={styles.buttonStyle}>
-                                    <Button.SlimButton title={"Log Nutrition"} onPress={() => { this.props.navigation.navigate('StartWorkout') }} />
+                                    <Button.SlimButton title={"Log Nutrition"} onPress={() => { this.props.navigation.navigate(route.LOG_NUTRITION) }} />
                                 </View>
                             </View>
                         </View>
@@ -338,7 +343,7 @@ class Nutrition extends Component {
                                         :
                                         <FlatList
                                             data={customFoods}
-                                            contentContainerStyle={{ paddingBottom: "10%", paddingTop: "5%" }}
+                                            contentContainerStyle={{ paddingBottom: "20%", paddingTop: "5%" }}
                                             ItemSeparatorComponent={renderSeperator}
                                             renderItem={({ item, index }) => this._renderCustomFoodItem(item, index)} />
                                 }

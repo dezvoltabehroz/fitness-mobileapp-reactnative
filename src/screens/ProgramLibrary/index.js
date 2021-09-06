@@ -2,19 +2,21 @@ import React, { Component } from 'react';
 import { View, Text, FlatList, ScrollView } from 'react-native';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux"; import RNBounceable from '@freakycoder/react-native-bounceable';
-import { Container, FilterModal, Icon } from '../../components';
+import { Container, FilterModal, Icon, Loader } from '../../components';
 
 import { authActions } from '../../redux/actions/auth';
 import { Input } from '../../components/Input/Input.component';
 
 import styles from './style';
 import { route } from '../../lib/utils/constants';
+import { ProgramServices } from '../../services';
 
 class ProgramLibrary extends Component {
     constructor(props) {
         super(props);
         this.state = {
             filterModal: false,
+            loading: false,
             program: [
                 {
                     user_name: 'T',
@@ -67,6 +69,20 @@ class ProgramLibrary extends Component {
             ]
         }
     }
+    componentDidMount = () => {
+        this.setState({ loading: true })
+        const { userData } = this.props.user;
+
+        ProgramServices.getAllAssignedPrograms(userData.token, userData.userId)
+            .then((res) => {
+                if (res.data.responseMessage) {
+                    this.setState({ program: [], loading: false })
+                } else {
+                    this.setState({ program: res.data, loading: false })
+                }
+            })
+            .catch((err) => { this.setState({ program: [], loading: false }); console.log(err) })
+    }
 
     _renderItems = ({ index, item }) => {
         return (
@@ -86,7 +102,7 @@ class ProgramLibrary extends Component {
     }
 
     render() {
-        const { program, reportModal, issue, filterModal } = this.state;
+        const { program, reportModal, issue, filterModal, loading } = this.state;
         return (
             <Container props={this.props}>
                 <View style={styles.container}>
@@ -99,14 +115,24 @@ class ProgramLibrary extends Component {
                                     <Icon.FontAwesome name="filter" size={20} />
                                 </RNBounceable>
                             </View>
-                            <FlatList
-                                data={program}
-                                keyExtractor={item => item}
-                                style={{ marginBottom: 100, paddingBottom: 20 }}
-                                ItemSeparatorComponent={this.renderSeparator}
-                                showsVerticalScrollIndicator={false}
-                                renderItem={({ index, item }) => this._renderItems({ index, item })}
-                            />
+                            {
+                                loading ?
+                                    <Loader />
+                                    :
+                                    program.length == 0 ?
+                                        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                                            <Text style={styles.viewStyle} >No record exists!</Text>
+                                        </View>
+                                        :
+                                        <FlatList
+                                            data={program}
+                                            keyExtractor={item => item}
+                                            style={{ marginBottom: 100, paddingBottom: 20 }}
+                                            ItemSeparatorComponent={this.renderSeparator}
+                                            showsVerticalScrollIndicator={false}
+                                            renderItem={({ index, item }) => this._renderItems({ index, item })}
+                                        />
+                            }
                         </ScrollView>
                     </View>
                 </View>

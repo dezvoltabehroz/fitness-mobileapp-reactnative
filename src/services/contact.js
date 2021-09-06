@@ -13,6 +13,10 @@ const Api = {
     getAllExercisesbyName: function () {
         return axiosInstance.get('GetAllExercisesbyName', apiHeaderConfiguration(EMPTY, EMPTY))
     },
+    getAllActivitiesByAudit: function (userId, token) {
+        return axiosInstance.get(`GetActivityAuditLogById?ClientId=${userId}&UserId=${userId}`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+
     createExercise: function (userData, token) {
         return axiosInstance.post('CreateExercise', userData, apiHeaderConfiguration(token, TOKEN))
     },

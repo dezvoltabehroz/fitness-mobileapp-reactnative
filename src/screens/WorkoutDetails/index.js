@@ -82,6 +82,7 @@ class WorkoutDetail extends Component {
             .then((res) => {
                 console.log("res.data : ", res.data)
                 this.setState({ exerciseData: res.data[0], loading: false })
+                WorkoutsServices.getAllWorkoutsbyId()
             })
             .catch((error) => console.log(error))
     }
@@ -130,7 +131,7 @@ class WorkoutDetail extends Component {
     }
 
     render() {
-        const { currentPage, exerciseData} = this.state;
+        const { currentPage, exerciseData } = this.state;
         return (
             <Container props={this.props} >
                 <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
@@ -170,19 +171,19 @@ class WorkoutDetail extends Component {
                                             <Text style={styles.textStyle}>Description</Text>
                                         </View>
                                         <View style={styles.marginTop}>
-                                            <Text style={styles.textStyle1}>{exerciseData!=null?exerciseData.name:"Nothing added just yet!"}</Text>
+                                            <Text style={styles.textStyle1}>{exerciseData != null ? exerciseData.name : "Nothing added just yet!"}</Text>
                                         </View>
                                         <View style={styles.marginTop}>
                                             <Text style={styles.textStyle}>Note</Text>
                                         </View>
                                         <View style={styles.marginTop}>
-                                            <Text style={styles.textStyle1}>{exerciseData!=null?exerciseData.note:"Nothing added just yet!"}</Text>
+                                            <Text style={styles.textStyle1}>{exerciseData != null ? exerciseData.note : "Nothing added just yet!"}</Text>
                                         </View>
                                         <View style={styles.marginTop}>
                                             <Text style={styles.textStyle}>Files</Text>
                                         </View>
                                         <View style={styles.marginTop}>
-                                            <Text style={styles.textStyle1}>{exerciseData!=null?exerciseData.files:"Nothing added just yet!"}</Text>
+                                            <Text style={styles.textStyle1}>{exerciseData != null ? exerciseData.files : "Nothing added just yet!"}</Text>
                                         </View>
                                     </View>
                                 </View>

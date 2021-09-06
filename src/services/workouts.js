@@ -7,8 +7,8 @@ const Api = {
     getAllWorkouts: function (token, id) {
         return axiosInstance.get('GetAllWorkouts', apiHeaderConfiguration(token, TOKEN, id))
     },
-    getAllWorkoutsbyId: function (id) {
-        return axiosInstance.get('GetAllWorkoutsById?ClientId=' + id, apiHeaderConfiguration(EMPTY, EMPTY))
+    getAllWorkoutsbyId: function (id, token, userId) {
+        return axiosInstance.get('GetAllWorkoutsById?ClientId=' + id, apiHeaderConfiguration(token, TOKEN, userId))
     },
     getAllSets: function () {
         return axiosInstance.get('GetAllSets', apiHeaderConfiguration(EMPTY, EMPTY))
@@ -17,10 +17,10 @@ const Api = {
         return axiosInstance.get('GetAllWorkoutSets', apiHeaderConfiguration(EMPTY, EMPTY))
     },
     getSelfCreatedWorkoutsByClientId: function (token, id) {
-        return axiosInstance.get(`GetSelfCreatedWorkoutsByClientId?ClientId=${id}` , apiHeaderConfiguration(token, TOKEN, id))
+        return axiosInstance.get(`GetSelfCreatedWorkoutsByClientId?ClientId=${id}`, apiHeaderConfiguration(token, TOKEN, id))
     },
-    getExerciseById: function (token, id,exerciseId) {
-        return axiosInstance.get(`GetExerciseById?ExerciseId=${exerciseId}` , apiHeaderConfiguration(token, TOKEN, id))
+    getExerciseById: function (token, id, exerciseId) {
+        return axiosInstance.get(`GetExerciseById?ExerciseId=${exerciseId}`, apiHeaderConfiguration(token, TOKEN, id))
     },
     createWorkout: function (userData, token) {
         return axiosInstance.post('CreateWorkout', userData, apiHeaderConfiguration(token, TOKEN))
