@@ -8,17 +8,30 @@ export default StyleSheet.create({
         flex: 1,
         backgroundColor: THEME.COLOR_WHITE,
         // justifyContent: "center",
-        alignItems: "center"
+        // alignItems: "center"
     },
     rowContainer: {
         flexDirection: "row",
         alignItems: "center",
         marginTop: "5%",
         marginHorizontal: "5%",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        alignItems:"center",
+    },
+    itemContainer: {
+        backgroundColor: "white",
+        padding: "5%",
+        marginHorizontal:"1%",
+        // width: "90%",
+        elevation: 5,
+        borderRadius: 5
     },
     headingTextStyle: {
         fontSize: 18,
+        fontWeight: "bold",
+    },
+    headingTextStyle1: {
+        fontSize: 14,
         fontWeight: "bold",
     },
     textStyle: {
@@ -41,7 +54,7 @@ export default StyleSheet.create({
         flexDirection: "row",
         alignItems: "center"
     },
-    boxView:{
+    boxView: {
         marginTop: "25%",
         borderRadius: 35, height: 70, width: 70,
         justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'

@@ -7,9 +7,13 @@ export const apiHeaderConfiguration = (token, type, userId) => {
     switch (type) {
         case "token":
             return {
-                headers: {
+                headers: userId ? {
                     'Authorization': 'Bearer ' + token,
                     'UserId': userId,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                } : {
+                    'Authorization': 'Bearer ' + token,
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
                 }

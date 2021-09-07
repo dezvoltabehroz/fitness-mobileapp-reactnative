@@ -19,7 +19,6 @@ export default StyleSheet.create({
     },
     btnBrownPrimary: {
         height: 54,
-        width: "100%",
         paddingHorizontal: "5%",
         borderRadius: 30,
         justifyContent: 'center',

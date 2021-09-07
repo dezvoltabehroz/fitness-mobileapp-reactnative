@@ -14,9 +14,8 @@ export default StyleSheet.create({
     rowContainer: {
         flexDirection: "row",
         alignItems: "center",
+        justifyContent:"space-between",
         marginTop: "5%",
-        marginHorizontal: "5%",
-        justifyContent: "space-between"
     },
     headingTextStyle: {
         fontSize: 18,
@@ -44,12 +43,13 @@ export default StyleSheet.create({
     },
     row: {
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
+      
     },
     buttonContainer: {
         justifyContent: "center",
         alignItems: "center"
     },
-    iconContainer:{ flex: 0.7, marginTop: "12.5%", marginHorizontal: "5%" },
-    lowerContainer:{ flex: 0.3, justifyContent: "flex-end", }
+    iconContainer: { height: 70, width: 70, backgroundColor: 'white', justifyContent: "center", alignItems: "center", borderRadius: 5, elevation: 5 },
+    lowerContainer: { flex: 0.3, justifyContent: "flex-end", }
 })

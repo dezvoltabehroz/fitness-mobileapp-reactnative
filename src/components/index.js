@@ -48,3 +48,6 @@ export const UpdateWeightModal = _UpdateWeightModal;
 
 import _Loader from './Loader';
 export const Loader = _Loader;
+
+import _UploadingModal from './UploadingModal';
+export const UploadingModal = _UploadingModal;
