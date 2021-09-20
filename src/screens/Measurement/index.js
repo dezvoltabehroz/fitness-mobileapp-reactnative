@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ScrollView, Text, View } from 'react-native';
+import { FlatList, ScrollView, Text, View } from 'react-native';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 import RNBounceable from "@freakycoder/react-native-bounceable";
@@ -13,6 +13,7 @@ import { Icon } from "../../components";
 import { authActions } from '../../redux/actions/auth';
 
 import styles from './style';
+import { WorkoutsServices } from "../../services";
 
 class Measurement extends Component {
     constructor(props) {
@@ -39,8 +40,22 @@ class Measurement extends Component {
                 id: 3,
                 label: "Vital Stats",
                 value: "Vital Stats"
-            }]
+            }],
+            previousMeasurement: []
         }
+    }
+
+    componentDidMount = () => {
+        this.setState({ loading: true });
+        const { userData } = this.props.user
+        WorkoutsServices.getOldMeasurements(userData.token, userData.userId)
+            .then((res) => {
+                this.setState({ previousMeasurement: res.data, loading: false, });
+            })
+            .catch((err) => {
+                this.setState({ loading: false });
+                console.log(err.response.data)
+            })
     }
 
     hideDatePicker = () => {
@@ -52,6 +67,113 @@ class Measurement extends Component {
         this.setState({ date: date });
         this.hideDatePicker();
     };
+
+    renderItem = ({ item, index }) => {
+        return (
+            <View style={styles.itemContainer}>
+                <Text style={styles.headingStyle}>{moment(item.dateTaken).format('Do MMM, YYYY')}</Text>
+                <View style={styles.rowStyle}>
+                    <View style={styles.columnStyle}>
+
+                    </View>
+                    <View style={styles.columnStyle}>
+                        <Text style={styles.titleStyle1}>{'Left'}</Text>
+                    </View>
+                    <View style={styles.columnStyle}>
+                        <Text style={styles.titleStyle1}>{'Right'}</Text>
+                    </View>
+                </View>
+                <View style={styles.rowStyle1}>
+                    <View style={styles.columnStyle}>
+                        <Text style={styles.titleStyle}>{'Weight (kg)'}</Text>
+                    </View>
+                    <View style={styles.columnStyle}>
+                        <Text>{item.weight}</Text>
+                    </View>
+                    <View style={styles.columnStyle}>
+                        <Text>{' '}</Text>
+                    </View>
+                </View>
+                <View style={styles.rowStyle1}>
+                    <View style={styles.columnStyle}>
+                        <Text style={styles.titleStyle}>{'Neck (cm)'}</Text>
+                    </View>
+                    <View style={styles.columnStyle}>
+                        <Text>{item.neckLeft}</Text>
+                    </View>
+                    <View style={styles.columnStyle}>
+                        <Text>{item.neckRight}</Text>
+                    </View>
+                </View>
+                <View style={styles.rowStyle1}>
+                    <View style={styles.columnStyle}>
+                        <Text style={styles.titleStyle}>{'Chest (cm)'}</Text>
+                    </View>
+                    <View style={styles.columnStyle}>
+                        <Text>{item.chestLeft}</Text>
+                    </View>
+                    <View style={styles.columnStyle}>
+                        <Text>{item.chestRight}</Text>
+                    </View>
+                </View>
+                <View style={styles.rowStyle1}>
+                    <View style={styles.columnStyle}>
+                        <Text style={styles.titleStyle}>{'Arm (cm)'}</Text>
+                    </View>
+                    <View style={styles.columnStyle}>
+                        <Text>{item.armLeft}</Text>
+                    </View>
+                    <View style={styles.columnStyle}>
+                        <Text>{item.armRight}</Text>
+                    </View>
+                </View>
+                <View style={styles.rowStyle1}>
+                    <View style={styles.columnStyle}>
+                        <Text style={styles.titleStyle}>{'Waist (cm)'}</Text>
+                    </View>
+                    <View style={styles.columnStyle}>
+                        <Text>{item.waistLeft}</Text>
+                    </View>
+                    <View style={styles.columnStyle}>
+                        <Text>{item.waistRight}</Text>
+                    </View>
+                </View>
+                <View style={styles.rowStyle1}>
+                    <View style={styles.columnStyle}>
+                        <Text style={styles.titleStyle}>{'Hips (cm)'}</Text>
+                    </View>
+                    <View style={styles.columnStyle}>
+                        <Text>{item.hipsLeft}</Text>
+                    </View>
+                    <View style={styles.columnStyle}>
+                        <Text>{item.hipsRight}</Text>
+                    </View>
+                </View>
+                <View style={styles.rowStyle1}>
+                    <View style={styles.columnStyle}>
+                        <Text style={styles.titleStyle}>{'Thigh (cm)'}</Text>
+                    </View>
+                    <View style={styles.columnStyle}>
+                        <Text>{item.thighLeft}</Text>
+                    </View>
+                    <View style={styles.columnStyle}>
+                        <Text>{item.thighRight}</Text>
+                    </View>
+                </View>
+                <View style={styles.rowStyle1}>
+                    <View style={styles.columnStyle}>
+                        <Text style={styles.titleStyle}>{'Calft (cm)'}</Text>
+                    </View>
+                    <View style={styles.columnStyle}>
+                        <Text>{item.calfLeft}</Text>
+                    </View>
+                    <View style={styles.columnStyle}>
+                        <Text>{item.calfRight}</Text>
+                    </View>
+                </View>
+            </View>
+        )
+    }
 
     render() {
         const { measurementType, date, showDatePicker } = this.state;
@@ -141,9 +263,7 @@ class Measurement extends Component {
                                     <View style={styles.buttonContainer}>
                                         <Button.BrownButton title="Save" onPress={() => { }} />
                                     </View>
-                                    <View style={styles.generalMargin3} >
-                                        <Text style={styles.headingTextStyle}>Previous Measurement</Text>
-                                    </View>
+
                                 </>
                                 :
                                 null
@@ -193,9 +313,7 @@ class Measurement extends Component {
                                     <View style={styles.buttonContainer}>
                                         <Button.BrownButton title="Save" onPress={() => { }} />
                                     </View>
-                                    <View style={styles.generalMargin3} >
-                                        <Text style={styles.headingTextStyle}>Previous Measurement</Text>
-                                    </View>
+
                                 </>
                                 :
                                 null
@@ -225,13 +343,15 @@ class Measurement extends Component {
                                     <View style={styles.buttonContainer}>
                                         <Button.BrownButton title="Save" onPress={() => { }} />
                                     </View>
-                                    <View style={styles.generalMargin3} >
-                                        <Text style={styles.headingTextStyle}>Previous Measurement</Text>
-                                    </View>
+
                                 </>
                                 :
                                 null
                         }
+                        <View style={styles.generalMargin3} >
+                            <Text style={styles.headingTextStyle}>Previous Measurement</Text>
+                        </View>
+                        <FlatList data={this.state.previousMeasurement} renderItem={this.renderItem} />
 
                     </ScrollView>
                 </View>

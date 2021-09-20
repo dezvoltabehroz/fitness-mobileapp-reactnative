@@ -58,5 +58,46 @@ export default StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
         fontSize: 18
+    },
+    itemContainer: {
+        backgroundColor: THEME.COLOR_WHITE,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        marginHorizontal: "5%",
+        marginVertical: "5%",
+        borderRadius: 10,
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        padding: '5%'
+    },
+    rowStyle: {
+        marginTop: "5%",
+        paddingVertical: "5%",
+        borderBottomWidth: 1,
+        borderBottomColor: "lightgray",
+        flexDirection: "row",
+        justifyContent: "space-between"
+    },
+    rowStyle1: {
+        marginTop: "2.5%",
+        flexDirection: "row",
+        justifyContent: "space-between"
+    },
+    columnStyle: { flex: 0.3, flexDirection: 'column', alignItems: "center" },
+    titleStyle: {
+        fontSize: 16,
+        fontWeight: "bold"
+    },
+    titleStyle1: {
+        fontSize: 18,
+        fontWeight: "bold"
+    },
+    headingStyle: {
+        fontSize: 20,
+        fontWeight: "bold"
     }
 })

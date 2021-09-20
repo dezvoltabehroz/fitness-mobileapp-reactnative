@@ -49,9 +49,12 @@ const Api = {
     deleteWorkoutExerciseSet: function (userData, token) {
         return axiosInstance.post('DeleteWorkoutExerciseSet', userData, apiHeaderConfiguration(token, TOKEN))
     },
-    ClientAssign: function (userData, token) {
+    clientAssign: function (userData, token) {
         return axiosInstance.post('ClientAssign', userData, apiHeaderConfiguration(token, TOKEN))
-    }
+    },
+    getOldMeasurements: function (token, userId) {
+        return axiosInstance.get(`GetAllWeightCircumferencebyId?ClientId=${userId}`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
 };
 
 export default Api;
