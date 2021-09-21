@@ -86,12 +86,12 @@ class ProgramLibrary extends Component {
 
     _renderItems = ({ index, item }) => {
         return (
-            <RNBounceable style={styles.itemContainer} onPress={() => { this.props.navigation.navigate(route.PROGRAM_DETAIL, { heading: item.type }) }}>
+            <RNBounceable style={styles.itemContainer} onPress={() => { this.props.navigation.navigate(route.PROGRAM_DETAIL, { heading: item.programName }) }}>
                 <View style={styles.boxView}>
                     <Text></Text>
                 </View>
                 <View style={{ flex: 0.8, marginHorizontal: "5%" }}>
-                    <Text numberOfLines={3} style={{ fontWeight: "bold", }}>{item.type}</Text>
+                    <Text numberOfLines={3} style={{ fontWeight: "bold", }}>{item.programName}</Text>
                 </View>
             </RNBounceable>
         )
