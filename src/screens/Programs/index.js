@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {
     View, Text, FlatList, Dimensions
 } from 'react-native'
-
+import { route } from '../../lib/utils/constants';
 import RNBounceable from "@freakycoder/react-native-bounceable";
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
@@ -17,56 +17,7 @@ class Programs extends Component {
         super(props);
         this.state = {
             loading: false,
-            workout: [
-                {
-                    user_name: 'T',
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-                {
-                    user_name: 'T',
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-                {
-                    user_name: 'T',
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-                {
-                    user_name: 'T',
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-                {
-                    user_name: 'T',
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-                {
-                    user_name: 'T',
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-                {
-                    user_name: 'T',
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-                {
-                    user_name: 'T',
-                    type: 'Ended program Female Fat Loss Female Fat Loss',
-                    activity: 'Female Fat Loss',
-                    time: new Date(),
-                },
-            ]
+            workout: []
         }
     }
 
@@ -121,7 +72,7 @@ class Programs extends Component {
                                                 keyExtractor={item => item}
                                                 renderItem={({ index, item }) => {
                                                     return (
-                                                        <RNBounceable style={styles.contentContainer} onPress={() => { }}>
+                                                        <RNBounceable onPress={() => { this.props.navigation.navigate(route.PROGRAM_DETAIL, { heading: item.programName, data: item }) }} style={styles.contentContainer} >
                                                             <View style={styles.boxView}>
                                                                 <Text></Text>
                                                             </View>

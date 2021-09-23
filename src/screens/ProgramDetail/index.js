@@ -6,7 +6,7 @@ import { bindActionCreators } from "redux";
 import ProgressCircle from 'react-native-progress-circle'
 import RNBounceable from '@freakycoder/react-native-bounceable';
 
-import { Container, Icon, UpdateWeightModal, Button } from '../../components';
+import { Container, Icon, UpdateWeightModal, Button, Loader } from '../../components';
 import { authActions } from '../../redux/actions/auth';
 import { LOGO, route } from '../../lib/utils/constants';
 import { renderSeperator } from '../../lib/utils/global';
@@ -15,6 +15,7 @@ import THEME from '../../assets/styles/theme.style'
 import styles from './style';
 import { Input } from '../../components/Input/Input.component';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { ProgramServices } from '../../services';
 
 class ProgramDetail extends Component {
     constructor(props) {
@@ -24,128 +25,10 @@ class ProgramDetail extends Component {
             nutrition: false,
             updateModal: false,
             update: false,
+            loading: true,
             weight: "",
-            weeks: [
-                {
-                    days: [{
-                        worked: true,
-                        date: '2021-06-23'
-                    },
-                    {
-                        worked: true,
-                        date: '2021-06-24'
-                    },
-                    {
-                        worked: true,
-                        date: '2021-06-25'
-                    },
-                    {
-                        worked: true,
-                        date: '2021-06-26'
-                    },
-                    {
-                        worked: false,
-                        date: '2021-06-27'
-                    },
-                    {
-                        worked: true,
-                        date: '2021-06-28'
-                    },
-                    {
-                        worked: false,
-                        date: '2021-06-29'
-                    }]
-                },
-                {
-                    days: [{
-                        worked: true,
-                        date: '2021-06-30'
-                    },
-                    {
-                        worked: true,
-                        date: '2021-07-01'
-                    },
-                    {
-                        worked: false,
-                        date: '2021-07-02'
-                    },
-                    {
-                        worked: true,
-                        date: '2021-07-03'
-                    },
-                    {
-                        worked: true,
-                        date: '2021-07-04'
-                    },
-                    {
-                        worked: false,
-                        date: '2021-07-05'
-                    },
-                    {
-                        worked: true,
-                        date: '2021-07-06'
-                    }]
-                },
-                {
-                    days: [{
-                        worked: true,
-                        date: '2021-07-07'
-                    },
-                    {
-                        worked: false,
-                        date: '2021-07-08'
-                    },
-                    {
-                        worked: true,
-                        date: '2021-07-09'
-                    },
-                    {
-                        worked: false,
-                        date: '2021-07-10'
-                    },
-                    {
-                        worked: true,
-                        date: '2021-07-11'
-                    },
-                    {
-                        worked: true,
-                        date: '2021-07-12'
-                    },
-                    {
-                        worked: false,
-                        date: '2021-07-13'
-                    }]
-                },
-                {
-                    days: [{
-                        worked: true,
-                        date: '2021-07-14'
-                    },
-                    {
-                        worked: false,
-                        date: '2021-07-15'
-                    },
-                    {
-                        worked: true,
-                        date: '2021-07-16'
-                    },
-                    {
-                        worked: false,
-                        date: '2021-07-17'
-                    },
-                    {
-                        worked: true,
-                        date: '2021-07-18'
-                    },
-                    {
-                        worked: true,
-                        date: '2021-07-19'
-                    },
-                    {
-                        worked: false,
-                        date: '2021-07-20'
-                    }]
-                }],
+            weeks: [],
+            data: {},
             weights: [
                 {
                     id: 1,
@@ -157,6 +40,10 @@ class ProgramDetail extends Component {
                     label: "Lbs",
                     value: "Lbs"
                 }],
+            totalNutritionDays: "",
+            totalWorkoutDays: "",
+            completedNutritionDays: "",
+            completedWorkoutdays: "",
             selectedValue: {
                 id: 1,
                 label: "Kg",
@@ -165,19 +52,23 @@ class ProgramDetail extends Component {
         }
     }
     componentDidMount = () => {
-
+        const data = this.props?.route?.params?.data;
+        ProgramServices.getUserCircumference(data.programId, data.usersProgramId, this.props.user.userData.token, this.props.user.userData.userId)
+            .then((res) => {
+                this.setState({ data: res.data[0], loading: false })
+            })
+            .catch((err) => console.log(err.response))
     }
 
     _renderItem = (item, index) => {
         return (
             <RNBounceable onPress={() => this.props.navigation.navigate(route.WEEK_DETAIL, {
                 heading: this.props.route.params.heading,
-                week: {
-                    id: (index + 1),
-                    label: "Week " + (index + 1) + "/" + this.state.weeks.length,
-                    value: "Week " + (index + 1) + "/" + this.state.weeks.length
-                },
-                length: this.state.weeks.length
+                userProgramId: this.state.data.usersProgramId,
+                week: [{
+                    label: "Week " + (index + 1) + "/" + this.state.data.weeks.length,
+                }],
+                length: this.state.data.weeks.length
             })} style={styles.rowContainer}>
                 <View style={styles.rowStyle}>
                     <View style={{ marginHorizontal: "3%" }}>
@@ -188,12 +79,12 @@ class ProgramDetail extends Component {
                             item.days.map((element, i) => {
                                 return (
                                     <View style={{ marginHorizontal: "3%" }}>
-                                        {element.date == moment().format('YYYY-MM-DD') ?
+                                        {element.exerciseDate == moment().format('Do MMM, YYYY') ?
                                             <Icon.MaterialIcons name="radio-button-checked" size={25} color={THEME.BUTTON_COLOR} />
                                             :
                                             <View >
                                                 {
-                                                    element.worked ?
+                                                    element.isCompleted ?
                                                         <Icon.MaterialCommunityIcons name="checkbox-blank-circle" size={20} color={THEME.BUTTON_COLOR} />
                                                         :
                                                         <Icon.MaterialCommunityIcons name="checkbox-blank-circle-outline" size={20} color="lightgray" />
@@ -214,171 +105,183 @@ class ProgramDetail extends Component {
     }
 
     render() {
-        const { workouts, nutrition, weeks, updateModal, update, weights, selectedValue, weight } = this.state;
+        const { workouts, nutrition, loading, updateModal, update, weights, selectedValue, weight, data } = this.state;
         const { heading } = this.props.route.params;
         return (
             <Container props={this.props}>
                 <View style={styles.container}>
-                    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingTop: "10%", paddingBottom: 120 }} >
+                    {
+                        loading ?
+                            <Loader />
+                            :
+                            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingTop: "10%", paddingBottom: 120 }} >
 
 
-                        <Text style={styles.headingStyle}>Duration </Text>
-                        <View style={styles.iconContainer}>
-                            <Icon.MaterialCommunityIcons name="checkbox-marked-circle" size={100} color={"#96CC39"} />
-                        </View>
-
-                        <View style={styles.rowContainer}>
-                            <Text>Start Date</Text>
-                            <Text>{moment().format('Do MMM YY')}</Text>
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <Text>Completion</Text>
-                            <Text>{moment().format('Do MMM YY')}</Text>
-                        </View>
-                        <View style={styles.rowStyle}>
-                            <Icon.MaterialCommunityIcons name="calendar-month" size={35} />
-                            <Text style={styles.headingTextStyle}>Weeks</Text>
-                        </View>
-
-
-                        <View style={{ marginVertical: "5%" }}>
-
-                            <FlatList
-                                data={weeks}
-                                ItemSeparatorComponent={renderSeperator}
-                                renderItem={({ index, item }) => this._renderItem(item, index)}
-                            />
-
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <View>
-                                <Text style={styles.headingStyle}>Latest Weight </Text>
-                            </View>
-                            <RNBounceable onPress={() => this.setState({ updateModal: true })}>
-                                <Icon.Ionicons name="ellipsis-horizontal" size={30} color="lightgray" />
-                            </RNBounceable>
-                        </View>
-                        {
-                            update ?
-                                <View >
-                                    <View style={[styles.generalMargin2, styles.rowContainer1]}>
-                                        <View style={{ flex: 0.5, marginBottom: '7.5%' }}>
-                                            <Input label="Kg's and grams" keyboardType={"number-pad"} placeholder="0.00" onChangeText={(Value) => this.setState({ weight: Value })} value={weight} />
-                                        </View>
-                                        <View style={{ flex: 0.5 }}>
-                                            <DropDownPicker
-                                                items={weights}
-                                                arrowColor={THEME.COLOR_BLACK}
-                                                activeLabelStyle={styles.activeLabelStyle}
-                                                activeItemStyle={styles.activeItemStyle}
-                                                itemStyle={styles.itemStyle}
-                                                labelStyle={styles.labelStyle}
-                                                placeholder="Select Value"
-                                                onClose={() => this.setState({ dropdownOpen1: false })}
-                                                onOpen={() => this.setState({ dropdownOpen1: true })}
-                                                globalTextStyle={{ color: "#000000", textAlign: "left", }}
-                                                containerStyle={{ height: 40, marginBottom: this.state.dropdownOpen1 ? '21%' : 0 }}
-                                                defaultValue={selectedValue?.label}
-
-                                                onChangeItem={(item) => {
-                                                    this.setState({
-                                                        selectedValue: item, item: item.value, index: item.value,
-                                                    })
-                                                }}
-                                            />
-                                        </View>
-
-
-                                    </View>
-                                    <View style={styles.buttonContainer}>
-                                        <Button.BrownButton title={"Update Weight"} onPress={() => this.setState({ update: false })} />
-                                    </View>
+                                <Text style={styles.headingStyle}>Duration </Text>
+                                <View style={styles.iconContainer}>
+                                    <Icon.MaterialCommunityIcons name="checkbox-marked-circle" size={100} color={"#96CC39"} />
                                 </View>
-                                :
-                                <View style={styles.latestCircleContainer}>
-                                    <ProgressCircle
-                                        percent={0}
-                                        radius={70}
-                                        borderWidth={8}
-                                        color="#3399FF"
-                                        shadowColor="lightgray"
-                                        bgColor="#fff"
-                                    >
-                                        <Text style={{ fontSize: 18, fontWeight: "bold" }}>{weight != "" ? `${weight} ${selectedValue.label}` : '0.00kg'}</Text>
-                                    </ProgressCircle>
-                                </View>}
-                        <View style={styles.rowContainer}>
-                            <Text>Starting Weight</Text>
-                            <Text>120.00kg</Text>
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <Text>Weight change</Text>
-                            <Text>-120.00kg</Text>
-                        </View>
-                        <Text style={styles.headingStyle}>Tracker (Workouts)</Text>
-                        <View style={styles.latestCircleContainer}>
-                            {
-                                workouts ?
-                                    <ProgressCircle
-                                        percent={30}
-                                        radius={80}
-                                        borderWidth={8}
-                                        color="#96CC39"
-                                        shadowColor="#fff"
-                                        bgColor="#fff"    >
-                                        <ProgressCircle
-                                            percent={20}
-                                            radius={75}
-                                            borderWidth={8}
-                                            color="#3399FF"
-                                            shadowColor="#fff"
-                                            bgColor="#fff">
-                                            <Text>{'Completed: 3/20'}</Text>
-                                            <Text>{'Missed: 2/20'}</Text>
-                                        </ProgressCircle>
-                                    </ProgressCircle>
-                                    :
-                                    <View style={{ marginVertical: 60 }}>
-                                        <Text>{'Completed: 0/0'}</Text>
-                                        <Text>{'No nurition plans were assinged'}</Text>
-                                    </View>
-                            }
-                        </View>
-                        <View style={styles.buttonContainer}>
-                            <RNBounceable style={nutrition ? styles.simpleStyle : styles.colorStyle} onPress={() => this.setState({ nutrition: false, workouts: true })}>
-                                <Text style={nutrition ? styles.colorText : styles.simpleText}>Workouts</Text>
-                            </RNBounceable>
-                            <RNBounceable style={workouts ? styles.simpleStyle : styles.colorStyle} onPress={() => this.setState({ workouts: false, nutrition: true })}>
-                                <Text style={workouts ? styles.colorText : styles.simpleText}>Nutrition </Text>
-                            </RNBounceable>
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <Text style={styles.headingStyle}>Progress Photos</Text>
-                            <View style={styles.rowStyle}>
-                                <Text>View all</Text>
-                                <Icon.Entypo name="chevron-right" size={20} />
-                            </View>
-                        </View>
 
-                        <View style={styles.progressPhotoConatiner}>
-                            <View style={styles.rowContainer}>
-                                <Text style={styles.headingText}>{moment().format('Do MMM YYYY')}</Text>
+                                <View style={styles.rowContainer}>
+                                    <Text>Start Date</Text>
+                                    <Text>{moment(data.startDate).format('Do MMM YY')}</Text>
+                                </View>
+                                <View style={styles.rowContainer}>
+                                    <Text>Completion</Text>
+                                    <Text>{moment(data.endDate).format('Do MMM YY')}</Text>
+                                </View>
                                 <View style={styles.rowStyle}>
-                                    <Icon.Ionicons name="ellipsis-horizontal" size={20} color={'lightgray'} />
+                                    <Icon.MaterialCommunityIcons name="calendar-month" size={35} />
+                                    <Text style={styles.headingTextStyle}>Weeks</Text>
                                 </View>
-                            </View>
-                            <View style={styles.buttonContainer}>
-                                <View style={styles.imageContainer}>
-                                    <Image source={LOGO} style={styles.imageStyle} />
-                                    <Text>Front</Text>
+
+
+                                <View style={{ marginVertical: "5%" }}>
+
+                                    <FlatList
+                                        data={data?.weeks}
+                                        ItemSeparatorComponent={renderSeperator}
+                                        renderItem={({ index, item }) => this._renderItem(item, index)}
+                                    />
+
                                 </View>
-                                <View style={styles.imageContainer}>
-                                    <Image source={LOGO} style={styles.imageStyle} />
-                                    <Text>Side</Text>
+                                <View style={styles.rowContainer}>
+                                    <View>
+                                        <Text style={styles.headingStyle}>Latest Weight </Text>
+                                    </View>
+                                    <RNBounceable onPress={() => this.setState({ updateModal: true })}>
+                                        <Icon.Ionicons name="ellipsis-horizontal" size={30} color="lightgray" />
+                                    </RNBounceable>
                                 </View>
-                            </View>
-                        </View>
-                    </ScrollView>
+                                {
+                                    update ?
+                                        <View >
+                                            <View style={[styles.generalMargin2, styles.rowContainer1]}>
+                                                <View style={{ flex: 0.5, marginBottom: '7.5%' }}>
+                                                    <Input label="Kg's and grams" keyboardType={"number-pad"} placeholder="0.00" onChangeText={(Value) => this.setState({ weight: Value })} value={weight} />
+                                                </View>
+                                                <View style={{ flex: 0.5 }}>
+                                                    <DropDownPicker
+                                                        items={weights}
+                                                        arrowColor={THEME.COLOR_BLACK}
+                                                        activeLabelStyle={styles.activeLabelStyle}
+                                                        activeItemStyle={styles.activeItemStyle}
+                                                        itemStyle={styles.itemStyle}
+                                                        labelStyle={styles.labelStyle}
+                                                        placeholder="Select Value"
+                                                        onClose={() => this.setState({ dropdownOpen1: false })}
+                                                        onOpen={() => this.setState({ dropdownOpen1: true })}
+                                                        globalTextStyle={{ color: "#000000", textAlign: "left", }}
+                                                        containerStyle={{ height: 40, marginBottom: this.state.dropdownOpen1 ? '21%' : 0 }}
+                                                        defaultValue={selectedValue?.label}
+
+                                                        onChangeItem={(item) => {
+                                                            this.setState({
+                                                                selectedValue: item, item: item.value, index: item.value,
+                                                            })
+                                                        }}
+                                                    />
+                                                </View>
+
+
+                                            </View>
+                                            <View style={styles.buttonContainer}>
+                                                <Button.BrownButton title={"Update Weight"} onPress={() => this.setState({ update: false })} />
+                                            </View>
+                                        </View>
+                                        :
+                                        <View style={styles.latestCircleContainer}>
+                                            <ProgressCircle
+                                                percent={0}
+                                                radius={70}
+                                                borderWidth={8}
+                                                color="#3399FF"
+                                                shadowColor="lightgray"
+                                                bgColor="#fff"
+                                            >
+                                                <Text style={{ fontSize: 18, fontWeight: "bold" }}>{weight != "" ? `${weight} ${selectedValue.label}` : `${data?.startingWeight - data?.weightChange}.00kg`}</Text>
+                                            </ProgressCircle>
+                                        </View>}
+                                <View style={styles.rowContainer}>
+                                    <Text>Starting Weight</Text>
+                                    <Text >{data?.startingWeight}.00kg</Text>
+                                </View>
+                                <View style={styles.rowContainer}>
+                                    <Text>Weight change</Text>
+                                    <Text>{data?.weightChange}.00kg</Text>
+                                </View>
+                                <Text style={styles.headingStyle}>Tracker (Workouts)</Text>
+                                <View style={styles.latestCircleContainer}>
+                                    {
+                                        workouts ?
+                                            <ProgressCircle
+                                                percent={data.completedWorkouts / data.totalWorkouts * 100 == 0 ? 1 : data.completedWorkouts / data.totalWorkouts * 100}
+                                                radius={80}
+                                                borderWidth={8}
+                                                color="#96CC39"
+                                                shadowColor="#fff"
+                                                bgColor="#fff"    >
+                                                <ProgressCircle
+                                                    percent={data.totalWorkouts / data.missedWorkouts * 100}
+                                                    radius={75}
+                                                    borderWidth={8}
+                                                    color="#3399FF"
+                                                    shadowColor="#fff"
+                                                    bgColor="#fff">
+                                                    <Text>{`Completed: ${data.completedWorkouts}/${data.totalWorkouts}`}</Text>
+                                                    <Text>{`Missed: ${data.missedWorkouts}/${data.totalWorkouts}`}</Text>
+                                                </ProgressCircle>
+                                            </ProgressCircle>
+                                            :
+                                            <View style={{ marginVertical: 60 }}>
+                                                <Text>{`Completed: ${data.completedNutritions}/${data.totalNutritions}`}</Text>
+                                                <Text>{'No nurition plans were assinged'}</Text>
+                                            </View>
+                                    }
+                                </View>
+                                <View style={styles.buttonContainer}>
+                                    <RNBounceable style={nutrition ? styles.simpleStyle : styles.colorStyle} onPress={() => this.setState({ nutrition: false, workouts: true })}>
+                                        <Text style={nutrition ? styles.colorText : styles.simpleText}>Workouts</Text>
+                                    </RNBounceable>
+                                    <RNBounceable style={workouts ? styles.simpleStyle : styles.colorStyle} onPress={() => this.setState({ workouts: false, nutrition: true })}>
+                                        <Text style={workouts ? styles.colorText : styles.simpleText}>Nutrition </Text>
+                                    </RNBounceable>
+                                </View>
+                                <View style={styles.rowContainer}>
+                                    <Text style={styles.headingStyle}>Progress Photos</Text>
+                                    <View style={styles.rowStyle}>
+                                        <Text>View all</Text>
+                                        <Icon.Entypo name="chevron-right" size={20} />
+                                    </View>
+                                </View>
+
+                                {
+                                    data.progressPhoto.map((item, index) => {
+                                        return (
+                                            <View style={styles.progressPhotoConatiner}>
+                                                <View style={styles.rowContainer}>
+                                                    <Text style={styles.headingText}>{moment(item.date).format('Do MMM YYYY')}</Text>
+                                                    <View style={styles.rowStyle}>
+                                                        <Icon.Ionicons name="ellipsis-horizontal" size={20} color={'lightgray'} />
+                                                    </View>
+                                                </View>
+                                                <View style={styles.buttonContainer}>
+                                                    <View style={styles.imageContainer}>
+                                                        <Image source={{ uri: item.frontPhoto }} style={styles.imageStyle} />
+                                                        <Text>Front</Text>
+                                                    </View>
+                                                    <View style={styles.imageContainer}>
+                                                        <Image source={{ uri: item.backPhoto }} style={styles.imageStyle} />
+                                                        <Text>Back</Text>
+                                                    </View>
+                                                </View>
+                                            </View>
+                                        )
+                                    })
+                                }
+                            </ScrollView>
+                    }
+
                 </View>
                 <UpdateWeightModal isVisible={updateModal} onUpdate={() => this.setState({ updateModal: false, update: true })} title={heading} hide={() => this.setState({ updateModal: false })} />
             </Container >

@@ -21,6 +21,16 @@ const Api = {
     },
     uploadProgressPhotoAssignUser: function (path, token, userId) {
         return axiosInstance.get(`${BASE_URL}UploadProgressPhotoClient?PhotoPath='${path}'&ClientId=${userId}`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    getUserCircumference: function (programId, userProgramId, token, userId) {
+        return axiosInstance.get(`GetUserCircumference?ProgramId=${programId}&UserProgramId=${userProgramId}`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    getProgramWeekByUserId: function (userProgramId, token, userId) {
+        return axiosInstance.get(`GetProgramWeekByUserId?UserProgramId=${userProgramId}`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    getProgramWeekDaysByWeekId:function(userProgramId,userProgramWeekId,token,userId){
+        return axiosInstance.get(`GetProgramDaysByProgramWeekId?UserProgramId=${userProgramId}&UsersProgramWeekId=${userProgramWeekId}`, apiHeaderConfiguration(token, TOKEN, userId))
+        
     }
 
 

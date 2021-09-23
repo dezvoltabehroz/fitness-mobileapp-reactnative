@@ -67,7 +67,8 @@ export default StyleSheet.create({
     progressPhotoConatiner: {
         borderRadius: 10,
         elevation: 1,
-        padding: "5%"
+        padding: "5%",
+        marginBottom: "5%"
     },
     imageContainer: {
         justifyContent: "center",
