@@ -24,7 +24,7 @@ class Programs extends Component {
     componentDidMount = () => {
         this.setState({ loading: true })
         const { userData } = this.props.user;
-
+console.log("userData.token : ",userData.token)
         ProgramServices.getAllPrograms(userData.token, userData.userId)
             .then((res) => {
                 if (res.data.responseMessage) {

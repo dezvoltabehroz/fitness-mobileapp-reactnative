@@ -53,8 +53,10 @@ class ProgramDetail extends Component {
     }
     componentDidMount = () => {
         const data = this.props?.route?.params?.data;
+        console.log("Program Data: ", data)
         ProgramServices.getUserCircumference(data.programId, data.usersProgramId, this.props.user.userData.token, this.props.user.userData.userId)
             .then((res) => {
+                console.log("res.data[0] : ", res.data[0])
                 this.setState({ data: res.data[0], loading: false })
             })
             .catch((err) => console.log(err.response))
@@ -65,6 +67,7 @@ class ProgramDetail extends Component {
             <RNBounceable onPress={() => this.props.navigation.navigate(route.WEEK_DETAIL, {
                 heading: this.props.route.params.heading,
                 userProgramId: this.state.data.usersProgramId,
+                userProgramWeekId: item.usersProgramWeekId,
                 week: [{
                     label: "Week " + (index + 1) + "/" + this.state.data.weeks.length,
                 }],

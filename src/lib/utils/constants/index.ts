@@ -92,6 +92,7 @@ const route = {
     WORKOUT_DETAIL: "WorkoutDetails",
     PROGRESS_PHOTO: "ProgressPhoto",
     CURRENT_WORKOUT: "CurrentWorkout",
+    PROGRAM_CURRENT_WORKOUT: "ProgramCurrentWorkout",
     NUTRITION_DETAIL: "Nutrition Detail"
 
 }

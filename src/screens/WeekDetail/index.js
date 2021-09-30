@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -10,7 +10,7 @@ import { authActions } from '../../redux/actions/auth';
 import styles from './style';
 import THEME from '../../assets/styles/theme.style'
 import { ProgramServices } from '../../services';
-
+import { route } from '../../lib/utils/constants'
 class WeekDetail extends Component {
     constructor(props) {
         super(props);
@@ -23,8 +23,8 @@ class WeekDetail extends Component {
     }
 
     componentDidMount = () => {
-        const { userProgramId, week } = this.props?.route?.params;
-        ProgramServices.getProgramWeekByUserId(userProgramId, this.props.user.userData.token, this.props.user.userData.userId)
+        const { userProgramId, week, userProgramWeekId } = this.props?.route?.params;
+        ProgramServices.getProgramWeekByUserId(userProgramId, userProgramWeekId, this.props.user.userData.token, this.props.user.userData.userId)
             .then((res) => {
                 console.log(res.data)
                 let array = [...res.data];
@@ -42,11 +42,11 @@ class WeekDetail extends Component {
             .catch((err) => console.log(err.response))
     }
 
-    getProgramWeekDays = (userProgramWeekId) => {
-        const { userProgramId, week } = this.props?.route?.params;
+    getProgramWeekDays = () => {
+        const { userProgramId, week, userProgramWeekId } = this.props?.route?.params;
         ProgramServices.getProgramWeekDaysByWeekId(userProgramId, userProgramWeekId, this.props.user.userData.token, this.props.user.userData.userId)
             .then((responseData) => {
-                console.log(responseData.data)
+                console.log("responseData.data : ", responseData.data)
                 this.setState({ days: responseData.data, loading: false })
 
             })
@@ -89,9 +89,39 @@ class WeekDetail extends Component {
                                         <View style={styles.headingContainer}>
                                             <Text style={styles.headingStyle}>{item.dayNoName}</Text>
                                         </View>
-                                        <View style={item.isRestDay ? styles.blueContainer : item.isUpdateMeasurementAllowed ? styles.purpleContainer : styles.greenContainer}>
-                                            <Text style={styles.textStyle}>{item.workOutAM}</Text>
-                                        </View>
+                                        {item.workOutAM ?
+                                            <TouchableOpacity onPress={() => this.props.navigation.navigate(route.PROGRAM_CURRENT_WORKOUT, {
+                                                programWeekDayId: item.programWeekDayId,
+                                                workoutId: item.workOutAMId
+                                            })} style={styles.greenContainer}>
+                                                <Text style={styles.textStyle}>{item.workOutAM}</Text>
+                                            </TouchableOpacity>
+                                            : null}
+                                        {
+                                            item.workOutPM ?
+                                                <TouchableOpacity onPress={() => this.props.navigation.navigate(route.PROGRAM_CURRENT_WORKOUT, {
+                                                    programWeekDayId: item.programWeekDayId,
+                                                    workoutId: item.workOutPMId
+                                                })} style={styles.greenContainer}>
+                                                    <Text style={styles.textStyle}>{item.workOutPM}</Text>
+                                                </TouchableOpacity>
+                                                : null
+                                        }
+                                        {item.proGressImageAllow ?
+                                            <TouchableOpacity onPress={() => this.props.navigation.navigate(route.PROGRESS_PHOTO)} style={styles.purpleContainer}>
+                                                <Text style={styles.textStyle}>{"Update Photo Progress"}</Text>
+                                            </TouchableOpacity>
+                                            : null}
+                                        {item.isUpdateMeasurementAllowed ?
+                                            <TouchableOpacity onPress={() => this.props.navigation.navigate(route.MEASUREMENT)} style={styles.purpleContainer}>
+                                                <Text style={styles.textStyle}>{"Update Measurement"}</Text>
+                                            </TouchableOpacity>
+                                            : null}
+                                        {item.isRestDay ?
+                                            <View style={styles.blueContainer}>
+                                                <Text style={styles.textStyle}>{"Rest Day"}</Text>
+                                            </View>
+                                            : null}
                                     </>
                                 )
 

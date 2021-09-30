@@ -19,6 +19,7 @@ export const UnfinishedModal = _UnfinishedModal;
 
 import _ExerciseModal from './special/ExerciseModal';
 export const ExerciseModal = _ExerciseModal;
+
 import _MealModal from './special/MealModal';
 export const MealModal = _MealModal;
 

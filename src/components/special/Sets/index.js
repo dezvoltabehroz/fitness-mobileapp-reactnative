@@ -23,13 +23,15 @@ class Sets extends Component {
         return (
             <View style={styles.rowTitleContainer}>
                 <View style={styles.first}><Text style={styles.textStyle}>{index + 1}</Text></View>
-                <View style={styles.secondShadow}><Text style={styles.headingTtextStyleext}>  </Text></View>
-                <RNBounceable onPress={() => this.setState({ showTimePicker: true, index: index })} style={styles.thirdShadow}><Text style={styles.textStyle}>{item.time}</Text></RNBounceable>
+                <View style={styles.secondShadow}><Text style={styles.headingTtextStyleext}>{item.weight}</Text></View>
+                <RNBounceable onPress={() => this.setState({ showTimePicker: true, index: index })} style={styles.thirdShadow}><Text style={styles.textStyle}>{"00:30"}</Text></RNBounceable>
                 <View style={styles.fourthShadow}><Text style={styles.textStyle}>{item.reps}</Text></View>
-                <RNBounceable onPress={() => this.setState({ showRestTimePicker: true, index: index })} style={styles.fifthShadow}><Text style={styles.textStyle}>{item.rest}</Text></RNBounceable>
-                <RNBounceable style={styles.sixth}>
+                <RNBounceable onPress={() => this.setState({ showRestTimePicker: true, index: index })} style={styles.fifthShadow}><Text style={styles.textStyle}>{item?.restPeriod}</Text></RNBounceable>
+                <RNBounceable onPress={() => {
+                    this.handleOnCompleteSet(index)
+                }} style={styles.sixth}>
                     {
-                        item.selected ?
+                        item.isCompleted ?
                             <Icon.MaterialIcons name="check-box" size={20} color={"black"} />
                             :
                             <Icon.MaterialIcons name="check-box-outline-blank" size={20} color={"lightgray"} />
@@ -39,13 +41,20 @@ class Sets extends Component {
         )
     }
 
+    handleOnCompleteSet = (index) => {
+        let { set } = this.state;
+        let array = [...set]
+        array[index] = { ...array[index], isCompleted: true }
+        this.setState({ set: array }, () => this.props.onSetCompleted(array[index].usersProgramWorkoutExerciseSetId))
+    }
+
     handleSelectAll = () => {
         let { set } = this.state;
         let array = [...set]
         array.forEach((item, index) => {
-            array[index] = { ...array[index], selected: true }
+            array[index] = { ...array[index], isCompleted: true }
         })
-        this.setState({ set: array })
+        this.setState({ set: array }, () => this.props.allSetsCompleted())
     }
 
     onChange = (selectedDate) => {
@@ -67,7 +76,7 @@ class Sets extends Component {
                     <View style={styles.first}><Text>#</Text></View>
                     <View style={styles.second}><Text>Bodyw...</Text></View>
                     <View style={styles.third}><Text>Time</Text></View>
-                    <View style={styles.fourth}><Text style={styles.headingText}>AMRAP</Text></View>
+                    <View style={styles.fourth}><Text style={styles.headingText}>Tempo</Text></View>
                     <View style={styles.fifth}><Text>Rest</Text></View>
                     <RNBounceable onPress={() => this.handleSelectAll()} style={styles.sixth}>
                         <Icon.Feather name="check" size={25} />

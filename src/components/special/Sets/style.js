@@ -14,7 +14,7 @@ export default StyleSheet.create({
     first: {
         flex: 0.1,
         flexDirection: "column",
-        marginHorizontal: "2%",
+        marginHorizontal: "1%",
         alignItems: "center"
     },
     second: {

@@ -70,7 +70,7 @@ class ExerciseModal extends Component {
                 <View style={styles.modalLowerFilterContainer}>
                     <View style={styles.headingContainer}>
                         <View style={styles.imageContainer}>
-                            <Image source={image} style={styles.imageStyle} resizeMode="contain" />
+                            <Image source={image ? { uri: image } : require('../../../assets/images/logo.png')} style={styles.imageStyle} resizeMode="contain" />
                         </View>
                         <Text style={[styles.headingStyle,]}>{title}</Text>
                     </View>

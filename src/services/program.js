@@ -26,12 +26,28 @@ const Api = {
         return axiosInstance.get(`GetUserCircumference?ProgramId=${programId}&UserProgramId=${userProgramId}`, apiHeaderConfiguration(token, TOKEN, userId))
     },
     getProgramWeekByUserId: function (userProgramId, token, userId) {
-        return axiosInstance.get(`GetProgramWeekByUserId?UserProgramId=${userProgramId}`, apiHeaderConfiguration(token, TOKEN, userId))
+        return axiosInstance.get(`GetProgramWeekByUserId?UserProgramId=${userProgramId}&UserId${userId}`, apiHeaderConfiguration(token, TOKEN, userId))
     },
-    getProgramWeekDaysByWeekId:function(userProgramId,userProgramWeekId,token,userId){
+    getProgramWeekDaysByWeekId: function (userProgramId, userProgramWeekId, token, userId) {
         return axiosInstance.get(`GetProgramDaysByProgramWeekId?UserProgramId=${userProgramId}&UsersProgramWeekId=${userProgramWeekId}`, apiHeaderConfiguration(token, TOKEN, userId))
-        
-    }
+    },
+    getDailyWorkOutExerciseByProgramWeekDay: function (usersProgramWeekDayId, workOutId, token, userId) {
+        return axiosInstance.get(`GetDailyWorkOutExerciseByProgramWeekDayId?UsersProgramWeekDayId=${usersProgramWeekDayId}&WorkOutId=${workOutId}`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    addSet: function (workoutExerciseId, programWeekId, usersProgramWeekDayId, token, userId) {
+        return axiosInstance.post(`AddSetToWorkoutExercise?UsersProgramWorkoutExerciseId=${workoutExerciseId}&UsersProgramWeekId=${programWeekId}&UsersProgramWeekDayId=${usersProgramWeekDayId}`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    setCompleted: function (setId, token, userId) {
+        return axiosInstance.post(`CompleteWorkoutExerciseSet?UsersProgramWorkoutExerciseSetId=${setId}`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    allSetCompleted: function (workoutExerciseId, token, userId) {
+        return axiosInstance.post(`CompleteWorkoutExercise?UsersProgramWorkoutExerciseId=${workoutExerciseId}`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    completeTheWholeDayWorkout: function (weekDayId, token, userId) {
+        return axiosInstance.post(`CompleteProgramDays?ProgramWeekDayId=${weekDayId}`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    
+
 
 
 };

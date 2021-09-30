@@ -115,5 +115,8 @@ export const UnitMeasurement = _UnitMeasurement;
 import _AddNutritionItem from './AddNutritionItem';
 export const AddNutritionItem = _AddNutritionItem;
 
+import _ProgramCurrentWorkout from './ProgramCurrentWorkout';
+export const ProgramCurrentWorkout = _ProgramCurrentWorkout;
+
 import _AuthLoading from './AuthLoading';
 export const AuthLoading = _AuthLoading;
