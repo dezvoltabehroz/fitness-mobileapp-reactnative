@@ -46,8 +46,11 @@ const Api = {
     completeTheWholeDayWorkout: function (weekDayId, token, userId) {
         return axiosInstance.post(`CompleteProgramDays?ProgramWeekDayId=${weekDayId}&IsProgramWorkout=true`, apiHeaderConfiguration(token, TOKEN, userId))
     },
-    completeNutrition:function(nutritionDetailId,token,userId){
-        return axiosInstance.post(`CompleteNutritions?UsersProgramNutritionDetailId=${nutritionDetailId}&IsProgramWorkout=true`, userData, apiHeaderConfiguration(token, TOKEN,userId))
+    completeNutrition: function (nutritionDetailId, token, userId) {
+        return axiosInstance.post(`CompleteNutritions?UsersProgramNutritionDetailId=${nutritionDetailId}&IsProgramWorkout=true`, userData, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    startProgram: function (programId, userProgramId, token, userId) {
+        return axiosInstance.post(`StartProgram?ProgramId=${programId}&UserProgramId=${userProgramId}`, userData, apiHeaderConfiguration(token, TOKEN, userId))
     }
 
 

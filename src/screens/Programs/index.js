@@ -24,7 +24,7 @@ class Programs extends Component {
     componentDidMount = () => {
         this.setState({ loading: true })
         const { userData } = this.props.user;
-console.log("userData.token : ",userData.token)
+        console.log("userData.token : ", userData.token)
         ProgramServices.getAllPrograms(userData.token, userData.userId)
             .then((res) => {
                 if (res.data.responseMessage) {
@@ -34,6 +34,15 @@ console.log("userData.token : ",userData.token)
                 }
             })
             .catch((err) => { this.setState({ workout: [], loading: false }); console.log(err) })
+    }
+
+    handleStartProgram = (item) => {
+        const { token, userId } = this.props.user.userData;
+        ProgramServices.startProgram(item.programId, item.usersProgramId, token, userId)
+            .then((res) => {
+                this.props.navigation.navigate(route.PROGRAM_DETAIL, { heading: item.programName, data: item })
+            })
+            .catch((err) => console.log(err.response.data))
     }
 
     render() {
@@ -72,7 +81,7 @@ console.log("userData.token : ",userData.token)
                                                 keyExtractor={item => item}
                                                 renderItem={({ index, item }) => {
                                                     return (
-                                                        <RNBounceable onPress={() => { this.props.navigation.navigate(route.PROGRAM_DETAIL, { heading: item.programName, data: item }) }} style={styles.contentContainer} >
+                                                        <RNBounceable onPress={() => { if (item.isStarted) { this.props.navigation.navigate(route.PROGRAM_DETAIL, { heading: item.programName, data: item }) } else { this.handleStartProgram(item) } }} style={styles.contentContainer} >
                                                             <View style={styles.boxView}>
                                                                 <Text></Text>
                                                             </View>
