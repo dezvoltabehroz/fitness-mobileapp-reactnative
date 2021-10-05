@@ -9,12 +9,13 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 
 import { authActions } from '../../redux/actions/auth';
-import { Container, Icon, Button, Input, Sets, MenuModal, UnfinishedModal, ExerciseModal } from "../../components";
+import { Container, Icon, Button, Input, Sets, MenuModal, UnfinishedModal, ExerciseModal, Loader } from "../../components";
 import { renderSeperator } from '../../lib/utils/global'
 
 import THEME from '../../assets/styles/theme.style'
 import styles from './style';
 import { LOGO, route } from '../../lib/utils/constants';
+import { WorkoutsServices } from '../../services';
 
 class CurrentWorkout extends Component {
     constructor(props) {
@@ -23,6 +24,7 @@ class CurrentWorkout extends Component {
             currentPage: 0,
             side: "",
             back: "",
+            loading: true,
             selectedSec: [{}],
             selectedMin: [{}],
             searchModal: false,
@@ -276,36 +278,75 @@ class CurrentWorkout extends Component {
     }
 
     componentDidMount = () => {
-        console.log(" this.props.route", this.props.navigation)
+        const { workoutId } = this.props?.route?.params?.workout;
+        const { token, userId } = this.props.user.userData;
+        WorkoutsServices.getWorkoutExercise(workoutId, token, userId)
+            .then((res) => { this.setState({ workout: res.data, loading: false }) })
+            .catch((err) => console.log(err.response))
     }
 
     handleAlert = () => {
         this.props.authActions.menuDotModal(!this.props.user.menuDotModal);
         this.setState({ unfinishModal: true })
     }
+    handleAddSet = (item) => {
+        console.log(item)
+        this.setState({ loading: true })
+        const { token, userId } = this.props.user.userData;
+        WorkoutsServices.addSet(item?.usersWorkoutExerciseId, token, userId)
+            .then((res) => {
+                if (res.data.responseCode == "000") {
+                    this.componentDidMount();
+                }
+            })
+            .catch((err) => console.log(err.response))
+    }
+
+    handleSetComplete = (setId) => {
+        const { token, userId } = this.props.user.userData;
+        WorkoutsServices.setCompleted(setId, token, userId)
+            .then((res) => { })
+            .catch((err) => console.log(err.response))
+    }
+
+    handleAllSetsComplete = (setId) => {
+        const { token, userId } = this.props.user.userData;
+        WorkoutsServices.allSetCompleted(setId, token, userId)
+            .then((res) => { })
+            .catch((err) => console.log(err.response))
+    }
+
+    handleCompletetheWhole = () => {
+        const { workout } = this.props.route.params;
+        const { token, userId } = this.props.user.userData;
+        WorkoutsServices.completeTheWholeDayWorkout(programWeekDayId, token, userId)
+            .then((res) => { this.props.navigation.replace('Home') })
+            .catch((err) => console.log(err.response.data))
+    }
 
     _renderItem = (item, index) => {
         return (
             <View style={styles.flatListContainer}>
                 <View style={styles.flatListRowContainer}>
-                    <RNBounceable onPress={() => { this.props.navigation.navigate(route.EXERCISE, { heading: item.title }) }} style={styles.flatListRow}>
-                        <Image source={item.image} style={styles.imageStyle} resizeMode="contain" />
+                    <RNBounceable onPress={() => { this.props.navigation.navigate(route.EXERCISE, { heading: item.exerciseName }) }} style={styles.flatListRow}>
+                        <Image source={item.imagePath ? { uri: item.imagePath } : require('../../assets/images/logo.png')} style={styles.imageStyle} resizeMode="contain" />
                         <View style={styles.gapWidth}></View>
-                        <Text style={styles.flatListTitleStyle}>{item.title}</Text>
+                        <Text style={styles.flatListTitleStyle}>{item.exerciseName}</Text>
                     </RNBounceable>
-                    <RNBounceable onPress={() => this.setState({ image: item.image, title: item.title, exerciseModal: true })}>
+                    <RNBounceable onPress={() => this.setState({ image: item.imagePath, title: item.exerciseName, exerciseModal: true })}>
                         <Icon.Ionicons name="ellipsis-horizontal" size={30} color={THEME.COLOR_LIGHT_GRAY} />
                     </RNBounceable>
                 </View>
                 <View>
-                    <Sets item={item.sets} />
+                    <Sets item={item.sets} onSetCompleted={(setId) => { this.handleSetComplete(setId) }} allSetsCompleted={() => { this.handleAllSetsComplete(item.usersProgramWorkoutExerciseId ? item.usersProgramWorkoutExerciseId : item.usersWorkoutExerciseId) }} />
                 </View>
                 <View style={styles.buttonStyle}>
-                    <Button.OutlineButton title="Add Set" onPress={() => { }} />
+                    <Button.OutlineButton title="Add Set" onPress={() => { this.handleAddSet(item) }} />
                 </View>
             </View>
         )
     }
+
 
     _renderItem4 = (item, index) => {
         return (
@@ -319,7 +360,7 @@ class CurrentWorkout extends Component {
     }
 
     render() {
-        const { currentPage, searchModal, distance, workout, exerciseModal, image, title } = this.state;
+        const { currentPage, searchModal, distance, workout, exerciseModal, image, title, loading } = this.state;
         return (
             <>
                 <Container
@@ -329,25 +370,35 @@ class CurrentWorkout extends Component {
                     selectedSecF={(value) => this.setState({ selectedSec: value })}>
                     <StatusBar backgroundColor={this.props.user.menuModal ? THEME.PRIMARY_BACKGROUND_COLOR : "#181818"} barStyle={"light-content"} />
                     <View style={styles.container}>
-                        <ScrollView>
-                            <FlatList
-                                data={workout}
-                                ItemSeparatorComponent={(renderSeperator)}
-                                contentContainerStyle={{ paddingVertical: "5%" }}
-                                renderItem={({ index, item }) => this._renderItem(item, index)} />
-                            <View style={styles.contentContainer}>
-                                <TouchableOpacity
-                                    onPress={() => this.setState({ searchModal: true })}
-                                    style={styles.addExerciseContainer}>
-                                    <Text style={styles.textStyle}>Add Exercise</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    onPress={() => this.handleAlert()}
-                                    style={{ margin: "10%", }}>
-                                    <Text style={styles.textStyle2}>Cancel</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </ScrollView>
+                        {
+                            loading ?
+                                <Loader />
+                                :
+                                <ScrollView>
+                                    <FlatList
+                                        data={workout}
+                                        ItemSeparatorComponent={(renderSeperator)}
+                                        contentContainerStyle={{ paddingVertical: "5%" }}
+                                        renderItem={({ index, item }) => this._renderItem(item, index)} />
+                                    <View style={styles.contentContainer}>
+                                        <View style={{ marginHorizontal: "15%" }}>
+                                            <Button.BrownButton title={"Finished"} onPress={() => this.props.navigation.replace('Home')} />
+                                        </View>
+                                        {/* <TouchableOpacity
+                                            onPress={() => this.setState({ searchModal: true })}
+                                            style={styles.addExerciseContainer}>
+                                            <Text style={styles.textStyle}>Add Exercise</Text>
+                                        </TouchableOpacity>
+                                        */}
+                                        <TouchableOpacity
+                                            onPress={() => this.handleAlert()}
+                                            style={{ margin: "10%", }}>
+                                            <Text style={styles.textStyle2}>Cancel</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </ScrollView>
+                        }
+
                     </View>
 
                 </Container>
@@ -579,7 +630,7 @@ class CurrentWorkout extends Component {
                                 },
                                 {
                                     text: 'QUIT SESSION',
-                                    onPress: () => { }
+                                    onPress: () => { this.props.navigation.replace('Home') }
                                 }
                             ]
                         )

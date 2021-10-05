@@ -115,7 +115,7 @@ function AppRoutes(props) {
             <Stack.Screen name={route.NUTRITION_LIBRARY} component={NutritionLibrary} options={({ navigation, route }) => ({
                 headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
-                headerRight: () => (<NavigationHeaderRightButton navigation={navigation} dot={true} authActions={props.authActions} />),
+                // headerRight: () => (<NavigationHeaderRightButton navigation={navigation} dot={true} authActions={props.authActions} />),
                 headerTitle: screen.SCREEN_TITLE_NUTRITION_LIBRARY
             })} />
             <Stack.Screen name={route.PROGRAM_LIBRARY} component={ProgramLibrary} options={({ navigation, route }) => ({

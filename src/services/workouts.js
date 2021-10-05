@@ -4,11 +4,11 @@ import { apiHeaderConfiguration } from '../lib/utils/global'
 import { EMPTY, TOKEN, } from '../lib/utils/constants'
 
 const Api = {
-    getAllWorkouts: function (token, id) {
-        return axiosInstance.get('GetAllWorkouts', apiHeaderConfiguration(token, TOKEN, id))
+    getAllWorkouts: function (id, token) {
+        return axiosInstance.get(`GetAllWorkoutsById?UserId=${id}`, apiHeaderConfiguration(token, TOKEN, id))
     },
-    getAllWorkoutsbyId: function (id, token, userId) {
-        return axiosInstance.get('GetAllWorkoutsById?ClientId=' + id, apiHeaderConfiguration(token, TOKEN, userId))
+    getWorkoutExercise: function (workoutId, token, userId) {
+        return axiosInstance.get(`GetAllWorkoutSets?WorkoutId=${workoutId}`, apiHeaderConfiguration(token, TOKEN, userId))
     },
     getAllSets: function () {
         return axiosInstance.get('GetAllSets', apiHeaderConfiguration(EMPTY, EMPTY))
@@ -55,6 +55,21 @@ const Api = {
     getOldMeasurements: function (token, userId) {
         return axiosInstance.get(`GetAllWeightCircumferencebyId?ClientId=${userId}`, apiHeaderConfiguration(token, TOKEN, userId))
     },
+    addSet: function (workoutExerciseId, token, userId) {
+        return axiosInstance.post(`AddSetToWorkoutExercise?UsersProgramWorkoutExerciseId=${workoutExerciseId}&IsProgramWorkout=false`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    setCompleted: function (setId, token, userId) {
+        return axiosInstance.post(`CompleteWorkoutExerciseSet?UsersProgramWorkoutExerciseSetId=${setId}&IsProgramWorkout=false`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    allSetCompleted: function (workoutExerciseId, token, userId) {
+        return axiosInstance.post(`CompleteWorkoutExercise?UsersProgramWorkoutExerciseId=${workoutExerciseId}&IsProgramWorkout=false`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    completeTheWholeDayWorkout: function (workoutExerciseId, token, userId) {
+        return axiosInstance.post(`CompleteWorkoutExercise?UsersProgramWorkoutExerciseId=${workoutExerciseId}&IsProgramWorkout=false`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    startWorkout: function (workoutId, token, userId) {
+        return axiosInstance.post(`StartWorkout?WorkoutId=${workoutId}`, apiHeaderConfiguration(token, TOKEN, userId))
+    }
 };
 
 export default Api;

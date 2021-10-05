@@ -35,18 +35,20 @@ const Api = {
         return axiosInstance.get(`GetDailyWorkOutExerciseByProgramWeekDayId?UsersProgramWeekDayId=${usersProgramWeekDayId}&WorkOutId=${workOutId}`, apiHeaderConfiguration(token, TOKEN, userId))
     },
     addSet: function (workoutExerciseId, programWeekId, usersProgramWeekDayId, token, userId) {
-        return axiosInstance.post(`AddSetToWorkoutExercise?UsersProgramWorkoutExerciseId=${workoutExerciseId}&UsersProgramWeekId=${programWeekId}&UsersProgramWeekDayId=${usersProgramWeekDayId}`, apiHeaderConfiguration(token, TOKEN, userId))
+        return axiosInstance.post(`AddSetToWorkoutExercise?UsersProgramWorkoutExerciseId=${workoutExerciseId}&UsersProgramWeekId=${programWeekId}&UsersProgramWeekDayId=${usersProgramWeekDayId}&IsProgramWorkout=true`, apiHeaderConfiguration(token, TOKEN, userId))
     },
     setCompleted: function (setId, token, userId) {
-        return axiosInstance.post(`CompleteWorkoutExerciseSet?UsersProgramWorkoutExerciseSetId=${setId}`, apiHeaderConfiguration(token, TOKEN, userId))
+        return axiosInstance.post(`CompleteWorkoutExerciseSet?UsersProgramWorkoutExerciseSetId=${setId}&IsProgramWorkout=true`, apiHeaderConfiguration(token, TOKEN, userId))
     },
     allSetCompleted: function (workoutExerciseId, token, userId) {
-        return axiosInstance.post(`CompleteWorkoutExercise?UsersProgramWorkoutExerciseId=${workoutExerciseId}`, apiHeaderConfiguration(token, TOKEN, userId))
+        return axiosInstance.post(`CompleteWorkoutExercise?UsersProgramWorkoutExerciseId=${workoutExerciseId}&IsProgramWorkout=true`, apiHeaderConfiguration(token, TOKEN, userId))
     },
     completeTheWholeDayWorkout: function (weekDayId, token, userId) {
-        return axiosInstance.post(`CompleteProgramDays?ProgramWeekDayId=${weekDayId}`, apiHeaderConfiguration(token, TOKEN, userId))
+        return axiosInstance.post(`CompleteProgramDays?ProgramWeekDayId=${weekDayId}&IsProgramWorkout=true`, apiHeaderConfiguration(token, TOKEN, userId))
     },
-    
+    completeNutrition:function(nutritionDetailId,token,userId){
+        return axiosInstance.post(`CompleteNutritions?UsersProgramNutritionDetailId=${nutritionDetailId}&IsProgramWorkout=true`, userData, apiHeaderConfiguration(token, TOKEN,userId))
+    }
 
 
 

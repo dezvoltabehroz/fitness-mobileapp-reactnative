@@ -204,7 +204,6 @@ class ProgramCurrentWorkout extends Component {
         const { token, userId } = this.props.user.userData;
         ProgramServices.addSet(item.usersProgramWorkoutExerciseId, item.usersProgramWeekId, item.usersProgramWeekDayId, token, userId)
             .then((res) => {
-                console.log(res.data)
                 if (res.data.responseCode == "000") {
                     this.componentDidMount();
                 }
@@ -215,18 +214,14 @@ class ProgramCurrentWorkout extends Component {
     handleSetComplete = (setId) => {
         const { token, userId } = this.props.user.userData;
         ProgramServices.setCompleted(setId, token, userId)
-            .then((res) => {
-                console.log(res.data)
-            })
+            .then((res) => { })
             .catch((err) => console.log(err.response))
     }
 
     handleAllSetsComplete = (setId) => {
         const { token, userId } = this.props.user.userData;
         ProgramServices.allSetCompleted(setId, token, userId)
-            .then((res) => {
-                console.log(res.data)
-            })
+            .then((res) => { })
             .catch((err) => console.log(err.response))
     }
 
@@ -234,10 +229,7 @@ class ProgramCurrentWorkout extends Component {
         const { programWeekDayId } = this.props.route.params;
         const { token, userId } = this.props.user.userData;
         ProgramServices.completeTheWholeDayWorkout(programWeekDayId, token, userId)
-            .then((res) => {
-                console.log(res.data)
-                this.props.navigation.replace('Home')
-            })
+            .then((res) => { this.props.navigation.replace('Home') })
             .catch((err) => console.log(err.response.data))
     }
 

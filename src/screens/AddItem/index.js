@@ -6,7 +6,7 @@ import { bindActionCreators } from "redux";
 import { connect } from 'react-redux'
 import DropDownPicker from 'react-native-dropdown-picker';
 
-import { Container, Button } from "../../components";
+import { Container, Button, Loader } from "../../components";
 import { Input } from '../../components/Input/Input.component';
 import { authActions } from '../../redux/actions/auth';
 
@@ -24,6 +24,7 @@ class AddItem extends Component {
             name: "",
             id: "",
             servingSize: "",
+            loading: true,
             calories: "",
             unitMeasurementId: "",
             unitMeasurementName: "",
@@ -67,10 +68,10 @@ class AddItem extends Component {
     }
 
     componentDidMount = () => {
-        if (this.props.route.params != undefined) {
-            let { data } = this.props.route.params;
+        if (this.props?.route?.params != undefined) {
+            let { data } = this.props?.route?.params;
             this.setState({
-                id: `${data.customFoodId}`,
+                id: `${data?.customFoodId}`,
                 name: `${data?.itemName}`,
                 servingSize: `${data?.servingSize}`,
                 calories: `${data?.calories}`,
@@ -91,7 +92,11 @@ class AddItem extends Component {
                 vitaminC: `${data?.vitaminC}`,
                 calcium: `${data?.calcium}`,
                 iron: `${data?.iron}`,
+                selectedUnitMeasurement: [{ id: data?.measurementUnitId, label: `${data?.measurementUnit}`, value: `${data?.measurementUnit}` }],
+                loading: false
             })
+        } else {
+            this.setState({ loading: false })
         }
     }
 
@@ -127,18 +132,12 @@ class AddItem extends Component {
                 customFoodId: parseInt(id)
             }
             NutritionsServices.updateCustomFood(data, this.props.user.userData.token, this.props.user.userData.userId)
-                .then((res) => {
-                    console.log(res.data)
-                    this.props.navigation.replace('Home')
-                })
+                .then((res) => { this.props.navigation.replace('Home') })
                 .catch((err) => { console.log(err.response.data) })
         } else {
 
             NutritionsServices.addCustomFood(userData, this.props.user.userData.token, this.props.user.userData.userId)
-                .then((res) => {
-                    console.log(res.data)
-                    this.props.navigation.replace('Home')
-                })
+                .then((res) => { this.props.navigation.replace('Home') })
                 .catch((err) => { console.log(err.response.data) })
         }
 
@@ -146,12 +145,15 @@ class AddItem extends Component {
 
     render() {
         const { unitMeasurement, name, calcium, calories, polyunsaturatedFat, monosaturatedFat, vitaminC, vitaminA, servingSize, saturatedFat, sugars, unitMeasurementId,
-            unitMeasurementName,
+            unitMeasurementName, loading,
             potassium, sodium, carbohydrates, cholesterol, dietaryFiber, fat, iron, protein, update } = this.state;
         return (
             <Container props={this.props}>
                 {
-                    this.props.route.params != undefined ?
+                 loading ?
+                    <Loader />
+                    :
+                    this.props?.route?.params != undefined ?
                         <View style={styles.container}>
                             <ScrollView contentContainerStyle={styles.scrollContentContainer} >
                                 <View style={styles.generalMargin}>
@@ -172,7 +174,7 @@ class AddItem extends Component {
                                         onClose={() => this.setState({ dropdownOpen2: false })}
                                         onOpen={() => this.setState({ dropdownOpen2: true })}
                                         containerStyle={{ height: 40, marginBottom: this.state.dropdownOpen2 ? '31%' : 0 }}
-                                        defaultValue={this.state.selectedUnitMeasurement || unitMeasurementId ? this.state.selectedUnitMeasurement.label ? this.state.selectedUnitMeasurement.label : unitMeasurementId ? unitMeasurementName : "" : ""}
+                                        defaultValue={this.state.selectedUnitMeasurement && this.state.selectedUnitMeasurement.label ? this.state.selectedUnitMeasurement.label:""}
                                         onChangeItem={(item) => { this.setState({ selectedUnitMeasurement: item, unitMeasurementId: item.id, item: item.value, index: item.value, update: true }) }}
                                     />
                                 </View>

@@ -137,15 +137,18 @@ class Nutrition extends Component {
         console.log(userData)
         NutritionsServices.getAllCustomFoods(userData.token, userData.userId)
             .then((response) => {
+                console.log("====================");
+                console.log(" response.data : ", response.data)
+                console.log("====================")
                 this.setState({ customFoods: response.data })
             })
             .catch((error) => console.log(error))
-        NutritionsServices.getAllMealPlanDetails(userData.token, userData.userId)
+        NutritionsServices.getMealPlans(userData.token, userData.userId)
             .then((response) => {
                 this.setState({ nutritions: response.data, isLoading: false })
             })
             .catch((error) => console.log(error))
-            NutritionsServices.getAllMealPlanDetailsById(userData.token, userData.userId)
+        NutritionsServices.getAllMealPlanDetailsById(userData.token, userData.userId)
             .then((response) => {
                 this.setState({ shoppingList: response.data, isLoading: false })
             })
@@ -206,8 +209,8 @@ class Nutrition extends Component {
                     {item.selected ? <Icon.MaterialCommunityIcons name="checkbox-marked-circle" size={20} color={"lightgreen"} /> : <Icon.MaterialCommunityIcons name="checkbox-blank-circle-outline" size={20} color={"lightgray"} />}
                 </View>
                 <View style={{ marginLeft: "5%" }}>
-                    <Text style={{ fontWeight: "bold",textTransform:"capitalize" }}>{item.customFood}</Text>
-                    <Text style={{ fontWeight: "bold",color:'lightgray' }}>{item.calories} g</Text>
+                    <Text style={{ fontWeight: "bold", textTransform: "capitalize" }}>{item.customFood}</Text>
+                    <Text style={{ fontWeight: "bold", color: 'lightgray' }}>{item.calories} g</Text>
                 </View>
             </RNBounceable>
         )
@@ -218,7 +221,7 @@ class Nutrition extends Component {
             <RNBounceable onPress={() => { this.props.navigation.navigate(route.ITEM, { data: item }) }} style={styles.itemContainer}>
                 <Image style={styles.boxView} source={item.imagePath != "" ? { uri: item.imagePath } : LOGO} />
                 <View style={styles.itemTypeContainer}>
-                    <Text numberOfLines={3} style={{ fontWeight: "bold",textTransform:"capitalize" }}>{item.itemName}</Text>
+                    <Text numberOfLines={3} style={{ fontWeight: "bold", textTransform: "capitalize" }}>{item.itemName}</Text>
                 </View>
             </RNBounceable>
         )

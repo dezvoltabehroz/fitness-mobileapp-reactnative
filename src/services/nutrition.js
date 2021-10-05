@@ -25,11 +25,11 @@ const Api = {
     recipeSearch: function () {
         return axiosInstance.get('search?q=chicken&app_id=9929fc03&app_key=beb5bf4f114df61b5f74074c20193f07&from=0&to=3&calories=591-722&health=alcohol-free', apiHeaderConfiguration(EMPTY, EMPTY))
     },
-    getAllMealPlanDetailsById: function (token, id) {
-        return axiosInstance.get('GetAllMealPlanDetailsById?ClientId=36', apiHeaderConfiguration(token, TOKEN, id))
+    getAllMealPlanDetailsById: function (nutritionPlanId, token, id) {
+        return axiosInstance.get(`GetAllMealPlanDetailsById?NutritionPlanId=${nutritionPlanId}`, apiHeaderConfiguration(token, TOKEN, id))
     },
-    getMealPlanDetailsAccumulated: function (name) {
-        return axiosInstance.get('GetAllMealPlanDetailsAccumulated?name=' + name, apiHeaderConfiguration(EMPTY, EMPTY))
+    getMealPlans: function (token, userId) {
+        return axiosInstance.get('GetAllMealPlanDetailsAccumulated?name=', apiHeaderConfiguration(token, TOKEN, userId))
     },
     addMealPlanDetailItem: function (userData, token) {
         return axiosInstance.post('AddMealPlanDetailItem', userData, apiHeaderConfiguration(token, TOKEN))
@@ -49,6 +49,12 @@ const Api = {
     deleteMealPlanDetailsAccumulated: function (userData, token) {
         return axiosInstance.post('DeleteMealPlanDetailsAccumulated', userData, apiHeaderConfiguration(token, TOKEN))
     },
+    startNutrition:function(nutritionDetailId,token,userId){
+        return axiosInstance.post(`StartNutrition?NutritionPlanId=${nutritionDetailId}&IsProgramWorkout=false`, userData, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    completeNutrition: function (nutritionDetailId, token, userId) {
+        return axiosInstance.post(`CompleteNutritions?UsersProgramNutritionDetailId=${nutritionDetailId}&IsProgramWorkout=false`, userData, apiHeaderConfiguration(token, TOKEN, userId))
+    }
 
 };
 

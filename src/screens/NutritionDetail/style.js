@@ -55,13 +55,14 @@ export default StyleSheet.create({
     row: { flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginHorizontal: "2.5%" },
     itemTextStyle: { flex: 0.8, fontWeight: "bold", paddingRight: 5 },
     upperContentContainer: { flexDirection: "row", margin: "5%", justifyContent: "flex-start", width: screenWidth * 0.7 },
-    buttonContainer: { marginHorizontal:"20%", justifyContent: "center" },
+    buttonContainer: { marginHorizontal: "20%", justifyContent: "center" },
     buttonStyle: { position: "absolute", bottom: 40, },
     marginTop: {
         marginTop: "5%"
     },
     generalMargin: { elevation: 2, marginTop: "5%", marginHorizontal: "5%" },
-    itemContainer: { flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", elevation: 2, padding: "5%", marginBottom: 10 },
+    itemContainer: { flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", elevation: 2, paddingVertical: "2.5%", paddingHorizontal: "5%", marginBottom: 10 },
+    // itemContainer2: { flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", elevation: 2, marginBottom: 10 },
     modalLowerContainer: {
         flex: 0.8,
         flexDirection: "column",

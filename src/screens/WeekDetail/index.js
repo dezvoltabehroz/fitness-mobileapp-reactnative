@@ -26,7 +26,6 @@ class WeekDetail extends Component {
         const { userProgramId, week, userProgramWeekId } = this.props?.route?.params;
         ProgramServices.getProgramWeekByUserId(userProgramId, userProgramWeekId, this.props.user.userData.token, this.props.user.userData.userId)
             .then((res) => {
-                console.log(res.data)
                 let array = [...res.data];
                 let userProgramWeekId;
                 for (let index = 0; index < array.length; index++) {
@@ -95,6 +94,12 @@ class WeekDetail extends Component {
                                                 workoutId: item.workOutAMId
                                             })} style={styles.greenContainer}>
                                                 <Text style={styles.textStyle}>{item.workOutAM}</Text>
+                                                {
+                                                        item.isCompleted ?
+                                                            <Icon.MaterialIcons name="check-circle-outline" size={20} color="white" />
+                                                            :
+                                                            null
+                                                    }
                                             </TouchableOpacity>
                                             : null}
                                         {
@@ -104,6 +109,12 @@ class WeekDetail extends Component {
                                                     workoutId: item.workOutPMId
                                                 })} style={styles.greenContainer}>
                                                     <Text style={styles.textStyle}>{item.workOutPM}</Text>
+                                                    {
+                                                        item.isCompleted ?
+                                                            <Icon.MaterialIcons name="check-circle-outline" size={20} color="white" />
+                                                            :
+                                                            null
+                                                    }
                                                 </TouchableOpacity>
                                                 : null
                                         }

@@ -27,9 +27,8 @@ class Workouts extends Component {
     componentDidMount = () => {
         const { userData } = this.props.user;
         console.log(userData)
-        WorkoutsServices.getAllWorkouts(userData.token, TOKEN, userData.userId)
+        WorkoutsServices.getAllWorkouts(userData.userId, userData.token)
             .then((res) => {
-                console.log(res.data)
                 this.setState({ workout: res.data, loading: false })
             })
             .catch((err) => {
@@ -89,7 +88,7 @@ class Workouts extends Component {
                                         />
                                         <View style={styles.buttonContainer}>
                                             <View style={styles.buttonStyle}>
-                                                <Button.SlimButton title={"Start Workout"} onPress={() => { this.props.navigation.navigate('StartWorkout') }} />
+                                                <Button.SlimButton title={"Start Workout"} onPress={() => { this.props.navigation.navigate('StartWorkout',{}) }} />
                                             </View>
                                         </View>
                                     </>

@@ -13,11 +13,19 @@ import { Container, Icon, Button } from "../../components";
 import THEME from '../../assets/styles/theme.style'
 import styles from './style';
 import { route } from '../../lib/utils/constants';
+import { WorkoutsServices } from '../../services';
 
 class StartWorkout extends Component {
     constructor(props) {
         super(props);
         this.state = {}
+    }
+
+    handleStartWorkout=()=>{
+        const { userData } = this.props.user;
+        WorkoutsServices.startWorkout(this.props.route?.params?.workout?.workoutId, userData.token, userData.userId)
+        .then((res)=>{console.log(res.data); this.props.navigation.navigate(route.CURRENT_WORKOUT, { workout: this.props.route?.params?.workout }) })
+        .catch((err)=>console.log(err.response))
     }
 
     render() {
@@ -59,7 +67,7 @@ class StartWorkout extends Component {
                         </RNBounceable>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <Button.SlimButton disabled={this.props.route.params.workout ? false : true} title="Start" onPress={() => { this.props.navigation.navigate(route.CURRENT_WORKOUT, { workout: this.props.route.params.workout }) }} />
+                        <Button.SlimButton disabled={this.props.route.params.workout ? false : true} title="Start" onPress={() => {this.handleStartWorkout(); this.props.navigation.navigate(route.CURRENT_WORKOUT, { workout: this.props.route.params.workout }) }} />
                     </View>
                 </View>
             </Container >

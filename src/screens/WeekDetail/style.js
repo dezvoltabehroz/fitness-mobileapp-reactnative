@@ -31,6 +31,9 @@ export default StyleSheet.create({
     },
     greenContainer: {
         backgroundColor: "#96CC39",
+        flexDirection:"row",
+        justifyContent:"space-between",
+        alignItems:"center",
         marginTop: "2.5%",
         width: screenWidth * 0.9,
         borderRadius: 5,
@@ -39,6 +42,9 @@ export default StyleSheet.create({
     purpleContainer: {
         backgroundColor: "#aea0db",
         borderRadius: 5,
+        flexDirection:"row",
+        justifyContent:"space-between",
+        alignItems:"center",
         marginTop: "2.5%",
         width: screenWidth * 0.9,
         padding: "5%"
@@ -46,6 +52,9 @@ export default StyleSheet.create({
     blueContainer: {
         backgroundColor: "#2b3d51",
         borderRadius: 5,
+        flexDirection:"row",
+        justifyContent:"space-between",
+        alignItems:"center",
         marginTop: "2.5%",
         width: screenWidth * 0.9,
         padding: "5%"

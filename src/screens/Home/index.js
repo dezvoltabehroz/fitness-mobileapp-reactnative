@@ -102,10 +102,7 @@ class Home extends Component {
         const { userData } = this.props.user;
         this.setState({ loading: true })
         ActivitiesServices.getAllActivitiesByAudit(userData.token, userData.userId)
-            .then((response) => {
-                console.log(response.data)
-                this.setState({ activityArr: response.data, loading: false })
-            })
+            .then((response) => {this.setState({ activityArr: response.data, loading: false })   })
             .catch((err) => console.log(err))
 
     }

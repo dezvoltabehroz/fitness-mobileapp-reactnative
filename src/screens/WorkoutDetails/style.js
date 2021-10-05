@@ -56,5 +56,32 @@ export default StyleSheet.create({
         marginTop: "5%"
     },
     generalMargin:{ marginTop: "5%", marginHorizontal: "5%" },
-    itemContainer:{ flex: 1, flexDirection: "row", alignItems: "center", marginHorizontal: "5%", elevation: 2, padding: "5%", borderRadius: 10, marginBottom: 10 }
+    itemContainer:{ flex: 1, flexDirection: "row", alignItems: "center", marginHorizontal: "5%", elevation: 2, padding: "5%", borderRadius: 10, marginBottom: 10 },
+    flatListContainer: {
+        borderRadius: 10,
+        backgroundColor: THEME.COLOR_WHITE,
+        elevation: 2,
+        marginHorizontal: "5%",
+        padding: "2.5%"
+    },
+    flatListRowContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center"
+    },
+    flatListRow: {
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    gapWidth: {
+        width: 5
+    },
+    imageStyle: {
+        height: 50,
+        width: 70
+    },
+    flatListTitleStyle: {
+        fontSize: 16,
+        fontWeight: "bold"
+    },
 })

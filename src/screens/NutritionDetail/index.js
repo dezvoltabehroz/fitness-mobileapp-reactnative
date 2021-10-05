@@ -24,7 +24,7 @@ class NutritionDetail extends Component {
             visible: true,
             currentPage: 0,
             macrosModal: false,
-            breakFast: [],
+            breakFast: {},
             // breakFast: [
             //     {
             //         title: 'Egg',
@@ -95,20 +95,19 @@ class NutritionDetail extends Component {
 
     componentDidMount = async () => {
         const { userData } = this.props.user;
-        console.log(userData)
-        NutritionsServices.getAllMealPlanDetailsById(userData.token, userData.userId)
+        NutritionsServices.getAllMealPlanDetailsById(this.props.route?.params?.data?.mealPlanId, userData.token, userData.userId)
             .then((res) => {
                 console.log(res.data)
                 NutritionsServices.getAllMacros(userData.userId, userData.token)
                     .then((response) => {
-                        this.setState({ breakFast: res.data, })
+                        this.setState({ breakFast: res.data[0], })
 
                     })
                     .catch((err) => {
                         console.log(err)
                     })
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.log(err.response.data))
     }
 
     setSliderPage = (event: any) => {
@@ -139,11 +138,13 @@ class NutritionDetail extends Component {
             <>
                 <View onPress={() => { }} style={styles.itemContainer}>
                     <View >
-                        <Text style={styles.textStyle}>{item.meal}</Text>
+                        <Text style={styles.textStyle}>{item.nutritionName}</Text>
                     </View>
-                    <RNBounceable onPress={() => this.setState({ mealModal: true })}>
-                        <Icon.Ionicons name="ellipsis-horizontal" size={30} color="lightgray" />
-                    </RNBounceable>
+                    {this.state.breakFast.isStarted ?
+                        <RNBounceable onPress={() => this.setState({ mealModal: true })}>
+                            <Icon.Ionicons name="ellipsis-horizontal" size={30} color="lightgray" />
+                        </RNBounceable>
+                        : null}
                 </View>
                 <Divider style={{ marginTop: "5%" }} ></Divider>
                 <View onPress={() => { }} style={styles.itemContainer}>
@@ -151,18 +152,25 @@ class NutritionDetail extends Component {
                         <Text numberOfLines={3} style={styles.textStyle1}>{"Calories"}</Text>
                     </View>
                     <View>
-                        <Text style={styles.itemTextStyle}>{item.calories + " kcal"}</Text>
+                        <Text style={styles.itemTextStyle}>{item.totalCalories + " kcal"}</Text>
                     </View>
                 </View>
-                <RNBounceable onPress={() => { }} style={styles.itemContainer}>
-                    <View >
-                        <Text style={styles.itemTextStyle}>{item.customFood}</Text>
-                        {/* <Text style={styles.textStyle1}>{item.quantity}</Text> */}
-                    </View>
-                    <View>
-                        <Text style={styles.textStyle1}>{item.calories}</Text>
-                    </View>
-                </RNBounceable>
+                {
+                    item.foodItems.map((element, index) => {
+                        return (
+                            <>
+
+                                <RNBounceable style={styles.itemContainer}>
+                                    <Text style={styles.itemTextStyle}>{element.foodName}</Text>
+                                    <Text style={styles.textStyle1}>{element.calories}</Text>
+                                </RNBounceable>
+
+                                <View style={{ paddingHorizontal: "5%" }}>
+                                    <Text style={styles.textStyle1}>{element.calories} ({element.quantity} per serving)</Text>
+                                </View>
+                            </>)
+                    })
+                }
             </>
         )
     }
@@ -171,9 +179,18 @@ class NutritionDetail extends Component {
         return (<View style={styles.gapHeight}></View>)
     }
 
+    handleLogNutrition = () => {
+        const { userData } = this.props.user;
+        NutritionsServices.startNutrition(this.props.route?.params?.data?.mealPlanId, userData.token, userData.userId)
+            .then((res) => {
+                console.log(res.data)
+                this.props.navigation.replace('Home')
+            })
+            .catch((err) => console.log(err.response.data))
+    }
+
     render() {
         const { currentPage, breakFast, macrosModal, mealModal, macros } = this.state;
-        let { data } = this.props.route.params;
         let { navigate } = this.props.navigation;
         return (
             <>
@@ -205,19 +222,20 @@ class NutritionDetail extends Component {
 
                                     <View style={styles.generalMargin}>
                                         <FlatList
-                                            data={breakFast}
+                                            data={breakFast?.nutritionItems}
                                             contentContainerStyle={{ elevation: 2, marginBottom: "10%" }}
                                             ItemSeparatorComponent={(renderSeperator)}
                                             renderItem={({ index, item }) => this._renderItems(item, index)} />
                                     </View>
-                                    <RNBounceable onPress={() => navigate(route.ITEM)} style={{ ...styles.buttonContainer, marginBottom: "10%", marginTop: "10%", alignItems: "center" }}>
-                                        <Text style={styles.itemTextStyle}>{"+ Add Food / drink"}</Text>
-                                    </RNBounceable>
                                     <View style={{ height: 50, backgroundColor: '#F2f2f2' }}></View>
 
 
                                     <View style={[styles.buttonContainer, styles.marginTop]}>
-                                        <Button.BrownButton title={"Save Log"} onPress={() => this.setState({ macrosModal: true })} />
+                                        {
+                                            this.state.breakFast.isStarted ?
+                                                null :
+                                                <Button.BrownButton title="Log Nutrition" onPress={() => this.handleLogNutrition()} />
+                                        }
                                         <View style={styles.marginTop}>
                                             <Button.OutlineButton title={"View Macros"} onPress={() => this.setState({ macrosModal: true })} />
                                         </View>
@@ -232,19 +250,19 @@ class NutritionDetail extends Component {
                                                 <Text style={styles.textStyle2}>Plan Title</Text>
                                             </View>
                                             <View style={styles.marginTop}>
-                                                <Text style={styles.textStyle1}>{data.mealPlanName}</Text>
+                                                <Text style={styles.textStyle1}>{breakFast?.nutritionPlanName}</Text>
                                             </View>
                                             <View style={styles.marginTop}>
                                                 <Text style={styles.textStyle2}>Notes</Text>
                                             </View>
                                             <View style={styles.marginTop}>
-                                                <Text style={styles.textStyle1}>{data.notes ? data.notes : 'Nothing added just yet!'}</Text>
+                                                <Text style={styles.textStyle1}>{breakFast?.notes ? breakFast?.notes : 'Nothing added just yet!'}</Text>
                                             </View>
                                             <View style={styles.marginTop}>
                                                 <Text style={styles.textStyle2}>Files</Text>
                                             </View>
                                             <View style={styles.marginTop}>
-                                                <Text style={styles.textStyle1}>{data.filePath ? data.filePath : 'Nothing added just yet!'}</Text>
+                                                <Text style={styles.textStyle1}>{breakFast?.filePath ? breakFast?.filePath : 'Nothing added just yet!'}</Text>
                                             </View>
                                         </View>
                                     </View>

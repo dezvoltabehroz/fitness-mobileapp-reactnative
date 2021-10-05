@@ -19,7 +19,7 @@ const Container = ({ children, props, component, selectedMinF, selectedSecF }) =
 
     let screen = "";
     const { routes, index } = props.navigation.dangerouslyGetState();
-    console.log(routes, index)
+    // console.log(routes, index)
     screen = routes[index].name;
     const changeLayout = async () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);

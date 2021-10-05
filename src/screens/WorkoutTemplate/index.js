@@ -33,15 +33,15 @@ class WorkoutTemplate extends Component {
     componentDidMount = async () => {
         const { userData } = this.props.user;
         console.log(userData)
-        WorkoutsServices.getAllWorkouts(userData.token, userData.userId)
+        WorkoutsServices.getAllWorkouts(userData.userId, userData.token)
             .then((response) => {
-                this.setState({ templates: response.data })
-                WorkoutsServices.getSelfCreatedWorkoutsByClientId(userData.token, userData.userId)
-                    .then((res) => {
-                        console.log("res.data : ", res.data)
-                        this.setState({ createdWorkouts: res.data, loading: false })
-                    })
-                    .catch((error) => console.log(error))
+                this.setState({ templates: response.data ,loading: false})
+                // WorkoutsServices.getSelfCreatedWorkoutsByClientId(userData.token, userData.userId)
+                //     .then((res) => {
+                //         console.log("res.data : ", res.data)
+                //         this.setState({ createdWorkouts: res.data, loading: false })
+                //     })
+                //     .catch((error) => console.log(error))
             })
             .catch((error) => console.log(error))
 

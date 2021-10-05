@@ -98,7 +98,6 @@ const forgotPassword = (userData, success, error) => {
 
         AuthServices.forgotPassword(userData)
             .then((res) => {
-                console.log(res.data)
                 if (res.data.responseCode == SUCCESS_CODE) {
                     // dispatch({ type: USER_LOGIN_SUCCESS, userData: res.data, loading: !loading })
                     success()
