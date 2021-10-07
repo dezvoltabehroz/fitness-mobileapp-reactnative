@@ -97,15 +97,9 @@ class NutritionDetail extends Component {
         const { userData } = this.props.user;
         NutritionsServices.getAllMealPlanDetailsById(this.props.route?.params?.data?.mealPlanId, userData.token, userData.userId)
             .then((res) => {
-                console.log(res.data)
-                NutritionsServices.getAllMacros(userData.userId, userData.token)
-                    .then((response) => {
-                        this.setState({ breakFast: res.data[0], })
-
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                    })
+                NutritionsServices.getAllMacros(this.props.route?.params?.data?.mealPlanId, userData.userId, userData.token)
+                    .then((response) => { this.setState({ breakFast: res.data[0], macros: response.data[0], }) })
+                    .catch((err) => { console.log(err) })
             })
             .catch((err) => console.log(err.response.data))
     }
@@ -277,7 +271,7 @@ class NutritionDetail extends Component {
                     isVisible={macrosModal}
                     onBackdropPress={() => this.setState({ macrosModal: false })} >
                     <View style={{ bottom: "5%" }}>
-                        <Text style={styles.searchText}>Nutrition Tile Macros</Text>
+                        <Text style={styles.searchText}>{macros.mealPlanName} Macros</Text>
                     </View>
                     <View style={styles.modalLowerContainer}>
                         <ScrollView contentContainerStyle={{ paddingBottom: "10%", marginBottom: 120 }}>
@@ -296,26 +290,51 @@ class NutritionDetail extends Component {
                                         <Text>Left</Text>
                                     </View>
                                 </View>
-                                {macros.map((item, index) => {
-                                    return (
-                                        <View style={styles.row}>
-                                            <View style={styles.first}>
-                                                <Text>{item.name}</Text>
-                                            </View>
-                                            <View style={styles.second}>
-                                                <Text>{item.target}</Text>
-                                            </View>
-                                            <View style={styles.third}>
-                                                <Text>{item.total}</Text>
-                                            </View>
-                                            <View style={styles.fourth}>
-                                                <Text style={{ color: item.left < 0 ? 'red' : 'lightgreen' }}>{item.left}</Text>
-                                            </View>
-                                        </View>
-                                    )
 
-                                })
-                                }
+                                <View style={styles.row}>
+                                    <View style={styles.first}>
+                                        <Text>{"Calories"}</Text>
+                                    </View>
+                                    <View style={styles.second}>
+                                        <Text>{macros.calories}</Text>
+                                    </View>
+                                    <View style={styles.third}>
+                                        <Text>{macros?.totalCaloriesUsed}</Text>
+                                    </View>
+                                    <View style={styles.fourth}>
+                                        <Text style={{ color: macros.totalCaloriesLeft < 0 ? 'red' : 'lightgreen' }}>{macros.totalCaloriesLeft}</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.row}>
+                                    <View style={styles.first}>
+                                        <Text>{"Protein"}</Text>
+                                    </View>
+                                    <View style={styles.second}>
+                                        <Text>{macros.protein}</Text>
+                                    </View>
+                                    <View style={styles.third}>
+                                        <Text>{macros.totalProteinUsed}</Text>
+                                    </View>
+                                    <View style={styles.fourth}>
+                                        <Text style={{ color: macros.totalProteinLeft < 0 ? 'red' : 'lightgreen' }}>{macros.totalProteinLeft}</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.row}>
+                                    <View style={styles.first}>
+                                        <Text>{"Carbs"}</Text>
+                                    </View>
+                                    <View style={styles.second}>
+                                        <Text>{macros?.carbs}</Text>
+                                    </View>
+                                    <View style={styles.third}>
+                                        <Text>{macros?.totalCarbsUsed}</Text>
+                                    </View>
+                                    <View style={styles.fourth}>
+                                        <Text style={{ color: macros?.totalCarbsLeft < 0 ? 'red' : 'lightgreen' }}>{macros?.totalCarbsLeft}</Text>
+                                    </View>
+                                </View>
+
+
                             </View>
 
                         </ScrollView>

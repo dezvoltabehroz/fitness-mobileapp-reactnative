@@ -7,8 +7,8 @@ const Api = {
     getAllCustomFoods: function (token, id) {
         return axiosInstance.get('GetAllCustomFoods', apiHeaderConfiguration(token, TOKEN, id))
     },
-    getAllMacros: function (id, token) {
-        return axiosInstance.get('GetAllMacros', apiHeaderConfiguration(token, TOKEN, id))
+    getAllMacros: function (nutritionId,id, token) {
+        return axiosInstance.get(`GetAllMacros?NutritionPlanId=${nutritionId}&IsProgramNutritions=false`, apiHeaderConfiguration(token, TOKEN, id))
     },
     addCustomFood: function (userData, token, id) {
         return axiosInstance.post('AddCustomFood', userData, apiHeaderConfiguration(token, TOKEN, id))

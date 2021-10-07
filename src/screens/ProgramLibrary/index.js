@@ -87,9 +87,7 @@ class ProgramLibrary extends Component {
     handleStartProgram = (item) => {
         const { token, userId } = this.props.user.userData;
         ProgramServices.startProgram(item.programId, item.usersProgramId, token, userId)
-            .then((res) => {
-                this.props.navigation.navigate(route.PROGRAM_DETAIL, { heading: item.programName, data: item })
-            })
+            .then((res) => {this.props.navigation.navigate(route.PROGRAM_DETAIL, { heading: item.programName, data: item }) })
             .catch((err) => console.log(err.response.data))
     }
 
