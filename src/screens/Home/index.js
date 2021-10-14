@@ -102,7 +102,7 @@ class Home extends Component {
         const { userData } = this.props.user;
         this.setState({ loading: true })
         ActivitiesServices.getAllActivitiesByAudit(userData.token, userData.userId)
-            .then((response) => {this.setState({ activityArr: response.data, loading: false })   })
+            .then((response) => { console.log(response.data); this.setState({ activityArr: response.data, loading: false,isRefreshing:false }) })
             .catch((err) => console.log(err))
 
     }
@@ -152,10 +152,7 @@ class Home extends Component {
         //refresh to initial data
         setTimeout(() => {
             //refresh to initial data
-            this.setState({
-                activityArr: this.data,
-                isRefreshing: false
-            });
+            this.componentDidMount()
         }, 2000);
     }
 
@@ -171,13 +168,14 @@ class Home extends Component {
             <Text style={styles.titleTextStyle}>{this.truncateString(`${rowData.user_name}`, 1)}</Text>
         </View>
         var desc = (
-            <View style={{ top: -40 }}>
+            <View style={{ top: -40, height: null }}>
                 <View >
                     <View style={styles.listContentContainer} >
                         <View>
-                            <Text style={styles.activityText} >{rowData.type}: {rowData.activity}</Text>
+                            <Text style={styles.activityText} >{rowData.activityTypeName}: {rowData.activityName}</Text>
+                            <Text style={styles.activityText1} >{rowData.activityDescription}</Text>
                             <View style={styles.activityContainer}>
-                                <Text style={styles.activityDateText} >{moment(rowData.time).format("HH:MM, DD MMM YYYY")} </Text>
+                                <Text style={styles.activityDateText} >{moment(rowData.createdDate).format("HH:MM, DD MMM YYYY")} </Text>
                                 <TouchableOpacity style={{ marginHorizontal: "5%" }}>
                                     <Icon.AntDesign name={'like1'} size={15} color='black' />
                                 </TouchableOpacity>
@@ -192,7 +190,7 @@ class Home extends Component {
         )
         return (
             <RNBounceable onPress={() => { }}>
-                <View style={{ flex: 1, marginTop: -45, height: 90, }}>
+                <View style={{ flex: 1, marginTop: -45, height: 100 }}>
                     {title}
                     <View style={{ paddingLeft: 20 }}>
                         {desc}

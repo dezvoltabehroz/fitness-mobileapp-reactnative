@@ -13,6 +13,7 @@ import { authActions } from '../../redux/actions/auth';
 import { screen } from '../../lib/utils/constants';
 
 import styles from './style';
+import { getLocalData, LOCAL_STORAGE_KEYS } from '../../lib/utils/localstorage';
 
 class Setting extends Component {
     constructor(props) {
@@ -26,10 +27,18 @@ class Setting extends Component {
             issue: "",
             expandedGeneral: false,
             expandedCustomisation: false,
-            expandedFeature: false
+            expandedFeature: false,
+            email: ""
         }
         this.data = this.state.activityArr
     }
+
+    componentDidMount = async () => {
+        let userData = await getLocalData(LOCAL_STORAGE_KEYS.loginDetails)
+        let data = JSON.parse(userData);
+        this.setState({ email: data.email })
+    }
+
     changeGeneralLayout = () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({ expandedGeneral: !this.state.expandedGeneral });
@@ -42,9 +51,16 @@ class Setting extends Component {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({ expandedFeature: !this.state.expandedFeature });
     }
+    truncateString = (str, num) => {
+        if (str.length <= num) {
+            return str
+        }
+        return str.slice(0, num)
+    }
 
     render() {
-        const { currentPage, reportModal, issue } = this.state;
+        const { currentPage, reportModal, issue, email } = this.state;
+        const { firstName, lastName } = this.props.user.userData;
         return (
             <Container props={this.props}>
                 <View style={styles.container}>
@@ -58,11 +74,11 @@ class Setting extends Component {
                                 style={{
                                     justifyContent: "center", alignItems: "center", height: 100, width: 100, borderRadius: 50, backgroundColor: "#544b4c", alignContent: "flex-end"
                                 }}>
-                                <Text style={[styles.headingStyle, { color: "white", fontWeight: "bold" }]} >T</Text>
+                                <Text style={[styles.headingStyle, { color: "white", fontWeight: "bold" }]} >{this.truncateString(firstName, 1)}</Text>
                             </RNBounceable>
                             <View>
-                                <Text style={styles.titleStyle}>{"Taimoor Tariq"}</Text>
-                                <Text style={styles.emailStyle}>{"Taimoornu@gmail.com"}</Text>
+                                <Text style={styles.titleStyle}>{firstName} {lastName}</Text>
+                                <Text style={styles.emailStyle}>{email}</Text>
                             </View>
                         </View>
                         <View style={styles.lowerContentContainer}>

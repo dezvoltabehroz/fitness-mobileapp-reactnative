@@ -2,7 +2,8 @@ import AsyncStorage from "@react-native-community/async-storage";
 
 const LOCAL_STORAGE_KEYS = {
   personalDetails: 'personalDetails',
-  userToken: 'userToken'
+  userToken: 'userToken',
+  loginDetails:'loginDetails',
 };
 
 /**

@@ -7,14 +7,15 @@ const Api = {
     getAllWorkouts: function (id, token) {
         return axiosInstance.get(`GetAllWorkoutsById?UserId=${id}`, apiHeaderConfiguration(token, TOKEN, id))
     },
-    getWorkoutExercise: function (workoutId, token, userId) {
-        return axiosInstance.get(`GetAllWorkoutSets?WorkoutId=${workoutId}`, apiHeaderConfiguration(token, TOKEN, userId))
+    getWorkoutExercise: function (workoutId, userWorkoutId, token, userId) {
+        return axiosInstance.get(`GetAllWorkoutSets?WorkoutId=${workoutId}&UsersWorkoutId=${userWorkoutId}`, apiHeaderConfiguration(token, TOKEN, userId))
     },
+    
     getAllSets: function () {
         return axiosInstance.get('GetAllSets', apiHeaderConfiguration(EMPTY, EMPTY))
     },
     getAllWorkoutSets: function () {
-        return axiosInstance.get('GetAllWorkoutSets', apiHeaderConfiguration(EMPTY, EMPTY))
+        return axiosInstance.get(`GetAllWorkoutSets`, apiHeaderConfiguration(EMPTY, EMPTY))
     },
     getSelfCreatedWorkoutsByClientId: function (token, id) {
         return axiosInstance.get(`GetSelfCreatedWorkoutsByClientId?ClientId=${id}`, apiHeaderConfiguration(token, TOKEN, id))
@@ -69,7 +70,13 @@ const Api = {
     },
     startWorkout: function (workoutId, token, userId) {
         return axiosInstance.post(`StartWorkout?WorkoutId=${workoutId}`, apiHeaderConfiguration(token, TOKEN, userId))
-    }
+    },
+    addExercise: function (exerciseId, workoutId, token, userId) {
+        return axiosInstance.post(`AddExerciseFromRecentWorkout?WorkoutExerciseId=${exerciseId}&UsersWorkoutId=${workoutId}&IsProgramWorkout=false`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    getRecentWorkouts: function (token, userId) {
+        return axiosInstance.get(`GetRecentWorkouts`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
 };
 
 export default Api;

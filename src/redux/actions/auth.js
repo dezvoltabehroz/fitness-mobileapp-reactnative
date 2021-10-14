@@ -13,7 +13,7 @@ import { Alert, Linking, Platform } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { AuthServices } from '../../services';
 import { SUCCESS_CODE } from '../../lib/utils/constants';
-import { clearLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
+import { clearAllLocalData, clearLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
 
 const menuModal = (modal) => {
     return (dispatch) => {
@@ -68,6 +68,7 @@ const userLogin = (userData, navigate) => {
             .then((res) => {
                 if (res.data.responseCode == SUCCESS_CODE) {
                     dispatch({ type: USER_LOGIN_SUCCESS, userData: res.data, loading: !loading })
+                    storeLocalData(LOCAL_STORAGE_KEYS.loginDetails, JSON.stringify(userData))
                     storeLocalData(LOCAL_STORAGE_KEYS.userToken, JSON.stringify(res.data))
                     navigate('Home')
                 }
@@ -87,8 +88,11 @@ const userLogin = (userData, navigate) => {
 const removeUser = (navigate) => {
     return (dispatch) => {
         navigate('Login')
-        dispatch({ type: USER_LOGOUT_SUCCESS })
-        clearLocalData(LOCAL_STORAGE_KEYS.userToken);
+        setTimeout(()=>{
+            clearAllLocalData();
+            dispatch({ type: USER_LOGOUT_SUCCESS })
+        },2000)
+       
     }
 };
 

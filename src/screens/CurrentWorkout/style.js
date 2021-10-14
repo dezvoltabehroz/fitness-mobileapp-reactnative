@@ -128,9 +128,9 @@ export default StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center"
     },
-    flatListRow: {
+    flatListRow1: {
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center", 
     },
     gapWidth: {
         width: 15

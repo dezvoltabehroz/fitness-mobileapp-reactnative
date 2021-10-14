@@ -51,10 +51,10 @@ const Api = {
     },
     startProgram: function (programId, userProgramId, token, userId) {
         return axiosInstance.post(`StartProgram?ProgramId=${programId}&UserProgramId=${userProgramId}`, userData, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    addExercise:function(exerciseId,workoutId,token,userId){
+        return axiosInstance.post(`AddExerciseFromRecentWorkout?WorkoutExerciseId=${exerciseId}&UsersWorkoutId=${workoutId}&IsProgramWorkout=true`, apiHeaderConfiguration(token, TOKEN, userId))
     }
-
-
-
 };
 
 export default Api;

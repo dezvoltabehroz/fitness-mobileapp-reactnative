@@ -10,7 +10,7 @@ import { Icon, Button, Container, Sets, Loader, } from "../../components";
 import styles from './style';
 import { WorkoutsServices } from '../../services';
 import { renderSeperator } from '../../lib/utils/global';
-
+import { route } from '../../lib/utils/constants';
 const { width, height } = Dimensions.get('window');
 
 class WorkoutDetail extends Component {
@@ -79,7 +79,7 @@ class WorkoutDetail extends Component {
     componentDidMount = async () => {
         const { userData } = this.props.user;
         console.log(userData)
-        WorkoutsServices.getWorkoutExercise(this.props.route?.params?.data?.workoutId, userData.token, userData.userId)
+        WorkoutsServices.getWorkoutExercise(this.props.route?.params?.data?.workoutId,this.props.route?.params?.data?.usersWorkoutId, userData.token, userData.userId)
             .then((res) => {
                 console.log("res.data : ", res.data)
                 this.setState({ exerciseData: res.data, loading: false })
@@ -129,11 +129,11 @@ class WorkoutDetail extends Component {
         )
     }
 
-    handleStartWorkout=()=>{
+    handleStartWorkout = () => {
         const { userData } = this.props.user;
         WorkoutsServices.startWorkout(this.props.route?.params?.data?.workoutId, userData.token, userData.userId)
-        .then((res)=>{console.log(res.data); this.props.navigation.navigate(route.CURRENT_WORKOUT, { workout: this.props.route.params.data }) })
-        .catch((err)=>console.log(err.response))
+            .then((res) => { console.log(res); this.props.navigation.navigate(route.CURRENT_WORKOUT, { workout: this.props.route.params.data }) })
+            .catch((err) => console.log(err))
     }
 
     render() {

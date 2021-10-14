@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-    View, Text, TouchableOpacity, Alert, StatusBar, FlatList, Image, ScrollView, RefreshControl
+    View, Text, TouchableOpacity, Alert, StatusBar, FlatList, Image, ScrollView, RefreshControl, Dimensions
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import RNBounceable from '@freakycoder/react-native-bounceable';
@@ -9,14 +9,14 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 
 import { authActions } from '../../redux/actions/auth';
-import { Container, Icon, Button, Input, Sets, MenuModal, UnfinishedModal, ExerciseModal, Loader } from "../../components";
+import { Container, Icon, Button, Input, Sets, MenuModal, UnfinishedModal, ExerciseModal, Loader, UploadingModal } from "../../components";
 import { renderSeperator } from '../../lib/utils/global'
 
 import THEME from '../../assets/styles/theme.style'
 import styles from './style';
 import { LOGO, route } from '../../lib/utils/constants';
-import { ProgramServices } from '../../services';
-
+import { ProgramServices, WorkoutsServices } from '../../services';
+const screenWidth = Dimensions.get('window').width;
 class ProgramCurrentWorkout extends Component {
     constructor(props) {
         super(props);
@@ -182,15 +182,28 @@ class ProgramCurrentWorkout extends Component {
             workout: [],
             exerciseModal: false,
             image: LOGO,
-            title: ''
+            title: '',
+
+            recentWorkouts: [],
+            uploading: false
         }
     }
 
     componentDidMount = () => {
+        this.setState({ loading: true, })
         const { programWeekDayId, workoutId } = this.props.route.params;
         const { token, userId } = this.props.user.userData;
         ProgramServices.getDailyWorkOutExerciseByProgramWeekDay(programWeekDayId, workoutId, token, userId)
-            .then((res) => { this.setState({ workout: res.data, loading: false }) })
+            .then((res) => {
+                this.setState({ workout: res.data })
+                WorkoutsServices.getRecentWorkouts(token, userId)
+                    .then((response) => {
+                        let recentArray = [...response.data]
+                        recentArray.map((item, index) => { recentArray[index] = { ...recentArray[index], selected: false, } })
+                        this.setState({ recentWorkouts: recentArray, loading: false, searchModal: false, uploading: false })
+                    })
+                    .catch((err) => console.log(err.response))
+            })
             .catch((err) => console.log(err.response))
     }
 
@@ -240,7 +253,7 @@ class ProgramCurrentWorkout extends Component {
                     <RNBounceable onPress={() => { this.props.navigation.navigate(route.EXERCISE, { heading: item.exerciseName }) }} style={styles.flatListRow}>
                         <Image source={item.imagePath ? { uri: item.imagePath } : require('../../assets/images/logo.png')} style={styles.imageStyle} resizeMode="contain" />
                         <View style={styles.gapWidth}></View>
-                        <Text style={styles.flatListTitleStyle}>{item.exerciseName}</Text>
+                        <Text style={{ ...styles.flatListTitleStyle, width: screenWidth * 0.5 }}>{item.exerciseName}</Text>
                     </RNBounceable>
                     <RNBounceable onPress={() => this.setState({ image: item.imagePath, title: item.exerciseName, exerciseModal: true })}>
                         <Icon.Ionicons name="ellipsis-horizontal" size={30} color={THEME.COLOR_LIGHT_GRAY} />
@@ -259,18 +272,46 @@ class ProgramCurrentWorkout extends Component {
     _renderItem4 = (item, index) => {
         return (
 
-            <View style={styles.flatListRow}>
-                <Image source={item.image} style={styles.imageStyle} resizeMode="contain" />
-                <View style={styles.gapWidth}></View>
-                <Text>{item.title}</Text>
+            <View style={{ ...styles.flatListRow, justifyContent: "space-between", marginHorizontal: "5%" }}>
+                <View style={{ flexDirection: "row" }}>
+                    <Image source={item.imagePath ? { uri: item.imagePath } : LOGO} style={styles.imageStyle} resizeMode="cover" />
+                    <View style={styles.gapWidth}></View>
+                    <Text style={{ textTransform: "capitalize" }}>{item.exerciseName}</Text>
+                </View>
+                <RNBounceable onPress={() => this.handleOnPressRecentExercise(item, index)}>
+                    <Icon.MaterialIcons name={item.selected ? "check-box" : "check-box-outline-blank"} size={20} color={THEME.COLOR_BLACK} />
+                </RNBounceable>
             </View>
         )
     }
 
+
+    handleOnPressRecentExercise = (item, index) => {
+        let array = [...this.state.recentWorkouts];
+        array.map((item, i) => {
+            array[i] = { ...array[i], selected: false }
+        })
+        array[index] = { ...array[index], selected: true };
+
+        this.setState({ recentWorkouts: array, exerciseId: item.workoutExerciseId, workoutId: item.workoutId })
+    }
+
+    handleAddExercise = () => {
+        const { usersWorkoutId } = this.props?.route?.params?.workout;
+        const { token, userId } = this.props.user.userData;
+        const { exerciseId, workoutId } = this.state;
+        this.setState({ uploading: true })
+        ProgramServices.addExercise(exerciseId, usersWorkoutId, token, userId)
+            .then((res) => { this.componentDidMount() })
+            .catch((err) => { console.log(err.response); if (err.response.status == 403) { this.componentDidMount(); alert(err.response.data.responseMessage); this.componentDidMount() } })
+    }
+
     render() {
-        const { currentPage, searchModal, distance, workout, exerciseModal, image, title, loading } = this.state;
+        const { currentPage, searchModal, distance, workout, exerciseModal, image, title, loading, recentWorkouts
+            , uploading } = this.state;
         return (
             <>
+                <UploadingModal visible={uploading} />
                 <Container
                     props={this.props}
                     component={this.state}
@@ -439,17 +480,22 @@ class ProgramCurrentWorkout extends Component {
                         {
                             currentPage == 3 ?
                                 <View style={{ flex: 1 }}>
-                                    <FlatList
-                                        data={workout}
-                                        ItemSeparatorComponent={(renderSeperator)}
-                                        contentContainerStyle={{ paddingVertical: "5%" }}
-                                        renderItem={({ index, item }) => this._renderItem4(item, index)} />
-                                    <View style={styles.lowerViewContainer}>
-                                        <View style={styles.inputContainer}>
+                                    <View style={{ flex: 0.8 }}>
+                                        <FlatList
+                                            data={recentWorkouts}
+                                            ItemSeparatorComponent={(renderSeperator)}
+                                            contentContainerStyle={{ paddingVertical: "5%" }}
+                                            renderItem={({ index, item }) => this._renderItem4(item, index)} />
 
-                                        </View>
-                                        <View style={styles.buttonContainer}>
-                                            <Button.BrownButton title="Save" onPress={() => { }} />
+                                    </View>
+                                    <View style={{ flex: 0.2 }}>
+                                        <View style={styles.lowerViewContainer}>
+                                            <View style={styles.inputContainer}>
+
+                                            </View>
+                                            <View style={styles.buttonContainer}>
+                                                <Button.BrownButton loading={uploading} title="Save" onPress={() => { this.handleAddExercise() }} />
+                                            </View>
                                         </View>
                                     </View>
                                 </View>

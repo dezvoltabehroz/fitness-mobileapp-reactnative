@@ -94,6 +94,14 @@ const Container = ({ children, props, component, selectedMinF, selectedSecF }) =
         return (<View style={styles.gapHeight}></View>)
     }
 
+
+    const truncateString = (str, num) => {
+        if (str.length <= num) {
+            return str
+        }
+        return str.slice(0, num)
+    }
+
     return (
         <>
             <View style={{ flex: 1 }}>
@@ -150,7 +158,7 @@ const Container = ({ children, props, component, selectedMinF, selectedSecF }) =
                                         await props.authActions.menuModal(!props.user.menuModal);
                                         await props.navigation.navigate("Settings")
                                     }} style={{ marginHorizontal: "5%", justifyContent: "center", alignItems: "center", height: 30, width: 30, borderRadius: 15, backgroundColor: "#544b4c" }}>
-                                        <Text style={{ color: "white", fontWeight: "bold" }} >T</Text>
+                                        <Text style={{ color: "white", fontWeight: "bold", textTransform: "capitalize" }} >{truncateString(props.user.userData.firstName,1)}{truncateString(props.user.userData.lastName, 1)}</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={[styles.imageContainer, { marginTop: 20 }]}>

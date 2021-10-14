@@ -25,7 +25,7 @@ export default StyleSheet.create({
         borderRadius: 30, height: 40, width: 40,
         justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
     },
-    user_nameText: { fontSize: 16, color: "white", fontWeight: "bold" },
+    user_nameText: { fontSize: 16, color: "white", fontWeight: "bold", textTransform: "capitalize" },
     fromNowText: { color: "gray", fontWeight: "bold", fontSize: 12 },
     itemTypeContainer: { flex: 0.8, marginHorizontal: "5%" },
     upperContentContainer: {

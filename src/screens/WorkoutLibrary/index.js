@@ -24,9 +24,14 @@ class WorkoutLibrary extends Component {
 
     componentDidMount = () => {
         const { userData } = this.props.user;
-        WorkoutsServices.getAllWorkouts(userData.token, TOKEN, userData.userId)
-            .then((res) => { this.setState({ workout: res.data, loading: false }) })
-            .catch((err) => { this.setState({ workout: [], loading: false }); console.log(err) })
+        WorkoutsServices.getAllWorkouts(userData.userId, userData.token)
+            .then((res) => {
+                this.setState({ workout: res.data, loading: false })
+            })
+            .catch((err) => {
+                this.setState({ workout: [], loading: false })
+                console.log(err.response)
+            })
     }
 
     _renderItems = ({ index, item }) => {

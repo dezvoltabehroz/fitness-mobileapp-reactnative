@@ -137,9 +137,6 @@ class Nutrition extends Component {
         console.log(userData)
         NutritionsServices.getAllCustomFoods(userData.token, userData.userId)
             .then((response) => {
-                console.log("====================");
-                console.log(" response.data : ", response.data)
-                console.log("====================")
                 this.setState({ customFoods: response.data })
             })
             .catch((error) => console.log(error))
@@ -150,7 +147,7 @@ class Nutrition extends Component {
             .catch((error) => console.log(error))
         NutritionsServices.getAllMealPlanDetailsById(userData.token, userData.userId)
             .then((response) => {
-                this.setState({ shoppingList: response.data, isLoading: false })
+                this.setState({ shoppingList: [], isLoading: false })
             })
             .catch((error) => console.log(error))
     }
@@ -209,8 +206,8 @@ class Nutrition extends Component {
                     {item.selected ? <Icon.MaterialCommunityIcons name="checkbox-marked-circle" size={20} color={"lightgreen"} /> : <Icon.MaterialCommunityIcons name="checkbox-blank-circle-outline" size={20} color={"lightgray"} />}
                 </View>
                 <View style={{ marginLeft: "5%" }}>
-                    <Text style={{ fontWeight: "bold", textTransform: "capitalize" }}>{item.customFood}</Text>
-                    <Text style={{ fontWeight: "bold", color: 'lightgray' }}>{item.calories} g</Text>
+                    <Text style={{ fontWeight: "bold", textTransform: "capitalize" }}>{item.title}</Text>
+                    <Text style={{ fontWeight: "bold", color: 'lightgray' }}>{item.quantity}</Text>
                 </View>
             </RNBounceable>
         )

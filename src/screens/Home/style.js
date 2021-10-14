@@ -50,6 +50,7 @@ export default StyleSheet.create({
     activityContainer: { flexDirection: "row", alignItems: "center" },
     activityDateText: { color: "gray", fontWeight: "bold", fontSize: 12 },
     activityText: { fontWeight: "bold", fontSize: 16 },
+    activityText1: { fontSize: 12, width: screenWidth * 0.6 },
     listContentContainer: { paddingRight: 20, flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
     titleContainer: { backgroundColor: "#544b4c", marginTop: 30, right: 45, bottom: 1, borderRadius: 50, height: 50, width: 50, justifyContent: 'center', },
     titleTextStyle: { textTransform: "capitalize", textAlign: "center", fontSize: 16, fontWeight: "bold", color: "white" },
