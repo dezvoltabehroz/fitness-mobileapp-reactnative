@@ -26,6 +26,7 @@ class ProgressPhoto extends Component {
         const { userData } = this.props.user
         ProgramServices.getAllProgressPhotoById(userData.token, userData.userId)
             .then((res) => {
+                console.log("res.data  : ", res.data)
                 this.setState({ progressPhotos: res.data, loading: false, });
             })
             .catch((err) => {
@@ -44,10 +45,27 @@ class ProgressPhoto extends Component {
                     <Text style={styles.headingTextStyle}>{item.createdDate}</Text>
                     <Icon.Entypo name="dots-three-horizontal" size={15} color={'gray'} />
                 </View>
-                <View style={{ alignItems: "center", marginTop: "5%" }}>
-                    <Image source={{ uri: item.frontPhoto }} resizeMode="contain" style={{ width: 100, height: 100, borderRadius: 5 }} />
-                    <Text style={styles.headingTextStyle1}>{'Front'}</Text>
+                <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                    {item.frontPhoto ?
+                        <View style={{ alignItems: "center", marginTop: "5%" }}>
+                            <Image source={{ uri: item.frontPhoto }} resizeMode="contain" style={{ width: 100, height: 100, borderRadius: 5 }} />
+                            <Text style={styles.headingTextStyle1}>{'Front'}</Text>
+                        </View> :
+                        null}
+                    {item.backPhoto ?
+                        <View style={{ alignItems: "center", marginTop: "5%" }}>
+                            <Image source={{ uri: item.backPhoto }} resizeMode="contain" style={{ width: 100, height: 100, borderRadius: 5 }} />
+                            <Text style={styles.headingTextStyle1}>{'Back'}</Text>
+                        </View> :
+                        null}
+                    {item.sidePhoto ?
+                        <View style={{ alignItems: "center", marginTop: "5%" }}>
+                            <Image source={{ uri: item.sidePhoto }} resizeMode="contain" style={{ width: 100, height: 100, borderRadius: 5 }} />
+                            <Text style={styles.headingTextStyle1}>{'Side'}</Text>
+                        </View> :
+                        null}
                 </View>
+
             </View>
         )
     }
@@ -82,7 +100,7 @@ class ProgressPhoto extends Component {
                                         </View>
                                     </View>
                                     :
-                                    <FlatList contentContainerStyle={{ marginHorizontal: "5%", paddingTop: '5%', paddingBottom: "5%" }} data={this.state.progressPhotos} renderItem={this.renderItem} ItemSeparatorComponent={this.renderSeperator} />
+                                    <FlatList contentContainerStyle={{ marginHorizontal: "5%", paddingTop: '5%', paddingBottom: "5%" }} data={this.state.progressPhotos.reverse()} renderItem={this.renderItem} ItemSeparatorComponent={this.renderSeperator} />
                         }
                     </View>
 

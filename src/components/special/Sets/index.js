@@ -23,7 +23,7 @@ class Sets extends Component {
         return (
             <View style={styles.rowTitleContainer}>
                 <View style={styles.first}><Text style={styles.textStyle}>{index + 1}</Text></View>
-                <View style={styles.secondShadow}><Text style={styles.headingTtextStyleext}>{item.weight}</Text></View>
+                <View style={styles.second}><Text style={styles.headingText}>{item.weight}</Text></View>
                 <RNBounceable onPress={() => this.setState({ showTimePicker: true, index: index })} style={styles.thirdShadow}><Text style={styles.textStyle}>{"00:30"}</Text></RNBounceable>
                 <View style={styles.fourthShadow}><Text style={styles.textStyle}>{item.reps}</Text></View>
                 <RNBounceable onPress={() => this.setState({ showRestTimePicker: true, index: index })} style={styles.fifthShadow}><Text style={styles.textStyle}>{item?.restPeriod}</Text></RNBounceable>
@@ -77,10 +77,10 @@ class Sets extends Component {
             <View>
                 <View style={styles.rowTitleContainer}>
                     <View style={styles.first}><Text>#</Text></View>
-                    <View style={styles.second}><Text>Bodyw...</Text></View>
-                    <View style={styles.third}><Text>Time</Text></View>
+                    <View style={styles.second}><Text style={styles.headingText}>Bodyweight</Text></View>
+                    <View style={styles.third}><Text style={styles.headingText}>Time</Text></View>
                     <View style={styles.fourth}><Text style={styles.headingText}>Tempo</Text></View>
-                    <View style={styles.fifth}><Text>Rest</Text></View>
+                    <View style={styles.fifth}><Text style={styles.headingText}>Rest</Text></View>
                     {this.props.disabled ?
                         null
                         : this.props.workout ?

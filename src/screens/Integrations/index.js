@@ -16,10 +16,14 @@ class Integrations extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            fitnessPal: false,
+            fitBit: false,
+            appleHealth: false
         }
     }
 
     render() {
+        const { fitnessPal, fitBit, appleHealth } = this.state;
         return (
             <Container props={this.props}>
                 <StatusBar backgroundColor="white" barStyle={"dark-content"} />
@@ -33,13 +37,13 @@ class Integrations extends Component {
                             <Text style={styles.textStyle}>My FitnessPal</Text>
                         </View>
                         <ToggleSwitch
-                            isOn={false}
+                            isOn={fitnessPal}
                             onColor={THEME.PRIMARY_BACKGROUND_COLOR}
                             offColor={THEME.COLOR_LIGHT_GRAY}
                             label=""
                             labelStyle={styles.labelStyle}
                             size="medium"
-                            onToggle={isOn => console.log("changed to : ", isOn)}
+                            onToggle={isOn => this.setState({ fitnessPal: isOn })}
                         />
                     </View>
                     <View style={styles.generalMargin}>
@@ -51,13 +55,13 @@ class Integrations extends Component {
                             <Text style={styles.textStyle}>Fitbit</Text>
                         </View>
                         <ToggleSwitch
-                            isOn={false}
+                            isOn={fitBit}
                             onColor={THEME.PRIMARY_BACKGROUND_COLOR}
                             offColor={THEME.COLOR_LIGHT_GRAY}
                             label=""
                             labelStyle={styles.labelStyle}
                             size="medium"
-                            onToggle={isOn => console.log("changed to : ", isOn)}
+                            onToggle={isOn => this.setState({ fitBit: isOn })}
                         />
                     </View>
                     <View style={styles.rowContainer}>
@@ -66,13 +70,13 @@ class Integrations extends Component {
                             <Text style={styles.textStyle}>Apple Health</Text>
                         </View>
                         <ToggleSwitch
-                            isOn={false}
+                            isOn={appleHealth}
                             onColor={THEME.PRIMARY_BACKGROUND_COLOR}
                             offColor={THEME.COLOR_LIGHT_GRAY}
                             label=""
                             labelStyle={styles.labelStyle}
                             size="medium"
-                            onToggle={isOn => console.log("changed to : ", isOn)}
+                            onToggle={isOn => this.setState({ appleHealth: isOn })}
                         />
                     </View>
                 </View>

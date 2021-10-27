@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList, ScrollView, Dimensions } from 'react-native';
+import { View, Text, FlatList, ScrollView, Dimensions, Alert } from 'react-native';
 import RNBounceable from "@freakycoder/react-native-bounceable";
 import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux'
@@ -25,9 +25,12 @@ class WorkoutTemplate extends Component {
             templates: [],
             createdWorkouts: [],
             loading: true,
-            item: {}
+            value: "",
+            item: {},
+            IsTemplatesFound: false
         }
-        this.data = this.state.activityArr
+        this.data = this.state.activityArr;
+        this.arrayHolder = []
     }
 
     componentDidMount = async () => {
@@ -35,7 +38,8 @@ class WorkoutTemplate extends Component {
         console.log(userData)
         WorkoutsServices.getAllWorkouts(userData.userId, userData.token)
             .then((response) => {
-                this.setState({ templates: response.data ,loading: false})
+                this.setState({ templates: response.data, loading: false })
+                this.arrayHolder = response.data;
                 // WorkoutsServices.getSelfCreatedWorkoutsByClientId(userData.token, userData.userId)
                 //     .then((res) => {
                 //         console.log("res.data : ", res.data)
@@ -71,7 +75,7 @@ class WorkoutTemplate extends Component {
 
     _renderItems = ({ index, item }) => {
         return (
-            <RNBounceable onPressIn={() => this.handlePress(index)} style={styles.itemContainer} onPress={() => { }}>
+            <RNBounceable onPress={() => this.handlePress(index)} style={styles.itemContainer}>
                 <View style={styles.boxView}>
                     <Text></Text>
                 </View>
@@ -85,12 +89,27 @@ class WorkoutTemplate extends Component {
         )
     }
 
+    searchFilterFunction = (text) => {
+        this.setState({ value: text });
+        const newData = this.arrayHolder.filter(item => {
+            const itemData = `${item.workoutName.toUpperCase()} ${item.workoutName.toUpperCase()} ${item.workoutName.toUpperCase()} `;
+            const textData = text.toUpperCase();
+            return itemData.indexOf(textData) > -1;
+        });
+        if (newData.length != 0) {
+            this.setState({ templates: newData, IsTemplatesFound: false });
+        }
+        else {
+            this.setState({ IsTemplatesFound: true });
+        }
+    }
+
     renderSeparator = () => {
         return (<View style={styles.gapHeight}></View>)
     }
 
     render() {
-        const { currentPage, templates, loading, createdWorkouts } = this.state;
+        const { currentPage, templates, loading, createdWorkouts, value } = this.state;
         return (
             <Container props={this.props} >
                 <View style={styles.container}>
@@ -122,7 +141,7 @@ class WorkoutTemplate extends Component {
                                     :
                                     <>
                                         <View style={styles.marginHorizontal}>
-                                            <Input inputStyle={{ height: 40 }} placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
+                                            <Input onChangeText={(text) => this.searchFilterFunction(text)} inputStyle={{ height: 40 }} value={value} placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
                                         </View>
                                         <FlatList
                                             data={this.state.templates}
@@ -135,7 +154,7 @@ class WorkoutTemplate extends Component {
                                         />
                                         <View style={styles.buttonContainer}>
                                             <View style={styles.buttonStyle}>
-                                                <Button.SlimButton title={"Done"} onPress={() => { this.props.navigation.push('StartWorkout', { workout: this.state.item }) }}/>
+                                                <Button.SlimButton title={"Done"} onPress={() => { this.props.navigation.push('StartWorkout', { workout: this.state.item }) }} />
                                             </View>
                                         </View>
                                     </>}
@@ -162,7 +181,7 @@ class WorkoutTemplate extends Component {
                                             :
                                             <>
                                                 <View style={styles.marginHorizontal}>
-                                                    <Input inputStyle={{ height: 40 }} placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
+                                                    <Input inputStyle={{ height: 40 }} value={value} onChangeText={(text) => this.searchFilterFunction(text)} placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
                                                 </View>
                                                 <FlatList
                                                     data={this.state.templates}
@@ -175,7 +194,7 @@ class WorkoutTemplate extends Component {
                                                 />
                                                 <View style={styles.buttonContainer}>
                                                     <View style={styles.buttonStyle}>
-                                                        <Button.SlimButton title={"Done"} onPress={() => { this.props.navigation.push('StartWorkout', { workout: this.state.item }) }} />
+                                                        <Button.SlimButton title={"Done"} onPress={() => { if (this.state.item.workoutName != undefined) { this.props.navigation.push('StartWorkout', { workout: this.state.item }) } else { Alert.alert("Please select the workout") } }} />
                                                     </View>
                                                 </View>
                                             </>

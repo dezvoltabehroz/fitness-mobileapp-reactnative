@@ -18,18 +18,23 @@ import { WorkoutsServices } from '../../services';
 class StartWorkout extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            startingWorkoutNow: true,
+            followWorkoutTemplate: true,
+            btnLoading: false
+        }
     }
 
-    handleStartWorkout=()=>{
+    handleStartWorkout = () => {
         const { userData } = this.props.user;
+        this.setState({ btnLoading: true })
         WorkoutsServices.startWorkout(this.props.route?.params?.workout?.workoutId, userData.token, userData.userId)
-        .then((res)=>{console.log(res.data); this.props.navigation.navigate(route.CURRENT_WORKOUT, { workout: this.props.route?.params?.workout }) })
-        .catch((err)=>console.log(err.response))
+            .then((res) => { this.setState({ btnLoading: false }); console.log(res.data); this.props.navigation.navigate(route.CURRENT_WORKOUT, { workout: this.props.route?.params?.workout }) })
+            .catch((err) => console.log(err.response))
     }
 
     render() {
-        const { data, selectedValue, dropdown } = this.state;
+        const { data, selectedValue, btnLoading, startingWorkoutNow, followWorkoutTemplate } = this.state;
         return (
             <Container props={this.props}>
                 <StatusBar backgroundColor="white" barStyle={"dark-content"} />
@@ -38,25 +43,25 @@ class StartWorkout extends Component {
                     <View style={styles.rowContainer}>
                         <Text style={styles.textStyle}>Starting Workout Now?</Text>
                         <ToggleSwitch
-                            isOn={true}
+                            isOn={startingWorkoutNow}
                             onColor={THEME.PRIMARY_BACKGROUND_COLOR}
                             offColor={THEME.COLOR_LIGHT_GRAY}
                             label=""
                             labelStyle={{ color: "black", fontWeight: "900" }}
                             size="medium"
-                            onToggle={isOn => console.log("changed to : ", isOn)}
+                            onToggle={isOn => this.setState({ startingWorkoutNow: isOn })}
                         />
                     </View>
                     <View style={styles.rowContainer}>
                         <Text style={styles.textStyle}>Folow Workout Template?</Text>
                         <ToggleSwitch
-                            isOn={true}
+                            isOn={followWorkoutTemplate}
                             onColor={THEME.PRIMARY_BACKGROUND_COLOR}
                             offColor={THEME.COLOR_LIGHT_GRAY}
                             label=""
                             labelStyle={{ color: "black", fontWeight: "900" }}
                             size="medium"
-                            onToggle={isOn => console.log("changed to : ", isOn)}
+                            onToggle={isOn => this.setState({ followWorkoutTemplate: isOn })}
                         />
                     </View>
                     <View style={{ margin: "5%", flexDirection: "column" }}>
@@ -67,7 +72,7 @@ class StartWorkout extends Component {
                         </RNBounceable>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <Button.SlimButton disabled={this.props.route.params.workout ? false : true} title="Start" onPress={() => {this.handleStartWorkout(); this.props.navigation.navigate(route.CURRENT_WORKOUT, { workout: this.props.route.params.workout }) }} />
+                        <Button.SlimButton loading={btnLoading} disabled={this.props.route.params.workout ? false : true} title="Start" onPress={() => { this.handleStartWorkout(); this.props.navigation.navigate(route.CURRENT_WORKOUT, { workout: this.props.route.params.workout }) }} />
                     </View>
                 </View>
             </Container >

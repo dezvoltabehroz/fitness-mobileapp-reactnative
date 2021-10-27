@@ -31,7 +31,7 @@ export default StyleSheet.create({
         justifyContent: "center", alignItems: "center", backgroundColor: '#544b4c'
     },
     textStyle1: {
-        color: "lightgrey",
+        color: "grey",
         fontSize: 16,
     },
     headingStyle: {
@@ -72,7 +72,7 @@ export default StyleSheet.create({
         borderTopRightRadius: 25,
     },
     modalContainer: {
-        backgroundColor: 'rgba(0,0,0,0.7)',
+        backgroundColor: 'rgba(0,0,0,0.4)',
         justifyContent: 'flex-end',
         margin: 0,
     },

@@ -35,9 +35,12 @@ export default StyleSheet.create({
         flexDirection: "row",
         alignItems: "center"
     },
+    rowStyle: { flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginHorizontal: "2.5%" },
     gapHeight:{
         height:10
     },
+    buttonContainer: { alignItems: "center", justifyContent: "center" },
+    buttonStyle: { position: "absolute", bottom: 40, },
     itemContainer:{ flex: 1, flexDirection: "row", alignItems: "center", marginHorizontal: "5%", elevation: 2, padding: "5%", borderRadius: 10, marginBottom: 10 },
     boxView:{
         borderRadius: 10, height: 70, width: 70,

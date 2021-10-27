@@ -100,6 +100,7 @@ class Home extends Component {
 
     componentDidMount = () => {
         const { userData } = this.props.user;
+        console.log(userData.token)
         this.setState({ loading: true })
         ActivitiesServices.getAllActivitiesByAudit(userData.token, userData.userId)
             .then((response) => { console.log(response.data); this.setState({ activityArr: response.data, loading: false,isRefreshing:false }) })

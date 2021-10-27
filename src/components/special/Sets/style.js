@@ -18,7 +18,7 @@ export default StyleSheet.create({
         alignItems: "center"
     },
     second: {
-        flex: 0.225,
+        flex: 0.3,
         flexDirection: "column",
         marginHorizontal: "2%",
         alignItems: "center"
@@ -88,6 +88,7 @@ export default StyleSheet.create({
         fontSize: 10
     },
     headingText: {
-        textAlign: "center"
-    }
+        textAlign: "center",
+        fontSize:12
+    },
 })

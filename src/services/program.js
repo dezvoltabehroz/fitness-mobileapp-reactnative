@@ -11,7 +11,7 @@ const Api = {
         return axiosInstance.get(`GetUserProgramByUserId?CountBit=false`, apiHeaderConfiguration(token, TOKEN, userId))
     },
     getAllProgressPhotoById: function (token, userId) {
-        return axiosInstance.get(`GetAllProgressPhotoById?UserId=${userId}`, apiHeaderConfiguration(token, TOKEN))
+        return axiosInstance.get(`GetAllProgressPhotoById?ClientId=${userId}&PhotoBit=true`, apiHeaderConfiguration(token, TOKEN))
     },
     getAllAssignedPrograms: function (token, userId) {
         return axiosInstance.get(`GetUserProgramByUserId?CountBit=false`, apiHeaderConfiguration(token, TOKEN, userId))
@@ -20,7 +20,7 @@ const Api = {
         return axios.post(`${BASE_URL}Uploader`, data, apiHeaderConfiguration(token, TOKEN, userId))
     },
     uploadProgressPhotoAssignUser: function (path, token, userId) {
-        return axiosInstance.get(`${BASE_URL}UploadProgressPhotoClient?PhotoPath='${path}'&ClientId=${userId}`, apiHeaderConfiguration(token, TOKEN, userId))
+        return axios.get(`${BASE_URL}UploadProgressPhotoClient?${path}&ClientId=${userId}`, apiHeaderConfiguration(token, TOKEN, userId))
     },
     getUserCircumference: function (programId, userProgramId, token, userId) {
         return axiosInstance.get(`GetUserCircumference?ProgramId=${programId}&UserProgramId=${userProgramId}`, apiHeaderConfiguration(token, TOKEN, userId))

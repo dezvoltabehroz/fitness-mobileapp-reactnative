@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-    View, Text, Image, Platform
+    View, Text, Image, Platform, Alert
 } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
@@ -49,7 +49,7 @@ class ProgressPhoto extends Component {
                 console.log(response)
                 let formData = new FormData();
                 formData.append('files', {
-                    uri: Platform.OS === 'android' ? response.assets[0].uri : response.uri,
+                    uri: response.assets[0].uri,
                     name: `${new Date().getTime().toString()}.jpg`,
                     filename: new Date().getTime().toString() + '.jpg',
                     type: 'image/jpg'
@@ -59,14 +59,15 @@ class ProgressPhoto extends Component {
                 ProgramServices.uploadProgressPhoto(formData, userData.token, userData.userId)
                     .then((responseData) => {
                         console.log(responseData.data)
-                        ProgramServices.uploadProgressPhotoAssignUser(responseData.data.filename, userData.token, userData.userId)
-                            .then((res) => {
-                                this.setState({ front: Platform.OS === 'android' ? response.assets[0].uri : response.uri, uploading: false, });
-                            })
-                            .catch((err) => {
-                                this.setState({ uploading: false });
-                                console.log(err.response)
-                            })
+                        this.setState({ front: responseData.data.filepath, frontName: responseData.data.filename, uploading: false, });
+                        // ProgramServices.uploadProgressPhotoAssignUser(responseData.data.filename, userData.token, userData.userId)
+                        //     .then((res) => {
+                        //         this.setState({ front: Platform.OS === 'android' ? response.assets[0].uri : response.uri, uploading: false, });
+                        //     })
+                        //     .catch((err) => {
+                        //         this.setState({ uploading: false });
+                        //         console.log(err.response)
+                        //     })
                     })
                     .catch((err) => {
                         this.setState({ uploading: false });
@@ -98,7 +99,7 @@ class ProgressPhoto extends Component {
                 console.log(response)
                 let formData = new FormData();
                 formData.append('files', {
-                    uri: Platform.OS === 'android' ? response.assets[0].uri : response.uri,
+                    uri: response.assets[0].uri,
                     name: `${new Date().getTime().toString()}.jpg`,
                     filename: new Date().getTime().toString() + '.jpg',
                     type: 'image/jpg'
@@ -107,14 +108,8 @@ class ProgressPhoto extends Component {
 
                 ProgramServices.uploadProgressPhoto(formData, userData.token, userData.userId)
                     .then((responseData) => {
-                        ProgramServices.uploadProgressPhotoAssignUser(responseData.data.filename, userData.token, userData.userId)
-                            .then((res) => {
-                                this.setState({ side: Platform.OS === 'android' ? response.assets[0].uri : response.uri, uploading: false, });
-                            })
-                            .catch((err) => {
-                                this.setState({ uploading: false });
-                                console.log(err.response)
-                            })
+                        this.setState({ side: responseData.data.filepath, sideName: responseData.data.filename, uploading: false, });
+
                     })
                     .catch((err) => {
                         this.setState({ uploading: false });
@@ -154,7 +149,7 @@ class ProgressPhoto extends Component {
                 console.log(response)
                 let formData = new FormData();
                 formData.append('files', {
-                    uri: Platform.OS === 'android' ? response.assets[0].uri : response.uri,
+                    uri: response.assets[0].uri,
                     name: `${new Date().getTime().toString()}.jpg`,
                     filename: new Date().getTime().toString() + '.jpg',
                     type: 'image/jpg'
@@ -163,14 +158,7 @@ class ProgressPhoto extends Component {
 
                 ProgramServices.uploadProgressPhoto(formData, userData.token, userData.userId)
                     .then((responseData) => {
-                        ProgramServices.uploadProgressPhotoAssignUser(responseData.data.filename, userData.token, userData.userId)
-                            .then((res) => {
-                                this.setState({ back: Platform.OS === 'android' ? response.assets[0].uri : response.uri, uploading: false, });
-                            })
-                            .catch((err) => {
-                                this.setState({ uploading: false });
-                                console.log(err.response)
-                            })
+                        this.setState({ back: responseData.data.filepath, backName: responseData.data.filename, uploading: false, });
                     })
                     .catch((err) => {
                         this.setState({ uploading: false });
@@ -178,6 +166,25 @@ class ProgressPhoto extends Component {
                     })
             }
         });
+    }
+
+    handleSaveFunction = () => {
+        const { userData } = this.props.user;
+
+        if (this.state.front && this.state.back && this.state.side) {
+            this.setState({ btnLoading: true })
+            let path = `FrontPhoto='${this.state.frontName}'&BackPhoto='${this.state.backName}'&SidePhoto='${this.state.sideName}'`;
+            ProgramServices.uploadProgressPhotoAssignUser(path, userData.token, userData.userId)
+                .then((res) => {
+                    console.log(res)
+                    this.setState({ btnLoading: false })
+                    this.props.navigation.replace('Home')
+                })
+                .catch((err) => console.log(err.response))
+        } else {
+            Alert.alert('Please select all photos')
+        }
+
     }
 
 
@@ -233,7 +240,7 @@ class ProgressPhoto extends Component {
                     </View>
                     <View style={styles.lowerContainer}>
                         <View style={styles.buttonContainer}>
-                            <Button.BrownButton title={"Save"} onPress={() => this.props.navigation.replace('Home')} />
+                            <Button.BrownButton title={"Save"} onPress={() => this.handleSaveFunction()} />
                         </View>
                     </View>
                 </View>

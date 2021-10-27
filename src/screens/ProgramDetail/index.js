@@ -118,8 +118,6 @@ class ProgramDetail extends Component {
                             <Loader />
                             :
                             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingTop: "10%", paddingBottom: 120 }} >
-
-
                                 <Text style={styles.headingStyle}>Duration </Text>
                                 <View style={styles.iconContainer}>
                                     <Icon.MaterialCommunityIcons name="checkbox-marked-circle" size={100} color={"#96CC39"} />
@@ -131,7 +129,7 @@ class ProgramDetail extends Component {
                                 </View>
                                 <View style={styles.rowContainer}>
                                     <Text>Completion</Text>
-                                    <Text>{moment(data.endDate).format('Do MMM YY')}</Text>
+                                    <Text>{moment(data.endDate!=""?data.endDate:new Date()).format('Do MMM YY')}</Text>
                                 </View>
                                 <View style={styles.rowStyle}>
                                     <Icon.MaterialCommunityIcons name="calendar-month" size={35} />
