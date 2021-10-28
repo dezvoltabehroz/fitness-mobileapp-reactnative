@@ -28,6 +28,12 @@ export const apiHeaderConfiguration = (token, type, userId) => {
                 }
             }
             break;
+        case "refresh":
+            return {
+                headers: {
+                    'UserId': userId,
+                }
+            }
 
         default:
             return { headers: { 'Content-Type': 'application/json' } }

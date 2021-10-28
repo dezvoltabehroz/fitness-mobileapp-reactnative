@@ -1,19 +1,20 @@
 import React, { Component } from 'react'
 import {
     View, Text, LayoutAnimation,
-    UIManager, TouchableOpacity, ScrollView
+    UIManager, TouchableOpacity, ScrollView, Alert
 } from 'react-native'
 import RNBounceable from "@freakycoder/react-native-bounceable";
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 import Modal from 'react-native-modal';
 
-import { Icon, Button, MessageTextInput, Container, } from "../../components";
+import { Icon, Button, MessageTextInput, Container, Loader, } from "../../components";
 import { authActions } from '../../redux/actions/auth';
 import { screen } from '../../lib/utils/constants';
 
 import styles from './style';
 import { getLocalData, LOCAL_STORAGE_KEYS } from '../../lib/utils/localstorage';
+import { AuthServices } from '../../services';
 
 class Setting extends Component {
     constructor(props) {
@@ -22,9 +23,12 @@ class Setting extends Component {
             UIManager.setLayoutAnimationEnabledExperimental(true);
         }
         this.state = {
+            loading: true,
             visible: true,
+            btnLoading: false,
             reportModal: false,
             issue: "",
+            data: null,
             expandedGeneral: false,
             expandedCustomisation: false,
             expandedFeature: false,
@@ -34,11 +38,22 @@ class Setting extends Component {
     }
 
     componentDidMount = async () => {
+
+        this.focusListener = this.props.navigation.addListener('focus', () => { this.getDetails(); })
+        this.getDetails()
         let userData = await getLocalData(LOCAL_STORAGE_KEYS.loginDetails)
         let data = JSON.parse(userData);
         this.setState({ email: data.email })
     }
 
+    getDetails = () => {
+        AuthServices.getUserDetails(this.props.user.userData.token, this.props.user.userData.userId)
+            .then((res) => {
+                console.log(res.data)
+                this.setState({ data: res.data, loading: false })
+            })
+            .catch((err) => console.log(err.response))
+    }
     changeGeneralLayout = () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({ expandedGeneral: !this.state.expandedGeneral });
@@ -58,8 +73,18 @@ class Setting extends Component {
         return str.slice(0, num)
     }
 
+    handleReportIssue = () => {
+        this.setState({ btnLoading: true })
+        AuthServices.reportIssue(this.props.user.userData.userId, this.state.issue)
+            .then((res) => {
+                console.log(res.data)
+                this.setState({ reportModal: !reportModal, issue: "", btnLoading: false })
+            })
+            .catch((err) => {this.setState({ btnLoading: false }); Alert.alert(err?.response?.data?.responseMessage);  console.log(err.response)})
+    }
+
     render() {
-        const { currentPage, reportModal, issue, email } = this.state;
+        const { currentPage, reportModal, issue, email, data, loading, btnLoading } = this.state;
         const { firstName, lastName } = this.props.user.userData;
         return (
             <Container props={this.props}>
@@ -68,19 +93,22 @@ class Setting extends Component {
                         <Text style={styles.headingStyle}>{screen.SCREEN_TITLE_SETTING}</Text>
                     </View>
                     <ScrollView >
-                        <View style={styles.upperContentContainer}>
-                            <RNBounceable
-                                onPress={() => this.props.authActions.menuModal(!this.props.user.menuModal)}
-                                style={{
-                                    justifyContent: "center", alignItems: "center", height: 100, width: 100, borderRadius: 50, backgroundColor: "#544b4c", alignContent: "flex-end"
-                                }}>
-                                <Text style={[styles.headingStyle, { color: "white", fontWeight: "bold" }]} >{this.truncateString(firstName, 1)}</Text>
-                            </RNBounceable>
-                            <View>
-                                <Text style={styles.titleStyle}>{firstName} {lastName}</Text>
-                                <Text style={styles.emailStyle}>{email}</Text>
-                            </View>
-                        </View>
+                        {loading ?
+                            <Loader />
+                            :
+                            <View style={styles.upperContentContainer}>
+                                <RNBounceable
+                                    onPress={() => this.props.authActions.menuModal(!this.props.user.menuModal)}
+                                    style={{
+                                        justifyContent: "center", alignItems: "center", height: 100, width: 100, borderRadius: 50, backgroundColor: "#544b4c", alignContent: "flex-end"
+                                    }}>
+                                    <Text style={[styles.headingStyle, { color: "white", fontWeight: "bold" }]} >{this.truncateString(data?.firstName, 1)}{this.truncateString(data?.lastName, 1)}</Text>
+                                </RNBounceable>
+                                <View>
+                                    <Text style={styles.titleStyle}>{data?.firstName} {data?.lastName}</Text>
+                                    <Text style={styles.emailStyle}>{data?.email}</Text>
+                                </View>
+                            </View>}
                         <View style={styles.lowerContentContainer}>
 
                             <View style={styles.activities_container}>
@@ -100,7 +128,7 @@ class Setting extends Component {
                                     </View>
                                 </RNBounceable>
                                 <View style={[{ height: this.state.expandedGeneral ? null : 0 }, styles.columnStyle]}>
-                                    <RNBounceable onPress={() => this.props.navigation.navigate('MyDetails')} style={styles.country_container_1}>
+                                    <RNBounceable onPress={() => this.props.navigation.navigate('MyDetails', { data: data })} style={styles.country_container_1}>
                                         <Text style={styles.text_panel_heading_1}>My Detail</Text>
                                         <Icon.AntDesign name="right" size={15} color={"lightgray"} />
                                     </RNBounceable>
@@ -201,7 +229,7 @@ class Setting extends Component {
                             <MessageTextInput value={issue} onChangeText={(val) => this.setState({ issue: val })} label="Please describe the issue you are having" />
                         </View>
                         <View style={styles.buttonContainer}>
-                            <Button.LoginButton disabled={issue ? false : true} title="Send" onPress={() => this.setState({ reportModal: !reportModal, issue: "" })} />
+                            <Button.LoginButton loading={btnLoading} disabled={issue ? false : true} title="Send" onPress={() => this.handleReportIssue()} />
                         </View>
                     </View>
                 </Modal>

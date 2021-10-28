@@ -24,6 +24,7 @@ class ProgramDetail extends Component {
             workouts: true,
             nutrition: false,
             updateModal: false,
+            btnLoading: false,
             update: false,
             loading: true,
             weight: "",
@@ -107,8 +108,39 @@ class ProgramDetail extends Component {
         )
     }
 
+    handleUpdateWeight = () => {
+        this.setState({ btnLoading: true });
+        let data = {
+            "userId": parseInt(this.props.user.userData.userId),
+            "dateTaken": moment().format('YYYY-MM-DD'),
+            "weight": parseInt(this.state.weight),
+            "neckLeft": 0,
+            "neckRight": 0,
+            "chestLeft": 0,
+            "chestRight": 0,
+            "armLeft": 0,
+            "armRight": 0,
+            "waistLeft": 0,
+            "waistRight": 0,
+            "hipsLeft": 0,
+            "hipsRight": 0,
+            "thighLeft": 0,
+            "thighRight": 0,
+            "calfLeft": 0,
+            "calfRight": 0
+        }
+        console.log("data : ",data)
+        ProgramServices.updateUserMeasurements(data, this.props.user.userData.token, this.props.user.userData.userId)
+            .then((res) => {
+                console.log(res.data)
+                this.setState({ btnLoading: false, update: false, }, () => this.componentDidMount())
+            })
+            .catch((err) => console.log(err.response))
+    }
+
+
     render() {
-        const { workouts, nutrition, loading, updateModal, update, weights, selectedValue, weight, data } = this.state;
+        const { workouts, nutrition, loading, updateModal, update, weights, btnLoading, selectedValue, weight, data } = this.state;
         const { heading } = this.props.route.params;
         return (
             <Container props={this.props}>
@@ -129,7 +161,7 @@ class ProgramDetail extends Component {
                                 </View>
                                 <View style={styles.rowContainer}>
                                     <Text>Completion</Text>
-                                    <Text>{moment(data.endDate!=""?data.endDate:new Date()).format('Do MMM YY')}</Text>
+                                    <Text>{moment(data.endDate != "" ? data.endDate : new Date()).format('Do MMM YY')}</Text>
                                 </View>
                                 <View style={styles.rowStyle}>
                                     <Icon.MaterialCommunityIcons name="calendar-month" size={35} />
@@ -187,7 +219,7 @@ class ProgramDetail extends Component {
 
                                             </View>
                                             <View style={styles.buttonContainer}>
-                                                <Button.BrownButton title={"Update Weight"} onPress={() => this.setState({ update: false })} />
+                                                <Button.BrownButton loading={btnLoading} title={"Update Weight"} onPress={() => this.handleUpdateWeight()} />
                                             </View>
                                         </View>
                                         :

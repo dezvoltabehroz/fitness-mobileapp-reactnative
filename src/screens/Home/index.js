@@ -9,7 +9,7 @@ import moment from "moment"
 
 import { authActions } from '../../redux/actions/auth';
 import { Icon, Container, Loader } from "../../components";
-
+import { route } from '../../lib/utils/constants'
 import styles from './style';
 import { ActivitiesServices } from '../../services';
 
@@ -23,6 +23,7 @@ class Home extends Component {
         this.state = {
             visible: true,
             currentPage: 1,
+            schedule: null,
             loading: false,
             buttonArr: [{
                 text: "Start a workout",
@@ -102,8 +103,14 @@ class Home extends Component {
         const { userData } = this.props.user;
         console.log(userData.token)
         this.setState({ loading: true })
+        ActivitiesServices.getTodaySchedule(userData.userId)
+            .then((res) => {
+                console.log(res.data)
+                this.setState({ schedule: res.data[0] })
+            })
+            .catch((err) => console.log(err))
         ActivitiesServices.getAllActivitiesByAudit(userData.token, userData.userId)
-            .then((response) => { console.log(response.data); this.setState({ activityArr: response.data, loading: false,isRefreshing:false }) })
+            .then((response) => { console.log(response.data); this.setState({ activityArr: response.data, loading: false, isRefreshing: false }) })
             .catch((err) => console.log(err))
 
     }
@@ -301,13 +308,13 @@ class Home extends Component {
                                         <View style={{ height: 50 }}></View>
                                         <View style={styles.rowContainerBadges}>
                                             <View style={styles.badgeMargin}>
-                                                <Icon.FontAwesome5 name={'calendar-alt'} size={35} color='white' />
+                                                <Icon.FontAwesome5 onPress={() => this.props.navigation.navigate(route.INTEGRATION)} name={'calendar-alt'} size={35} color='white' />
                                             </View>
                                             <View style={styles.badgeMargin}>
-                                                <Icon.FontAwesome name={'wpforms'} size={35} color='white' />
+                                                <Icon.FontAwesome onPress={() => this.props.navigation.navigate(route.INTEGRATION)} name={'wpforms'} size={35} color='white' />
                                             </View>
                                             <View style={styles.badgeMargin}>
-                                                <Icon.MaterialCommunityIcons name={'sack'} size={35} color='white' />
+                                                <Icon.MaterialCommunityIcons onPress={() => this.props.navigation.navigate(route.INTEGRATION)} name={'sack'} size={35} color='white' />
                                             </View>
                                         </View>
                                     </View>
@@ -325,7 +332,8 @@ class Home extends Component {
                                     renderItem={({ index, item }) => this._renderItems({ index, item })}
                                 />
                                 <View style={styles.generalMargin}>
-                                    <Text numberOfLines={3} style={styles.todayText}>Today's Schedule</Text>
+                                    <Text numberOfLines={3} style={styles.todayText}>Today's Schedule </Text>
+                                    <Text numberOfLines={3} style={styles.todayText}>{this.state.schedule?.programName}</Text>
                                     <Text numberOfLines={3} style={styles.dateText}>{moment().format("HH:MM, DD MMM YYYY")}</Text>
                                 </View>
                                 <View style={{ height: 50 }}></View>

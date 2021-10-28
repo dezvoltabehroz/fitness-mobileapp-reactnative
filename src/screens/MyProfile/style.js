@@ -8,7 +8,7 @@ export default StyleSheet.create({
         flex: 1,
         paddingTop: "5%"
     },
-    buttonContainer: {
+    buttonContainer: { paddingTop: "5%",
         justifyContent: "center",
         alignItems: "center"
     }

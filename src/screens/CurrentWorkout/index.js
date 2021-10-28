@@ -274,6 +274,9 @@ class CurrentWorkout extends Component {
             recentWorkouts: [],
             exerciseModal: false,
             image: LOGO,
+            pauseTimer: false,
+            startTimer: false,
+            resetTimer: false,
             title: '',
             uploading: false,
         }
@@ -285,6 +288,7 @@ class CurrentWorkout extends Component {
         const { token, userId } = this.props.user.userData;
         WorkoutsServices.getWorkoutExercise(workoutId, usersWorkoutId, token, userId)
             .then((res) => {
+                console.log("workout: res.data ", res.data)
                 this.setState({ workout: res.data })
                 WorkoutsServices.getRecentWorkouts(token, userId)
                     .then((response) => {
@@ -318,6 +322,13 @@ class CurrentWorkout extends Component {
     handleSetComplete = (setId) => {
         const { token, userId } = this.props.user.userData;
         WorkoutsServices.setCompleted(setId, token, userId)
+            .then((res) => { })
+            .catch((err) => console.log(err.response))
+    }
+
+    handleSetUnComplete = () => {
+        const { token, userId } = this.props.user.userData;
+        WorkoutsServices.setUnCompleted(setId, token, userId)
             .then((res) => { })
             .catch((err) => console.log(err.response))
     }
@@ -371,7 +382,7 @@ class CurrentWorkout extends Component {
                     </RNBounceable>
                 </View>
                 <View>
-                    <Sets item={item.sets} onSetCompleted={(setId) => { this.handleSetComplete(setId) }} allSetsCompleted={() => { this.handleAllSetsComplete(item.usersProgramWorkoutExerciseId ? item.usersProgramWorkoutExerciseId : item.usersWorkoutExerciseId) }} />
+                    <Sets item={item.sets} onSetCompleted={(setId) => { this.handleSetComplete(setId) }} onSetUnCompleted={(setId) => { this.handleSetUnComplete(setId) }} allSetsCompleted={() => { this.handleAllSetsComplete(item.usersProgramWorkoutExerciseId ? item.usersProgramWorkoutExerciseId : item.usersWorkoutExerciseId) }} />
                 </View>
                 <View style={styles.buttonStyle}>
                     <Button.OutlineButton title="Add Set" onPress={() => { this.handleAddSet(item) }} />
@@ -405,6 +416,9 @@ class CurrentWorkout extends Component {
                 <Container
                     props={this.props}
                     component={this.state}
+                    onStartTimer={() => { this.setState({ startTimer: true,pauseTimer:false }) }}
+                    onPauseTimer={() => { this.setState({ pauseTimer: true }) }}
+                    onResetTimer={() => { this.setState({ startTimer: false,pauseTimer:false }) }}
                     selectedMinF={(value) => this.setState({ selectedMin: value })}
                     selectedSecF={(value) => this.setState({ selectedSec: value })}>
                     <StatusBar backgroundColor={this.props.user.menuModal ? THEME.PRIMARY_BACKGROUND_COLOR : "#181818"} barStyle={"light-content"} />

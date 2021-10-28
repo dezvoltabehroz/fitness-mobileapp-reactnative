@@ -25,8 +25,8 @@ const Api = {
         return axios.post(`${BASE_URL}registration/updatePersonalInfo`, formData, apiHeaderConfiguration(EMPTY, MULTIPART));
     },
 
-    updateProfileInfo: function (userData, id) {
-        return axiosInstance.post('CreateExercise', userData, apiHeaderConfiguration(userData.token, TOKEN,id))
+    updateProfileInfo: function (userData, id, token) {
+        return axiosInstance.post('UpdateContactById', userData, apiHeaderConfiguration(token, TOKEN, id))
     },
 
     updateProfilePicture: function (userData) {
@@ -49,7 +49,7 @@ const Api = {
     forgotPassword: function (userData) {
         return axiosInstance.post('ForgotPassword', userData, apiHeaderConfiguration(EMPTY, EMPTY))
     },
-   
+
     updateFCMToken: function (userData) {
         return axiosInstance.post('registration/updateFcmtoken', {
             user_id: userData.id,
@@ -61,6 +61,27 @@ const Api = {
             user_id: userData.id
         }, apiHeaderConfiguration(userData.token, TOKEN))
     },
+    refreshToken: function (userId) {
+        return axios.get(`http://185.132.39.105/BlaqstarFitnessAPI/v1/RefreshUserToken`, {
+            headers: {
+                'UserId': userId,
+            }
+        })
+    },
+
+    getUserDetails: function (token, userId) {
+        return axiosInstance.get('GetContactById', apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    reportIssue: function (user_id, issue) {
+        return axios.post(`http://185.132.39.105/BlaqstarFitnessAPI/v1/ReportProblem?ReportDescription='${issue}'`, {
+            headers: {
+                'UserId': user_id,
+            }
+        })
+    },
+    updateMeasurementUnits: function (data, token, userId) {
+        return axios.post(`http://185.132.39.105/BlaqstarFitnessAPI/v1/UpdateMeasurementsUnit`, data, apiHeaderConfiguration(token, TOKEN, userId))
+    }
 };
 
 export default Api;

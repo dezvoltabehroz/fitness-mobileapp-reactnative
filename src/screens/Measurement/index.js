@@ -13,7 +13,7 @@ import { Icon } from "../../components";
 import { authActions } from '../../redux/actions/auth';
 
 import styles from './style';
-import { WorkoutsServices } from "../../services";
+import { ProgramServices, WorkoutsServices } from "../../services";
 
 class Measurement extends Component {
     constructor(props) {
@@ -41,7 +41,8 @@ class Measurement extends Component {
                 label: "Vital Stats",
                 value: "Vital Stats"
             }],
-            previousMeasurement: []
+            previousMeasurement: [],
+            btnLoading: false
         }
     }
 
@@ -175,8 +176,40 @@ class Measurement extends Component {
         )
     }
 
+    handleUpdateWeight1 = () => {
+        this.setState({ btnLoading: true });
+        let data = {
+            "userId": parseInt(this.props.user.userData.userId),
+            "dateTaken": moment().format('YYYY-MM-DD'),
+            "weight": parseInt(this.state.weight),
+            "neckLeft": this.state.neckLeft ? parseInt(this.state.neckLeft) : 0,
+            "neckRight": this.state.neckRight ? parseInt(this.state.neckRight) : 0,
+            "chestLeft": this.state.chestLeft ? parseInt(this.state.chestLeft) : 0,
+            "chestRight": this.state.chestRight ? parseInt(this.state.chestRight) : 0,
+            "armLeft": this.state.armLeft ? parseInt(this.state.armLeft) : 0,
+            "armRight": this.state.armRight ? parseInt(this.state.armRight) : 0,
+            "waistLeft": this.state.waistLeft ? parseInt(this.state.waistLeft) : 0,
+            "waistRight": this.state.waistRight ? parseInt(this.state.waistRight) : 0,
+            "hipsLeft": this.state.hipsLeft ? parseInt(this.state.hipsLeft) : 0,
+            "hipsRight": this.state.hipsRight ? parseInt(this.state.hipsRight) : 0,
+            "thighLeft": this.state.thighLeft ? parseInt(this.state.thighLeft) : 0,
+            "thighRight": this.state.thighRight ? parseInt(this.state.thighRight) : 0,
+            "calfLeft": this.state.calfLeft ? parseInt(this.state.calfLeft) : 0,
+            "calfRight": this.state.calfRight ? parseInt(this.state.calfRight) : 0
+        }
+        console.log("data : ", data)
+        ProgramServices.updateUserMeasurements(data, this.props.user.userData.token, this.props.user.userData.userId)
+            .then((res) => {
+                console.log(res.data)
+                this.setState({ btnLoading: false, }, () => this.props.navigation.goBack())
+            })
+            .catch((err) => console.log(err.response))
+    }
+
     render() {
-        const { measurementType, date, showDatePicker } = this.state;
+        const { measurementType, date, showDatePicker, weight, neckLeft, neckRight, armRight, armLeft, chestLeft, chestRight,
+            waistLeft, waistRight, hipsLeft, hipsRight, thighLeft, thighRight, calfLeft, calfRight
+        } = this.state;
         return (
             <Container props={this.props}>
                 <View style={styles.container} >
@@ -230,38 +263,38 @@ class Measurement extends Component {
                             this.state.selectedMeasurementType.label == 'Weight & Circumferences' ?
                                 <>
                                     <View style={styles.generalMargin1}>
-                                        <Input label="New Weight (kg)" placeholder="New Weight (kg)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>kg</Text></View>} />
+                                        <Input label="New Weight (kg)" keyboardType={"number-pad"} onChangeText={(text)=>this.setState({weight:text})} value={weight} placeholder="New Weight (kg)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>kg</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Neck Left (cm)" placeholder="Neck Left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Neck Right (cm)" placeholder="Neck Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Neck Left (cm)" keyboardType={"number-pad"} onChangeText={(text)=>this.setState({neckLeft:text})}  placeholder="Neck Left (cm)" value={neckLeft} rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Neck Right (cm)" keyboardType={"number-pad"} onChangeText={(text)=>this.setState({neckRight:text})}  placeholder="Neck Right (cm)" value={neckRight} rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Chest Left (cm)" placeholder="Chest Left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Chest Right (cm)" placeholder="Chest Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Chest Left (cm)" keyboardType={"number-pad"} onChangeText={(text)=>this.setState({chestLeft:text})}  placeholder="Chest Left (cm)" value={chestLeft} rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Chest Right (cm)" keyboardType={"number-pad"} onChangeText={(text)=>this.setState({chestRight:text})}  placeholder="Chest Right (cm)" value={chestRight} rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Arms Left (cm)" placeholder="Arms Left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Arms Right (cm)" placeholder="Arms Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Arms Left (cm)" keyboardType={"number-pad"} onChangeText={(text)=>this.setState({armLeft:text})}  placeholder="Arms Left (cm)" value={armLeft} rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Arms Right (cm)" keyboardType={"number-pad"} onChangeText={(text)=>this.setState({armRight:text})}  placeholder="Arms Right (cm)" value={armRight} rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Waist Left (cm)" placeholder="Waist Left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Waist Right (cm)" placeholder="Waist Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Waist Left (cm)" keyboardType={"number-pad"} onChangeText={(text)=>this.setState({waistLeft:text})}  placeholder="Waist Left (cm)" value={waistLeft} rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Waist Right (cm)" keyboardType={"number-pad"} onChangeText={(text)=>this.setState({waistRight:text})}  placeholder="Waist Right (cm)" value={waistRight} rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Hips Left (cm)" placeholder="Hips Left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Hips Right (cm)" placeholder="Hips Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Hips Left (cm)" keyboardType={"number-pad"} onChangeText={(text)=>this.setState({hipsLeft:text})}  placeholder="Hips Left (cm)" value={hipsLeft} rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Hips Right (cm)" keyboardType={"number-pad"} onChangeText={(text)=>this.setState({hipsRight:text})}  placeholder="Hips Right (cm)" value={hipsRight} rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Thigh left (cm)" placeholder="Thigh left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Thigh Right (cm)" placeholder="Thigh Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Thigh left (cm)" keyboardType={"number-pad"} onChangeText={(text)=>this.setState({thighLeft:text})}  placeholder="Thigh left (cm)" value={thighLeft} rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Thigh Right (cm)" keyboardType={"number-pad"} onChangeText={(text)=>this.setState({thighRight:text})}  placeholder="Thigh Right (cm)" value={thighRight} rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={[styles.generalMargin2, styles.rowContainer]}>
-                                        <Input label="Calf Left (cm)" placeholder="Calf Left (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
-                                        <Input label="Calf Right (cm)" placeholder="Calf Right (cm)" rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Calf Left (cm)" keyboardType={"number-pad"} onChangeText={(text)=>this.setState({calfLeft:text})}  placeholder="Calf Left (cm)" value={calfLeft} rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
+                                        <Input label="Calf Right (cm)" keyboardType={"number-pad"} onChangeText={(text)=>this.setState({calfRight:text})}  placeholder="Calf Right (cm)" value={calfRight} rightIcon={<View style={styles.marginRight}><Text style={styles.notiText}>cm</Text></View>} />
                                     </View>
                                     <View style={styles.buttonContainer}>
-                                        <Button.BrownButton title="Save" onPress={() => { }} />
+                                        <Button.BrownButton loading={this.state.btnLoading} title="Save" onPress={() => { this.handleUpdateWeight1() }} />
                                     </View>
 
                                 </>

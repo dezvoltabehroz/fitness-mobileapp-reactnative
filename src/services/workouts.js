@@ -62,6 +62,9 @@ const Api = {
     setCompleted: function (setId, token, userId) {
         return axiosInstance.post(`CompleteWorkoutExerciseSet?UsersProgramWorkoutExerciseSetId=${setId}&IsProgramWorkout=false`, apiHeaderConfiguration(token, TOKEN, userId))
     },
+    setUnCompleted: function (setId, token, userId) {
+        return axiosInstance.post(`CompleteWorkoutExerciseSet?UsersProgramWorkoutExerciseSetId=${setId}&IsProgramWorkout=false&IsCompleted=true`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
     allSetCompleted: function (workoutExerciseId, token, userId) {
         return axiosInstance.post(`CompleteWorkoutExercise?UsersProgramWorkoutExerciseId=${workoutExerciseId}&IsProgramWorkout=false`, apiHeaderConfiguration(token, TOKEN, userId))
     },

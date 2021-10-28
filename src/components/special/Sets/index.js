@@ -47,8 +47,14 @@ class Sets extends Component {
     handleOnCompleteSet = (index) => {
         let { set } = this.state;
         let array = [...set]
-        array[index] = { ...array[index], isCompleted: true }
-        this.setState({ set: array }, () => this.props.onSetCompleted(array[index].usersProgramWorkoutExerciseSetId ? array[index].usersProgramWorkoutExerciseSetId : array[index].usersWorkoutExerciseSetId))
+        if (array[index].isCompleted) {
+            array[index] = { ...array[index], isCompleted: false }
+            this.setState({ set: array }, () => this.props.onSetUnCompleted(array[index].usersProgramWorkoutExerciseSetId ? array[index].usersProgramWorkoutExerciseSetId : array[index].usersWorkoutExerciseSetId))
+        } else {
+            array[index] = { ...array[index], isCompleted: true }
+            this.setState({ set: array }, () => this.props.onSetCompleted(array[index].usersProgramWorkoutExerciseSetId ? array[index].usersProgramWorkoutExerciseSetId : array[index].usersWorkoutExerciseSetId))
+        }
+
     }
 
     handleSelectAll = () => {

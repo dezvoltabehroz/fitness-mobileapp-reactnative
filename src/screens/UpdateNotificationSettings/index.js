@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-    View, Text, ScrollView
+    View, Text, ScrollView, FlatList, Alert
 } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
@@ -13,12 +13,14 @@ import { authActions } from '../../redux/actions/auth';
 
 import THEME from '../../assets/styles/theme.style'
 import styles from './style';
+import { ActivitiesServices } from '../../services';
 
 class Notifications extends Component {
     constructor(props) {
         super(props);
         this.state = {
             dropdown: true,
+            notifications: [],
             selectedValue: [
                 {
 
@@ -30,7 +32,7 @@ class Notifications extends Component {
                 value: "Immediate"
             },
             {
-                id: 1,
+                id: 2,
                 label: "Hourly",
                 value: "Hourly"
             },
@@ -48,318 +50,133 @@ class Notifications extends Component {
 
     }
 
+    componentDidMount = () => {
+        ActivitiesServices.getUsersNotificationPriority(this.props.user.userData.token, this.props.user.userData.userId)
+            .then((res) => {
+                console.log(res.data);
+                let array = [...res.data];
+                array.map((item, index) => {
+                    if (item.notificationFrequencyId != 0) {
+                        array[index] = { ...array[index], dropdownOpen: false }
+                    }
+                })
+                this.setState({ notifications: array })
+            })
+            .catch((err) => console.log(err.response))
+    }
 
+
+    _renderItems = (index, item) => {
+        return (
+            <>
+                {index == 0 ?
+                    <View style={styles.generalMargin}>
+                        <Text style={styles.headingTextStyle}>{item.notificationTypeName}</Text>
+                    </View>
+                    :
+                    index == 9 ?
+                        <View style={styles.generalMargin}>
+                            <Text style={styles.headingTextStyle}>{item.notificationTypeName}</Text>
+                        </View>
+                        :
+                        null
+                }
+                {
+                    item.notificationFrequencyId != 0 ?
+                        <>
+                            <View style={styles.rowContainer}>
+                                <Text style={styles.textStyle}>{item.notificationName}</Text>
+                                <ToggleSwitch
+                                    isOn={item.isAllowed}
+                                    onColor={THEME.PRIMARY_BACKGROUND_COLOR}
+                                    offColor={THEME.COLOR_LIGHT_GRAY}
+                                    label=""
+                                    labelStyle={styles.labelStyle}
+                                    size="medium"
+                                    onToggle={isOn => {
+                                        let array = [...this.state.notifications];
+                                        array[index] = { ...array[index], isAllowed: isOn }
+                                        this.setState({ notifications: array })
+                                    }}
+                                />
+                            </View>
+                            <View style={styles.generalMargin}>
+                                <Text style={styles.notiText}>Notification Frequency</Text>
+                                <DropDownPicker
+                                    items={this.state.data}
+                                    arrowColor="#000000"
+                                    placeholder="Select Value"
+                                    onClose={() => {
+                                        let array = [...this.state.notifications];
+                                        array[index] = { ...array[index], dropdownOpen: false }
+                                        this.setState({ notifications: array })
+                                    }}
+                                    onOpen={() => {
+                                        let array = [...this.state.notifications];
+                                        array[index] = { ...array[index], dropdownOpen: true }
+                                        this.setState({ notifications: array })
+                                    }}
+                                    containerStyle={{ height: 40, marginBottom: item.dropdownOpen ? '50%' : 0 }}
+                                    defaultValue={item.frequency ? item.frequency : ""}
+                                    onChangeItem={(itemData) => {
+                                        let array = [...this.state.notifications];
+                                        array[index] = { ...array[index], notificationFrequencyId: item.id, frequency: itemData.label, dropdownOpen: false }
+                                        this.setState({ notifications: array })
+                                    }}
+                                />
+                            </View>
+                        </>
+                        :
+                        <View style={styles.rowContainer}>
+                            <Text style={styles.textStyle}>{item.notificationName}</Text>
+                            <ToggleSwitch
+                                isOn={item.isAllowed}
+                                onColor={THEME.PRIMARY_BACKGROUND_COLOR}
+                                offColor={THEME.COLOR_LIGHT_GRAY}
+                                label=""
+                                labelStyle={styles.labelStyle}
+                                size="medium"
+                                onToggle={isOn => {
+                                    let array = [...this.state.notifications];
+                                    array[index] = { ...array[index], isAllowed: isOn }
+                                    this.setState({ notifications: array })
+                                }}
+                            />
+                        </View>
+                }
+            </>
+        )
+    }
+
+    handleUpdateNotification = () => {
+        this.setState({ btnLoading: true })
+        ActivitiesServices.updateUsersNotificationPriority(this.state.notifications, this.props.user.userData.token, this.props.user.userData.userId)
+            .then((res) => {
+                console.log(res.data)
+                this.setState({ btnLoading: false })
+                this.props.navigation.goBack();
+            })
+            .catch((err) => {this.setState({ btnLoading: false }); Alert.alert(err?.response?.data?.responseMessage);  console.log(err.response) })
+    }
 
 
     render() {
-        const { data, selectedValue, dropdown } = this.state;
+        const { data, selectedValue, notifications } = this.state;
         return (
             <Container props={this.props}>
                 <StatusBar backgroundColor="white" barStyle={"dark-content"} />
                 <ScrollView>
                     <View style={styles.container}>
-                        <View style={styles.generalMargin}>
-                            <Text style={styles.headingTextStyle}>Push Notifications</Text>
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <Text style={styles.textStyle}>Session Booked</Text>
-                            <ToggleSwitch
-                                isOn={false}
-                                onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor={THEME.COLOR_LIGHT_GRAY}
-                                label=""
-                                labelStyle={styles.labelStyle}
-                                size="medium"
-                                onToggle={isOn => console.log("changed to : ", isOn)}
-                            />
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <Text style={styles.textStyle}>Session Edited</Text>
-                            <ToggleSwitch
-                                isOn={false}
-                                onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor={THEME.COLOR_LIGHT_GRAY}
-                                label=""
-                                labelStyle={styles.labelStyle}
-                                size="medium"
-                                onToggle={isOn => console.log("changed to : ", isOn)}
-                            />
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <Text style={styles.textStyle}>Session Cancellation Requests</Text>
-                            <ToggleSwitch
-                                isOn={false}
-                                onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor={THEME.COLOR_LIGHT_GRAY}
-                                label=""
-                                labelStyle={styles.labelStyle}
-                                size="medium"
-                                onToggle={isOn => console.log("changed to : ", isOn)}
-                            />
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <Text style={styles.textStyle}>Session Cancelled</Text>
-                            <ToggleSwitch
-                                isOn={false}
-                                onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor={THEME.COLOR_LIGHT_GRAY}
-                                label=""
-                                labelStyle={styles.labelStyle}
-                                size="medium"
-                                onToggle={isOn => console.log("changed to : ", isOn)}
-                            />
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <Text style={styles.textStyle}>Scheduled AM Workout Reminder</Text>
-                            <ToggleSwitch
-                                isOn={false}
-                                onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor={THEME.COLOR_LIGHT_GRAY}
-                                label=""
-                                labelStyle={styles.labelStyle}
-                                size="medium"
-                                onToggle={isOn => console.log("changed to : ", isOn)}
-                            />
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <Text style={styles.textStyle}>Scheduled PM Workout Reminder</Text>
-                            <ToggleSwitch
-                                isOn={true}
-                                onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor={THEME.COLOR_LIGHT_GRAY}
-                                label=""
-                                labelStyle={styles.labelStyle}
-                                size="medium"
-                                onToggle={isOn => console.log("changed to : ", isOn)}
-                            />
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <Text style={styles.textStyle}>Reminder to log nutrition</Text>
-                            <ToggleSwitch
-                                isOn={false}
-                                onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor={THEME.COLOR_LIGHT_GRAY}
-                                label=""
-                                size="medium"
-                                onToggle={isOn => console.log("changed to : ", isOn)}
-                            />
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <Text style={styles.textStyle}>Reminder to update measurement</Text>
-                            <ToggleSwitch
-                                isOn={false}
-                                onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor={THEME.COLOR_LIGHT_GRAY}
-                                label=""
-                                labelStyle={styles.labelStyle}
-                                size="medium"
-                                onToggle={isOn => console.log("changed to : ", isOn)}
-                            />
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <Text style={styles.textStyle}>Reminder to update progress photo</Text>
-                            <ToggleSwitch
-                                isOn={false}
-                                onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor={THEME.COLOR_LIGHT_GRAY}
-                                label=""
-                                labelStyle={styles.labelStyle}
-                                size="medium"
-                                onToggle={isOn => console.log("changed to : ", isOn)}
-                            />
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <Text style={styles.textStyle}>New schedule</Text>
-                            <ToggleSwitch
-                                isOn={false}
-                                onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor={THEME.COLOR_LIGHT_GRAY}
-                                label=""
-                                labelStyle={styles.labelStyle}
-                                size="medium"
-                                onToggle={isOn => console.log("changed to : ", isOn)}
-                            />
-                        </View>
-                        <View style={styles.generalMargin}>
-                            <Text style={styles.headingTextStyle}>Email Notifications</Text>
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <Text style={styles.textStyle}>Session Booked</Text>
-                            <ToggleSwitch
-                                isOn={false}
-                                onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor={THEME.COLOR_LIGHT_GRAY}
-                                label=""
-                                labelStyle={styles.labelStyle}
-                                size="medium"
-                                onToggle={isOn => console.log("changed to : ", isOn)}
-                            />
-                        </View>
-                        <View style={styles.generalMargin}>
-                            <Text style={styles.notiText}>Notification Frequency</Text>
-                            <DropDownPicker
-                                items={data}
-                                arrowColor="#000000"
-                                placeholder="Select Value"
-                                onClose={() => this.setState({ dropdownOpen1: false })}
-                                onOpen={() => this.setState({ dropdownOpen1: true })}
-                                containerStyle={{ height: 40, marginBottom: this.state.dropdownOpen1 ? '50%' : 0 }}
-                                defaultValue={this.state.selectedValue ? this.state.selectedValue.label : ""}
-                                onChangeItem={(item) => {
-                                    this.setState({
-                                        selectedValue: item, item: item.value, index: item.value,
-                                    })
-                                }}
-                            />
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <Text style={styles.textStyle}>Session Edited</Text>
-                            <ToggleSwitch
-                                isOn={false}
-                                onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor={THEME.COLOR_LIGHT_GRAY}
-                                label=""
-                                labelStyle={styles.labelStyle}
-                                size="medium"
-                                onToggle={isOn => console.log("changed to : ", isOn)}
-                            />
-                        </View>
-                        <View style={styles.generalMargin}>
-                            <Text style={styles.notiText}>Notification Frequency</Text>
-                            <DropDownPicker
-                                items={data}
-                                arrowColor="#000000"
-                                placeholder="Select Value"
-                                onClose={() => this.setState({ dropdownOpen2: false })}
-                                onOpen={() => this.setState({ dropdownOpen2: true })}
-                                containerStyle={{ height: 40, marginBottom: this.state.dropdownOpen2 ? '50%' : 0 }}
-                                defaultValue={this.state.selectedValue ? this.state.selectedValue.label : ""}
-                                onChangeItem={(item) => {
-                                    this.setState({
-                                        selectedValue: item, item: item.value, index: item.value,
-                                    })
-                                }}
-                            />
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <Text style={styles.textStyle}>Session Cancellation</Text>
-                            <ToggleSwitch
-                                isOn={false}
-                                onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor={THEME.COLOR_LIGHT_GRAY}
-                                label=""
-                                labelStyle={styles.labelStyle}
-                                size="medium"
-                                onToggle={isOn => console.log("changed to : ", isOn)}
-                            />
-                        </View>
-                        <View style={styles.generalMargin}>
-                            <Text style={styles.notiText}>Notification Frequency</Text>
-                            <DropDownPicker
-                                items={data}
-                                arrowColor="#000000"
-                                placeholder="Select Value"
-                                onClose={() => this.setState({ dropdownOpen3: false })}
-                                onOpen={() => this.setState({ dropdownOpen3: true })}
-                                containerStyle={{ height: 40, marginBottom: this.state.dropdownOpen3 ? '50%' : 0 }}
-                                defaultValue={this.state.selectedValue ? this.state.selectedValue.label : ""}
-                                onChangeItem={(item) => {
-                                    this.setState({
-                                        selectedValue: item, item: item.value, index: item.value,
-                                    })
-                                }}
-                            />
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <Text style={styles.textStyle}>Purcahse Package</Text>
-                            <ToggleSwitch
-                                isOn={false}
-                                onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor={THEME.COLOR_LIGHT_GRAY}
-
-                                label=""
-                                labelStyle={styles.labelStyle}
-                                size="medium"
-                                onToggle={isOn => console.log("changed to : ", isOn)}
-                            />
-                        </View>
-                        <View style={styles.generalMargin}>
-                            <Text style={styles.notiText}>Notification Frequency</Text>
-                            <DropDownPicker
-                                items={data}
-                                arrowColor="#000000"
-                                placeholder="Select Value"
-                                onClose={() => this.setState({ dropdownOpen4: false })}
-                                onOpen={() => this.setState({ dropdownOpen4: true })}
-                                containerStyle={{ height: 40, marginBottom: this.state.dropdownOpen4 ? '50%' : 0 }}
-                                defaultValue={this.state.selectedValue ? this.state.selectedValue.label : ""}
-                                onChangeItem={(item) => {
-                                    this.setState({
-                                        selectedValue: item, item: item.value, index: item.value,
-                                    })
-                                }}
-                            />
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <Text style={styles.textStyle}>Package Expired</Text>
-                            <ToggleSwitch
-                                isOn={false}
-                                onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor={THEME.COLOR_LIGHT_GRAY}
-                                label=""
-                                labelStyle={styles.labelStyle}
-                                size="medium"
-                                onToggle={isOn => console.log("changed to : ", isOn)}
-                            />
-                        </View>
-                        <View style={styles.generalMargin}>
-                            <Text style={styles.notiText}>Notification Frequency</Text>
-                            <DropDownPicker
-                                items={data}
-                                arrowColor="#000000"
-                                placeholder="Select Value"
-                                onClose={() => this.setState({ dropdownOpen5: false })}
-                                onOpen={() => this.setState({ dropdownOpen5: true })}
-                                containerStyle={{ height: 40, marginBottom: this.state.dropdownOpen5 ? '50%' : 0 }}
-                                defaultValue={this.state.selectedValue ? this.state.selectedValue.label : ""}
-                                onChangeItem={(item) => {
-                                    this.setState({
-                                        selectedValue: item, item: item.value, index: item.value,
-                                    })
-                                }}
-                            />
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <Text style={styles.textStyle}>Package Low Session Remaining</Text>
-                            <ToggleSwitch
-                                isOn={false}
-                                onColor={THEME.PRIMARY_BACKGROUND_COLOR}
-                                offColor={THEME.COLOR_LIGHT_GRAY}
-                                label=""
-                                labelStyle={styles.labelStyle}
-                                size="medium"
-                                onToggle={isOn => console.log("changed to : ", isOn)}
-                            />
-                        </View>
-                        <View style={styles.generalMargin}>
-                            <Text style={styles.notiText}>Notification Frequency</Text>
-                            <DropDownPicker
-                                items={data}
-                                arrowColor="#000000"
-                                placeholder="Select Value"
-                                onClose={() => this.setState({ dropdownOpen6: false })}
-                                onOpen={() => this.setState({ dropdownOpen6: true })}
-                                containerStyle={{ height: 40, marginBottom: this.state.dropdownOpen6 ? '50%' : 0 }}
-                                defaultValue={this.state.selectedValue ? this.state.selectedValue.label : ""}
-                                onChangeItem={(item) => {
-                                    this.setState({
-                                        selectedValue: item, item: item.value, index: item.value,
-                                    })
-                                }}
-                            />
-                        </View>
+                        <FlatList
+                            data={notifications}
+                            keyExtractor={item => item}
+                            style={{ marginBottom: 100, paddingBottom: 20 }}
+                            ItemSeparatorComponent={this.renderSeparator}
+                            showsVerticalScrollIndicator={false}
+                            renderItem={({ index, item }) => this._renderItems(index, item)}
+                        />
                         <View style={styles.buttonContainer}>
-                            <Button.BrownButton title="Update Notification" onPress={() => this.props.navigation.replace('Home')} />
+                            <Button.BrownButton title="Update Notification" onPress={() => this.handleUpdateNotification()} />
                         </View>
                     </View>
                 </ScrollView>

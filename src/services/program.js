@@ -40,6 +40,9 @@ const Api = {
     setCompleted: function (setId, token, userId) {
         return axiosInstance.post(`CompleteWorkoutExerciseSet?UsersProgramWorkoutExerciseSetId=${setId}&IsProgramWorkout=true`, apiHeaderConfiguration(token, TOKEN, userId))
     },
+    setUnCompleted: function (setId, token, userId) {
+        return axiosInstance.post(`CompleteWorkoutExerciseSet?UsersProgramWorkoutExerciseSetId=${setId}&IsProgramWorkout=true&IsCompleted=true`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
     allSetCompleted: function (workoutExerciseId, token, userId) {
         return axiosInstance.post(`CompleteWorkoutExercise?UsersProgramWorkoutExerciseId=${workoutExerciseId}&IsProgramWorkout=true`, apiHeaderConfiguration(token, TOKEN, userId))
     },
@@ -52,8 +55,12 @@ const Api = {
     startProgram: function (programId, userProgramId, token, userId) {
         return axiosInstance.post(`StartProgram?ProgramId=${programId}&UserProgramId=${userProgramId}`, userData, apiHeaderConfiguration(token, TOKEN, userId))
     },
-    addExercise:function(exerciseId,workoutId,token,userId){
+    addExercise: function (exerciseId, workoutId, token, userId) {
         return axiosInstance.post(`AddExerciseFromRecentWorkout?WorkoutExerciseId=${exerciseId}&UsersWorkoutId=${workoutId}&IsProgramWorkout=true`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    
+    updateUserMeasurements: function (data, token, userId) {
+        return axios.post(`${BASE_URL}CreateWeightCircumferencebyId`, data,  apiHeaderConfiguration(token, TOKEN, userId))
     }
 };
 

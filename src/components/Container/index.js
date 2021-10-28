@@ -12,7 +12,7 @@ import { LOGO } from '../../lib/utils/constants';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 
-const Container = ({ children, props, component, selectedMinF, selectedSecF }) => {
+const Container = ({ children, props, component, selectedMinF, selectedSecF, onStartTimer, onPauseTimer, onResetTimer }) => {
     if (Platform.OS === 'android') {
         UIManager.setLayoutAnimationEnabledExperimental(true);
     }
@@ -119,10 +119,14 @@ const Container = ({ children, props, component, selectedMinF, selectedSecF }) =
                                     </TouchableOpacity>
                                     :
                                     screen == 'CurrentWorkout' ?
-
-                                        <TouchableOpacity onPress={() => props.authActions.stopwatchModal(true)} style={{ marginHorizontal: "5%", justifyContent: "center", alignItems: "center" }}>
-                                            <IconS.Fontisto name="stopwatch" size={25} />
-                                        </TouchableOpacity>
+                                        props.user.stopwatchModal ?
+                                            <TouchableOpacity onPress={() => props.authActions.stopwatchModal(!props.user.stopwatchModal)} style={{ marginHorizontal: "5%", justifyContent: "center", alignItems: "center" }}>
+                                                <IconS.FontAwesome name="angle-down" size={35} color="black" />
+                                            </TouchableOpacity>
+                                            :
+                                            <TouchableOpacity onPress={() => props.authActions.stopwatchModal(true)} style={{ marginHorizontal: "5%", justifyContent: "center", alignItems: "center" }}>
+                                                <IconS.Fontisto name="stopwatch" size={25} />
+                                            </TouchableOpacity>
                                         :
                                         screen == 'Calendar' ?
 
@@ -158,7 +162,7 @@ const Container = ({ children, props, component, selectedMinF, selectedSecF }) =
                                         await props.authActions.menuModal(!props.user.menuModal);
                                         await props.navigation.navigate("Settings")
                                     }} style={{ marginHorizontal: "5%", justifyContent: "center", alignItems: "center", height: 30, width: 30, borderRadius: 15, backgroundColor: "#544b4c" }}>
-                                        <Text style={{ color: "white", fontWeight: "bold", textTransform: "capitalize" }} >{truncateString(props.user.userData.firstName,1)}{truncateString(props.user.userData.lastName, 1)}</Text>
+                                        <Text style={{ color: "white", fontWeight: "bold", textTransform: "capitalize" }} >{truncateString(props.user.userData.firstName, 1)}{truncateString(props.user.userData.lastName, 1)}</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={[styles.imageContainer, { marginTop: 20 }]}>
@@ -216,35 +220,64 @@ const Container = ({ children, props, component, selectedMinF, selectedSecF }) =
                 animationOutTiming={1000}
                 style={{ justifyContent: 'flex-end', margin: 0 }} >
                 <View style={styles.modalLowerContainer}>
-                    <View style={{ flexDirection: "row", justifyContent: "space-evenly", alignItems: "center", paddingBottom: "15%" }}>
-                        <DropDownPicker
-                            items={component?.minutes}
-                            arrowColor="#000000"
-                            placeholder="00 min"
-                            activeLabelStyle={{ color: "white", fontWeight: "bold" }}
-                            activeItemStyle={{ backgroundColor: '#544b4c' }}
-                            dropDownStyle={{ paddingHorizontal: 0 }}
-                            itemStyle={{ justifyContent: 'flex-start', paddingHorizontal: "5%" }}
-                            containerStyle={{ height: 40, width: "45%", }}
-                            defaultValue={component?.selectedMin ? component?.selectedMin?.label : ""}
-                            onChangeItem={(item) => { selectedMinF(item) }} />
-                        <DropDownPicker
-                            items={component?.second}
-                            arrowColor="#000000"
-                            placeholder="00 sec"
-                            activeLabelStyle={{ color: "white", fontWeight: "bold" }}
-                            activeItemStyle={{ backgroundColor: '#544b4c' }}
-                            dropDownStyle={{ paddingHorizontal: 0 }}
-                            itemStyle={{ justifyContent: 'flex-start', paddingHorizontal: "5%" }}
-                            containerStyle={{ height: 40, width: "45%", }}
-                            defaultValue={component?.selectedSec ? component?.selectedSec?.label : ""}
-                            onChangeItem={(item) => { selectedSecF(item) }} />
-                    </View>
-                    <RNBounceable onPress={() => props.authActions.stopwatchModal(!props.user.stopwatchModal)} style={{ justifyContent: "center", alignItems: "center" }}>
-                        <View style={{ height: 100, width: 100, borderRadius: 50, backgroundColor: "lightgray", justifyContent: "center", alignItems: "center" }}>
-                            <Text>Start</Text>
-                        </View>
-                    </RNBounceable>
+                    {component?.startTimer ?
+                        <>
+                            {
+                                component.pauseTimer ?
+
+
+                                    <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+                                        <RNBounceable onPress={() => { onResetTimer() }} style={{ justifyContent: "center", alignItems: "center" }}>
+                                            <View style={{ height: 100, width: 100, borderRadius: 50, borderWidth: 1, borderColor: THEME.PRIMARY_BACKGROUND_COLOR, justifyContent: "center", alignItems: "center" }}>
+                                                <Text style={{ color: THEME.PRIMARY_BACKGROUND_COLOR }}>Reset</Text>
+                                            </View>
+                                        </RNBounceable>
+                                        <RNBounceable disabled={component?.selectedMin || component?.selectedSec ? false : true} onPress={() => onStartTimer()} style={{ justifyContent: "center", alignItems: "center" }}>
+                                            <View style={{ height: 100, width: 100, borderRadius: 50, backgroundColor: component?.selectedMin || component?.selectedMin ? THEME.PRIMARY_BACKGROUND_COLOR : "lightgray", justifyContent: "center", alignItems: "center" }}>
+                                                <Text>Start</Text>
+                                            </View>
+                                        </RNBounceable>
+                                    </View>
+                                    :
+                                    <RNBounceable onPress={() => onPauseTimer()} style={{ justifyContent: "center", alignItems: "center" }}>
+                                        <View style={{ height: 100, width: 100, borderRadius: 50, backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR, justifyContent: "center", alignItems: "center" }}>
+                                            <Text>Pause</Text>
+                                        </View>
+                                    </RNBounceable>
+                            }
+                        </>
+                        :
+                        <View style={{ flexDirection: "row", justifyContent: "space-evenly", alignItems: "center", paddingBottom: "15%" }}>
+                            <DropDownPicker
+                                items={component?.minutes}
+                                arrowColor="#000000"
+                                placeholder="00 min"
+                                activeLabelStyle={{ color: "white", fontWeight: "bold" }}
+                                activeItemStyle={{ backgroundColor: '#544b4c' }}
+                                dropDownStyle={{ paddingHorizontal: 0 }}
+                                itemStyle={{ justifyContent: 'flex-start', paddingHorizontal: "5%" }}
+                                containerStyle={{ height: 40, width: "45%", }}
+                                defaultValue={component?.selectedMin ? component?.selectedMin?.label : ""}
+                                onChangeItem={(item) => { selectedMinF(item) }} />
+                            <DropDownPicker
+                                items={component?.second}
+                                arrowColor="#000000"
+                                placeholder="00 sec"
+                                activeLabelStyle={{ color: "white", fontWeight: "bold" }}
+                                activeItemStyle={{ backgroundColor: '#544b4c' }}
+                                dropDownStyle={{ paddingHorizontal: 0 }}
+                                itemStyle={{ justifyContent: 'flex-start', paddingHorizontal: "5%" }}
+                                containerStyle={{ height: 40, width: "45%", }}
+                                defaultValue={component?.selectedSec ? component?.selectedSec?.label : ""}
+                                onChangeItem={(item) => { selectedSecF(item) }} />
+                        </View>}
+                    {component?.startTimer ?
+                        null :
+                        < RNBounceable disabled={component?.selectedMin || component?.selectedSec ? false : true} onPress={() => onStartTimer()} style={{ justifyContent: "center", alignItems: "center" }}>
+                            <View style={{ height: 100, width: 100, borderRadius: 50, backgroundColor: component?.selectedMin ? THEME.PRIMARY_BACKGROUND_COLOR : "lightgray", justifyContent: "center", alignItems: "center" }}>
+                                <Text>Start</Text>
+                            </View>
+                        </RNBounceable>}
                 </View>
             </Modal>
 

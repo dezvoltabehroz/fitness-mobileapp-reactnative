@@ -231,6 +231,13 @@ class ProgramCurrentWorkout extends Component {
             .catch((err) => console.log(err.response))
     }
 
+    handleSetUnComplete=(setId)=>{
+        const { token, userId } = this.props.user.userData;
+        ProgramServices.setUnCompleted(setId, token, userId)
+            .then((res) => { })
+            .catch((err) => console.log(err.response))
+    }
+
     handleAllSetsComplete = (setId) => {
         const { token, userId } = this.props.user.userData;
         ProgramServices.allSetCompleted(setId, token, userId)
@@ -260,7 +267,7 @@ class ProgramCurrentWorkout extends Component {
                     </RNBounceable>
                 </View>
                 <View>
-                    <Sets item={item.sets} onSetCompleted={(setId) => { this.handleSetComplete(setId) }} allSetsCompleted={() => { this.handleAllSetsComplete(item.usersProgramWorkoutExerciseId) }} />
+                    <Sets item={item.sets} onSetUnCompleted={(setId) => { this.handleSetUnComplete(setId) }} onSetCompleted={(setId) => { this.handleSetComplete(setId) }} allSetsCompleted={() => { this.handleAllSetsComplete(item.usersProgramWorkoutExerciseId) }} />
                 </View>
                 <View style={styles.buttonStyle}>
                     <Button.OutlineButton title="Add Set" onPress={() => { this.handleAddSet(item) }} />

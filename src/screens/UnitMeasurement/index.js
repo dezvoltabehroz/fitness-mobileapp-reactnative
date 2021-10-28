@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-    View, Text, ScrollView
+    View, Text, ScrollView, Alert
 } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
@@ -12,11 +12,13 @@ import { Container, Button } from "../../components";
 
 import styles from './style';
 import THEME from '../../assets/styles/theme.style'
+import { AuthServices } from '../../services';
 class UnitOfMeasurement extends Component {
     constructor(props) {
         super(props);
         this.state = {
             dropdown: true,
+            btnLoading: false,
             selectedValue: [
                 {
 
@@ -82,10 +84,28 @@ class UnitOfMeasurement extends Component {
     }
 
 
-
+    handleSaveMeasurement = () => {
+        this.setState({ btnLoading: true })
+        let data = {
+            "userId": this.props.user.userData.userId,
+            "weightsUnit": this.state.selectedWeight.value,
+            "bodyWeightsUnit": this.state.selectedBodyWeight.value,
+            "lengthsUnit": this.state.selectedLength.value,
+            "heightsUnit": this.state.selectedHeight.value,
+            "distanceUnit": this.state.selectedDistance.value
+        }
+        console.log(data)
+        AuthServices.updateMeasurementUnits(data, this.props.user.userData.token, this.props.user.userData.userId)
+            .then((res) => {
+                console.log(res.data)
+                this.setState({ btnLoading: false });
+                this.props.navigation.replace('Home')
+            })
+            .catch((err) => { Alert.alert(err.response.data.responseMessage); this.setState({ btnLoading: false }); console.log(err.response) })
+    }
 
     render() {
-        const { selectedValue, dropdown, weights, bodyweight, height, length, distance } = this.state;
+        const { selectedValue, dropdown, weights, bodyweight, height, length, distance, btnLoading } = this.state;
         return (
             <Container props={this.props}>
                 <StatusBar backgroundColor="white" barStyle={"dark-content"} />
@@ -205,7 +225,7 @@ class UnitOfMeasurement extends Component {
                             />
                         </View>
                         <View style={styles.buttonContainer}>
-                            <Button.BrownButton title="Save" onPress={() => this.props.navigation.replace('Home')} />
+                            <Button.BrownButton loading={btnLoading} title="Save" onPress={() => this.handleSaveMeasurement()} />
                         </View>
                     </ScrollView>
                 </View>

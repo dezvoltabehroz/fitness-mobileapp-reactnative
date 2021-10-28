@@ -10,6 +10,7 @@ import themeStyle from '../../assets/styles/theme.style';
 import { dataParsing } from '../../lib/utils/global';
 import { getLocalData, LOCAL_STORAGE_KEYS } from '../../lib/utils/localstorage';
 import { authActions } from '../../redux/actions/auth';
+import { AuthServices } from '../../services';
 
 
 class AuthLoadingScreen extends React.Component {
@@ -22,8 +23,19 @@ class AuthLoadingScreen extends React.Component {
         const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken);
         if (userToken) {
             let data = dataParsing(userToken);
-            this.props.authAction.setUserData(data);
-            this.props.navigation.replace('Home');
+            console.log(data);
+            AuthServices.refreshToken(data.userId)
+                .then((res) => {
+                    console.log(res.data)
+                    let userData = {
+                        ...data,
+                        token: res.data.token
+                    }
+                    this.props.authAction.setUserData(userData);
+                    this.props.navigation.replace('Home');
+                })
+                .catch((err) => { console.log(err.response) })
+
         } else {
             this.props.navigation.replace('Login');
         }
