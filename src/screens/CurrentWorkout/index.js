@@ -16,7 +16,11 @@ import THEME from '../../assets/styles/theme.style'
 import styles from './style';
 import { LOGO, route } from '../../lib/utils/constants';
 import { WorkoutsServices } from '../../services';
+import moment from 'moment';
+
 const screenWidth = Dimensions.get('window').width;
+
+var myVar
 class CurrentWorkout extends Component {
     constructor(props) {
         super(props);
@@ -279,6 +283,9 @@ class CurrentWorkout extends Component {
             resetTimer: false,
             title: '',
             uploading: false,
+            myTime: "",
+            progress: 0,
+            totalProgress: 0,
         }
     }
 
@@ -391,6 +398,28 @@ class CurrentWorkout extends Component {
         )
     }
 
+    startTimerFunction = () => {
+        let minutes = this.state.selectedMin.value != undefined ? this.state.selectedMin.value.split(' ') : "00"
+        let second = this.state.selectedSec.value != undefined ? this.state.selectedSec?.value.split(' ') : '00'
+        let selectedTime = `${minutes[0] ? minutes[0] : '00'}:${second[0] ? second[0] : '00'}`
+        let myTime = moment.duration(`00:${selectedTime}`).asSeconds()//mm:ss to seconds
+        this.setState({ myTime: myTime, totalProgress: myTime, selectedTime: selectedTime, progress: 0 })
+        myVar = setInterval(this.myTimer, 1000);
+    }
+
+    myTimer = () => {
+        if (this.state.pauseTimer) {
+            clearInterval(myVar);
+        } else if (this.state.myTime >= 0) {
+            if (this.state.myTime == 0) {
+                clearInterval(myVar);
+                let myTime = moment.duration(`00:${this.state.selectedTime}`).asSeconds()//mm:ss to seconds
+                this.setState({ totalProgress: myTime, selectedTime: this.state.selectedTime, pauseTimer: true, })
+            } else {
+                this.setState({ myTime: this.state.myTime - 1, progress: this.state.progress + 1 })
+            }
+        }
+    }
 
     _renderItem4 = (item, index) => {
         return (
@@ -416,9 +445,10 @@ class CurrentWorkout extends Component {
                 <Container
                     props={this.props}
                     component={this.state}
-                    onStartTimer={() => { this.setState({ startTimer: true,pauseTimer:false }) }}
-                    onPauseTimer={() => { this.setState({ pauseTimer: true }) }}
-                    onResetTimer={() => { this.setState({ startTimer: false,pauseTimer:false }) }}
+                    onAgainStartTimer={() => { this.setState({ pauseTimer: !this.state.pauseTimer }, () => myVar = setInterval(this.myTimer, 1000)) }}
+                    onStartTimer={() => { this.setState({ startTimer: true, pauseTimer: false }, () => this.startTimerFunction()) }}
+                    onPauseTimer={() => { this.setState({ pauseTimer: !this.state.pauseTimer }) }}
+                    onResetTimer={() => { this.setState({ startTimer: false, pauseTimer: false }) }}
                     selectedMinF={(value) => this.setState({ selectedMin: value })}
                     selectedSecF={(value) => this.setState({ selectedSec: value })}>
                     <StatusBar backgroundColor={this.props.user.menuModal ? THEME.PRIMARY_BACKGROUND_COLOR : "#181818"} barStyle={"light-content"} />

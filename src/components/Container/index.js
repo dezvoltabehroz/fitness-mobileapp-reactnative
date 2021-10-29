@@ -9,10 +9,11 @@ import styles from './style';
 import RNBounceable from '@freakycoder/react-native-bounceable';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { LOGO } from '../../lib/utils/constants';
+import moment from 'moment';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
-
-const Container = ({ children, props, component, selectedMinF, selectedSecF, onStartTimer, onPauseTimer, onResetTimer }) => {
+import ProgressBarAnimated from 'react-native-progress-bar-animated';
+const Container = ({ children, props, component, selectedMinF, selectedSecF, onStartTimer, onPauseTimer, onResetTimer, onAgainStartTimer }) => {
     if (Platform.OS === 'android') {
         UIManager.setLayoutAnimationEnabledExperimental(true);
     }
@@ -222,17 +223,26 @@ const Container = ({ children, props, component, selectedMinF, selectedSecF, onS
                 <View style={styles.modalLowerContainer}>
                     {component?.startTimer ?
                         <>
+                            <View style={{ justifyContent: "center", alignItems: "center", marginTop: "5%" }}>
+                                <ProgressBarAnimated
+                                    width={screenWidth * 0.9}
+                                    height={70}
+                                    value={component?.progress * 100 / component?.totalProgress}
+                                    backgroundColor={component?.progress * 100 / component?.totalProgress == 100 ? "red" : "#6CC644"}
+                                />
+                            </View>
+                            <View style={{ marginVertical: "5%" }}>
+                                <Text style={{ textAlign: "center", fontSize: 30 }}>{moment.utc(component?.myTime * 1000).format('mm:ss')}</Text>
+                            </View>
                             {
                                 component.pauseTimer ?
-
-
                                     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                                         <RNBounceable onPress={() => { onResetTimer() }} style={{ justifyContent: "center", alignItems: "center" }}>
                                             <View style={{ height: 100, width: 100, borderRadius: 50, borderWidth: 1, borderColor: THEME.PRIMARY_BACKGROUND_COLOR, justifyContent: "center", alignItems: "center" }}>
                                                 <Text style={{ color: THEME.PRIMARY_BACKGROUND_COLOR }}>Reset</Text>
                                             </View>
                                         </RNBounceable>
-                                        <RNBounceable disabled={component?.selectedMin || component?.selectedSec ? false : true} onPress={() => onStartTimer()} style={{ justifyContent: "center", alignItems: "center" }}>
+                                        <RNBounceable disabled={component?.selectedMin || component?.selectedSec ? false : true} onPress={() => { component?.myTime == 0 ? onStartTimer() : onAgainStartTimer() }} style={{ justifyContent: "center", alignItems: "center" }}>
                                             <View style={{ height: 100, width: 100, borderRadius: 50, backgroundColor: component?.selectedMin || component?.selectedMin ? THEME.PRIMARY_BACKGROUND_COLOR : "lightgray", justifyContent: "center", alignItems: "center" }}>
                                                 <Text>Start</Text>
                                             </View>
@@ -244,6 +254,7 @@ const Container = ({ children, props, component, selectedMinF, selectedSecF, onS
                                             <Text>Pause</Text>
                                         </View>
                                     </RNBounceable>
+
                             }
                         </>
                         :
@@ -273,8 +284,8 @@ const Container = ({ children, props, component, selectedMinF, selectedSecF, onS
                         </View>}
                     {component?.startTimer ?
                         null :
-                        < RNBounceable disabled={component?.selectedMin || component?.selectedSec ? false : true} onPress={() => onStartTimer()} style={{ justifyContent: "center", alignItems: "center" }}>
-                            <View style={{ height: 100, width: 100, borderRadius: 50, backgroundColor: component?.selectedMin ? THEME.PRIMARY_BACKGROUND_COLOR : "lightgray", justifyContent: "center", alignItems: "center" }}>
+                        < RNBounceable disabled={component?.selectedMin.value || component?.selectedSec.value ? false : true} onPress={() => onStartTimer()} style={{ justifyContent: "center", alignItems: "center" }}>
+                            <View style={{ height: 100, width: 100, borderRadius: 50, backgroundColor: component?.selectedMin.value || component?.selectedSec.value ? THEME.PRIMARY_BACKGROUND_COLOR : "lightgray", justifyContent: "center", alignItems: "center" }}>
                                 <Text>Start</Text>
                             </View>
                         </RNBounceable>}

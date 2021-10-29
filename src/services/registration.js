@@ -68,7 +68,6 @@ const Api = {
             }
         })
     },
-
     getUserDetails: function (token, userId) {
         return axiosInstance.get('GetContactById', apiHeaderConfiguration(token, TOKEN, userId))
     },
@@ -80,7 +79,7 @@ const Api = {
         })
     },
     updateMeasurementUnits: function (data, token, userId) {
-        return axios.post(`http://185.132.39.105/BlaqstarFitnessAPI/v1/UpdateMeasurementsUnit`, data, apiHeaderConfiguration(token, TOKEN, userId))
+        return axiosInstance.post(`UpdateMeasurementsUnit`, data, apiHeaderConfiguration(token, TOKEN, userId))
     }
 };
 
