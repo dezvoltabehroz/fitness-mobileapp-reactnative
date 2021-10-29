@@ -437,6 +437,19 @@ class CurrentWorkout extends Component {
         )
     }
 
+    handleClearData = () => {
+        this.setState({
+            myTime: "",
+            progress: 0,
+            totalProgress: 0,
+            selectedSec: [{}],
+            selectedMin: [{}],
+            pauseTimer: false,
+            startTimer: false,
+            resetTimer: false,
+        })
+    }
+
     render() {
         const { currentPage, searchModal, distance, workout, exerciseModal, image, title, loading, recentWorkouts, uploading } = this.state;
         return (
@@ -445,6 +458,7 @@ class CurrentWorkout extends Component {
                 <Container
                     props={this.props}
                     component={this.state}
+                    onClearTimer={() => this.handleClearData()}
                     onAgainStartTimer={() => { this.setState({ pauseTimer: !this.state.pauseTimer }, () => myVar = setInterval(this.myTimer, 1000)) }}
                     onStartTimer={() => { this.setState({ startTimer: true, pauseTimer: false }, () => this.startTimerFunction()) }}
                     onPauseTimer={() => { this.setState({ pauseTimer: !this.state.pauseTimer }) }}

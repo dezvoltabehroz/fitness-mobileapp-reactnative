@@ -13,7 +13,7 @@ import moment from 'moment';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
-const Container = ({ children, props, component, selectedMinF, selectedSecF, onStartTimer, onPauseTimer, onResetTimer, onAgainStartTimer }) => {
+const Container = ({ children, props, component, selectedMinF, selectedSecF, onStartTimer, onPauseTimer, onResetTimer, onAgainStartTimer, onClearTimer }) => {
     if (Platform.OS === 'android') {
         UIManager.setLayoutAnimationEnabledExperimental(true);
     }
@@ -216,7 +216,7 @@ const Container = ({ children, props, component, selectedMinF, selectedSecF, onS
                 </View>
             </Modal>
             <Modal isVisible={props.user.stopwatchModal}
-                onBackdropPress={() => props.authActions.stopwatchModal(!props.user.stopwatchModal)}
+                onBackdropPress={() => { props.authActions.stopwatchModal(!props.user.stopwatchModal); onClearTimer() }}
                 animationInTiming={1000}
                 animationOutTiming={1000}
                 style={{ justifyContent: 'flex-end', margin: 0 }} >
@@ -232,7 +232,7 @@ const Container = ({ children, props, component, selectedMinF, selectedSecF, onS
                                 />
                             </View>
                             <View style={{ marginVertical: "5%" }}>
-                                <Text style={{ textAlign: "center", fontSize: 30 }}>{moment.utc(component?.myTime * 1000).format('mm:ss')}</Text>
+                                <Text style={{ textAlign: "center", fontSize: 35, fontWeight: "bold" }}>{moment.utc(component?.myTime * 1000).format('mm:ss')}</Text>
                             </View>
                             {
                                 component.pauseTimer ?
