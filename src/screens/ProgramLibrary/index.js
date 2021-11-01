@@ -10,6 +10,7 @@ import { Input } from '../../components/Input/Input.component';
 import styles from './style';
 import { route } from '../../lib/utils/constants';
 import { ProgramServices } from '../../services';
+import { SearchBar } from 'react-native-elements';
 
 class ProgramLibrary extends Component {
     constructor(props) {
@@ -17,6 +18,7 @@ class ProgramLibrary extends Component {
         this.state = {
             filterModal: false,
             loading: false,
+            value:"",
             program: [
                 {
                     user_name: 'T',
@@ -68,6 +70,7 @@ class ProgramLibrary extends Component {
                 },
             ]
         }
+        this.arrayHolder = [];
     }
     componentDidMount = () => {
         this.setState({ loading: true })
@@ -78,6 +81,7 @@ class ProgramLibrary extends Component {
                 if (res.data.responseMessage) {
                     this.setState({ program: [], loading: false })
                 } else {
+                    this.arrayHolder = res.data
                     this.setState({ program: res.data, loading: false })
                 }
             })
@@ -87,7 +91,7 @@ class ProgramLibrary extends Component {
     handleStartProgram = (item) => {
         const { token, userId } = this.props.user.userData;
         ProgramServices.startProgram(item.programId, item.usersProgramId, token, userId)
-            .then((res) => {this.props.navigation.navigate(route.PROGRAM_DETAIL, { heading: item.programName, data: item }) })
+            .then((res) => { this.props.navigation.navigate(route.PROGRAM_DETAIL, { heading: item.programName, data: item }) })
             .catch((err) => console.log(err.response.data))
     }
 
@@ -109,13 +113,36 @@ class ProgramLibrary extends Component {
         return (<View style={styles.gapHeight}></View>)
     }
 
+    searchFilterFunction = (text) => {
+        this.setState({ value: text });
+        const newData = this.arrayHolder.filter(item => {
+            const textData = text.toUpperCase();
+            const itemData = `${item?.programName.toUpperCase()} ${item?.programName.toUpperCase()}`;
+            return itemData.indexOf(textData) > -1;
+        });
+        if (newData.length != 0) {
+            this.setState({ program: newData, IsTemplatesFound: false });
+        }
+        else {
+            this.setState({ IsTemplatesFound: true });
+        }
+    }
+
+
+
     render() {
-        const { program, reportModal, issue, filterModal, loading } = this.state;
+        const { program, reportModal, issue, filterModal, loading,value } = this.state;
         return (
             <Container props={this.props}>
                 <View style={styles.container}>
                     <View style={{ marginTop: "10%" }}>
-                        <Input placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
+                        <SearchBar
+                            containerStyle={{ backgroundColor: "transparent", borderTopWidth: 0, borderBottomWidth: 0, }}
+                            inputContainerStyle={{ backgroundColor: "white", elevation: 2, borderWidth: 0.5, borderColor: "lightgray" }}
+                            onChangeText={(text) => this.searchFilterFunction(text)}
+                            value={value}
+                            placeholder="Search"
+                            leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
                         <ScrollView style={{ paddingBottom: 100 }}>
                             <View style={styles.rowContainer} >
                                 <Text style={styles.textStyle}>A to Z</Text>

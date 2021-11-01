@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, ScrollView, UIManager, LayoutAnimation, Text, Image, Dimensions, FlatList, Platform } from 'react-native';
+import { View, TouchableOpacity, ScrollView, UIManager, LayoutAnimation, Text, Image, Dimensions, FlatList, Platform, Vibration } from 'react-native';
 // import { Icon } from '../index';
 import { Icon } from 'native-base';
 import { Icon as IconS } from '..';
@@ -78,9 +78,9 @@ const Container = ({ children, props, component, selectedMinF, selectedSecF, onS
 
     const _renderItems = ({ index, item }) => {
         return (
-            <TouchableOpacity onPress={async () => { changeLayout(); await props.navigation.replace(item.name) }}
-                style={{ alignItems: "center" }}>
-                <View style={[styles.flatlistContainer, { backgroundColor: "#544b4c" }]}>
+            <TouchableOpacity onPress={async () => { changeLayout(); await props.navigation.navigate(item.name) }}
+                style={{ alignItems: "center", marginLeft: index < 8 ? 0 : '2.25%' }}>
+                <View style={[styles.flatlistContainer, { backgroundColor: "#544b4c", }]}>
                     <Icon type={item.type} name={item.iconName} style={{ fontSize: 20, color: 'white' }} />
                 </View>
                 <View style={{ marginTop: 12 }}>
@@ -219,7 +219,8 @@ const Container = ({ children, props, component, selectedMinF, selectedSecF, onS
                 onBackdropPress={() => { props.authActions.stopwatchModal(!props.user.stopwatchModal); onClearTimer() }}
                 animationInTiming={1000}
                 animationOutTiming={1000}
-                style={{ justifyContent: 'flex-end', margin: 0 }} >
+                backdropColor={'rgba(0,0,0,0.7)'}
+                style={{ justifyContent: 'flex-end', margin: 0, }} >
                 <View style={styles.modalLowerContainer}>
                     {component?.startTimer ?
                         <>
@@ -234,6 +235,7 @@ const Container = ({ children, props, component, selectedMinF, selectedSecF, onS
                             <View style={{ marginVertical: "5%" }}>
                                 <Text style={{ textAlign: "center", fontSize: 35, fontWeight: "bold" }}>{moment.utc(component?.myTime * 1000).format('mm:ss')}</Text>
                             </View>
+
                             {
                                 component.pauseTimer ?
                                     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
@@ -289,6 +291,16 @@ const Container = ({ children, props, component, selectedMinF, selectedSecF, onS
                                 <Text>Start</Text>
                             </View>
                         </RNBounceable>}
+
+
+                </View>
+                <View style={{ ...styles.rowContainer, backgroundColor: 'white' }}  >
+                    <TouchableOpacity onPress={() => props.authActions.stopwatchModal(!props.user.stopwatchModal)} style={{ marginHorizontal: "5%", justifyContent: "center", alignItems: "center" }}>
+                        <IconS.FontAwesome name="angle-down" size={35} color="black" />
+                    </TouchableOpacity>
+                    <TouchableOpacity disabled={true} onPress={() => props.authActions.menuModal(!props.user.menuModal)} style={{ marginHorizontal: "5%", height: 30, width: 40 }}>
+                        <Icon type="MaterialCommunityIcons" name="dialpad" style={{ fontSize: 40, color: screen == 'Marketplace' || screen == 'Packages' || screen == 'CreditPackages' ? 'white' : 'black' }} />
+                    </TouchableOpacity>
                 </View>
             </Modal>
 

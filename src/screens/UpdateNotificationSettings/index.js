@@ -65,6 +65,11 @@ class Notifications extends Component {
             .catch((err) => console.log(err.response))
     }
 
+    handleStateValues = async (data) => {
+        console.log(data)
+        await this.setState({ notifications: data }, () => console.log(this.state.notifications))
+    }
+
 
     _renderItems = (index, item) => {
         return (
@@ -106,11 +111,11 @@ class Notifications extends Component {
                                     items={this.state.data}
                                     arrowColor="#000000"
                                     placeholder="Select Value"
-                                    onClose={() => {
-                                        let array = [...this.state.notifications];
-                                        array[index] = { ...array[index], dropdownOpen: false }
-                                        this.setState({ notifications: array })
-                                    }}
+                                    // onClose={() => {
+                                    //     let array = [...this.state.notifications];
+                                    //     array[index] = { ...array[index], dropdownOpen: false }
+                                    //     this.setState({ notifications: array })
+                                    // }}
                                     onOpen={() => {
                                         let array = [...this.state.notifications];
                                         array[index] = { ...array[index], dropdownOpen: true }
@@ -119,9 +124,13 @@ class Notifications extends Component {
                                     containerStyle={{ height: 40, marginBottom: item.dropdownOpen ? '50%' : 0 }}
                                     defaultValue={item.frequency ? item.frequency : ""}
                                     onChangeItem={(itemData) => {
+                                        console.log(itemData)
                                         let array = [...this.state.notifications];
-                                        array[index] = { ...array[index], notificationFrequencyId: item.id, frequency: itemData.label, dropdownOpen: false }
+                                        array[index] = { ...array[index], notificationFrequencyId: itemData.id, frequency: itemData.value, dropdownOpen: false }
+                                        console.log(array)
                                         this.setState({ notifications: array })
+                                        console.log("after updating : ", this.state.notifications)
+                                        this.handleStateValues(array);
                                     }}
                                 />
                             </View>
@@ -139,7 +148,8 @@ class Notifications extends Component {
                                 onToggle={isOn => {
                                     let array = [...this.state.notifications];
                                     array[index] = { ...array[index], isAllowed: isOn }
-                                    this.setState({ notifications: array })
+
+
                                 }}
                             />
                         </View>
@@ -149,14 +159,17 @@ class Notifications extends Component {
     }
 
     handleUpdateNotification = () => {
+        const { notifications } = this.state;
         this.setState({ btnLoading: true })
-        ActivitiesServices.updateUsersNotificationPriority(this.state.notifications, this.props.user.userData.token, this.props.user.userData.userId)
+        console.log("before updating : ", this.state.notifications)
+        console.log("before updating : ", notifications)
+        ActivitiesServices.updateUsersNotificationPriority(notifications, this.props.user.userData.token, this.props.user.userData.userId)
             .then((res) => {
                 console.log(res.data)
                 this.setState({ btnLoading: false })
                 this.props.navigation.goBack();
             })
-            .catch((err) => {this.setState({ btnLoading: false }); Alert.alert(err?.response?.data?.responseMessage);  console.log(err.response) })
+            .catch((err) => { this.setState({ btnLoading: false }); Alert.alert(err?.response?.data?.responseMessage); console.log(err.response) })
     }
 
 

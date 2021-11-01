@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, ScrollView, Dimensions, FlatList, Image } from 'react-native'
+import { View, Text, ScrollView, Dimensions, FlatList, Image, RefreshControl } from 'react-native'
 import RNBounceable from '@freakycoder/react-native-bounceable';
 import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux'
@@ -14,6 +14,7 @@ import { renderSeperator } from '../../lib/utils/global';
 import { NutritionsServices } from '../../services';
 import { route } from '../../lib/utils/constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { SearchBar } from 'react-native-elements';
 
 const { width, height } = Dimensions.get('window');
 
@@ -129,7 +130,8 @@ class Nutrition extends Component {
             nutritions: [],
             isLoading: true
         }
-        this.data = this.state.activityArr
+        this.data = this.state.activityArr;
+        this.arrayHolder = []
     }
 
     componentDidMount = async () => {
@@ -137,6 +139,7 @@ class Nutrition extends Component {
         console.log(userData)
         NutritionsServices.getAllCustomFoods(userData.token, userData.userId)
             .then((response) => {
+                this.arrayHolder = response.data
                 this.setState({ customFoods: response.data })
             })
             .catch((error) => console.log(error))
@@ -235,8 +238,23 @@ class Nutrition extends Component {
         )
     }
 
+    searchFilterFunction = (text) => {
+        this.setState({ value: text });
+        const newData = this.arrayHolder.filter(item => {
+            const textData = text.toUpperCase();
+            const itemData = `${item?.itemName.toUpperCase()} ${item?.itemName.toUpperCase()}`;
+            return itemData.indexOf(textData) > -1;
+        });
+        if (newData.length != 0) {
+            this.setState({ customFoods: newData, IsTemplatesFound: false });
+        }
+        else {
+            this.setState({ IsTemplatesFound: true });
+        }
+    }
+
     render() {
-        const { currentPage, filterModal, shoppingList, customFoods, nutritions, isLoading } = this.state;
+        const { currentPage, filterModal, shoppingList, customFoods, nutritions, isLoading, value } = this.state;
         return (
             <Container props={this.props} >
                 <View style={styles.container}>
@@ -315,15 +333,20 @@ class Nutrition extends Component {
                         </View>
 
                         <View style={styles.secondContainer}>
-                            <ScrollView style={{ flex: 1, paddingTop: "5%" }}>
-                                <Input placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
+                            <ScrollView style={{ flex: 1, paddingTop: "5%" }} refreshControl={<RefreshControl onRefresh={() => this.componentDidMount()} />}>
+                                <SearchBar
+                                    containerStyle={{ backgroundColor: "transparent", borderTopWidth: 0, borderBottomWidth: 0, }}
+                                    inputContainerStyle={{ backgroundColor: "white", elevation: 2, borderWidth: 0.5, borderColor: "lightgray" }}
+                                    onChangeText={(text) => this.searchFilterFunction(text)}
+                                    value={value}
+                                    placeholder="Search"
+                                    leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
                                 <View style={styles.rowContainer} >
                                     <Text style={styles.textStyle}>A to Z</Text>
                                     <RNBounceable onPress={() => this.setState({ filterModal: true })} style={styles.row}>
                                         <Icon.FontAwesome name="filter" size={20} />
                                     </RNBounceable>
                                 </View>
-
                                 {
                                     customFoods.length == 0 ?
                                         <>

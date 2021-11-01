@@ -19,7 +19,7 @@ class StartWorkout extends Component {
         super(props);
         this.state = {
             checked: false,
-            loading:false
+            loading: false
         }
 
     }
@@ -27,11 +27,11 @@ class StartWorkout extends Component {
     handleLogNutrition = () => {
         const { userData } = this.props.user;
         if (this.props.route?.params?.diet?.mealPlanId) {
-            this.setState({loading:true})
+            this.setState({ loading: true })
             NutritionsServices.startNutrition(this.props.route?.params?.diet?.mealPlanId, userData.token, userData.userId)
                 .then((res) => {
                     console.log(res.data)
-                    this.setState({loading:false})
+                    this.setState({ loading: false })
                     this.props.navigation.replace('Home')
                 })
                 .catch((err) => console.log(err.response.data))
@@ -44,7 +44,7 @@ class StartWorkout extends Component {
     }
 
     render() {
-        const { data, selectedValue, dropdown, checked,loading } = this.state;
+        const { data, selectedValue, dropdown, checked, loading } = this.state;
         return (
             <Container props={this.props}>
                 <StatusBar backgroundColor="white" barStyle={"dark-content"} />
@@ -89,7 +89,7 @@ class StartWorkout extends Component {
                         </RNBounceable>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <Button.SlimButton loading={loading} title="Next" onPress={() => {if (this.state.item) {this.handleLogNutrition() } else { Alert.alert("Please select the nutrition plan") } }}  />
+                        <Button.SlimButton loading={loading} title="Next" onPress={() => { this.handleLogNutrition() }} />
                     </View>
                 </View>
             </Container >

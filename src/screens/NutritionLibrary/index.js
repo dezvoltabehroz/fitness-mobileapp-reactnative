@@ -12,6 +12,7 @@ import { renderSeperator } from '../../lib/utils/global';
 import { route } from '../../lib/utils/constants';
 import RNBounceable from '@freakycoder/react-native-bounceable';
 import { NutritionsServices } from '../../services';
+import { SearchBar } from 'react-native-elements';
 
 class NutritionLibrary extends Component {
     constructor(props) {
@@ -92,7 +93,13 @@ class NutritionLibrary extends Component {
                         :
                         <View style={styles.container}>
                             <View style={{ marginTop: "10%" }}>
-                                <Input placeholder="Search" value={value} onChangeText={(text) => this.searchFilterFunction(text)} leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
+                                <SearchBar
+                                    containerStyle={{ backgroundColor: "transparent", borderTopWidth: 0, borderBottomWidth: 0, }}
+                                    inputContainerStyle={{ backgroundColor: "white", elevation: 2, borderWidth: 0.5, borderColor: "lightgray" }}
+                                    onChangeText={(text) => this.searchFilterFunction(text)}
+                                    value={value}
+                                    placeholder="Search"
+                                    leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
                             </View>
                             <View style={styles.rowContainer} >
                                 <Text style={styles.textStyle}>A to Z</Text>

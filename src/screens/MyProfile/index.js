@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { Component } from 'react'
 import {
     View,
@@ -33,15 +34,33 @@ class MyProfile extends Component {
     handleUpdateProfile = () => {
         this.setState({ btnLoading: true })
         const { firstName, lastName, address1, city, state, postalCode, country, goal } = this.state;
+        // let data = {
+        //     "userId": parseInt(this.props.route.params.data.userId),
+        //     "roleId": parseInt(this.props.route.params.data.roleId),
+        //     "genderId": parseInt(this.props.route.params.data.genderId),
+        //     "firstName": firstName ? firstName : "",
+        //     "lastName": lastName ? lastName : "",
+        //     "email": this.props.route.params.data.email,
+        //     "phone": this.props.route.params.data.phone,
+        //     "birthDate": this.props.route.params.data.birthDate,
+        //     "userWeight": this.props.route.params.data.userWeight,
+        //     "notes": goal ? goal : "",
+        //     "userAddress": address1 ? address1 : "",
+        //     "userCity": city ? city : "",
+        //     "userState": state ? state : "",
+        //     "userPostalCode": postalCode ? postalCode : "",
+        //     "userCountry": country ? country : "",
+        //     "profilePic": this.props.route.params.data.profilePic
+        // }
         let data = {
             "userId": parseInt(this.props.route.params.data.userId),
             "roleId": parseInt(this.props.route.params.data.roleId),
             "genderId": parseInt(this.props.route.params.data.genderId),
             "firstName": firstName ? firstName : "",
             "lastName": lastName ? lastName : "",
-            "email": "string",
-            "phone": this.props.route.params.data.email,
-            "birthDate": this.props.route.params.data.birthDate,
+            "email": this.props.route.params.data.email,
+            "phone": this.props.route.params.data.phone,
+            "birthDate": moment(this.props.route.params.data.birthDate).format('YYYY-MM-DD'),
             "userWeight": this.props.route.params.data.userWeight,
             "notes": goal ? goal : "",
             "userAddress": address1 ? address1 : "",
@@ -49,8 +68,10 @@ class MyProfile extends Component {
             "userState": state ? state : "",
             "userPostalCode": postalCode ? postalCode : "",
             "userCountry": country ? country : "",
-            "profilePic": this.props.route.params.data.profilePic
+            "profilePic": "string"
         }
+        console.log(this.props.route.params.data)
+        console.log("data : ", data)
         AuthServices.updateProfileInfo(data, this.props.user.userData.userId, this.props.user.userData.token)
             .then((res) => {
                 console.log(res);

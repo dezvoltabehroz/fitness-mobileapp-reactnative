@@ -11,6 +11,7 @@ import { Icon, Container, Button, Loader } from "../../components";
 
 import styles from './style';
 import { WorkoutsServices } from '../../services';
+import { SearchBar } from 'react-native-elements';
 
 
 const { width, height } = Dimensions.get('window');
@@ -92,8 +93,8 @@ class WorkoutTemplate extends Component {
     searchFilterFunction = (text) => {
         this.setState({ value: text });
         const newData = this.arrayHolder.filter(item => {
-            const itemData = `${item.workoutName.toUpperCase()} ${item.workoutName.toUpperCase()} ${item.workoutName.toUpperCase()} `;
             const textData = text.toUpperCase();
+            const itemData = `${item?.workoutName.toUpperCase()} ${item?.workoutName.toUpperCase()}`;
             return itemData.indexOf(textData) > -1;
         });
         if (newData.length != 0) {
@@ -141,7 +142,13 @@ class WorkoutTemplate extends Component {
                                     :
                                     <>
                                         <View style={styles.marginHorizontal}>
-                                            <Input onChangeText={(text) => this.searchFilterFunction(text)} inputStyle={{ height: 40 }} value={value} placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
+                                            <SearchBar
+                                                containerStyle={{ backgroundColor: "transparent", borderTopWidth: 0, borderBottomWidth: 0, }}
+                                                inputContainerStyle={{ backgroundColor: "white", elevation: 2, borderWidth: 0.5, borderColor: "lightgray" }}
+                                                onChangeText={(text) => this.searchFilterFunction(text)}
+                                                value={value}
+                                                placeholder="Search"
+                                                leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
                                         </View>
                                         <FlatList
                                             data={this.state.templates}

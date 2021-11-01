@@ -41,9 +41,6 @@ class Setting extends Component {
 
         this.focusListener = this.props.navigation.addListener('focus', () => { this.getDetails(); })
         this.getDetails()
-        let userData = await getLocalData(LOCAL_STORAGE_KEYS.loginDetails)
-        let data = JSON.parse(userData);
-        this.setState({ email: data.email })
     }
 
     getDetails = () => {
@@ -75,7 +72,7 @@ class Setting extends Component {
 
     handleReportIssue = () => {
         this.setState({ btnLoading: true })
-        AuthServices.reportIssue(this.props.user.userData.userId, this.state.issue)
+        AuthServices.reportIssue(this.props.user.userData.userId, this.state.issue,this.props.user.userData.token,)
             .then((res) => {
                 console.log(res.data)
                 this.setState({ reportModal: !reportModal, issue: "", btnLoading: false })
@@ -102,7 +99,7 @@ class Setting extends Component {
                                     style={{
                                         justifyContent: "center", alignItems: "center", height: 100, width: 100, borderRadius: 50, backgroundColor: "#544b4c", alignContent: "flex-end"
                                     }}>
-                                    <Text style={[styles.headingStyle, { color: "white", fontWeight: "bold" }]} >{this.truncateString(data?.firstName, 1)}{this.truncateString(data?.lastName, 1)}</Text>
+                                    <Text style={[styles.headingStyle, { color: "white", fontWeight: "bold" }]} >{data?.firstName!=null?this.truncateString(data?.firstName, 1):""}{data?.lastName!=null?this.truncateString(data?.lastName, 1):""}</Text>
                                 </RNBounceable>
                                 <View>
                                     <Text style={styles.titleStyle}>{data?.firstName} {data?.lastName}</Text>

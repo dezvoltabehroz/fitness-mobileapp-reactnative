@@ -71,12 +71,8 @@ const Api = {
     getUserDetails: function (token, userId) {
         return axiosInstance.get('GetContactById', apiHeaderConfiguration(token, TOKEN, userId))
     },
-    reportIssue: function (user_id, issue) {
-        return axios.post(`http://185.132.39.105/BlaqstarFitnessAPI/v1/ReportProblem?ReportDescription='${issue}'`, {
-            headers: {
-                'UserId': user_id,
-            }
-        })
+    reportIssue: function (userId, issue,token) {
+        return axiosInstance.post(`ReportProblem?ReportDescription='${issue}'`,apiHeaderConfiguration(token, TOKEN, userId))
     },
     updateMeasurementUnits: function (data, token, userId) {
         return axiosInstance.post(`UpdateMeasurementsUnit`, data, apiHeaderConfiguration(token, TOKEN, userId))

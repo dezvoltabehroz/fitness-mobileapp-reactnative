@@ -316,7 +316,7 @@ class NutritionDetail extends Component {
                                         <Text>{macros.totalProteinUsed}</Text>
                                     </View>
                                     <View style={styles.fourth}>
-                                        <Text style={{ color: macros.totalProteinLeft < 0 ? 'red' : 'lightgreen' }}>{macros.totalProteinLeft}</Text>
+                                        <Text style={{ color: macros.totalProteinLeft < 0 ? 'red' : 'lightgreen' }}>{parseFloat(macros.totalProteinLeft).toFixed(2)}</Text>
                                     </View>
                                 </View>
                                 <View style={styles.row}>

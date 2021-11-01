@@ -87,7 +87,7 @@ class UnitOfMeasurement extends Component {
     handleSaveMeasurement = () => {
         this.setState({ btnLoading: true })
         let data = {
-            "userId": this.props.user.userData.userId,
+            "userId": parseInt(this.props.user.userData.userId),
             "weightsUnit": this.state.selectedWeight.value,
             "bodyWeightsUnit": this.state.selectedBodyWeight.value,
             "lengthsUnit": this.state.selectedLength.value,

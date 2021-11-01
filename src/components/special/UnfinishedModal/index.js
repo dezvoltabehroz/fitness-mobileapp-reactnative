@@ -68,8 +68,8 @@ class UnfinishedModal extends Component {
         const { filter, fileFilter } = this.state;
         return (
             <Modal isVisible={isVisible}
-                animationInTiming={1000}
-                animationOutTiming={1000}
+                animationInTiming={200}
+                animationOutTiming={200}
             >
                 <View style={styles.modalContainer}>
                     <View style={styles.buttonContainer}>
@@ -84,7 +84,7 @@ class UnfinishedModal extends Component {
                         <Text style={[styles.headingTextStyle]}>{"Finish what you started 2 minutes ago or start a new session now."}</Text>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <Button.BrownButton title="Continue" onPress={() => hide()} />
+                        <Button.BrownButton title="Continue" onPress={() => quitSession()} />
                     </View>
                     <RNBounceable onPress={() => hide()} style={{ justifyContent: "center", paddingVertical: "5%", alignItems: "center" }}>
                         <Text style={[styles.textStyle]}>{"Start a Session"}</Text>

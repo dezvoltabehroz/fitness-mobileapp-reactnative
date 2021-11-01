@@ -132,12 +132,12 @@ class AddItem extends Component {
                 customFoodId: parseInt(id)
             }
             NutritionsServices.updateCustomFood(data, this.props.user.userData.token, this.props.user.userData.userId)
-                .then((res) => { this.props.navigation.replace('Home') })
+                .then((res) => { this.props.navigation.goBack() })
                 .catch((err) => { console.log(err.response.data) })
         } else {
 
             NutritionsServices.addCustomFood(userData, this.props.user.userData.token, this.props.user.userData.userId)
-                .then((res) => { this.props.navigation.replace('Home') })
+                .then((res) => { this.props.navigation.goBack() })
                 .catch((err) => { console.log(err.response.data) })
         }
 

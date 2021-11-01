@@ -282,7 +282,7 @@ class Home extends Component {
                         <TouchableOpacity
                             onPress={() => { this.props.navigation.navigate('Settings'); }}
                             style={styles.userNameContainer}>
-                            <Text style={styles.userNameText} >{userData?.firstName[0]}</Text>
+                            <Text style={styles.userNameText} >{userData?.firstName[0]}{userData?.lastName[0]}</Text>
                         </TouchableOpacity>
                     </View>
                     <ScrollView

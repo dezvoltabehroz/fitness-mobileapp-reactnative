@@ -11,6 +11,7 @@ import { Input } from '../../components/Input/Input.component';
 import styles from './style';
 import { WorkoutsServices } from '../../services';
 import { LOGO, TOKEN } from '../../lib/utils/constants';
+import { SearchBar } from 'react-native-elements';
 
 class WorkoutLibrary extends Component {
     constructor(props) {
@@ -18,14 +19,17 @@ class WorkoutLibrary extends Component {
         this.state = {
             filterModal: false,
             workout: [],
-            loading: true
+            loading: true,
+            value:"",
         }
+        this.arrayHolder = []
     }
 
     componentDidMount = () => {
         const { userData } = this.props.user;
         WorkoutsServices.getAllWorkouts(userData.userId, userData.token)
             .then((res) => {
+                this.arrayHolder = res.data;
                 this.setState({ workout: res.data, loading: false })
             })
             .catch((err) => {
@@ -36,7 +40,7 @@ class WorkoutLibrary extends Component {
 
     _renderItems = ({ index, item }) => {
         return (
-            <RNBounceable onPressOut={() => { this.props.navigation.navigate('WorkoutDetails', { data: item }) }} style={styles.itemContainer} onPress={() => { }}>
+            <RNBounceable onPress={() => { this.props.navigation.navigate('WorkoutDetails', { data: item }) }} style={styles.itemContainer}>
                 <Image style={styles.boxView} source={item.imagePath != "" ? { uri: item.imagePath } : LOGO} />
                 <View style={styles.itemTypeContainer}>
                     <Text numberOfLines={3} style={{ fontWeight: "bold", }}>{item.workoutName}</Text>
@@ -45,12 +49,28 @@ class WorkoutLibrary extends Component {
         )
     }
 
+
     renderSeparator = () => {
         return (<View style={styles.gapHeight}></View>)
     }
+    searchFilterFunction = (text) => {
+        this.setState({ value: text });
+        const newData = this.arrayHolder.filter(item => {
+            const textData = text.toUpperCase();
+            const itemData = `${item?.workoutName.toUpperCase()} ${item?.workoutName.toUpperCase()}`;
+            return itemData.indexOf(textData) > -1;
+        });
+        if (newData.length != 0) {
+            this.setState({ workout: newData, IsTemplatesFound: false });
+        }
+        else {
+            this.setState({ IsTemplatesFound: true });
+        }
+    }
+
 
     render() {
-        const { workout, reportModal, loading, filterModal } = this.state;
+        const { workout, reportModal, loading, filterModal, value } = this.state;
         return (
             <Container props={this.props}>
                 <View style={styles.container}>
@@ -64,7 +84,13 @@ class WorkoutLibrary extends Component {
                                 </View>
                                 :
                                 <View style={{ marginTop: "10%" }}>
-                                    <Input placeholder="Search" leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
+                                    <SearchBar
+                                        containerStyle={{ backgroundColor: "transparent", borderTopWidth: 0, borderBottomWidth: 0, }}
+                                        inputContainerStyle={{ backgroundColor: "white", elevation: 2, borderWidth: 0.5, borderColor: "lightgray" }}
+                                        onChangeText={(text) => this.searchFilterFunction(text)}
+                                        value={value}
+                                        placeholder="Search"
+                                        leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
                                     <ScrollView style={{ paddingBottom: 100 }}>
                                         <View style={styles.rowContainer} >
                                             <Text style={styles.textStyle}>A to Z</Text>

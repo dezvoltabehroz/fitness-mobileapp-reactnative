@@ -41,7 +41,7 @@ export default StyleSheet.create({
         fontWeight: "bold"
     },
     babeoTextStyle: {
-         // 'Poppins-Bold',
+        // 'Poppins-Bold',
         fontSize: THEME.FONT_SIZE_LARGE,
         color: THEME.PRIMARY_COLOR
     },
@@ -68,7 +68,7 @@ export default StyleSheet.create({
         marginHorizontal: 10
     },
     optionTextStyle: {
-         // 'Poppins-Regular',
+        // 'Poppins-Regular',
         fontSize: 15,
         marginHorizontal: 10,
         marginTop: 5
@@ -110,7 +110,7 @@ export default StyleSheet.create({
     },
     signUpAndLoginTextStyle: {
         marginVertical: "1%",
-         // "Poppins-Regular",
+        // "Poppins-Regular",
         fontSize: 16,
         textAlign: "center",
         color: THEME.COLOR_WHITE
@@ -118,21 +118,21 @@ export default StyleSheet.create({
     forgetPasswordTextStyle: {
         marginVertical: "5%",
         fontSize: 16,
-         // "Poppins-Regular",
+        // "Poppins-Regular",
         textAlign: "center",
         color: '#534c4d'
     },
     continueWithoutTextStyle: {
         marginTop: "5%",
         marginBottom: '5%',
-         // "Poppins-Regular",
+        // "Poppins-Regular",
         textAlign: "center",
         color: '#9FACBD',
         textDecorationLine: 'underline'
     },
     signUpAsBarberTextStyle: {
         marginTop: "5%",
-         // "Poppins-Regular",
+        // "Poppins-Regular",
         textAlign: "center",
         color: '#9FACBD',
         textDecorationLine: 'underline'
@@ -141,7 +141,7 @@ export default StyleSheet.create({
         color: "#fff",
         fontSize: 15,
         // textAlign: "center",
-         // "Poppins-Medium"
+        // "Poppins-Medium"
     },
     phoneTextContainer: {
         flexDirection: "column",
@@ -192,7 +192,7 @@ export default StyleSheet.create({
         // color: "#fff",
         fontSize: 16,
         textAlign: "center",
-         // "Poppins-Medium"
+        // "Poppins-Medium"
     },
     contentContainer: {
         flexDirection: 'row',
@@ -207,7 +207,7 @@ export default StyleSheet.create({
         justifyContent: "center",
         alignItems: 'center',
         borderRadius: 25,
-        marginHorizontal: screenHeight * 0.025,
+        marginHorizontal: "5%",
     },
     gapHeight: {
         height: 20
@@ -233,5 +233,5 @@ export default StyleSheet.create({
         fontSize: THEME.FONT_SIZE_LARGE,
         fontWeight: "bold"
     },
-    rowContainer:{ flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center" }
+    rowContainer: { height: 70, flexDirection: "row", justifyContent: "space-between", alignItems: "center" }
 })

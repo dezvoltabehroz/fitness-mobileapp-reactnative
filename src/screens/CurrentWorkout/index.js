@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-    View, Text, TouchableOpacity, Alert, StatusBar, FlatList, Image, ScrollView, Dimensions
+    View, Text, TouchableOpacity, Alert, StatusBar, FlatList, Image, ScrollView, Dimensions, BackHandler, Vibration
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import RNBounceable from '@freakycoder/react-native-bounceable';
@@ -290,6 +290,10 @@ class CurrentWorkout extends Component {
     }
 
     componentDidMount = () => {
+        this.backHandler = BackHandler.addEventListener(
+            "hardwareBackPress",
+            this.handleAlert
+        );
         this.setState({ loading: true, })
         const { workoutId, usersWorkoutId } = this.props?.route?.params?.workout;
         const { token, userId } = this.props.user.userData;
@@ -310,7 +314,7 @@ class CurrentWorkout extends Component {
     }
 
     handleAlert = () => {
-        this.props.authActions.menuDotModal(!this.props.user.menuDotModal);
+        // this.props.authActions.menuDotModal(!this.props.user.menuDotModal);
         this.setState({ unfinishModal: true })
     }
     handleAddSet = (item) => {
@@ -333,7 +337,7 @@ class CurrentWorkout extends Component {
             .catch((err) => console.log(err.response))
     }
 
-    handleSetUnComplete = () => {
+    handleSetUnComplete = (setId) => {
         const { token, userId } = this.props.user.userData;
         WorkoutsServices.setUnCompleted(setId, token, userId)
             .then((res) => { })
@@ -411,6 +415,7 @@ class CurrentWorkout extends Component {
         if (this.state.pauseTimer) {
             clearInterval(myVar);
         } else if (this.state.myTime >= 0) {
+            this.state.myTime == 1? Vibration.vibrate(1000) : null
             if (this.state.myTime == 0) {
                 clearInterval(myVar);
                 let myTime = moment.duration(`00:${this.state.selectedTime}`).asSeconds()//mm:ss to seconds
