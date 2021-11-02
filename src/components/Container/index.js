@@ -87,7 +87,6 @@ const Container = ({ children, props, component, selectedMinF, selectedSecF, onS
                     <Text style={{ fontSize: 12, color: screen == 'Marketplace' || screen == 'Packages' || screen == 'CreditPackages' ? 'white' : 'black' }} >{item.name}</Text>
                 </View>
             </TouchableOpacity>
-
         )
     }
 

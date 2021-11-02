@@ -36,6 +36,7 @@ class ProgressPhoto extends Component {
     }
 
     renderItem = ({ item, index }) => {
+        console.log(item.createdDate)
         return (
             <View style={styles.itemContainer}>
                 <View style={{
@@ -100,7 +101,9 @@ class ProgressPhoto extends Component {
                                         </View>
                                     </View>
                                     :
-                                    <FlatList contentContainerStyle={{ marginHorizontal: "5%", paddingTop: '5%', paddingBottom: "5%" }} data={this.state.progressPhotos.reverse()} renderItem={this.renderItem} ItemSeparatorComponent={this.renderSeperator} />
+                                    <FlatList 
+                                    contentContainerStyle={{ marginHorizontal: "5%", paddingTop: '5%', paddingBottom: "5%" }} 
+                                    data={this.state.progressPhotos.reverse()} renderItem={this.renderItem} ItemSeparatorComponent={this.renderSeperator} />
                         }
                     </View>
 

@@ -37,13 +37,14 @@ export default StyleSheet.create({
     messageinputStyle: {
         textAlignVertical: 'top',
         marginLeft: "5%",
+        height: 150,
         alignSelf: "flex-start",
         fontSize: THEME.FONT_SIZE_MEDIUM,
          // 'Poppins-Regular',
         color: THEME.PRIMARY_COLOR,
     },
     messageInputContainerStyle: {
-        height: 150,
+       
         width: '100%',
         paddingTop: 2,
         // borderWidth: ,

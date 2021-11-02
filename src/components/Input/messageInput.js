@@ -10,6 +10,8 @@ const MessageTextInput = (props) => {
             {...props}
              labelStyle={styles.labelStyle}
             style={{ textAlignVertical: 'top' }}
+            numberOfLines={4}
+            multiline={true}
             placeholderTextColor={themeStyle.PRIMARY_TEXT_COLOR}
             inputContainerStyle={inputStyles.messageInputContainerStyle}
             inputStyle={inputStyles.messageinputStyle}

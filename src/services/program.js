@@ -61,6 +61,12 @@ const Api = {
     
     updateUserMeasurements: function (data, token, userId) {
         return axios.post(`${BASE_URL}CreateWeightCircumferencebyId`, data,  apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    updateUserBodyFats: function (data, token, userId) {
+        return axios.post(`${BASE_URL}CreateBodyFatId`, data,  apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    updateUserVitalStats: function (data, token, userId) {
+        return axios.post(`${BASE_URL}CreateVitalStatsId`, data,  apiHeaderConfiguration(token, TOKEN, userId))
     }
 };
 

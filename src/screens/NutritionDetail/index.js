@@ -134,11 +134,11 @@ class NutritionDetail extends Component {
                     <View >
                         <Text style={styles.textStyle}>{item.nutritionName}</Text>
                     </View>
-                    {this.state.breakFast.isStarted ?
+                    {/* {this.state.breakFast.isStarted ?
                         <RNBounceable onPress={() => this.setState({ mealModal: true })}>
                             <Icon.Ionicons name="ellipsis-horizontal" size={30} color="lightgray" />
                         </RNBounceable>
-                        : null}
+                        : null} */}
                 </View>
                 <Divider style={{ marginTop: "5%" }} ></Divider>
                 <View onPress={() => { }} style={styles.itemContainer}>
@@ -153,7 +153,6 @@ class NutritionDetail extends Component {
                     item.foodItems.map((element, index) => {
                         return (
                             <>
-
                                 <RNBounceable style={styles.itemContainer}>
                                     <Text style={styles.itemTextStyle}>{element.foodName}</Text>
                                     <Text style={styles.textStyle1}>{element.calories}</Text>
@@ -225,11 +224,11 @@ class NutritionDetail extends Component {
 
 
                                     <View style={[styles.buttonContainer, styles.marginTop]}>
-                                        {
+                                        {/* {
                                             this.state.breakFast.isStarted ?
                                                 null :
                                                 <Button.BrownButton title="Log Nutrition" onPress={() => this.handleLogNutrition()} />
-                                        }
+                                        } */}
                                         <View style={styles.marginTop}>
                                             <Button.OutlineButton title={"View Macros"} onPress={() => this.setState({ macrosModal: true })} />
                                         </View>
