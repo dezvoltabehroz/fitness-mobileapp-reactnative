@@ -78,6 +78,7 @@ const route = {
     UPDATE_NOTIFICATIONS: "UpdateNotificationSettings",
     INTEGRATION: "Integrations",
     WORKOUT: "Workouts",
+    WORKOUTHISTORY: "WorkoutHistory",
     WORKOUT_LIBRARY: "WorkoutLibrary",
     NUTRITION_LIBRARY: "NutritionLibrary",
     NUTRITION: "Nutrition",

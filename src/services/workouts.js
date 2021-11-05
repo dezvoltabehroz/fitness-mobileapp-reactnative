@@ -10,7 +10,7 @@ const Api = {
     getWorkoutExercise: function (workoutId, userWorkoutId, token, userId) {
         return axiosInstance.get(`GetAllWorkoutSets?WorkoutId=${workoutId}&UsersWorkoutId=${userWorkoutId}`, apiHeaderConfiguration(token, TOKEN, userId))
     },
-    
+
     getAllSets: function () {
         return axiosInstance.get('GetAllSets', apiHeaderConfiguration(EMPTY, EMPTY))
     },
@@ -80,6 +80,18 @@ const Api = {
     getRecentWorkouts: function (token, userId) {
         return axiosInstance.get(`GetRecentWorkouts`, apiHeaderConfiguration(token, TOKEN, userId))
     },
+    addNotesToExercise: function (workoutExerciseId, note, token, userId) {
+        console.log(workoutExerciseId,note)
+        return axiosInstance.post(`AddNotesUsersWorkoutExericse?UsersProgramWorkoutExerciseId=${workoutExerciseId}&IsProgramWorkout=false&Notes=${note}`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    getExerciseHistory: function (workoutExerciseId, token, userId) {
+        // return axiosInstance.get(`GetWorkoutExerciseSetHistory?UsersProgramWorkoutExerciseId=${workoutExerciseId}&IsProgramWorkout=false`, apiHeaderConfiguration(token, TOKEN, userId))
+        return axiosInstance.get(`GetWorkoutExerciseSetHistory?UsersProgramWorkoutExerciseId=${15}&IsProgramWorkout=false`, apiHeaderConfiguration(token, TOKEN, userId))
+
+    },
+    removeExerciseFromWorkout: function (workoutExerciseId, token, userId) {
+        return axiosInstance.post(`RemoveUsersWorkoutExericse?UsersProgramWorkoutExerciseId=${workoutExerciseId}&IsProgramWorkout=false`, apiHeaderConfiguration(token, TOKEN, userId))
+    }
 };
 
 export default Api;

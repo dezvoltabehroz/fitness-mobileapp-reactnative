@@ -12,6 +12,7 @@ import { Icon, Container, Loader } from "../../components";
 import { route } from '../../lib/utils/constants'
 import styles from './style';
 import { ActivitiesServices } from '../../services';
+import themeStyle from '../../assets/styles/theme.style';
 
 const { width, height } = Dimensions.get('window');
 const screenWidth = Dimensions.get('window').width;
@@ -25,6 +26,7 @@ class Home extends Component {
             currentPage: 1,
             schedule: null,
             loading: false,
+            unfinishedWorkout: {},
             buttonArr: [{
                 text: "Start a workout",
                 title: "StartWorkout",
@@ -105,13 +107,22 @@ class Home extends Component {
         this.setState({ loading: true })
         ActivitiesServices.getTodaySchedule(userData.userId)
             .then((res) => {
-                console.log(res.data)
+                console.log("schedule : ", res.data)
                 this.setState({ schedule: res.data[0] })
             })
             .catch((err) => console.log(err))
         ActivitiesServices.getAllActivitiesByAudit(userData.token, userData.userId)
-            .then((response) => { console.log(response.data); this.setState({ activityArr: response.data, loading: false, isRefreshing: false }) })
+            .then((response) => { console.log(response.data); this.setState({ activityArr: response.data, }) })
             .catch((err) => console.log(err))
+        ActivitiesServices.getUnfinishedWorkout(userData.userId, userData.token)
+            .then((res) => {
+                console.log('getUnfinishedWorkout :', res.data)
+                let array = []
+                array = res.data
+                array = array.reverse();
+                this.setState({ unfinishedWorkout: array[0], loading: false, isRefreshing: false })
+            })
+            .catch((err) => console.log(err.response))
 
     }
 
@@ -331,9 +342,20 @@ class Home extends Component {
                                     contentContainerStyle={styles.contentContainer}
                                     renderItem={({ index, item }) => this._renderItems({ index, item })}
                                 />
+                                {this.state.unfinishedWorkout == null ?
+                                    null
+                                    :
+                                    <TouchableOpacity onPress={() => this.props.navigation.navigate(route.CURRENT_WORKOUT, { workout: this.state.unfinishedWorkout })} style={{ flexDirection: "row", alignItems: "center", margin: "5%", borderRadius: 10, padding: "5%", backgroundColor: themeStyle.PRIMARY_BACKGROUND_COLOR }} >
+                                        <Icon.FontAwesome5 name={'fire-alt'} size={35} color='white' />
+                                        <Text numberOfLines={3} style={{ color: "white", fontWeight: "bold", fontSize: 16 }}>  {'You have an unfinished workout'}</Text>
+                                    </TouchableOpacity>}
+
                                 <View style={styles.generalMargin}>
                                     <Text numberOfLines={3} style={styles.todayText}>Today's Schedule </Text>
-                                    <Text numberOfLines={3} style={styles.todayText}>{this.state.schedule?.programName}</Text>
+                                    {!this.state.schedule ?
+                                        <Text numberOfLines={3} style={styles.todayText}>{'Nothing is schdule for today.'}</Text>
+                                        :
+                                        <Text numberOfLines={3} style={styles.todayText}>{this.state.schedule?.programName}</Text>}
                                     <Text numberOfLines={3} style={styles.dateText}>{moment().format("HH:MM, DD MMM YYYY")}</Text>
                                 </View>
                                 <View style={{ height: 50 }}></View>

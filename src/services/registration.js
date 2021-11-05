@@ -71,8 +71,29 @@ const Api = {
     getUserDetails: function (token, userId) {
         return axiosInstance.get('GetContactById', apiHeaderConfiguration(token, TOKEN, userId))
     },
-    reportIssue: function (userId, issue,token) {
-        return axiosInstance.post(`ReportProblem?ReportDescription='${issue}'`,apiHeaderConfiguration(token, TOKEN, userId))
+    reportIssue: function (userId, issue) {
+        // return axiosInstance.post(`ReportProblem?ReportDescription='${issue}'`,apiHeaderConfiguration(token, TOKEN, userId))
+        // return axiosInstance.post(`ReportProblem?ReportDescription='Nsgnsnatwtnwysnedm'`,apiHeaderConfiguration(token, 'refresh', userId))
+        // return   axios.post("http://185.132.39.105/BlaqstarFitnessAPI/v1/ReportProblem?ReportDescription='Nsgnsnatwtnwysnedm'", {
+        //     headers: {
+        //         'UserId': userId,
+        //         'Access-Control-Allow-Origin': '*',
+        //         'Access-Control-Allow-Methods': '*'
+        //     }
+        // })
+        var myHeaders = new Headers();
+        myHeaders.append("UserId", userId);
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        return fetch(`http://185.132.39.105/BlaqstarFitnessAPI/v1/ReportProblem?ReportDescription='${issue}'`, requestOptions)
+            // .then(response => response.json())
+            // .then(result => console.log(result))
+            // .catch(error => console.log('error', error))
     },
     updateMeasurementUnits: function (data, token, userId) {
         return axiosInstance.post(`UpdateMeasurementsUnit`, data, apiHeaderConfiguration(token, TOKEN, userId))

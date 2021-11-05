@@ -10,7 +10,7 @@ import {
     Workouts, WorkoutLibrary, ProgressPhoto, LogNutrition, StartWorkout, Integrations, Notifications,
     UnitMeasurement, UploadPhoto, Programs, ProgramLibrary, MarketPlace, CreditPackages, Packages,
     WorkoutDetails, CurrentWorkout, Financials, Nutrition, AddItem, Measurement, Calendar, ChatList,
-    ChatSetting, Media, Chat, NutritionLibrary, NutritionDetail, ExerciseDetail, ProgramDetail, WeekDetail, AddNutritionItem, AuthLoading, ProgramCurrentWorkout
+    ChatSetting, Media, Chat, NutritionLibrary, NutritionDetail, ExerciseDetail, ProgramDetail, WeekDetail, AddNutritionItem, AuthLoading, ProgramCurrentWorkout, WorkoutHistory
 } from '../screens';
 import { screen, route, EMPTY } from '../lib/utils/constants';
 import { NavigationHeaderLeftButton, NavigationHeaderRightButton } from '../components/special/navigationHeaderButton';
@@ -127,6 +127,11 @@ function AppRoutes(props) {
                 headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
                 headerTitle: `${route.params.data.workoutName}`
+            })} />
+             <Stack.Screen name={route.WORKOUTHISTORY} component={WorkoutHistory} options={({ navigation, route }) => ({
+                headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),
+                headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
+                headerTitle: `${route.params.data.exerciseName}`
             })} />
             <Stack.Screen name={route.NUTRITION_DETAIL} component={NutritionDetail} options={({ navigation, route }) => ({
                 headerLeft: () => (<NavigationHeaderLeftButton navigation={navigation} />),

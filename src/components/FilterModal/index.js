@@ -61,7 +61,25 @@ class FilterModal extends Component {
                     array[i].selected = false;
                 });
                 array[index].selected = true;
-                this.setState({ filter: array }, () => this.props.hide())
+                this.setState({ filter: array }, () => {
+                    switch (index) {
+                        case 0:
+                            this.props.onPressAtoZ(array[index].title);
+                            break;
+                        case 1:
+                            this.props.onPressZtoA(array[index].title);
+                            break;
+                        case 2:
+                            this.props.onPressMostRecent(array[index].title);
+                            break;
+                        case 3:
+                            this.props.onPressOldest(array[index].title);
+                            break;
+                        default:
+                            break;
+                    }
+
+                })
             }} style={{ flexDirection: "row", justifyContent: "space-between", paddingVertical: "5%", paddingHorizontal: "5%" }}>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <IconS type={item.type} name={item.name} style={{ color: "white", fontSize: 20 }} />
@@ -125,7 +143,7 @@ class FilterModal extends Component {
                         </RNBounceable>
                     </View>
                     <FlatList data={filter} keyExtractor={(item) => item.title} renderItem={({ index, item }) => this._renderItem(index, item)} />
-                    <View style={{ flexDirection: "row", justifyContent: "space-between",  borderRadius: 10, paddingVertical: "5%", paddingHorizontal: "5%" }}>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", borderRadius: 10, paddingVertical: "5%", paddingHorizontal: "5%" }}>
                         <Text style={styles.headingStyle}>Files</Text>
                         <RNBounceable onPress={() => {
                             let array = [...this.state.fileFilter];
@@ -144,7 +162,7 @@ class FilterModal extends Component {
                             :
                             null
                     }
-                    <RNBounceable onPress={() => hide()} style={{ justifyContent: "center", paddingVertical: "5%",backgroundColor:"#181818", alignItems: "center" }}>
+                    <RNBounceable onPress={() => hide()} style={{ justifyContent: "center", paddingVertical: "5%", backgroundColor: "#181818", alignItems: "center" }}>
                         <Icon.Entypo name="cross" color="white" size={40} />
                     </RNBounceable>
                 </View>

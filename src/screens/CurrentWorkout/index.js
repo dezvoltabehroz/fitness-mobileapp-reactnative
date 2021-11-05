@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 
 import { authActions } from '../../redux/actions/auth';
-import { Container, Icon, Button, Input, Sets, MenuModal, UnfinishedModal, ExerciseModal, Loader, UploadingModal } from "../../components";
+import { Container, Icon, Button, Input, Sets, MenuModal, UnfinishedModal, ExerciseModal, Loader, UploadingModal, MessageTextInput } from "../../components";
 import { renderSeperator } from '../../lib/utils/global'
 
 import THEME from '../../assets/styles/theme.style'
@@ -31,6 +31,8 @@ class CurrentWorkout extends Component {
             loading: true,
             selectedSec: [{}],
             selectedMin: [{}],
+            noteModal: false,
+            note: "",
             searchModal: false,
             distance: [{
                 id: 1,
@@ -327,7 +329,7 @@ class CurrentWorkout extends Component {
                     this.componentDidMount();
                 }
             })
-            .catch((err) => console.log(err.response))
+            .catch((err) => { console.log(err.response); this.componentDidMount(); })
     }
 
     handleSetComplete = (setId) => {
@@ -388,10 +390,19 @@ class CurrentWorkout extends Component {
                         <View style={styles.gapWidth}></View>
                         <Text style={{ ...styles.flatListTitleStyle, width: screenWidth * 0.5 }}>{item.exerciseName}</Text>
                     </RNBounceable>
-                    <RNBounceable onPress={() => this.setState({ image: item.imagePath, title: item.exerciseName, exerciseModal: true })}>
+                    <RNBounceable onPress={() => this.setState({ item: item, index: index, image: item.imagePath, title: item.exerciseName, exerciseModal: true, })}>
                         <Icon.Ionicons name="ellipsis-horizontal" size={30} color={THEME.COLOR_LIGHT_GRAY} />
                     </RNBounceable>
                 </View>
+                {
+                    item.note ?
+                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+                            <Icon.Octicons name="primitive-dot" size={30} color={THEME.COLOR_GREY} />
+                            <Text style={{ color: 'blue' }}> {item.note}</Text>
+                        </View>
+                        :
+                        null
+                }
                 <View>
                     <Sets item={item.sets} onSetCompleted={(setId) => { this.handleSetComplete(setId) }} onSetUnCompleted={(setId) => { this.handleSetUnComplete(setId) }} allSetsCompleted={() => { this.handleAllSetsComplete(item.usersProgramWorkoutExerciseId ? item.usersProgramWorkoutExerciseId : item.usersWorkoutExerciseId) }} />
                 </View>
@@ -415,7 +426,7 @@ class CurrentWorkout extends Component {
         if (this.state.pauseTimer) {
             clearInterval(myVar);
         } else if (this.state.myTime >= 0) {
-            this.state.myTime == 1? Vibration.vibrate(1000) : null
+            this.state.myTime == 1 ? Vibration.vibrate(1000) : null
             if (this.state.myTime == 0) {
                 clearInterval(myVar);
                 let myTime = moment.duration(`00:${this.state.selectedTime}`).asSeconds()//mm:ss to seconds
@@ -453,6 +464,27 @@ class CurrentWorkout extends Component {
             startTimer: false,
             resetTimer: false,
         })
+    }
+
+    handleAddNote = () => {
+        WorkoutsServices.addNotesToExercise(this.state.item?.usersWorkoutExerciseId, this.state.note, this.props.user.userData.token, this.props.user.userData.userId,)
+            .then((res) => {
+                console.log(res.data);
+                let array = [...this.state.workout];
+                array[this.state.index] = { ...array[this.state.index], note: this.state.note }
+                this.setState({ workout: array, noteModal: !this.state.noteModal, note: "", })
+            })
+            .catch(error => { this.setState({ noteModal: !this.state.noteModal, note: "", }); console.log(error) })
+
+    }
+
+    handleRemoveExercise=()=>{
+        WorkoutsServices.removeExerciseFromWorkout(this.state.item?.usersWorkoutExerciseId, this.props.user.userData.token, this.props.user.userData.userId,)
+        .then((res) => {
+            console.log(res.data);
+            this.setState({  exerciseModal: !this.state.exerciseModal, })
+        })
+        .catch(error => { this.setState({ exerciseModal: !this.state.exerciseModal, note: "", }); console.log(error) })
     }
 
     render() {
@@ -718,7 +750,34 @@ class CurrentWorkout extends Component {
                         }
                     </View>
                 </Modal>
-                <ExerciseModal isVisible={exerciseModal} image={image} title={title} hide={() => this.setState({ exerciseModal: false })} />
+                <Modal isVisible={this.state.noteModal}>
+                    <View style={styles.notemodalContainer}>
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                <Icon.MaterialIcons name="content-paste" size={20} />
+                                <Text style={styles.textStyle}>Add Note</Text>
+                            </View>
+                            <View style={{ width: 10 }} />
+                            <TouchableOpacity onPress={() => this.setState({ noteModal: !this.state.noteModal, note: "" })}>
+                                <Icon.AntDesign name="close" size={20} />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ marginTop: "5%" }}>
+                            <MessageTextInput value={this.state.note} onChangeText={(val) => this.setState({ note: val })} label="Exercise Note" />
+                        </View>
+                        <View style={{ ...styles.buttonContainer, alignItems: "center" }}>
+                            <Button.LoginButton disabled={this.state.note ? false : true} title="Send" onPress={() => this.handleAddNote()} />
+                        </View>
+                    </View>
+                </Modal>
+                <ExerciseModal
+                    isVisible={exerciseModal}
+                    image={image}
+                    title={title}
+                    onPressRemoveExercise={()=>this.handleRemoveExercise()}
+                    onPressAddNote={() => this.setState({ exerciseModal: false, noteModal: true })}
+                    onPressHistory={() => this.props.navigation.navigate(route.WORKOUTHISTORY, { data: this.state.item })}
+                    hide={() => this.setState({ exerciseModal: false })} />
                 <MenuModal
                     isVisible={this.props.user.menuDotModal}
                     hide={() => this.props.authActions.menuDotModal(!this.props.user.menuDotModal)}
@@ -729,7 +788,7 @@ class CurrentWorkout extends Component {
                     hide={() => this.setState({ unfinishModal: false })}
                     reOrder={() => { }}
                     quitSession={() => this.setState({ unfinishModal: false }, () => {
-                        this.props.authActions.menuDotModal(!this.props.user.menuDotModal)
+                        // this.props.authActions.menuDotModal(!this.props.user.menuDotModal)
                         Alert.alert(
                             `Are you sure?`,
                             'Please confirm that you want to quit this session - Any data logged during the session will be cleared ',

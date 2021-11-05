@@ -4,8 +4,8 @@ import { apiHeaderConfiguration } from '../lib/utils/global'
 import { EMPTY, TOKEN } from '../lib/utils/constants'
 
 const Api = {
-    getAllCustomFoods: function (token, id) {
-        return axiosInstance.get('GetAllCustomFoods', apiHeaderConfiguration(token, TOKEN, id))
+    getAllCustomFoods: function (token, id,sortBy) {
+        return axiosInstance.get(`GetAllCustomFoods?SortBy=${sortBy}`, apiHeaderConfiguration(token, TOKEN, id))
     },
     getAllMacros: function (nutritionId,id, token) {
         return axiosInstance.get(`GetAllMacros?NutritionPlanId=${nutritionId}&IsProgramNutritions=false`, apiHeaderConfiguration(token, TOKEN, id))
@@ -28,8 +28,8 @@ const Api = {
     getAllMealPlanDetailsById: function (nutritionPlanId, token, id) {
         return axiosInstance.get(`GetAllMealPlanDetailsById?NutritionPlanId=${nutritionPlanId}`, apiHeaderConfiguration(token, TOKEN, id))
     },
-    getMealPlans: function (token, userId) {
-        return axiosInstance.get('GetAllMealPlanDetailsAccumulated?name=', apiHeaderConfiguration(token, TOKEN, userId))
+    getMealPlans: function (token, userId,sortBy) {
+        return axiosInstance.get(`GetAllMealPlanDetailsAccumulated?name=&SortBy=${sortBy}`, apiHeaderConfiguration(token, TOKEN, userId))
     },
     addMealPlanDetailItem: function (userData, token) {
         return axiosInstance.post('AddMealPlanDetailItem', userData, apiHeaderConfiguration(token, TOKEN))

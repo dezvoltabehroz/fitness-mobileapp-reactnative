@@ -25,6 +25,7 @@ class Nutrition extends Component {
         this.state = {
             filterModal: false,
             visible: true,
+            refreshing: false,
             currentPage: 0,
             buttonArr: [{
                 text: "Start a workout",
@@ -128,6 +129,7 @@ class Nutrition extends Component {
                 selected: false
             }],
             nutritions: [],
+            filter: "A to Z",
             isLoading: true
         }
         this.data = this.state.activityArr;
@@ -137,15 +139,15 @@ class Nutrition extends Component {
     componentDidMount = async () => {
         const { userData } = this.props.user;
         console.log(userData)
-        NutritionsServices.getAllCustomFoods(userData.token, userData.userId)
+        NutritionsServices.getAllCustomFoods(userData.token, userData.userId, '1')
             .then((response) => {
                 this.arrayHolder = response.data
                 this.setState({ customFoods: response.data })
             })
-            .catch((error) => console.log(error))
-        NutritionsServices.getMealPlans(userData.token, userData.userId)
+            .catch((error) => { console.log(error) })
+        NutritionsServices.getMealPlans(userData.token, userData.userId, '1')
             .then((response) => {
-                this.setState({ nutritions: response.data, isLoading: false })
+                this.setState({ nutritions: response.data, isLoading: false, refreshing: false })
             })
             .catch((error) => console.log(error))
         NutritionsServices.getAllMealPlanDetailsById(userData.token, userData.userId)
@@ -253,6 +255,46 @@ class Nutrition extends Component {
         }
     }
 
+
+    handleAtoZ = (filter) => {
+        console.log('function is called ', filter)
+        this.setState({ isLoading: true })
+        const { userData } = this.props.user;
+        NutritionsServices.getAllCustomFoods(userData.token, userData.userId, '1')
+            .then((response) => {
+                this.arrayHolder = response.data
+                this.setState({ filter: filter, customFoods: response.data, isLoading: false, filterModal: false })
+            })
+    }
+    handleZtoA = (filter) => {
+        this.setState({ isLoading: true })
+        const { userData } = this.props.user;
+        NutritionsServices.getAllCustomFoods(userData.token, userData.userId, '2')
+            .then((response) => {
+                this.arrayHolder = response.data
+                this.setState({ filter: filter, customFoods: response.data, isLoading: false, filterModal: false })
+            })
+    }
+    handleMostRecent = (filter) => {
+        this.setState({ isLoading: true })
+        const { userData } = this.props.user;
+        NutritionsServices.getAllCustomFoods(userData.token, userData.userId, '3')
+            .then((response) => {
+                this.arrayHolder = response.data
+                this.setState({ filter: filter, customFoods: response.data, isLoading: false, filterModal: false })
+            })
+    }
+    handleOldest = (filter) => {
+        this.setState({ isLoading: true })
+        const { userData } = this.props.user;
+        NutritionsServices.getAllCustomFoods(userData.token, userData.userId, '4')
+            .then((response) => {
+                this.arrayHolder = response.data
+                this.setState({ filter: filter, customFoods: response.data, isLoading: false, filterModal: false })
+            })
+    }
+
+
     render() {
         const { currentPage, filterModal, shoppingList, customFoods, nutritions, isLoading, value } = this.state;
         return (
@@ -333,7 +375,7 @@ class Nutrition extends Component {
                         </View>
 
                         <View style={styles.secondContainer}>
-                            <ScrollView style={{ flex: 1, paddingTop: "5%" }} refreshControl={<RefreshControl onRefresh={() => this.componentDidMount()} />}>
+                            <ScrollView style={{ flex: 1, paddingTop: "5%" }} refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={() => this.setState({ refreshing: true }, () => this.componentDidMount())} />}>
                                 <SearchBar
                                     containerStyle={{ backgroundColor: "transparent", borderTopWidth: 0, borderBottomWidth: 0, }}
                                     inputContainerStyle={{ backgroundColor: "white", elevation: 2, borderWidth: 0.5, borderColor: "lightgray" }}
@@ -342,7 +384,7 @@ class Nutrition extends Component {
                                     placeholder="Search"
                                     leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
                                 <View style={styles.rowContainer} >
-                                    <Text style={styles.textStyle}>A to Z</Text>
+                                    <Text style={styles.textStyle}>{this.state.filter}</Text>
                                     <RNBounceable onPress={() => this.setState({ filterModal: true })} style={styles.row}>
                                         <Icon.FontAwesome name="filter" size={20} />
                                     </RNBounceable>
@@ -407,7 +449,14 @@ class Nutrition extends Component {
                         </View>
                     </ScrollView>
                 </View>
-                <FilterModal isVisible={filterModal} hide={() => this.setState({ filterModal: false })} />
+                <FilterModal
+                    isVisible={filterModal}
+                    onClearAll={() => this.handleAtoZ('A to Z')}
+                    onPressAtoZ={(filter) => this.handleAtoZ(filter)}
+                    onPressZtoA={(filter) => this.handleZtoA(filter)}
+                    onPressMostRecent={(filter) => this.handleMostRecent(filter)}
+                    onPressOldest={(filter) => this.handleOldest(filter)}
+                    hide={() => this.setState({ filterModal: false })} />
             </Container>
         )
     }

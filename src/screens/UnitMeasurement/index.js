@@ -99,7 +99,7 @@ class UnitOfMeasurement extends Component {
             .then((res) => {
                 console.log(res.data)
                 this.setState({ btnLoading: false });
-                this.props.navigation.replace('Home')
+                this.props.navigation.goBack()
             })
             .catch((err) => { Alert.alert(err.response.data.responseMessage); this.setState({ btnLoading: false }); console.log(err.response) })
     }

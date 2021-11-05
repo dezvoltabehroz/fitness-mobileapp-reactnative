@@ -52,7 +52,6 @@ export default StyleSheet.create({
     },
     textStyle: {
         color: "#544b4c",
-        textAlign: "center",
         fontSize: 16,
         fontWeight: "bold"
     },
@@ -130,7 +129,7 @@ export default StyleSheet.create({
     },
     flatListRow1: {
         flexDirection: "row",
-        alignItems: "center", 
+        alignItems: "center",
     },
     gapWidth: {
         width: 15
@@ -147,5 +146,12 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center"
+    },
+    notemodalContainer: {
+        flex: 0.5,
+        justifyContent: "center",
+        backgroundColor: "white",
+        borderRadius: 25,
+        padding: "5%"
     }
 })

@@ -21,6 +21,9 @@ const Api = {
     updateUsersNotificationPriority: function (data, token, userId) {
         return axiosInstance.post(`UpdateUsersNotificationPriority`, data, apiHeaderConfiguration(token, TOKEN, userId))
     },
+    getUnfinishedWorkout:function(userId,token){
+        return axiosInstance.get(`GetUnfinishedWorkouts?IsProgramWorkout=false`, apiHeaderConfiguration(token, TOKEN, userId))
+    }
 
 };
 

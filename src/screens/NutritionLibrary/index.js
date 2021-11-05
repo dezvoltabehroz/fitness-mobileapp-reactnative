@@ -20,6 +20,7 @@ class NutritionLibrary extends Component {
         this.state = {
             filterModal: false,
             laoding: true,
+            filter: "A to Z",
             nutrition: []
         }
         this.arrayHolder = [];
@@ -28,7 +29,7 @@ class NutritionLibrary extends Component {
     componentDidMount = async () => {
         const { userData } = this.props.user;
         console.log(userData)
-        NutritionsServices.getMealPlans(userData.token, userData.userId)
+        NutritionsServices.getMealPlans(userData.token, userData.userId, '1')
             .then((response) => {
                 this.arrayHolder = response.data
                 this.setState({ nutrition: response.data, laoding: false })
@@ -83,6 +84,43 @@ class NutritionLibrary extends Component {
         )
     }
 
+    handleAtoZ = (filter) => {
+        this.setState({ laoding: true })
+        const { userData } = this.props.user;
+        NutritionsServices.getMealPlans(userData.token, userData.userId, '1')
+            .then((response) => {
+                this.arrayHolder = response.data
+                this.setState({ filter: filter, nutrition: response.data, laoding: false, filterModal: false })
+            })
+    }
+    handleZtoA = (filter) => {
+        this.setState({ laoding: true })
+        const { userData } = this.props.user;
+        NutritionsServices.getMealPlans(userData.token, userData.userId, '2')
+            .then((response) => {
+                this.arrayHolder = response.data
+                this.setState({ filter: filter, nutrition: response.data, laoding: false, filterModal: false })
+            })
+    }
+    handleMostRecent = (filter) => {
+        this.setState({ laoding: true })
+        const { userData } = this.props.user;
+        NutritionsServices.getMealPlans(userData.token, userData.userId, '3')
+            .then((response) => {
+                this.arrayHolder = response.data
+                this.setState({ filter: filter, nutrition: response.data, laoding: false, filterModal: false })
+            })
+    }
+    handleOldest = (filter) => {
+        this.setState({ laoding: true })
+        const { userData } = this.props.user;
+        NutritionsServices.getMealPlans(userData.token, userData.userId, '4')
+            .then((response) => {
+                this.arrayHolder = response.data
+                this.setState({ filter: filter, nutrition: response.data, laoding: false, filterModal: false })
+            })
+    }
+
     render() {
         const { nutrition, reportModal, issue, laoding, filterModal, value } = this.state;
         return (
@@ -102,7 +140,7 @@ class NutritionLibrary extends Component {
                                     leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
                             </View>
                             <View style={styles.rowContainer} >
-                                <Text style={styles.textStyle}>A to Z</Text>
+                                <Text style={styles.textStyle}>{this.state.filter}</Text>
                                 <RNBounceable onPress={() => this.setState({ filterModal: true })} style={styles.row}>
                                     <Icon.FontAwesome name="filter" size={20} />
                                 </RNBounceable>
@@ -123,7 +161,15 @@ class NutritionLibrary extends Component {
                         </View>
                 }
 
-                <FilterModal isVisible={filterModal} hide={() => this.setState({ filterModal: false })} />
+                <FilterModal
+                    isVisible={filterModal}
+                    onClearAll={() => this.handleAtoZ('A to Z')}
+                    onPressAtoZ={(filter) => this.handleAtoZ(filter)}
+                    onPressZtoA={(filter) => this.handleZtoA(filter)}
+                    onPressMostRecent={(filter) => this.handleMostRecent(filter)}
+                    onPressOldest={(filter) => this.handleOldest(filter)}
+                    hide={() => this.setState({ filterModal: false })}
+                />
             </Container>
         )
     }

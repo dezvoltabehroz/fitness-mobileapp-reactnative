@@ -72,12 +72,10 @@ class Setting extends Component {
 
     handleReportIssue = () => {
         this.setState({ btnLoading: true })
-        AuthServices.reportIssue(this.props.user.userData.userId, this.state.issue,this.props.user.userData.token,)
-            .then((res) => {
-                console.log(res.data)
-                this.setState({ reportModal: !reportModal, issue: "", btnLoading: false })
-            })
-            .catch((err) => {this.setState({ btnLoading: false }); Alert.alert(err?.response?.data?.responseMessage);  console.log(err.response)})
+        AuthServices.reportIssue(this.props.user.userData.userId, this.state.issue, this.props.user.userData.token,)
+            .then(response => response.json())
+            .then(result => {console.log(result);this.setState({ reportModal: !this.state.reportModal, issue: "", btnLoading: false })})
+            .catch(error => {this.setState({ btnLoading: false }); Alert.alert(error?.response?.data?.responseMessage); console.log(error.response) })
     }
 
     render() {
@@ -99,7 +97,7 @@ class Setting extends Component {
                                     style={{
                                         justifyContent: "center", alignItems: "center", height: 100, width: 100, borderRadius: 50, backgroundColor: "#544b4c", alignContent: "flex-end"
                                     }}>
-                                    <Text style={[styles.headingStyle, { color: "white", fontWeight: "bold" }]} >{data?.firstName!=null?this.truncateString(data?.firstName, 1):""}{data?.lastName!=null?this.truncateString(data?.lastName, 1):""}</Text>
+                                    <Text style={[styles.headingStyle, { color: "white", fontWeight: "bold" }]} >{data?.firstName != null ? this.truncateString(data?.firstName, 1) : ""}{data?.lastName != null ? this.truncateString(data?.lastName, 1) : ""}</Text>
                                 </RNBounceable>
                                 <View>
                                     <Text style={styles.titleStyle}>{data?.firstName} {data?.lastName}</Text>
@@ -205,7 +203,7 @@ class Setting extends Component {
                         <View style={{ backgroundColor: "white", paddingTop: "10%" }}>
 
                             <View style={styles.buttonContainer}>
-                                <Button.OutlineButton title="Log Out" onPress={() => this.props.authActions.removeUser(this.props.navigation.replace)} />
+                                <Button.OutlineButton title="Log Out" onPress={() => this.props.authActions.removeUser(this.props.navigation)} />
                             </View>
 
                             <View style={{}}>

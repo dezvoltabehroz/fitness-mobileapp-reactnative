@@ -12,6 +12,7 @@ import {
 import { Alert, Linking, Platform } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { AuthServices } from '../../services';
+
 import { SUCCESS_CODE } from '../../lib/utils/constants';
 import { clearAllLocalData, clearLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
 
@@ -87,12 +88,15 @@ const userLogin = (userData, navigate) => {
 
 const removeUser = (navigate) => {
     return (dispatch) => {
-        navigate('Login')
-        setTimeout(()=>{
-            clearAllLocalData();
+        clearAllLocalData();
+        navigate.reset({
+            index: 0,
+            routes: [{ name: 'AuthLoading' }],
+        });
+        setTimeout(() => {
             dispatch({ type: USER_LOGOUT_SUCCESS })
-        },2000)
-       
+        }, 2000)
+
     }
 };
 

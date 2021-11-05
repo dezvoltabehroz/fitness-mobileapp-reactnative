@@ -120,3 +120,6 @@ export const ProgramCurrentWorkout = _ProgramCurrentWorkout;
 
 import _AuthLoading from './AuthLoading';
 export const AuthLoading = _AuthLoading;
+
+import _WorkoutHistory from './WorkoutHistory';
+export const WorkoutHistory = _WorkoutHistory;
