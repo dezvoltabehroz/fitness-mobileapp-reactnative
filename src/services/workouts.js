@@ -4,13 +4,12 @@ import { apiHeaderConfiguration } from '../lib/utils/global'
 import { EMPTY, TOKEN, } from '../lib/utils/constants'
 
 const Api = {
-    getAllWorkouts: function (id, token) {
-        return axiosInstance.get(`GetAllWorkoutsById?UserId=${id}`, apiHeaderConfiguration(token, TOKEN, id))
+    getAllWorkouts: function (id, token, sortBy) {
+        return axiosInstance.get(`GetAllWorkoutsById?UserId=${id}&SortBy=${sortBy}`, apiHeaderConfiguration(token, TOKEN, id))
     },
     getWorkoutExercise: function (workoutId, userWorkoutId, token, userId) {
         return axiosInstance.get(`GetAllWorkoutSets?WorkoutId=${workoutId}&UsersWorkoutId=${userWorkoutId}`, apiHeaderConfiguration(token, TOKEN, userId))
     },
-
     getAllSets: function () {
         return axiosInstance.get('GetAllSets', apiHeaderConfiguration(EMPTY, EMPTY))
     },
@@ -81,16 +80,23 @@ const Api = {
         return axiosInstance.get(`GetRecentWorkouts`, apiHeaderConfiguration(token, TOKEN, userId))
     },
     addNotesToExercise: function (workoutExerciseId, note, token, userId) {
-        console.log(workoutExerciseId,note)
+        console.log(workoutExerciseId, note)
         return axiosInstance.post(`AddNotesUsersWorkoutExericse?UsersProgramWorkoutExerciseId=${workoutExerciseId}&IsProgramWorkout=false&Notes=${note}`, apiHeaderConfiguration(token, TOKEN, userId))
     },
     getExerciseHistory: function (workoutExerciseId, token, userId) {
         // return axiosInstance.get(`GetWorkoutExerciseSetHistory?UsersProgramWorkoutExerciseId=${workoutExerciseId}&IsProgramWorkout=false`, apiHeaderConfiguration(token, TOKEN, userId))
-        return axiosInstance.get(`GetWorkoutExerciseSetHistory?UsersProgramWorkoutExerciseId=${15}&IsProgramWorkout=false`, apiHeaderConfiguration(token, TOKEN, userId))
+        return axiosInstance.get(`GetWorkoutExerciseSetHistory?UsersProgramWorkoutExerciseId=${workoutExerciseId}&IsProgramWorkout=false`, apiHeaderConfiguration(token, TOKEN, userId))
 
     },
     removeExerciseFromWorkout: function (workoutExerciseId, token, userId) {
         return axiosInstance.post(`RemoveUsersWorkoutExericse?UsersProgramWorkoutExerciseId=${workoutExerciseId}&IsProgramWorkout=false`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    swapExercise: function (exerciseId, workoutId, token, userId) {
+        return axiosInstance.post(`SwapWorkoutExercise?UsersProgramWorkoutExerciseId=${exerciseId}&IsProgramWorkout=false&SwapWorkoutExerciseId=${workoutId}`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    getWorkoutExerciseGropuSet: function (token, userId) {
+        // http://185.132.39.105/BlaqstarFitnessAPI/v1/GetWorkoutExerciseGroupSet
+        return axiosInstance.get(`GetWorkoutExerciseGroupSet`, apiHeaderConfiguration(token, TOKEN, userId))
     }
 };
 

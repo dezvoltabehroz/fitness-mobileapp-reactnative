@@ -368,7 +368,8 @@ class CurrentWorkout extends Component {
         })
         array[index] = { ...array[index], selected: true };
         console.log(array)
-        this.setState({ recentWorkouts: array, exerciseId: item.workoutExerciseId, workoutId: item.usersWorkoutId })
+        console.log("item : ", item)
+        this.setState({ recentWorkouts: array, exerciseId: item.workoutExerciseId, workoutId: item.workoutId })
     }
 
     handleAddExercise = () => {
@@ -376,40 +377,95 @@ class CurrentWorkout extends Component {
         const { token, userId } = this.props.user.userData;
         const { exerciseId, workoutId } = this.state;
         this.setState({ uploading: true })
-        WorkoutsServices.addExercise(exerciseId, usersWorkoutId, token, userId)
+        WorkoutsServices.addExercise(exerciseId, workoutId, token, userId)
             .then((res) => { this.componentDidMount() })
+            .catch((err) => { console.log(err.response); if (err.response.status == 403) { this.componentDidMount(); alert(err.response.data.responseMessage); this.componentDidMount() } })
+    }
+
+    handleSwapExercise = () => {
+        const { usersWorkoutId } = this.props?.route?.params?.workout;
+        const { token, userId } = this.props.user.userData;
+        const { exerciseId, workoutId, element } = this.state;
+        this.setState({ uploading: true })
+        WorkoutsServices.swapExercise(element.usersWorkoutExerciseId, exerciseId, token, userId)
+            .then((res) => { console.log(res.data); this.setState({ uploading: false, swapExercise: false, searchModal: false }); this.componentDidMount() })
             .catch((err) => { console.log(err.response); if (err.response.status == 403) { this.componentDidMount(); alert(err.response.data.responseMessage); this.componentDidMount() } })
     }
 
     _renderItem = (item, index) => {
         return (
-            <View style={styles.flatListContainer}>
-                <View style={styles.flatListRowContainer}>
-                    <RNBounceable onPress={() => { this.props.navigation.navigate(route.EXERCISE, { heading: item.exerciseName }) }} style={styles.flatListRow1}>
-                        <Image source={item.imagePath ? { uri: item.imagePath } : require('../../assets/images/logo.png')} style={styles.imageStyle} resizeMode="contain" />
-                        <View style={styles.gapWidth}></View>
-                        <Text style={{ ...styles.flatListTitleStyle, width: screenWidth * 0.5 }}>{item.exerciseName}</Text>
-                    </RNBounceable>
-                    <RNBounceable onPress={() => this.setState({ item: item, index: index, image: item.imagePath, title: item.exerciseName, exerciseModal: true, })}>
-                        <Icon.Ionicons name="ellipsis-horizontal" size={30} color={THEME.COLOR_LIGHT_GRAY} />
-                    </RNBounceable>
+            item.groups ?
+                <View style={{ ...styles.flatListContainer, borderLeftWidth: 2 }}>
+                    <View style={styles.flatListRowContainer}>
+                        <Text style={{ ...styles.flatListTitleStyle, width: screenWidth * 0.5 }}>{'Gaint Set'}</Text>
+                        <RNBounceable onPress={() => { }}>
+                            <Icon.Foundation name="info" size={20} color={THEME.COLOR_LIGHT_GRAY} />
+                        </RNBounceable>
+                    </View>
+                    {item.groups.map((element, i) => {
+                        return (
+                            <>
+                                <View style={styles.flatListRowContainer}>
+                                    <RNBounceable onPress={() => { this.props.navigation.navigate(route.EXERCISE, { heading: element.exerciseName }) }} style={styles.flatListRow1}>
+                                        <Image source={item.imagePath ? { uri: element.imagePath } : require('../../assets/images/logo.png')} style={styles.imageStyle} resizeMode="contain" />
+                                        <View style={styles.gapWidth}></View>
+                                        <Text style={{ ...styles.flatListTitleStyle, width: screenWidth * 0.5 }}>{element.exerciseName}</Text>
+                                    </RNBounceable>
+                                    <RNBounceable onPress={() => this.setState({ groupSet: true, element: { ...this.state.element, ...element }, elementIndex: i, image: element.imagePath, title: element.exerciseName, exerciseModal: true, }, () => console.log(element))}>
+                                        <Icon.Ionicons name="ellipsis-horizontal" size={30} color={THEME.COLOR_LIGHT_GRAY} />
+                                    </RNBounceable>
+                                </View>
+                                {
+                                    element.note ?
+                                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                            <Icon.Octicons name="primitive-dot" size={30} color={THEME.COLOR_GREY} />
+                                            <Text style={{ color: 'blue' }}> {element.note}</Text>
+                                        </View>
+                                        :
+                                        null
+                                }
+
+                                <View>
+                                    <Sets item={element.sets} onSetCompleted={(setId) => { this.handleSetComplete(setId) }} onSetUnCompleted={(setId) => { this.handleSetUnComplete(setId) }} allSetsCompleted={() => { this.handleAllSetsComplete(element.usersProgramWorkoutExerciseId ? element.usersProgramWorkoutExerciseId : element.usersWorkoutExerciseId) }} />
+                                </View>
+                                <View style={styles.buttonStyle}>
+                                    <Button.OutlineButton title="Add Set" onPress={() => { this.handleAddSet(element) }} />
+                                </View>
+                            </>
+                        )
+                    })
+                    }
                 </View>
-                {
-                    item.note ?
-                        <View style={{ flexDirection: "row", alignItems: "center" }}>
-                            <Icon.Octicons name="primitive-dot" size={30} color={THEME.COLOR_GREY} />
-                            <Text style={{ color: 'blue' }}> {item.note}</Text>
-                        </View>
-                        :
-                        null
-                }
-                <View>
-                    <Sets item={item.sets} onSetCompleted={(setId) => { this.handleSetComplete(setId) }} onSetUnCompleted={(setId) => { this.handleSetUnComplete(setId) }} allSetsCompleted={() => { this.handleAllSetsComplete(item.usersProgramWorkoutExerciseId ? item.usersProgramWorkoutExerciseId : item.usersWorkoutExerciseId) }} />
+
+                :
+                <View style={styles.flatListContainer}>
+                    <View style={styles.flatListRowContainer}>
+                        <RNBounceable onPress={() => { this.props.navigation.navigate(route.EXERCISE, { heading: item.exerciseName }) }} style={styles.flatListRow1}>
+                            <Image source={item.imagePath ? { uri: item.imagePath } : require('../../assets/images/logo.png')} style={styles.imageStyle} resizeMode="contain" />
+                            <View style={styles.gapWidth}></View>
+                            <Text style={{ ...styles.flatListTitleStyle, width: screenWidth * 0.5 }}>{item.exerciseName}</Text>
+                        </RNBounceable>
+                        <RNBounceable onPress={() => this.setState({ item: { ...this.state.item, item }, index: index, image: item.imagePath, title: item.exerciseName, exerciseModal: true, })}>
+                            <Icon.Ionicons name="ellipsis-horizontal" size={30} color={THEME.COLOR_LIGHT_GRAY} />
+                        </RNBounceable>
+                    </View>
+                    {
+                        item.note ?
+                            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                <Icon.Octicons name="primitive-dot" size={30} color={THEME.COLOR_GREY} />
+                                <Text style={{ color: 'blue' }}> {item.note}</Text>
+                            </View>
+                            :
+                            null
+                    }
+
+                    <View>
+                        <Sets item={item.sets} onSetCompleted={(setId) => { this.handleSetComplete(setId) }} onSetUnCompleted={(setId) => { this.handleSetUnComplete(setId) }} allSetsCompleted={() => { this.handleAllSetsComplete(item.usersProgramWorkoutExerciseId ? item.usersProgramWorkoutExerciseId : item.usersWorkoutExerciseId) }} />
+                    </View>
+                    <View style={styles.buttonStyle}>
+                        <Button.OutlineButton title="Add Set" onPress={() => { this.handleAddSet(item) }} />
+                    </View>
                 </View>
-                <View style={styles.buttonStyle}>
-                    <Button.OutlineButton title="Add Set" onPress={() => { this.handleAddSet(item) }} />
-                </View>
-            </View>
         )
     }
 
@@ -478,13 +534,25 @@ class CurrentWorkout extends Component {
 
     }
 
-    handleRemoveExercise=()=>{
+    handleRemoveExercise = () => {
         WorkoutsServices.removeExerciseFromWorkout(this.state.item?.usersWorkoutExerciseId, this.props.user.userData.token, this.props.user.userData.userId,)
-        .then((res) => {
-            console.log(res.data);
-            this.setState({  exerciseModal: !this.state.exerciseModal, })
-        })
-        .catch(error => { this.setState({ exerciseModal: !this.state.exerciseModal, note: "", }); console.log(error) })
+            .then((res) => {
+                console.log(res.data);
+                this.setState({ exerciseModal: !this.state.exerciseModal, })
+            })
+            .catch(error => { this.setState({ exerciseModal: !this.state.exerciseModal, note: "", }); console.log(error) })
+    }
+
+    breakGaintSet = () => {
+
+    }
+
+    getGroupExerciseSets = () => {
+        WorkoutsServices.getWorkoutExerciseGropuSet(this.props.user.userData.token, this.props.user.userData.userId,)
+            .then((res) => {
+                console.log(res.data)
+            })
+            .catch((err) => console.log(err.response))
     }
 
     render() {
@@ -536,7 +604,8 @@ class CurrentWorkout extends Component {
                     </View>
 
                 </Container>
-                <Modal style={styles.modalContainer} isVisible={searchModal} onBackdropPress={() => this.setState({ searchModal: false })} >
+                <Modal style={styles.modalContainer} isVisible={searchModal}
+                    onBackdropPress={() => this.setState({ searchModal: false, swapExercise: false })} >
                     <View style={{ bottom: "5%" }}>
                         <Text style={styles.searchText}>Search Exercise</Text>
                         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{
@@ -681,7 +750,7 @@ class CurrentWorkout extends Component {
 
                                             </View>
                                             <View style={styles.buttonContainer}>
-                                                <Button.BrownButton loading={uploading} title="Save" onPress={() => { this.handleAddExercise() }} />
+                                                <Button.BrownButton loading={uploading} title="Save" onPress={() => { if (this.state.swapExercise) this.handleSwapExercise(); else this.handleAddExercise() }} />
                                             </View>
                                         </View>
                                     </View>
@@ -750,6 +819,16 @@ class CurrentWorkout extends Component {
                         }
                     </View>
                 </Modal>
+
+                <Modal style={styles.modalContainer} isVisible={this.state.createSetModal}
+                    onBackdropPress={() => this.setState({ createSetModal: false })} >
+                    <View style={{ bottom: "5%" }}>
+                        <Text style={styles.searchText}>Gaint Set</Text>
+                    </View>
+                    <View style={styles.modalLowerContainer}>
+
+                    </View>
+                </Modal>
                 <Modal isVisible={this.state.noteModal}>
                     <View style={styles.notemodalContainer}>
                         <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
@@ -773,10 +852,13 @@ class CurrentWorkout extends Component {
                 <ExerciseModal
                     isVisible={exerciseModal}
                     image={image}
+                    groupSet={this.state.groupSet}
                     title={title}
-                    onPressRemoveExercise={()=>this.handleRemoveExercise()}
+                    onPressRemoveExercise={() => this.handleRemoveExercise()}
+                    onPressCreateSet={() => { if (!this.state.groupSet) { this.setState({ exerciseModal: false, groupSet: false, }, () => this.breakGaintSet()) } else this.setState({ exerciseModal: false, createSetModal: true },()=>this.getGroupExerciseSets()) }}
                     onPressAddNote={() => this.setState({ exerciseModal: false, noteModal: true })}
-                    onPressHistory={() => this.props.navigation.navigate(route.WORKOUTHISTORY, { data: this.state.item })}
+                    onPressHistory={() => this.setState({ exerciseModal: false, }, () => { console.log(this.state.item); this.props.navigation.navigate(route.WORKOUTHISTORY, { data: this.state.item }) })}
+                    onPressSwapExercise={() => this.setState({ exerciseModal: false, searchModal: true, swapExercise: true })}
                     hide={() => this.setState({ exerciseModal: false })} />
                 <MenuModal
                     isVisible={this.props.user.menuDotModal}

@@ -7,8 +7,8 @@ import axios from 'axios';
 
 const Api = {
 
-    getAllPrograms: function (token, userId) {
-        return axiosInstance.get(`GetUserProgramByUserId?CountBit=false`, apiHeaderConfiguration(token, TOKEN, userId))
+    getAllPrograms: function (token, userId,sortBy) {
+        return axiosInstance.get(`GetUserProgramByUserId?CountBit=false&SortBy=${sortBy}`, apiHeaderConfiguration(token, TOKEN, userId))
     },
     getAllProgressPhotoById: function (token, userId) {
         return axiosInstance.get(`GetAllProgressPhotoById?ClientId=${userId}&PhotoBit=true`, apiHeaderConfiguration(token, TOKEN))

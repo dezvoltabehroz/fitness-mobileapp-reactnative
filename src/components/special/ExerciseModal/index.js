@@ -61,7 +61,7 @@ class ExerciseModal extends Component {
     }
 
     render() {
-        const { isVisible, hide, image, title, onPressHistory, onPressRemoveExercise, onPressAddNote, onPressCreateSet } = this.props;
+        const { isVisible, hide, image, title, onPressHistory, onPressRemoveExercise, onPressAddNote, onPressCreateSet, groupSet, onPressSwapExercise } = this.props;
         return (
             <Modal isVisible={isVisible}
                 animationInTiming={1000}
@@ -90,12 +90,12 @@ class ExerciseModal extends Component {
                     </RNBounceable>
                     <RNBounceable onPress={() => { onPressCreateSet() }} style={{ flexDirection: "row", justifyContent: "space-between", paddingVertical: "5%", paddingHorizontal: "5%" }}>
                         <View style={{ flexDirection: "row", alignItems: "center" }}>
-                            <Icon.Entypo name="plus" color="white" size={25} />
-                            <Text style={[styles.headingTextStyle, { marginLeft: 15 }]}>{"Create Super Set or Gaint Set"}</Text>
+                            <Icon.Entypo name={groupSet?"cross":"plus"} color="white" size={25} />
+                            <Text style={[styles.headingTextStyle, { marginLeft: 15 }]}>{groupSet ? "Break Super Set or Gaint Set" : "Create Super Set or Gaint Set"}</Text>
                         </View>
                         <Icon.Entypo name="chevron-right" color={"#FFFF"} size={25} />
                     </RNBounceable>
-                    <RNBounceable onPress={() => { }} style={{ flexDirection: "row", justifyContent: "space-between", paddingVertical: "5%", paddingHorizontal: "5%" }}>
+                    <RNBounceable onPress={() => { onPressSwapExercise() }} style={{ flexDirection: "row", justifyContent: "space-between", paddingVertical: "5%", paddingHorizontal: "5%" }}>
                         <View style={{ flexDirection: "row", alignItems: "center" }}>
                             <Icon.Fontisto name="arrow-swap" color={"#FFFFFF"} size={25} />
                             <Text style={[styles.headingTextStyle, { marginLeft: 15 }]}>{"Swap Exercises"}</Text>

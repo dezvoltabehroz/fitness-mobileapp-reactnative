@@ -37,7 +37,7 @@ class WorkoutTemplate extends Component {
     componentDidMount = async () => {
         const { userData } = this.props.user;
         console.log(userData)
-        WorkoutsServices.getAllWorkouts(userData.userId, userData.token)
+        WorkoutsServices.getAllWorkouts(userData.userId, userData.token,'1')
             .then((response) => {
                 this.setState({ templates: response.data, loading: false })
                 this.arrayHolder = response.data;

@@ -27,7 +27,7 @@ class WorkoutLibrary extends Component {
 
     componentDidMount = () => {
         const { userData } = this.props.user;
-        WorkoutsServices.getAllWorkouts(userData.userId, userData.token)
+        WorkoutsServices.getAllWorkouts(userData.userId, userData.token,'1')
             .then((res) => {
                 this.arrayHolder = res.data;
                 this.setState({ workout: res.data, loading: false })
@@ -66,6 +66,43 @@ class WorkoutLibrary extends Component {
         else {
             this.setState({ IsTemplatesFound: true });
         }
+    }
+
+    handleAtoZ = (filter) => {
+        this.setState({ laoding: true })
+        const { userData } = this.props.user;
+        WorkoutsServices.getAllWorkouts(userData.token, userData.userId, '1')
+            .then((response) => {
+                this.arrayHolder = response.data
+                this.setState({ filter: filter, nutrition: response.data, laoding: false, filterModal: false })
+            })
+    }
+    handleZtoA = (filter) => {
+        this.setState({ laoding: true })
+        const { userData } = this.props.user;
+        WorkoutsServices.getAllWorkouts(userData.token, userData.userId, '2')
+            .then((response) => {
+                this.arrayHolder = response.data
+                this.setState({ filter: filter, nutrition: response.data, laoding: false, filterModal: false })
+            })
+    }
+    handleMostRecent = (filter) => {
+        this.setState({ laoding: true })
+        const { userData } = this.props.user;
+        WorkoutsServices.getAllWorkouts(userData.token, userData.userId, '3')
+            .then((response) => {
+                this.arrayHolder = response.data
+                this.setState({ filter: filter, nutrition: response.data, laoding: false, filterModal: false })
+            })
+    }
+    handleOldest = (filter) => {
+        this.setState({ laoding: true })
+        const { userData } = this.props.user;
+        WorkoutsServices.getAllWorkouts(userData.token, userData.userId, '4')
+            .then((response) => {
+                this.arrayHolder = response.data
+                this.setState({ filter: filter, nutrition: response.data, laoding: false, filterModal: false })
+            })
     }
 
 
@@ -111,7 +148,14 @@ class WorkoutLibrary extends Component {
                                 </View>
                     }
                 </View>
-                <FilterModal isVisible={filterModal} hide={() => this.setState({ filterModal: false })} />
+                <FilterModal 
+                isVisible={filterModal} 
+                onClearAll={() => this.handleAtoZ('A to Z')}
+                onPressAtoZ={(filter) => this.handleAtoZ(filter)}
+                onPressZtoA={(filter) => this.handleZtoA(filter)}
+                onPressMostRecent={(filter) => this.handleMostRecent(filter)}
+                onPressOldest={(filter) => this.handleOldest(filter)}
+                hide={() => this.setState({ filterModal: false })} />
             </Container>
         )
     }

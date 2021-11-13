@@ -76,7 +76,7 @@ class ProgramLibrary extends Component {
         this.setState({ loading: true })
         const { userData } = this.props.user;
 
-        ProgramServices.getAllPrograms(userData.token, userData.userId)
+        ProgramServices.getAllPrograms(userData.token, userData.userId,'1')
             .then((res) => {
                 if (res.data.responseMessage) {
                     this.setState({ program: [], loading: false })
@@ -128,7 +128,42 @@ class ProgramLibrary extends Component {
         }
     }
 
-
+    handleAtoZ = (filter) => {
+        this.setState({ laoding: true })
+        const { userData } = this.props.user;
+        ProgramServices.getAllPrograms(userData.token, userData.userId, '1')
+            .then((response) => {
+                this.arrayHolder = response.data
+                this.setState({ filter: filter, nutrition: response.data, laoding: false, filterModal: false })
+            })
+    }
+    handleZtoA = (filter) => {
+        this.setState({ laoding: true })
+        const { userData } = this.props.user;
+        ProgramServices.getAllPrograms(userData.token, userData.userId, '2')
+            .then((response) => {
+                this.arrayHolder = response.data
+                this.setState({ filter: filter, nutrition: response.data, laoding: false, filterModal: false })
+            })
+    }
+    handleMostRecent = (filter) => {
+        this.setState({ laoding: true })
+        const { userData } = this.props.user;
+        ProgramServices.getAllPrograms(userData.token, userData.userId, '3')
+            .then((response) => {
+                this.arrayHolder = response.data
+                this.setState({ filter: filter, nutrition: response.data, laoding: false, filterModal: false })
+            })
+    }
+    handleOldest = (filter) => {
+        this.setState({ laoding: true })
+        const { userData } = this.props.user;
+        ProgramServices.getAllPrograms(userData.token, userData.userId, '4')
+            .then((response) => {
+                this.arrayHolder = response.data
+                this.setState({ filter: filter, nutrition: response.data, laoding: false, filterModal: false })
+            })
+    }
 
     render() {
         const { program, reportModal, issue, filterModal, loading,value } = this.state;
@@ -171,7 +206,14 @@ class ProgramLibrary extends Component {
                         </ScrollView>
                     </View>
                 </View>
-                <FilterModal isVisible={filterModal} hide={() => this.setState({ filterModal: false })} />
+                <FilterModal 
+                isVisible={filterModal} 
+                onClearAll={() => this.handleAtoZ('A to Z')}
+                onPressAtoZ={(filter) => this.handleAtoZ(filter)}
+                onPressZtoA={(filter) => this.handleZtoA(filter)}
+                onPressMostRecent={(filter) => this.handleMostRecent(filter)}
+                onPressOldest={(filter) => this.handleOldest(filter)}
+                hide={() => this.setState({ filterModal: false })} />
             </Container>
         )
     }

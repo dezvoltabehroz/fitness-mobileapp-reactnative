@@ -25,7 +25,7 @@ class Programs extends Component {
         this.setState({ loading: true })
         const { userData } = this.props.user;
         console.log("userData.token : ", userData.token)
-        ProgramServices.getAllPrograms(userData.token, userData.userId)
+        ProgramServices.getAllPrograms(userData.token, userData.userId,'1')
             .then((res) => {
                 if (res.data.responseMessage) {
                     this.setState({ workout: [], loading: false })
