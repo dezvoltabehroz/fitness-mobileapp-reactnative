@@ -86,7 +86,6 @@ const Api = {
     getExerciseHistory: function (workoutExerciseId, token, userId) {
         // return axiosInstance.get(`GetWorkoutExerciseSetHistory?UsersProgramWorkoutExerciseId=${workoutExerciseId}&IsProgramWorkout=false`, apiHeaderConfiguration(token, TOKEN, userId))
         return axiosInstance.get(`GetWorkoutExerciseSetHistory?UsersProgramWorkoutExerciseId=${workoutExerciseId}&IsProgramWorkout=false`, apiHeaderConfiguration(token, TOKEN, userId))
-
     },
     removeExerciseFromWorkout: function (workoutExerciseId, token, userId) {
         return axiosInstance.post(`RemoveUsersWorkoutExericse?UsersProgramWorkoutExerciseId=${workoutExerciseId}&IsProgramWorkout=false`, apiHeaderConfiguration(token, TOKEN, userId))
