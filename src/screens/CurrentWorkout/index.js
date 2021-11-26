@@ -458,7 +458,6 @@ class CurrentWorkout extends Component {
                             :
                             null
                     }
-
                     <View>
                         <Sets item={item.sets} onSetCompleted={(setId) => { this.handleSetComplete(setId) }} onSetUnCompleted={(setId) => { this.handleSetUnComplete(setId) }} allSetsCompleted={() => { this.handleAllSetsComplete(item.usersProgramWorkoutExerciseId ? item.usersProgramWorkoutExerciseId : item.usersWorkoutExerciseId) }} />
                     </View>

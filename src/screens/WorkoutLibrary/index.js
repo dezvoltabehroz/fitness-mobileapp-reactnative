@@ -19,6 +19,7 @@ class WorkoutLibrary extends Component {
         this.state = {
             filterModal: false,
             workout: [],
+            filter:'A to Z',
             loading: true,
             value:"",
         }
@@ -130,7 +131,7 @@ class WorkoutLibrary extends Component {
                                         leftIcon={<View style={{ marginLeft: "5%" }}><Icon.EvilIcons name="search" size={20} /></View>} />
                                     <ScrollView style={{ paddingBottom: 100 }}>
                                         <View style={styles.rowContainer} >
-                                            <Text style={styles.textStyle}>A to Z</Text>
+                                            <Text style={styles.textStyle}>{this.state.filter}</Text>
                                             <RNBounceable onPress={() => this.setState({ filterModal: true })} style={styles.row}>
                                                 {/* <Text style={styles.viewStyle} >View all</Text> */}
                                                 <Icon.FontAwesome name="filter" size={20} />
@@ -150,7 +151,7 @@ class WorkoutLibrary extends Component {
                 </View>
                 <FilterModal 
                 isVisible={filterModal} 
-                onClearAll={() => this.handleAtoZ('A to Z')}
+                onClearAll={(filter) => this.handleAtoZ(filter)}
                 onPressAtoZ={(filter) => this.handleAtoZ(filter)}
                 onPressZtoA={(filter) => this.handleZtoA(filter)}
                 onPressMostRecent={(filter) => this.handleMostRecent(filter)}

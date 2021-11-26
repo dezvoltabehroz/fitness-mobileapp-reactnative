@@ -169,5 +169,32 @@ export default StyleSheet.create({
         color: "white",
         textAlign: "center",
         fontSize: 16,
-    }
+    },
+    notemodalContainer: {
+        flex: 0.5,
+        justifyContent: "center",
+        backgroundColor: "white",
+        borderRadius: 25,
+        padding: "5%"
+    },
+    flatListRow1: {
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    gapWidth: {
+        width: 15
+    },
+    imageStyle: {
+        height: 50,
+        width: 70
+    },
+    flatListTitleStyle: {
+        fontSize: 18,
+        fontWeight: "bold"
+    },
+    buttonStyle: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
+    },
 })

@@ -58,7 +58,6 @@ const Api = {
     addExercise: function (exerciseId, workoutId, token, userId) {
         return axiosInstance.post(`AddExerciseFromRecentWorkout?WorkoutExerciseId=${exerciseId}&UsersWorkoutId=${workoutId}&IsProgramWorkout=true`, apiHeaderConfiguration(token, TOKEN, userId))
     },
-    
     updateUserMeasurements: function (data, token, userId) {
         return axios.post(`${BASE_URL}CreateWeightCircumferencebyId`, data,  apiHeaderConfiguration(token, TOKEN, userId))
     },
@@ -67,6 +66,24 @@ const Api = {
     },
     updateUserVitalStats: function (data, token, userId) {
         return axios.post(`${BASE_URL}CreateVitalStatsId`, data,  apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    addNotesToExercise: function (workoutExerciseId, note, token, userId) {
+        console.log(workoutExerciseId, note)
+        return axiosInstance.post(`AddNotesUsersWorkoutExericse?UsersProgramWorkoutExerciseId=${workoutExerciseId}&IsProgramWorkout=true&Notes=${note}`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    getExerciseHistory: function (workoutExerciseId, token, userId) {
+        // return axiosInstance.get(`GetWorkoutExerciseSetHistory?UsersProgramWorkoutExerciseId=${workoutExerciseId}&IsProgramWorkout=false`, apiHeaderConfiguration(token, TOKEN, userId))
+        return axiosInstance.get(`GetWorkoutExerciseSetHistory?UsersProgramWorkoutExerciseId=${workoutExerciseId}&IsProgramWorkout=true`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    removeExerciseFromWorkout: function (workoutExerciseId, token, userId) {
+        return axiosInstance.post(`RemoveUsersWorkoutExericse?UsersProgramWorkoutExerciseId=${workoutExerciseId}&IsProgramWorkout=true`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    swapExercise: function (exerciseId, workoutId, token, userId) {
+        return axiosInstance.post(`SwapWorkoutExercise?UsersProgramWorkoutExerciseId=${exerciseId}&IsProgramWorkout=true&SwapWorkoutExerciseId=${workoutId}`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    getWorkoutExerciseGropuSet: function (token, userId) {
+        // http://185.132.39.105/BlaqstarFitnessAPI/v1/GetWorkoutExerciseGroupSet
+        return axiosInstance.get(`GetWorkoutExerciseGroupSet`, apiHeaderConfiguration(token, TOKEN, userId))
     }
 };
 

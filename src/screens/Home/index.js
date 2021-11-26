@@ -208,8 +208,8 @@ class Home extends Component {
             </View>
         )
         return (
-            <RNBounceable onPress={() => { }}>
-                <View style={{ flex: 1, marginTop: -45, height: 100 }}>
+            <RNBounceable onPress={() => { }} style={{ borderBottomWidth: 0.5 }}>
+                <View style={{ flex: 1, marginTop: -45, height: 125 }}>
                     {title}
                     <View style={{ paddingLeft: 20 }}>
                         {desc}
