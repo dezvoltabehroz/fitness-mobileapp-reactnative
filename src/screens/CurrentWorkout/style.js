@@ -116,6 +116,7 @@ export default StyleSheet.create({
     },
     addExerciseContainer: { borderWidth: 1, marginHorizontal: "20%", borderColor: "#544b4c", alignItems: "center", justifyContent: "center", borderRadius: 35, height: 54 },
     flatListContainer: {
+      
         borderRadius: 10,
         backgroundColor: THEME.COLOR_WHITE,
         elevation: 2,

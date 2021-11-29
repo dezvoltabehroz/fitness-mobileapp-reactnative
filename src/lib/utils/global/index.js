@@ -54,6 +54,7 @@ export const dataParsing = (data) => {
  */
 import React from 'react';
 import { View } from 'react-native';
+
 export const renderSeperator = () => {
     return (
         <View style={{ height: 15 }}></View>

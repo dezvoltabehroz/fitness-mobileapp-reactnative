@@ -192,9 +192,11 @@ class ProgramCurrentWorkout extends Component {
     componentDidMount = () => {
         this.setState({ loading: true, })
         const { programWeekDayId, workoutId } = this.props.route.params;
+        console.log(programWeekDayId, workoutId)
         const { token, userId } = this.props.user.userData;
         ProgramServices.getDailyWorkOutExerciseByProgramWeekDay(programWeekDayId, workoutId, token, userId)
             .then((res) => {
+                console.log(res.data)
                 this.setState({ workout: res.data })
                 WorkoutsServices.getRecentWorkouts(token, userId)
                     .then((response) => {
@@ -231,7 +233,7 @@ class ProgramCurrentWorkout extends Component {
             .catch((err) => console.log(err.response))
     }
 
-    handleSetUnComplete=(setId)=>{
+    handleSetUnComplete = (setId) => {
         const { token, userId } = this.props.user.userData;
         ProgramServices.setUnCompleted(setId, token, userId)
             .then((res) => { })

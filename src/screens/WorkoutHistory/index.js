@@ -85,7 +85,7 @@ class WorkoutDetail extends Component {
                 this.setState({ exerciseData: res.data, loading: false })
 
             })
-            .catch((error) => console.log(error.response))
+            .catch((error) => {this.setState({ exerciseData: [], loading: false });console.log(error.response)})
     }
 
     setSliderPage = (event: any) => {

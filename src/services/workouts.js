@@ -96,6 +96,15 @@ const Api = {
     getWorkoutExerciseGropuSet: function (token, userId) {
         // http://185.132.39.105/BlaqstarFitnessAPI/v1/GetWorkoutExerciseGroupSet
         return axiosInstance.get(`GetWorkoutExerciseGroupSet`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    createGroupSet: function (exerciseId, workoutId, token, userId) {
+        return axiosInstance.post(`CreateWorkoutExerciseGroupSet?UsersProgramWorkoutExerciseId=${exerciseId}&UsersWorkoutId=${workoutId}`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    updateGroupSet: function (groupId, exerciseId, workoutId, token, userId) {
+        return axiosInstance.post(`CreateWorkoutExerciseGroupSet?UsersProgramWorkoutExerciseId=${exerciseId}&UsersWorkoutId=${workoutId}&UsersWorkoutExerciseGroupId=${groupId}`, apiHeaderConfiguration(token, TOKEN, userId))
+    },
+    breakGaintSet: function (groupId, token, userId) {
+        return axiosInstance.post(`RemoveWorkoutExerciseGroupSet?UsersWorkoutExerciseGroupId=${groupId}`, apiHeaderConfiguration(token, TOKEN, userId))
     }
 };
 

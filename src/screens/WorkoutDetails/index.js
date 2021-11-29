@@ -11,6 +11,7 @@ import styles from './style';
 import { WorkoutsServices } from '../../services';
 import { renderSeperator } from '../../lib/utils/global';
 import { route } from '../../lib/utils/constants';
+import themeStyle from '../../assets/styles/theme.style';
 const { width, height } = Dimensions.get('window');
 
 class WorkoutDetail extends Component {
@@ -79,7 +80,7 @@ class WorkoutDetail extends Component {
     componentDidMount = async () => {
         const { userData } = this.props.user;
         console.log(userData)
-        WorkoutsServices.getWorkoutExercise(this.props.route?.params?.data?.workoutId,this.props.route?.params?.data?.usersWorkoutId, userData.token, userData.userId)
+        WorkoutsServices.getWorkoutExercise(this.props.route?.params?.data?.workoutId, this.props.route?.params?.data?.usersWorkoutId, userData.token, userData.userId)
             .then((res) => {
                 console.log("res.data : ", res.data)
                 this.setState({ exerciseData: res.data, loading: false })
@@ -113,19 +114,71 @@ class WorkoutDetail extends Component {
 
     _renderItem = (item, index) => {
         return (
-            <View style={styles.flatListContainer}>
-                <View style={styles.flatListRowContainer}>
-                    <View style={styles.flatListRow}>
-                        <Image source={item.imagePath ? { uri: item.imagePath } : require('../../assets/images/logo.png')} style={styles.imageStyle} resizeMode="contain" />
-                        <View style={styles.gapWidth}></View>
-                        <Text style={styles.flatListTitleStyle}>{item.exerciseName}</Text>
+            item.groups ?
+                <View style={{ ...styles.flatListContainer, borderLeftWidth: 2 }}>
+                    <View style={styles.flatListRowContainer}>
+                        <Text style={{ ...styles.flatListTitleStyle, width: width * 0.5 }}>{'Gaint Set'}</Text>
+                        <RNBounceable onPress={() => { }}>
+                            <Icon.Foundation name="info" size={20} color={themeStyle.COLOR_LIGHT_GRAY} />
+                        </RNBounceable>
                     </View>
-                </View>
-                <View>
-                    <Sets item={item.sets} disabled />
+                    {item.groups.map((element, i) => {
+                        return (
+                            <>
+                                <View style={styles.flatListRowContainer}>
+                                    <View onPress={() => { this.props.navigation.navigate(route.EXERCISE, { heading: element.exerciseName }) }} style={styles.flatListRow1}>
+                                        <Image source={item.imagePath ? { uri: element.imagePath } : require('../../assets/images/logo.png')} style={styles.imageStyle} resizeMode="contain" />
+                                        <View style={styles.gapWidth}></View>
+                                        <Text style={{ ...styles.flatListTitleStyle, width: width * 0.5 }}>{element.exerciseName}</Text>
+                                    </View>
+                                    <View onPress={() => this.setState({ groupSet: true, element: { ...this.state.element, ...element }, elementIndex: i, image: element.imagePath, title: element.exerciseName, exerciseModal: true, }, () => console.log(element))}>
+                                        <Icon.Ionicons name="ellipsis-horizontal" size={30} color={themeStyle.COLOR_LIGHT_GRAY} />
+                                    </View>
+                                </View>
+                                {
+                                    element.note ?
+                                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                            <Icon.Octicons name="primitive-dot" size={30} color={themeStyle.COLOR_GREY} />
+                                            <Text style={{ color: 'blue' }}> {element.note}</Text>
+                                        </View>
+                                        :
+                                        null
+                                }
+                                <View>
+                                    <Sets item={element.sets} onSetCompleted={(setId) => { this.handleSetComplete(setId) }} onSetUnCompleted={(setId) => { this.handleSetUnComplete(setId) }} allSetsCompleted={() => { this.handleAllSetsComplete(element.usersProgramWorkoutExerciseId ? element.usersProgramWorkoutExerciseId : element.usersWorkoutExerciseId) }} />
+                                </View>
+                            </>
+                        )
+                    })
+                    }
                 </View>
 
-            </View>
+                :
+                <View style={styles.flatListContainer}>
+                    <View style={styles.flatListRowContainer}>
+                        <View onPress={() => { this.props.navigation.navigate(route.EXERCISE, { heading: item.exerciseName }) }} style={styles.flatListRow1}>
+                            <Image source={item.imagePath ? { uri: item.imagePath } : require('../../assets/images/logo.png')} style={styles.imageStyle} resizeMode="contain" />
+                            <View style={styles.gapWidth}></View>
+                            <Text style={{ ...styles.flatListTitleStyle, width: screenWidth * 0.5 }}>{item.exerciseName}</Text>
+                        </View>
+                        <View onPress={() => this.setState({ item: { ...this.state.item, item }, index: index, image: item.imagePath, title: item.exerciseName, exerciseModal: true, })}>
+                            <Icon.Ionicons name="ellipsis-horizontal" size={30} color={themeStyle.COLOR_LIGHT_GRAY} />
+                        </View>
+                    </View>
+                    {
+                        item.note ?
+                            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                <Icon.Octicons name="primitive-dot" size={30} color={themeStyle.COLOR_GREY} />
+                                <Text style={{ color: 'blue' }}> {item.note}</Text>
+                            </View>
+                            :
+                            null
+                    }
+
+                    <View>
+                        <Sets item={item.sets} onSetCompleted={(setId) => { this.handleSetComplete(setId) }} onSetUnCompleted={(setId) => { this.handleSetUnComplete(setId) }} allSetsCompleted={() => { this.handleAllSetsComplete(item.usersProgramWorkoutExerciseId ? item.usersProgramWorkoutExerciseId : item.usersWorkoutExerciseId) }} />
+                    </View>
+                </View>
         )
     }
 
@@ -168,11 +221,14 @@ class WorkoutDetail extends Component {
                                 style={{ flex: 0.8 }} >
                                 <View style={styles.firstContainer}>
 
-                                    <FlatList
-                                        data={exerciseData}
-                                        ItemSeparatorComponent={(renderSeperator)}
-                                        contentContainerStyle={{ paddingVertical: "5%", paddingBottom: "30%" }}
-                                        renderItem={({ item, index }) => this._renderItem(item, index)} />
+                                    {exerciseData.length == 0 ?
+                                        null
+                                        :
+                                        <FlatList
+                                            data={exerciseData}
+                                            ItemSeparatorComponent={(renderSeperator)}
+                                            contentContainerStyle={{ paddingVertical: "5%", paddingBottom: "30%" }}
+                                            renderItem={({ item, index }) => this._renderItem(item, index)} />}
                                 </View>
                                 <View style={styles.secondContainer}>
                                     <ScrollView contentContainerStyle={{ paddingBottom: '30%' }}>
