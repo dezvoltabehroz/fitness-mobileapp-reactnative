@@ -385,21 +385,21 @@ class CurrentWorkout extends Component {
     handleAddExercise = () => {
         const { usersWorkoutId } = this.props?.route?.params?.workout;
         const { token, userId } = this.props.user.userData;
-        const {  recentWorkouts } = this.state;
+        const { recentWorkouts } = this.state;
         let addNewExerciseId = "";
         recentWorkouts.map((item, index) => {
             if (item.selected)
-                swapExerciseId = item.workoutExerciseId
+                addNewExerciseId = item.workoutExerciseId
         })
         this.setState({ uploading: true })
         WorkoutsServices.addExercise(addNewExerciseId, usersWorkoutId, token, userId)
             .then((res) => { console.log(res.data); this.setState({ uploading: false, swapExercise: false, searchModal: false }); this.componentDidMount() })
-            .catch((err) => { console.log(err.response); if (err.response.status == 403) { this.componentDidMount(); alert(err.response.data.responseMessage); this.componentDidMount() } })
+            .catch((err) => { console.log(err.response.data); if (err.response.status == 403) { this.componentDidMount(); alert(err.response.data.responseMessage); this.componentDidMount() } })
     }
 
     handleSwapExercise = () => {
         const { token, userId } = this.props.user.userData;
-        const {  item, recentWorkouts } = this.state;
+        const { item, recentWorkouts } = this.state;
         let swapExerciseId = "";
         recentWorkouts.map((item, index) => {
             if (item.selected)
@@ -408,7 +408,7 @@ class CurrentWorkout extends Component {
         this.setState({ uploading: true })
         WorkoutsServices.swapExercise(item.usersWorkoutExerciseId, swapExerciseId, token, userId)
             .then((res) => { console.log(res.data); this.setState({ uploading: false, swapExercise: false, searchModal: false }); this.componentDidMount() })
-            .catch((err) => { console.log(err.response); if (err.response.status == 403) { this.componentDidMount(); alert(err.response.data.responseMessage); this.componentDidMount() } })
+            .catch((err) => { console.log(err.response.data); if (err.response.status == 403) { this.componentDidMount(); alert(err.response.data.responseMessage); this.componentDidMount() } })
     }
 
     _renderItem = (item, index) => {
@@ -944,22 +944,25 @@ class CurrentWorkout extends Component {
                     isVisible={this.state.unfinishModal}
                     hide={() => this.setState({ unfinishModal: false })}
                     reOrder={() => { }}
-                    quitSession={() => this.setState({ unfinishModal: false }, () => {
-                        // this.props.authActions.menuDotModal(!this.props.user.menuDotModal)
-                        Alert.alert(
-                            `Are you sure?`,
-                            'Please confirm that you want to quit this session - Any data logged during the session will be cleared ',
-                            [
-                                {
-                                    text: 'CANCEL'
-                                },
-                                {
-                                    text: 'QUIT SESSION',
-                                    onPress: () => { this.props.navigation.replace('Home') }
-                                }
-                            ]
-                        )
-                    })} />
+                    quitSession={() => {
+                        this.setState({ unfinishModal: false })
+                        this.props.authActions.menuDotModal(false)
+                        setTimeout(() => {
+                            Alert.alert(
+                                `Are you sure?`,
+                                'Please confirm that you want to quit this session - Any data logged during the session will be cleared ',
+                                [
+                                    {
+                                        text: 'CANCEL'
+                                    },
+                                    {
+                                        text: 'QUIT SESSION',
+                                        onPress: () => { this.props.navigation.replace('Home') }
+                                    }
+                                ]
+                            )
+                        }, 1000);
+                    }} />
 
             </>
         )

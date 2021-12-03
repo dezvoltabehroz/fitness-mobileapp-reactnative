@@ -29,8 +29,8 @@ class StartWorkout extends Component {
         const { userData } = this.props.user;
         this.setState({ btnLoading: true })
         WorkoutsServices.startWorkout(this.props.route?.params?.workout?.workoutId, userData.token, userData.userId)
-            .then((res) => { this.setState({ btnLoading: false }); console.log(res.data); this.props.navigation.navigate(route.CURRENT_WORKOUT, { workout: this.props.route?.params?.workout }) })
-            .catch((err) => console.log(err.response))
+            .then((res) => { this.setState({ btnLoading: false }); console.log(res.data); this.props.navigation.replace(route.CURRENT_WORKOUT, { workout: this.props.route?.params?.workout }) })
+            .catch((err) => { this.setState({ btnLoading: false }); console.log(err.response.data) })
     }
 
     render() {
@@ -66,13 +66,13 @@ class StartWorkout extends Component {
                     </View>
                     <View style={{ margin: "5%", flexDirection: "column" }}>
                         <Text style={[styles.textStyle, { color: '#544b4c' }]}>Available Workouts</Text>
-                        <RNBounceable onPress={() => this.props.navigation.navigate('WorkoutTemplate')} style={styles.selectWorkoutContainer}>
+                        <RNBounceable onPress={() => this.props.navigation.push('WorkoutTemplate')} style={styles.selectWorkoutContainer}>
                             <Text>{this.props.route.params.workout ? this.props.route.params.workout.workoutName : "Select Workout"}</Text>
                             <Icon.AntDesign name="right" size={25} color={"gray"} />
                         </RNBounceable>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <Button.SlimButton loading={btnLoading} disabled={this.props.route.params.workout ? false : true} title="Start" onPress={() => { this.handleStartWorkout(); this.props.navigation.navigate(route.CURRENT_WORKOUT, { workout: this.props.route.params.workout }) }} />
+                        <Button.SlimButton loading={btnLoading} disabled={this.props.route.params.workout ? false : true} title="Start" onPress={() => { this.handleStartWorkout(); this.props.navigation.push(route.CURRENT_WORKOUT, { workout: this.props.route.params.workout }) }} />
                     </View>
                 </View>
             </Container >
